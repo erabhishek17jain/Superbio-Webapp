@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#social-links > div {
+    width: 100%;
+}
+
+.thumbs-wrapper {
+    display: none;
+}
+
+#crausel img {
+    height: 26rem;
+}
+
+.carousel .carousel-status {
+    color: #959595 !important;
+    text-shadow: none !important;
+}
+
+.carousel .control-next.control-arrow:before{
+    border-left: 8px solid #959595 !important;
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 8px solid #959595 !important;
+}
