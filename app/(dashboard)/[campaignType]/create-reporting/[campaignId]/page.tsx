@@ -173,10 +173,15 @@ export default function CreateReporting() {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
             const data: any = [];
-            const promises: any = [];
+            // const promises: any = [];
             selSheetData.forEach((item, index) => {
                 const url = `https://docs.google.com/spreadsheets/d/${item?.sheetId}`;
-                promises.push(SheetNetworkService.instance.getSheet(url));
+                // promises.push(SheetNetworkService.instance.getSheet(url));
+                const sheetDetails = {
+                    columns: [item?.linkColumn],
+                    sheetName: item?.name,
+                    sheetId: item?.sheetId,
+                };
                 data.push({
                     ...getSheetInfo(),
                     index: index + 1,
@@ -186,19 +191,22 @@ export default function CreateReporting() {
                     sheetName: item?.name,
                     columnName: item?.linkColumn,
                     id: item?._id,
+                    sheets: [sheetDetails],
+                    selectedSheet: { ...sheetDetails },
                 });
             });
-            Promise.all(promises).then((res) => {
-                for (let i = 0; i <= res.length - 1; i++) {
-                    const sheet = res.find((item: any) => item.sheetName === sheetData[i]?.sheetName);
-                    data[i]['sheets'] = res[i];
-                    data[i]['selectedSheet'] = sheet[0];
-                }
-                setSheetData([...data]);
-                setIsSheetLoading(false);
-                setInitialSheetData([...data]);
-                dispatch(setSheetLoading(false));
-            });
+            setSheetData([...data]);
+            setIsSheetLoading(false);
+            setInitialSheetData([...data]);
+            dispatch(setSheetLoading(false));
+            // Promise.all(promises).then((res) => {
+            //     for (let i = 0; i <= res.length - 1; i++) {
+            //         const sheet = res.find((item: any) => item.sheetName === sheetData[i]?.sheetName);
+            //         data[i]['sheets'] = res[i];
+            //         data[i]['selectedSheet'] = sheet[0];
+            //     }
+
+            // });
             setMode('view');
         }
 

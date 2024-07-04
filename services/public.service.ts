@@ -34,7 +34,7 @@ interface IPublicNetworkService {
     submitPublicForm: (data: ISubmitPublicForm) => Promise<string>;
 }
 
-interface IColumnResponse {
+export interface IColumnResponse {
     data: IColumn[];
     meta: {
         total: number;

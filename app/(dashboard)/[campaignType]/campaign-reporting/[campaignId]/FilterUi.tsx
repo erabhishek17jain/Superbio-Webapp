@@ -9,104 +9,16 @@ import { setFitlersState } from '@/context/campaign';
 import { v4 as uuidv4 } from 'uuid';
 
 interface FilterUiProps {
-    filtersDefault: FilterKeys[];
-    filterOptn: AvailableFilters;
+    filters: any;
+    setFilters: any;
+    selectFilter: any;
+    filtersOptions: AvailableFilters;
 }
 
 export default function FilterUi(props: FilterUiProps) {
     const searchParams = useSearchParams();
-    const dispatch = useAppDispatch();
-    const { filtersDefault, filterOptn } = props;
+    const { filters, setFilters, selectFilter, filtersOptions } = props;
     const [open, setOpen] = React.useState<number>(0);
-    const [filters, setFilters] = React.useState<AvailableFilters | any>({});
-    const [filtersOptions, setFiltersOptions] = React.useState<AvailableFilters>(filterOptn);
-
-    React.useEffect(() => {
-        dispatch(setFitlersState(props.filtersDefault));
-    }, []);
-
-    React.useEffect(() => {
-        const filter = searchParams.get('filter');
-        const value = searchParams.get('value');
-        if (filter && value) {
-            if (filter !== 'platform') {
-                document.getElementById('filterPanel')?.classList.remove('hidden');
-            }
-            let filteNames = filter.split('|');
-            let filteValues = value.split('|');
-            let filterObj: any = {};
-            for (let i = 0; i < filteNames.length; i++) {
-                if (filteNames[i] === 'platform' || filteNames[i] === 'postType') {
-                    filterObj[filteNames[i]] = [filteValues[i]];
-                } else {
-                    filterObj[filteNames[i]] = filteValues[i].split('_');
-                }
-            }
-            setFilters(filterObj);
-        }
-    }, []);
-
-    React.useEffect(() => {
-        let filter = searchParams.get('filter');
-        let value = searchParams.get('value');
-
-        const filterHandler = new CampaignReportingFilter(filtersDefault);
-        let filterOptions = filterHandler.getAvailableFilters();
-        let filterKeys = Object.keys(filters);
-        if (filterKeys.length > 0 && filter !== null && value !== null) {
-            filterOptions = filterHandler.setSelectedFilters(filter?.split('|'), value?.split('|'));
-            setFiltersOptions(filterOptions);
-            return;
-        }
-        setFiltersOptions(filterOptions);
-    }, [filters]);
-
-    const selectFilter = (checked: boolean, key: string, value: string) => {
-        let filter = { ...filters };
-        if (filter[key] === undefined) {
-            filter[key] = [];
-        }
-        if (value !== 'all') {
-            if (checked) {
-                if (key === 'platform' || key === 'postType') {
-                    filter[key] = [value];
-                } else {
-                    if (filter[key].indexOf(value) === -1) {
-                        filter[key].push(value);
-                    }
-                }
-            } else {
-                if (key === 'platform' || key === 'postType') {
-                    delete filter[key];
-                } else {
-                    filter[key] = filter[key].filter((item: any) => item !== value);
-                    if (filter[key].length === 0) {
-                        delete filter[key];
-                    }
-                }
-            }
-        } else {
-            filter[key] = [];
-        }
-
-        setFilters({ ...filter });
-        for (var key in filter) {
-            if (filter[key].length === 0) delete filter[key];
-        }
-        const filterKeys = Object.keys(filter).join('|');
-        const filterValues = Object.values(filter).join('|').replaceAll(',', '_');
-
-        const url = new URL(window.location.href);
-        if (filterKeys && filterValues) {
-            url.searchParams.set('filter', filterKeys);
-            url.searchParams.set('value', filterValues);
-        } else {
-            url.searchParams.delete('filter');
-            url.searchParams.delete('value');
-        }
-
-        window.location.href = url.href;
-    };
 
     const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
     const toggleFilter = () => {

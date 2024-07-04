@@ -15,7 +15,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                         <button
                             onClick={() => fetchSheets(sheetInfo)}
                             className={`w-48 bg-black items-center py-1 rounded-xl px-2 text-white ${sheetLoading && 'opacity-40'}`}>
-                            {mode === 'add' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Columns') : 'Refresh Sheet'}
+                            {mode === 'add' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Columns') : ''}
                         </button>
                     )}
                 </div>

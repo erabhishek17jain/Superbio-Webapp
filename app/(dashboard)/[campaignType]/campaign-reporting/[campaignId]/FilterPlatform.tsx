@@ -10,107 +10,18 @@ import { v4 as uuidv4 } from 'uuid';
 import Reporting from './Reporting';
 
 interface FilterPlatformProps {
-    res: any;
-    token: any;
+    campData: any;
     query: any;
     params: any;
     sParams: any;
+    filters: any;
+    selectFilter: any;
     summary: ISummary[];
-    shouldRefresh: any;
-    filtersDefault: FilterKeys[];
-    filterOptn: AvailableFilters;
+    filtersOptions: AvailableFilters;
 }
 
 export default function FilterPlatform(props: FilterPlatformProps) {
-    const searchParams = useSearchParams();
-    const dispatch = useAppDispatch();
-    const { res, token, query, params, sParams, summary, shouldRefresh, filtersDefault, filterOptn } = props;
-    const [filters, setFilters] = React.useState<AvailableFilters | any>({});
-    const [filtersOptions, setFiltersOptions] = React.useState<AvailableFilters>(filterOptn);
-
-    React.useEffect(() => {
-        dispatch(setFitlersState(filtersDefault));
-    }, []);
-
-    React.useEffect(() => {
-        let filter = searchParams.get('filter');
-        let value = searchParams.get('value');
-
-        const filterHandler = new CampaignReportingFilter(filtersDefault);
-        let filterOptions = filterHandler.getAvailableFilters();
-        let filterKeys = Object.keys(filters);
-        if (filterKeys.length > 0 && filter !== null && value !== null) {
-            filterOptions = filterHandler.setSelectedFilters(filter?.split('|'), value?.split('|'));
-            setFiltersOptions(filterOptions);
-            return;
-        }
-        setFiltersOptions(filterOptions);
-    }, [filters]);
-
-    React.useEffect(() => {
-        const filter = searchParams.get('filter');
-        const value = searchParams.get('value');
-        if (filter && value) {
-            let filteNames = filter.split('|');
-            let filteValues = value.split('|');
-            let filterObj: any = {};
-            for (let i = 0; i < filteNames.length; i++) {
-                if (filteNames[i] === 'platform' || filteNames[i] === 'postType') {
-                    filterObj[filteNames[i]] = [filteValues[i]];
-                } else {
-                    filterObj[filteNames[i]] = filteValues[i].split('_');
-                }
-            }
-            setFilters(filterObj);
-        }
-    }, []);
-
-    const selectFilter = (checked: boolean, key: string, value: string) => {
-        let filter = { ...filters };
-        if (filter[key] === undefined) {
-            filter[key] = [];
-        }
-        if (value !== 'all') {
-            if (checked) {
-                if (key === 'platform' || key === 'postType') {
-                    filter[key] = [value];
-                } else {
-                    if (filter[key].indexOf(value) === -1) {
-                        filter[key].push(value);
-                    }
-                }
-            } else {
-                if (key === 'platform' || key === 'postType') {
-                    delete filter[key];
-                } else {
-                    filter[key] = filter[key].filter((item: any) => item !== value);
-                    if (filter[key].length === 0) {
-                        delete filter[key];
-                    }
-                }
-            }
-        } else {
-            filter[key] = [];
-        }
-
-        setFilters({ ...filter });
-        for (var key in filter) {
-            if (filter[key].length === 0) delete filter[key];
-        }
-        const filterKeys = Object.keys(filter).join('|');
-        const filterValues = Object.values(filter).join('|').replaceAll(',', '_');
-
-        const url = new URL(window.location.href);
-        if (filterKeys && filterValues) {
-            url.searchParams.set('filter', filterKeys);
-            url.searchParams.set('value', filterValues);
-        } else {
-            url.searchParams.delete('filter');
-            url.searchParams.delete('value');
-        }
-
-        window.location.href = url.href;
-    };
+    const { campData, query, params, sParams, summary, filters, selectFilter, filtersOptions } = props;
 
     const changePlatform = (platform: string) => {
         selectFilter(true, 'platform', platform);
@@ -118,35 +29,35 @@ export default function FilterPlatform(props: FilterPlatformProps) {
 
     return (
         <>
-            {res.data && res.data.length > 0 && (
+            {campData?.data && campData?.data.length > 0 && (
                 <div className='flex items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-4'>
                     <div className='flex gap-3'>
-                        {res.meta?.total && (
+                        {campData?.meta?.total && (
                             <div className='flex flex-col text-sm w-20'>
-                                {res.meta && res.meta?.total > 0 && (
+                                {campData?.meta && campData?.meta?.total > 0 && (
                                     <>
                                         <span className='text-black font-semibold'>Total</span>
-                                        <span className='text-[#959595]'>{res.meta?.total} posts</span>
+                                        <span className='text-[#959595]'>{campData?.meta?.total} posts</span>
                                     </>
                                 )}
                             </div>
                         )}
-                        {res.meta?.stories && (
+                        {campData?.meta?.stories && (
                             <div className='flex flex-col text-sm w-20'>
-                                {res.meta && res.meta?.total > 0 && (
+                                {campData?.meta && campData?.meta?.total > 0 && (
                                     <>
                                         <span className='text-black font-semibold'>Stories</span>
-                                        <span className='text-[#959595]'>{res.meta?.stories} posts</span>
+                                        <span className='text-[#959595]'>{campData?.meta?.stories} posts</span>
                                     </>
                                 )}
                             </div>
                         )}
-                        {res.meta?.private && (
+                        {campData?.meta?.private && (
                             <div className='flex flex-col text-sm w-20'>
-                                {res.meta && res.meta?.total > 0 && (
+                                {campData?.meta && campData?.meta?.total > 0 && (
                                     <>
                                         <span className='text-black font-semibold'>Private</span>
-                                        <span className='text-[#959595]'>{res.meta?.private} posts</span>
+                                        <span className='text-[#959595]'>{campData?.meta?.private} posts</span>
                                     </>
                                 )}
                             </div>
@@ -200,8 +111,8 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                             version='1.1'
                                             xmlns='http://www.w3.org/2000/svg'
                                             stroke='#fff'>
-                                            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
-                                            <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g>
+                                            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+                                            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
                                             <g id='SVGRepo_iconCarrier'>
                                                 <g>
                                                     <path d='M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z'></path>{' '}
@@ -212,8 +123,8 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                         </svg>
                                     ) : (
                                         <svg width='20px' height='20px' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
-                                            <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g>
+                                            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+                                            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
                                             <g id='SVGRepo_iconCarrier'>
                                                 <rect x='2' y='2' width='28' height='28' rx='6' fill='url(#paint0_radial_87_7153)'></rect>
                                                 <rect x='2' y='2' width='28' height='28' rx='6' fill='url(#paint1_radial_87_7153)'></rect>
@@ -222,13 +133,13 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                                     d='M23 10.5C23 11.3284 22.3284 12 21.5 12C20.6716 12 20 11.3284 20 10.5C20 9.67157 20.6716 9 21.5 9C22.3284 9 23 9.67157 23 10.5Z'
                                                     fill='white'></path>
                                                 <path
-                                                    fill-rule='evenodd'
-                                                    clip-rule='evenodd'
+                                                    fillRule='evenodd'
+                                                    clipRule='evenodd'
                                                     d='M16 21C18.7614 21 21 18.7614 21 16C21 13.2386 18.7614 11 16 11C13.2386 11 11 13.2386 11 16C11 18.7614 13.2386 21 16 21ZM16 19C17.6569 19 19 17.6569 19 16C19 14.3431 17.6569 13 16 13C14.3431 13 13 14.3431 13 16C13 17.6569 14.3431 19 16 19Z'
                                                     fill='white'></path>
                                                 <path
-                                                    fill-rule='evenodd'
-                                                    clip-rule='evenodd'
+                                                    fillRule='evenodd'
+                                                    clipRule='evenodd'
                                                     d='M6 15.6C6 12.2397 6 10.5595 6.65396 9.27606C7.2292 8.14708 8.14708 7.2292 9.27606 6.65396C10.5595 6 12.2397 6 15.6 6H16.4C19.7603 6 21.4405 6 22.7239 6.65396C23.8529 7.2292 24.7708 8.14708 25.346 9.27606C26 10.5595 26 12.2397 26 15.6V16.4C26 19.7603 26 21.4405 25.346 22.7239C24.7708 23.8529 23.8529 24.7708 22.7239 25.346C21.4405 26 19.7603 26 16.4 26H15.6C12.2397 26 10.5595 26 9.27606 25.346C8.14708 24.7708 7.2292 23.8529 6.65396 22.7239C6 21.4405 6 19.7603 6 16.4V15.6ZM15.6 8H16.4C18.1132 8 19.2777 8.00156 20.1779 8.0751C21.0548 8.14674 21.5032 8.27659 21.816 8.43597C22.5686 8.81947 23.1805 9.43139 23.564 10.184C23.7234 10.4968 23.8533 10.9452 23.9249 11.8221C23.9984 12.7223 24 13.8868 24 15.6V16.4C24 18.1132 23.9984 19.2777 23.9249 20.1779C23.8533 21.0548 23.7234 21.5032 23.564 21.816C23.1805 22.5686 22.5686 23.1805 21.816 23.564C21.5032 23.7234 21.0548 23.8533 20.1779 23.9249C19.2777 23.9984 18.1132 24 16.4 24H15.6C13.8868 24 12.7223 23.9984 11.8221 23.9249C10.9452 23.8533 10.4968 23.7234 10.184 23.564C9.43139 23.1805 8.81947 22.5686 8.43597 21.816C8.27659 21.5032 8.14674 21.0548 8.0751 20.1779C8.00156 19.2777 8 18.1132 8 16.4V15.6C8 13.8868 8.00156 12.7223 8.0751 11.8221C8.14674 10.9452 8.27659 10.4968 8.43597 10.184C8.81947 9.43139 9.43139 8.81947 10.184 8.43597C10.4968 8.27659 10.9452 8.14674 11.8221 8.0751C12.7223 8.00156 13.8868 8 15.6 8Z'
                                                     fill='white'></path>
                                                 <defs>
@@ -239,8 +150,8 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                                         r='1'
                                                         gradientUnits='userSpaceOnUse'
                                                         gradientTransform='translate(12 23) rotate(-55.3758) scale(25.5196)'>
-                                                        <stop stop-color='#B13589'></stop> <stop offset='0.79309' stop-color='#C62F94'></stop>
-                                                        <stop offset='1' stop-color='#8A3AC8'></stop>
+                                                        <stop stopColor='#B13589'></stop> <stop offset='0.79309' stopColor='#C62F94'></stop>
+                                                        <stop offset='1' stopColor='#8A3AC8'></stop>
                                                     </radialGradient>
                                                     <radialGradient
                                                         id='paint1_radial_87_7153'
@@ -249,9 +160,9 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                                         r='1'
                                                         gradientUnits='userSpaceOnUse'
                                                         gradientTransform='translate(11 31) rotate(-65.1363) scale(22.5942)'>
-                                                        <stop stop-color='#E0E8B7'></stop> <stop offset='0.444662' stop-color='#FB8A2E'></stop>
-                                                        <stop offset='0.71474' stop-color='#E2425C'></stop>
-                                                        <stop offset='1' stop-color='#E2425C' stop-opacity='0'></stop>
+                                                        <stop stopColor='#E0E8B7'></stop> <stop offset='0.444662' stopColor='#FB8A2E'></stop>
+                                                        <stop offset='0.71474' stopColor='#E2425C'></stop>
+                                                        <stop offset='1' stopColor='#E2425C' stopOpacity='0'></stop>
                                                     </radialGradient>
                                                     <radialGradient
                                                         id='paint2_radial_87_7153'
@@ -260,9 +171,9 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                                         r='1'
                                                         gradientUnits='userSpaceOnUse'
                                                         gradientTransform='translate(0.500002 3) rotate(-8.1301) scale(38.8909 8.31836)'>
-                                                        <stop offset='0.156701' stop-color='#406ADC'></stop>{' '}
-                                                        <stop offset='0.467799' stop-color='#6A45BE'></stop>
-                                                        <stop offset='1' stop-color='#6A45BE' stop-opacity='0'></stop>
+                                                        <stop offset='0.156701' stopColor='#406ADC'></stop>{' '}
+                                                        <stop offset='0.467799' stopColor='#6A45BE'></stop>
+                                                        <stop offset='1' stopColor='#6A45BE' stopOpacity='0'></stop>
                                                     </radialGradient>
                                                 </defs>
                                             </g>
@@ -273,25 +184,23 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                             )}
                         </div>
                     </div>
-                    <FilterHandler total={res.meta.total} shouldShowSort={!shouldRefresh} query={query} />
+                    <FilterHandler total={campData?.meta.total} shouldShowSort={true} query={query} />
                 </div>
             )}
 
-            {res.meta && res.data.length > 0 && (
+            {campData?.meta && campData?.data.length > 0 && (
                 <div className='flex'>
                     <div className='flex w-full flex-col '>
                         <div
-                            className={`mt-3 sm:mt-6 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-${
-                                !token ? '3' : '6'
-                            } w-full gap-4`}>
-                            {summary.length > 0 &&
+                            className={`mt-3 sm:mt-6 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-3 w-full gap-4`}>
+                            {summary?.length > 0 &&
                                 summary
                                     .filter((el) => {
                                         console.log(filters);
                                         if (filters['platform']?.includes('instagram')) {
-                                            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments')
+                                            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments');
                                         } else {
-                                            return el
+                                            return el;
                                         }
                                     })
                                     .map((item) => (
@@ -318,13 +227,13 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                 </div>
             )}
 
-            {res.data && res.data.length > 0 && (
+            {campData?.data && campData?.data.length > 0 && (
                 <Reporting
                     campaignId={params.campaignId}
-                    initialColumns={res.data}
+                    initialColumns={campData?.data}
                     meta={query}
                     isPublic={sParams.isPublic ? sParams.isPublic : false}
-                    total={res.meta.total}
+                    total={campData?.meta.total}
                 />
             )}
         </>

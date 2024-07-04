@@ -38,7 +38,7 @@ export default function PDFHandler({
                 isPublic ? "2" : "3"
               } w-full gap-4`}
             >
-              {summary.length > 0 &&
+              {summary?.length > 0 &&
                 summary.map((item: any) => (
                   <div
                     key={uuidv4()}

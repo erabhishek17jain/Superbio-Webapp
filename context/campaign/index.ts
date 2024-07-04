@@ -120,7 +120,7 @@ export const campaignSlice = createSlice({
     initialState,
     reducers: {
         setLoading: (state, action) => {
-            state.valuesLoading = action.payload;
+            state.loading = action.payload;
         },
         setSelectCampaign: (state, action) => {
             state.selectedCampaign = action.payload;

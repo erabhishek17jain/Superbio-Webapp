@@ -18,7 +18,7 @@ export default function Reporting(props: IReportingProps) {
   const { meta, isPublic, total } = props;
   const [screenWidth, setScreenWidth] = React.useState(0);
   const [columns, setColumns] = React.useState<IColumn[]>(props.initialColumns);
-  const [isLoadMore, setIsLoadMore] = React.useState(false);
+  const [isLoadMore] = React.useState(false);
   const [page, setPage] = React.useState(1);
 
 

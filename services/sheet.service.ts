@@ -1,5 +1,6 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
+import { getCookie } from 'cookies-next';
 
 export interface ISheetDetails {
     sheetId: string;
@@ -133,13 +134,13 @@ export default class SheetNetworkService extends BaseNetworkFramework implements
         }
     };
 
-    public getCampaignData = async (campaignId: string, params: { [key: string]: number | string }, token?: string): Promise<IColumnResponse> => {
+    public getCampaignData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IColumnResponse> => {
         try {
-            let header: {[key: string]: string} = this.get_auth_header();
-            if (token) {
-                header["Authorization"] = `Bearer ${token}`;
+            let header: { [key: string]: string } = this.get_auth_header();
+            if (getCookie('token')) {
+                header['Authorization'] = `Bearer ${getCookie('token')}`;
             }
-            if (!header.Authorization.includes("undefined")) {
+            if (!header.Authorization.includes('undefined')) {
                 const res = await axios.get<IColumnResponse>(`${this.url}/sheet/get-by-campaign-id/${campaignId}`, {
                     headers: header,
                     params,
@@ -180,11 +181,11 @@ export default class SheetNetworkService extends BaseNetworkFramework implements
         } catch (err: any) {}
     };
 
-    public getSheetFilters = async (campaignId: string, token?: string) => {
+    public getSheetFilters = async (campaignId: string) => {
         try {
-            let header: {[key: string]: string} = this.get_auth_header();
-            if (token) {
-                header["Authorization"] = `Bearer ${token}`;
+            let header: { [key: string]: string } = this.get_auth_header();
+            if (getCookie('token')) {
+                header['Authorization'] = `Bearer ${getCookie('token')}`;
             }
             const res = await axios.get(`${this.url}/sheet/filters/${campaignId}`, {
                 headers: header,
