@@ -182,8 +182,16 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
                 <div onClick={navigateToReporting} className='cursor-pointer text-xs text-[#B3B3B3] mt-3 h-16'>
                     {campaign.description.length > 150 ? campaign.description.slice(0, 150) + '...' : campaign.description}
                 </div>
-                <div className='cursor-pointer flex w-full justify-between items-center text-ellipsis mb-2'>
-                    <div className='flex h-8' onClick={() => openCloseShareModal()}>
+                <div
+                    className='cursor-pointer flex w-full justify-between items-center text-ellipsis mb-2'
+                    onClick={() => {
+                        campaign?.sharedUsers?.length && campaign?.sharedUsers?.length > 0 ? '' : navigateToReporting();
+                    }}>
+                    <div
+                        className='flex h-8'
+                        onClick={() => {
+                            campaign?.sharedUsers?.length && campaign?.sharedUsers?.length > 0 ? openCloseShareModal() : navigateToReporting();
+                        }}>
                         {campaign?.sharedUsers?.map(
                             (item: any, index: any) =>
                                 index < 3 && (
