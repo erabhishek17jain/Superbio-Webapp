@@ -90,10 +90,6 @@ export default function Reporting(props: IReportingProps) {
         return duplicates;
     }
 
-    let duplicates = getDuplicateValues(columns, 'socialLink');
-    console.log('Total posts: ', columns.length);
-    console.log('Duplicate posts: ', duplicates.length);
-
     return (
         <div>
             {screenWidth > 1280 && (
