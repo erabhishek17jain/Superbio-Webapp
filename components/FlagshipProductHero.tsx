@@ -14,7 +14,7 @@ export const FlagshipProductHero = () => {
     <section
       ref={ref}
       id="flagship-product"
-      className="mt-0 flex h-[125vh] w-full flex-col items-center justify-center xs:-mt-40 sm:mt-32 md:h-screen lg:mt-96"
+      className="pt-0 flex h-auto w-full flex-col items-center justify-center"
     >
       <motion.div
         initial={{ opacity: 0, y: "100%" }}

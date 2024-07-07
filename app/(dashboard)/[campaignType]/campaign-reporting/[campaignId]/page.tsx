@@ -119,16 +119,6 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         }
     };
 
-    const initialLoad = async () => {
-        const defFilters = await SheetNetworkService.instance.getSheetFilters(params.campaignId);
-        setDefFilters(defFilters);
-        const filterHandler = new CampaignReportingFilter(defFilters);
-        const filterOptn = filterHandler.getAvailableFilters();
-        setFilterOptn(filterOptn);
-        const res = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
-        setCampData(res);
-    };
-
     const selectFilter = (checked: boolean, key: string, value: string) => {
         let filter = { ...filters };
         if (filter[key] === undefined) {
@@ -178,7 +168,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
 
     useEffect(() => {
         if (defFilters?.length > 0) dispatch(setFitlersState(defFilters));
-    }, [defFilters]);
+    }, []);
 
     useEffect(() => {
         const filter = sParams.get('filter');
@@ -199,7 +189,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             }
             setFilters(filterObj);
         }
-    }, [sParams]);
+    }, []);
 
     useEffect(() => {
         let filter = sParams.get('filter');
@@ -213,17 +203,31 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             return;
         }
         setFilterOptn(filterOptions);
-    }, [filters, defFilters, sParams]);
+    }, [filters]);
 
     useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
         }
-    }, [campData, calculateAnalytics]);
+    }, [campData]);
+
+    let loaded = false;
+    const initialLoad = async () => {
+        if (!loaded) {
+            const defaultFilters = await SheetNetworkService.instance.getSheetFilters(params.campaignId);
+            setDefFilters(defaultFilters);
+            const filterHandler = new CampaignReportingFilter(defFilters);
+            const filterOptn = filterHandler.getAvailableFilters();
+            setFilterOptn(filterOptn);
+            const res = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
+            setCampData(res);
+        }
+    };
 
     useEffect(() => {
         initialLoad();
-    }, [initialLoad]);
+        loaded = true;
+    }, []);
 
     return (
         <div className='flex'>

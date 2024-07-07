@@ -6,7 +6,7 @@ import { setCampaignType, setMembers } from '@/context/user';
 import UserNetworkService from '@/services/user.service';
 import Link from 'next/link';
 import { enqueueSnackbar } from 'notistack';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CampaignNetworkService from '@/services/campaign.service';
 import useSWR from 'swr';
 import Image from 'next/image';
@@ -22,8 +22,6 @@ export default function Home() {
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [currentSearchText, setCurrentSearchText] = useState('');
-    const [campaignImg] = useState('/images/reset.png');
-    const [influncerImg] = useState('/images/reset.png');
     const [selectType, setSelectType] = useState('campaign');
 
     const { data: activeCampaign, isLoading } = useSWR(
@@ -34,8 +32,6 @@ export default function Home() {
         `?page=1&limit=3&status=active&ownerType=shared${searchText !== '' ? '&q=' + searchText : ''}`,
         CampaignNetworkService.instance.fetcher
     );
-    const { data: archivedCampaignData } = useSWR('?page=1&limit=3&status=archived&ownerType=own', CampaignNetworkService.instance.fetcher);
-
     const editCampaign = (campaign: any) => {
         setMode('edit');
         setOpenCampaingModal(true);
@@ -49,7 +45,7 @@ export default function Home() {
     };
 
     React.useEffect(() => {
-        if (user) {
+        if (user && campaignType !== '') {
             UserNetworkService.instance
                 .getAllUsers({ page: 1, limit: 100 })
                 .then((res) => {
@@ -59,12 +55,9 @@ export default function Home() {
                     enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
                 });
         }
-    }, [user]);
+    }, [user, campaignType]);
 
-    const shouldShowNoCampaign =
-        (activeCampaign && activeCampaign.length > 0) ||
-        (sharedCampaignData && sharedCampaignData.length > 0) ||
-        (archivedCampaignData && archivedCampaignData.length > 0);
+    const shouldShowNoCampaign = (activeCampaign && activeCampaign.length > 0) || (sharedCampaignData && sharedCampaignData.length > 0);
 
     return (
         <div className='flex flex-col w-full overflow-hidden' style={{ height: '100vh' }}>
@@ -133,7 +126,7 @@ export default function Home() {
             )}
             {campaignType !== '' && (
                 <>
-                    <div className='flex w-full items-center justify-between pl-8 pr-4 py-3 border-b h-[88px]'>
+                    <div className='flex w-full items-center justify-between pl-8 pr-4 py-3 shadow-md shadow-[#CDCDCD] border-b h-[88px] z-10'>
                         <span className='lg:ml-0 xl:ml-0'>
                             <ADropdown
                                 width={'w-[-webkit-fill-available]'}
@@ -272,7 +265,7 @@ export default function Home() {
                                         </div>
                                         {activeCampaign?.length > 0 ? (
                                             <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
-                                                {activeCampaign?.map((data, index) => (
+                                                {activeCampaign?.map((data: any, index: number) => (
                                                     <CampaignCard
                                                         key={index}
                                                         campaign={data}
@@ -301,7 +294,7 @@ export default function Home() {
                                         </div>
                                         {sharedCampaignData?.length > 0 ? (
                                             <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
-                                                {sharedCampaignData?.map((data, index) => (
+                                                {sharedCampaignData?.map((data: any, index: number) => (
                                                     <CampaignCard
                                                         key={index}
                                                         campaign={data}
@@ -318,7 +311,7 @@ export default function Home() {
                                         )}
                                     </div>
                                 )}
-                                {archivedCampaignData && archivedCampaignData?.length > 0 && (
+                                {/* {archivedCampaignData && archivedCampaignData?.length > 0 && (
                                     <div className='flex flex-col w-full'>
                                         <div className='flex w-full justify-between mb-5'>
                                             <span className='capitalize font-semibold text-xl text-opacity-80'>Archived Campaign</span>
@@ -345,7 +338,7 @@ export default function Home() {
                                             </div>
                                         )}
                                     </div>
-                                )}
+                                )} */}
                             </>
                         ) : (
                             <div className='flex flex-col gap-5 items-center justify-center w-96 h-screen m-auto'>

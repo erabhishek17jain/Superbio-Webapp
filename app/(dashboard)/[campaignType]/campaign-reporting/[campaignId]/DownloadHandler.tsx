@@ -3,7 +3,7 @@
 import ADropdown from '@/components/ADropdown/ADropdown';
 import SheetNetworkService, { IColumn } from '@/services/sheet.service';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Params } from './layout';
 import ConfirmLastRefresh from '@/components/Modals/ConfirmLastRefresh';
 import { enqueueSnackbar } from 'notistack';
@@ -28,19 +28,19 @@ interface DownloadHandlerProps {
 
 export default function DownloadHandler(props: DownloadHandlerProps) {
     const { meta, isPublic, columns, params, query, campaignName, summary } = props;
-    const [valuesLoading] = React.useState(false);
-    const [diffInMin, setDiffInMin] = React.useState(0);
-    const [reportText, setReportText] = React.useState('Generate Report');
-    const [generateStatus, setGenerateStatus] = React.useState('');
-    const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-    const [gradInx, setGradInx] = React.useState(0);
-    const [isSheetExist] = React.useState('yes');
-    const [csvData, setCsvData] = React.useState({ columns: [], data: [] });
-    const [pdfColumns, setPdfColumns] = React.useState<IColumn[]>([]);
-    const csvLink = React.useRef<any>(null);
+    const [valuesLoading] = useState(false);
+    const [diffInMin, setDiffInMin] = useState(0);
+    const [reportText, setReportText] = useState('Generate Report');
+    const [generateStatus, setGenerateStatus] = useState('');
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [gradInx, setGradInx] = useState(0);
+    const [isSheetExist] = useState('yes');
+    const [csvData, setCsvData] = useState({ columns: [], data: [] });
+    const [pdfColumns, setPdfColumns] = useState<IColumn[]>([]);
+    const csvLink = useRef<any>(null);
     const router = useRouter();
 
-    const bodyRef = React.useRef<HTMLDivElement>(null);
+    const bodyRef = useRef<HTMLDivElement>(null);
 
     const handlePrint = useReactToPrint({
         content: () => bodyRef.current,
@@ -83,7 +83,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!isPublic) {
             if (columns !== undefined && reportText === 'Generate Report') {
                 getQueueData();
@@ -91,7 +91,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         } else {
             setLastRefresh();
         }
-    }, [columns, isPublic, reportText]);
+    }, [columns]);
 
     const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
@@ -105,7 +105,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const interval = setInterval(() => {
             setGradInx(gradInx === 3 ? 0 : gradInx + 1);
         }, 100);
@@ -263,21 +263,21 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
     //     }
     // };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (csvData?.data?.length > 0) {
             csvLink.current.link.click();
             setCsvData({ columns: [], data: [] });
         }
     }, [csvData]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (pdfColumns?.length > 0) {
             handlePrint();
             setPdfColumns([]);
         }
-    }, [pdfColumns, handlePrint]);
+    }, [pdfColumns]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const res = await SheetNetworkService.instance.getQueueData();
@@ -295,7 +295,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             }, 10000);
             return () => clearInterval(interval);
         }
-    }, [reportText, params.campaignId]);
+    }, [reportText]);
 
     return (
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[60px]'>

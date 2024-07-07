@@ -24,7 +24,7 @@ const FEATURES = [
 
 export const BlogHeroSection = () => {
   return (
-    <section className="flex items-center justify-between py-10 pl-1 text-center">
+    <section className="flex items-center justify-between pb-6 pt-0 pl-1 text-center">
       <div className="z-10 flex flex-col gap-y-4 text-left md:w-3/4">
         <div className="flex flex-col gap-y-4">
           <p className="text-2xl font-medium leading-[1.25] sm:whitespace-nowrap">Our blogs</p>

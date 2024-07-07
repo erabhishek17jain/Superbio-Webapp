@@ -58,7 +58,7 @@ export const WhySuperbioNew = () => {
     <section
       ref={ref}
       id="why-LOQO ai"
-      className="mt-40 flex h-[75vh] flex-col justify-center sm:mt-[16rem] sm:h-screen"
+      className="pt-10 pb-5 flex h-[75vh] flex-col justify-center sm:h-screen"
     >
       <div className="flex flex-col gap-y-2 xl:w-1/2">
         <h2 className="text-xl font-semibold">Why Choose LOQO ai?</h2>

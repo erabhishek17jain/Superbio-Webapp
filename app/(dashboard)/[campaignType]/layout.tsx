@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         } else {
             dispatch(setLoading(false));
         }
-    }, [isCampReport]);
+    }, []);
 
     return (
         <div className='flex flex-col w-full h-screen overflow-y-auto'>

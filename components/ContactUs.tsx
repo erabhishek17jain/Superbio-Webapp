@@ -12,21 +12,23 @@ export const ContactUs = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
+     <div id="contact-us"
+       className="flex w-full items-center overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24">
     <section
       ref={ref}
-      id="contact-us"
-      className="-mt-28 xs:mt-0 flex h-3/5 w-full flex-col-reverse items-center justify-between overflow-hidden md:mt-32 sm:flex-row md:h-2/3 lg:h-3/5"
+      className="flex w-full flex-col-reverse items-center justify-between overflow-hidden sm:flex-row"
     >
       <ContactUsForm parentRef={ref} />
       <motion.div
         initial={{ opacity: 0, x: "100%" }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: "100%" }}
         transition={{ delay: 0.5, duration: 1, type: "spring" }}
-        className="relative hidden sm:block sm:w-1/3 md:w-1/2"
+        className="relative hidden sm:block sm:w-1/3 md:w-1/2 mt-[-220px]"
       >
         <ProductShowcase />
       </motion.div>
     </section>
+    </div>
   );
 };
 

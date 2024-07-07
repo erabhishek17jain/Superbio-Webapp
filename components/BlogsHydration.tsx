@@ -20,7 +20,7 @@ export const BlogsHydration = () => {
       <section
         ref={ref}
         id="blogs"
-        className="relative flex h-[125vh] w-full flex-col items-center justify-center gap-y-20 px-6 xs:px-12 sm:h-[200vh] sm:px-8 md:px-12 lg:px-16"
+        className="relative flex w-full flex-col items-center justify-center gap-5 px-6 xs:px-12 sm:px-8 md:px-12 lg:px-16"
       >
         <motion.div
           initial={{ opacity: 0, y: "100%" }}

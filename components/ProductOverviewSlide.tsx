@@ -20,17 +20,23 @@ export const ProductOverviewSlide = () => {
     }
   };
 
-  return (
+  return (<div 
+      id="our-products" className="pt-10 pb-5 w-full px-6 sm:px-12 md:px-16 lg:px-24"><div className="flex flex-col gap-y-2 xl:w-1/2">
+        <h2 className="text-xl font-semibold">Our Products</h2>
+        <p className="text-pretty text-base font-medium text-gray-500">
+          Unlock success with Superbio: where efficient data organization meets advanced AI
+          assistance, empowering creators to thrive.
+        </p>
+      </div>
     <section
       ref={ref}
-      id="our-products"
-      className="relative mt-[-20rem] xs:mt-[-30rem] flex w-full items-center justify-center sm:mt-[-20rem] lg:-mt-48"
+      className="relative flex w-full items-center justify-center sm:mt-[-14rem] sm:mb-[-18rem] my-[-20rem] xs:my-[-30rem] lg:-my-48"
     >
       <motion.div
         initial={{ opacity: 0, x: "100%" }}
         animate={isInView ? { opacity: 1, x: "0%" } : { opacity: 0, x: "100%" }}
         transition={{ delay: 0.5, duration: 1, type: "spring" }}
-        className="flex h-[75vh] w-full items-center justify-center sm:h-[100vh] md:h-[175vh] lg:h-[200vh]"
+        className="flex w-full items-center justify-center sm:h-[100vh] md:h-[110vh] lg:h-[145vh] xl:h-[165vh]"
       >
         {FEATURES.map((feature, index) => (
           <div
@@ -61,6 +67,6 @@ export const ProductOverviewSlide = () => {
           </div>
         ))}
       </motion.div>
-    </section>
+    </section></div>
   );
 };

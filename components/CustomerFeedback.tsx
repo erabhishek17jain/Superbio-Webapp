@@ -12,25 +12,23 @@ export const CustomerFeedback = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   return (
+    <div 
+      id="customer-feedback" className="pt-10 pb-5 w-full px-6 sm:px-12 md:px-16 lg:px-24"><div className="flex flex-col gap-y-2 xl:w-1/2">
+        <h2 className="text-xl font-semibold">Customer Feedback</h2>
+        <p className="text-pretty text-base font-medium text-gray-500">
+          Unlock success with Superbio: where efficient data organization meets advanced AI
+          assistance, empowering creators to thrive.
+        </p>
+      </div>
     <section
       ref={ref}
-      id="customer-feedback"
-      className="mt-40 flex xs:h-[120vh] w-full items-center justify-center px-6 sm:mt-60 sm:h-screen sm:px-12 md:mt-0 md:px-16 lg:mt-60 lg:px-24"
-    >
-      <div className="flex w-full flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, y: "100%" }}
-          animate={isInView ? { opacity: 1, y: "0%" } : { opacity: 0, y: "100%" }}
-          transition={{ delay: 0.5, duration: 0.5, type: "spring" }}
-          className="mb-40 flex w-full flex-col items-center gap-y-2 text-center lg:w-3/5"
-        >
-          <h2 className="whitespace-nowrap text-xl font-semibold">Customer Feedback</h2>
-        </motion.div>
-        <div className="flex w-full items-center justify-center">
-          <FeedbackCardSlider parentRef={ref} />
+      className="mt-40 flex w-full items-center justify-center px-6 sm:mt-60 sm:px-12 md:mt-0 md:px-16 lg:mt-20 lg:px-24"
+    ><div className="flex w-full items-center justify-center">
+          {/* <FeedbackCardSlider parentRef={ref} /> */}
         </div>
-      </div>
+     
     </section>
+    </div>
   );
 };
 

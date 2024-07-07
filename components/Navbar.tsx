@@ -32,7 +32,7 @@ export const Navbar = () => {
         }
     };
     return (
-        <nav className='flex w-full items-center bg-transparent px-6 py-12 text-black sm:px-12 md:px-8 lg:px-16 xl:px-24' role='navigation' id='navbar'>
+        <nav className='flex w-full items-center bg-transparent px-6 py-8 text-black sm:px-12 md:px-8 lg:px-16 xl:px-24' role='navigation' id='navbar'>
             <Link href='/home' className='mr-auto w-20'>
                 <Image src={logo} alt='logo' className='w-20' />
             </Link>
@@ -51,9 +51,11 @@ export const Navbar = () => {
                     className='flex capitalize items-center text-sm font-semibold text-black hover:text-gray-500 p-2 px-5 border border-black rounded-lg'>
                     Login <BsArrowRight className='ml-2' size={20} />
                 </Link>
-            </div>
-            <div id='calendly-root' className='ml-auto hidden w-fit lg:block'>
-                <Calendly />
+                <Link
+                    className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'
+                    href='mailto:loqoai@gmail.com'>
+                    Schedule Appointment!
+                </Link>
             </div>
             <div className='mb-auto flex lg:hidden'>
                 <MobileView />
@@ -116,8 +118,7 @@ const MobileView = () => {
                 <DropdownMenuItem id='calendly-root' className='m-0 bg-white p-0 text-[#121212] transition-all duration-100 hover:invert'>
                     <Link
                         className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'
-                        href='https://calendly.com/loqo/introduction-30min'
-                        target='_blank'>
+                        href='mailto:loqoai@gmail.com'>
                         Schedule Appointment!
                     </Link>
                 </DropdownMenuItem>

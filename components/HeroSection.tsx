@@ -74,15 +74,15 @@ export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true });
   return (
-    <section ref={ref} className="flex items-center justify-between py-10 pl-1 text-center">
+    <section ref={ref} className="flex items-center justify-between pb-6 pt-0 pl-1 text-center">
       <HeroLeft parentRef={ref} />
       <motion.div
         initial={{ opacity: 0, x: "100%", y: "50%" }}
         animate={
-          isInView ? { opacity: 1, x: "50%", y: "25%" } : { opacity: 0, x: "100%", y: "-25%" }
+          isInView ? { opacity: 1, x: "45%", y: "20%" } : { opacity: 0, x: "100%", y: "-20%" }
         }
         transition={{ delay: 0.5, duration: 1, type: "spring" }}
-        className="hidden h-[75vh] md:block"
+        className="hidden h-[83vh] md:block"
       >
         <Image
           src={productShowcase}

@@ -29,9 +29,9 @@ export default function Home() {
       <BeforeAfterProduct />
       <CustomerFeedback />
       <BlogsHydration />
-      <div className="-mt-96 flex h-[100vh] w-full items-center overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24">
+     
         <ContactUs />
-      </div>
+     
     </main>
   );
 }

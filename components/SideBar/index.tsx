@@ -53,7 +53,7 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     </svg>
                 </div>
             )}
-            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-28' style={{ height: '100vh' }}>
+            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-28 shadow-md shadow-[#CDCDCD]' style={{ height: '100vh' }}>
                 <div className='flex flex-col w-10 items-center'>
                     <Link href={'/home'} className='w-20'>
                         <DynamicLogo />
