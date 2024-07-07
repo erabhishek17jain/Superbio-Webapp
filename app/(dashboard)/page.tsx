@@ -49,15 +49,17 @@ export default function Home() {
     };
 
     React.useEffect(() => {
-        UserNetworkService.instance
-            .getAllUsers({ page: 1, limit: 100 })
-            .then((res) => {
-                dispatch(setMembers([user, ...res.data]));
-            })
-            .catch((err) => {
-                enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
-            });
-    }, []);
+        if (user) {
+            UserNetworkService.instance
+                .getAllUsers({ page: 1, limit: 100 })
+                .then((res) => {
+                    dispatch(setMembers([user, ...res.data]));
+                })
+                .catch((err) => {
+                    enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                });
+        }
+    }, [user]);
 
     const shouldShowNoCampaign =
         (activeCampaign && activeCampaign.length > 0) ||

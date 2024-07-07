@@ -199,7 +199,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             }
             setFilters(filterObj);
         }
-    }, []);
+    }, [sParams]);
 
     useEffect(() => {
         let filter = sParams.get('filter');
@@ -213,17 +213,17 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             return;
         }
         setFilterOptn(filterOptions);
-    }, [filters]);
+    }, [filters, defFilters, sParams]);
 
     useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
         }
-    }, [campData]);
+    }, [campData, calculateAnalytics]);
 
     useEffect(() => {
         initialLoad();
-    }, []);
+    }, [initialLoad]);
 
     return (
         <div className='flex'>
@@ -246,7 +246,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                             one click!
                         </div>
                         <Link
-                            href={`/${params.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName}`}
+                            href={`/${params?.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName}`}
                             className='bg-black flex items-center py-2 rounded-xl pl-4 pr-5 text-white text-sm gap-2'>
                             <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='stroke-2 stroke-black'>
                                 <path

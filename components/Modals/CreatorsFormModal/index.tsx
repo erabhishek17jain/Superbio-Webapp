@@ -7,7 +7,7 @@ import {v4 as uuidv4} from 'uuid';
 import ComingSoon from '../../ComingSoon';
 
 export default function CreatorsFormModal() {
-    const params = useParams();
+    const params:any = useParams();
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
     const [fields, setFields] = useState([] as any);
@@ -59,7 +59,7 @@ export default function CreatorsFormModal() {
             CampaignNetworkService.instance.createCampaignForm(fieldPayload).then((res) => {
                 enqueueSnackbar('Campaign form created successfully', { variant: 'success' });
                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
-                router.push(`/${params.campaignType}/campaign-reporting/${params.campaignId}`);
+                router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
             });
         } else {
             return enqueueSnackbar('Please fill all the fields', { variant: 'error' });

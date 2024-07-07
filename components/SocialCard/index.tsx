@@ -202,7 +202,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                                     {screenshots?.map((obj: any, i: number) => (
                                         <div key={uuidv4()} className='flex justify-between items-center border rounded-sm p-2'>
                                             <div className='flex items-center gap-2'>
-                                                <img alt={i.toString()} className='w-12 h-12' src={URL.createObjectURL(obj)} />
+                                                <Image src={URL.createObjectURL(obj)} alt={i.toString()} className='w-12 h-12' />
                                                 <span className='text-[#0c8ce9] text-sm'>{obj?.name}</span>
                                             </div>
                                             <svg

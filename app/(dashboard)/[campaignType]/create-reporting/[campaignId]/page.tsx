@@ -13,7 +13,7 @@ const getSheetInfo = () => {
 };
 
 export default function CreateReporting() {
-    const params = useParams();
+    const params:any = useParams();
     const dispatch = useAppDispatch();
     const searchParams = useSearchParams();
     const state = useAppSelector((state) => state?.campaign);
@@ -57,7 +57,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+            router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
         }
     };
 
@@ -68,7 +68,7 @@ export default function CreateReporting() {
                 sheetId: item?.selectedSheet!.sheetId!,
                 name: item?.sheetName!,
                 linkColumn: item?.columnName,
-                campaignId: params.campaignId,
+                campaignId: params?.campaignId,
                 range: 'A1:Z',
                 id: item?.id ? item?.id : null,
             })
@@ -106,13 +106,13 @@ export default function CreateReporting() {
             });
             Promise.all(promises)
                 .then((res) => {
-                    router.push(`/${params.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
                     dispatch(setSheet(res));
                     enqueueSnackbar('Sheet added successfully', { variant: 'success' });
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
                 });
         }
     };

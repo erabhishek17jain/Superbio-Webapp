@@ -13,13 +13,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const router = useRouter();
     const dispatch = useAppDispatch();
     const searchParams = usePathname();
-    const params = useParams();
+    const params: any = useParams();
     const urlComponents = searchParams.split('/');
     const { enqueueSnackbar } = useSnackbar();
     const { meta, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
-    const ownerType = params.campaignType.split('-')[0] === 'active' ? 'own' : 'shared';
+    const ownerType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
     const searchParam = useSearchParams();
     const campaignName = searchParam.get('campaignName') || '';
     const isPublic = searchParam.get('isPublic') === 'true';
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
 
     const fetchMore = () => {
-        const ownedType = params.campaignType.split('-')[0] === 'active' ? 'own' : 'shared';
+        const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
         dispatch(getCampaigns({ page: meta?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
         dispatch(
             setMeta({
@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         } else {
             dispatch(setLoading(false));
         }
-    }, []);
+    }, [isCampReport]);
 
     return (
         <div className='flex flex-col w-full h-screen overflow-y-auto'>
@@ -183,7 +183,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 {searchParams.indexOf('campaign-reporting') > -1 && (
                                     <div className='flex'>
                                         <button
-                                            onClick={() => copyShareLink(`/${params.campaignType}/campaign-reporting/${params.campaignId}`)}
+                                            onClick={() => copyShareLink(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`)}
                                             className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 my-5 disabled:opacity-40'>
                                             <svg xmlns='http://www.w3.org/2000/svg' data-name='Layer 1' viewBox='0 0 24 24' id='share' width='20' fill='#fff'>
                                                 <path d='m21.707 11.293-8-8A1 1 0 0 0 12 4v3.545A11.015 11.015 0 0 0 2 18.5V20a1 1 0 0 0 1.784.62 11.456 11.456 0 0 1 7.887-4.049c.05-.006.175-.016.329-.026V20a1 1 0 0 0 1.707.707l8-8a1 1 0 0 0 0-1.414ZM14 17.586V15.5a1 1 0 0 0-1-1c-.255 0-1.296.05-1.562.085a14.005 14.005 0 0 0-7.386 2.948A9.013 9.013 0 0 1 13 9.5a1 1 0 0 0 1-1V6.414L19.586 12Z'></path>

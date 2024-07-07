@@ -8,7 +8,7 @@ import useSWR from 'swr';
 import { ICampaign } from '@/context/campaign';
 
 export default function AllCampaignPage() {
-    const params = useParams();
+    const params:any = useParams();
     const [mode, setMode] = useState('add');
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
@@ -24,8 +24,8 @@ export default function AllCampaignPage() {
     });
     const [campaigns, setCampaigns] = useState<ICampaign[]>([]);
 
-    const status = params.campaignType.split("-")[0].includes("shared") ? "active" : params.campaignType.split("-")[0]
-    const ownerType = params.campaignType.split("-")[0].includes("shared") ? "shared" : "own"
+    const status = params?.campaignType?.split("-")[0].includes("shared") ? "active" : params?.campaignType?.split("-")[0]
+    const ownerType = params?.campaignType?.split("-")[0].includes("shared") ? "shared" : "own"
     const { data: respsonse, isLoading: loading } = useSWR(`?page=${page}&limit=${12}&status=${status}&ownerType=${ownerType}`, CampaignNetworkService.instance.fetcherWithMeta)
 
     const editCampaign = (campaign: any) => {
@@ -78,7 +78,7 @@ export default function AllCampaignPage() {
             {campaigns && campaigns?.length > 0 && (
                 <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
                     {campaigns.map((item) => (
-                        <CampaignCard key={item.id} campaign={item} status={params.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
+                        <CampaignCard key={item.id} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
                     ))}
                 </div>
             )}

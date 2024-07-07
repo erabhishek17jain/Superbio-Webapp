@@ -91,7 +91,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         } else {
             setLastRefresh();
         }
-    }, [columns]);
+    }, [columns, isPublic, reportText]);
 
     const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
@@ -275,7 +275,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             handlePrint();
             setPdfColumns([]);
         }
-    }, [pdfColumns]);
+    }, [pdfColumns, handlePrint]);
 
     React.useEffect(() => {
         if (reportText === 'Generating...') {
@@ -295,7 +295,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             }, 10000);
             return () => clearInterval(interval);
         }
-    }, [reportText]);
+    }, [reportText, params.campaignId]);
 
     return (
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[60px]'>
@@ -451,7 +451,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName.toString()}`)}>
+                        onClick={() => router.push(`/${params?.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName.toString()}`)}>
                         Add Links
                         <svg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
