@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { BiArrowFromBottom } from 'react-icons/bi';
-import SheetNetworkService, { IColumn } from '@/services/sheet.service';
+import { IColumn } from '@/services/sheet.service';
 import SocialCard from '@/components/SocialCard';
 import { InView } from 'react-intersection-observer';
 
@@ -14,53 +14,22 @@ interface IReportingProps {
     total: number;
 }
 
-function getDuplicateValues(array: any, key: any) {
-    const map = new Map();
-    const duplicates: any = [];
-
-    array.forEach((item: any, index: number) => {
-        const value = item[key];
-        if (map.has(value)) {
-            duplicates.push({ value, index });
-        } else {
-            map.set(value, true);
-        }
-    });
-
-    return duplicates;
-}
-
-function removeDuplicates(array: any, key: any) {
-    const seen = new Set();
-    const uniqueArray = array.reduce((accumulator: any, currentValue: any) => {
-        const value = currentValue[key];
-        if (!seen.has(value)) {
-            seen.add(value);
-            accumulator.push(currentValue);
-        }
-        return accumulator;
-    }, []);
-    return uniqueArray;
-}
-
 export default function Reporting(props: IReportingProps) {
     const { meta, isPublic, total } = props;
     const [screenWidth, setScreenWidth] = React.useState(0);
-    const [columns, setColumns] = React.useState<IColumn[]>(props.initialColumns);
+    const [columns, setColumns] = React.useState<IColumn[]>(props.initialColumns.slice(0, 6));
     const [isLoadMore] = React.useState(false);
-    const [page, setPage] = React.useState(1);
+    const [loader, setloader] = React.useState(false);
 
     const loadMore = async () => {
         if (total === columns.length) {
             return;
         }
-        const nextColumns = await SheetNetworkService.instance.getCampaignData(props.campaignId, { ...meta, page: page + 1 });
-
-        if (nextColumns.data.length !== 0) {
-            let uniqueColumns = removeDuplicates([...columns, ...nextColumns.data], 'socialLink');
-            setColumns([...uniqueColumns]);
-            setPage(page + 1);
-        }
+        setloader(true);
+        setTimeout(() => {
+            setColumns((prev: any) => [...prev, ...props.initialColumns.slice(prev.length, prev.length + 6)]);
+            setloader(false);
+        }, 2000);
     };
 
     React.useEffect(() => {
@@ -73,22 +42,6 @@ export default function Reporting(props: IReportingProps) {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
-    function getDuplicateValues(array: any, key: any) {
-        const map = new Map();
-        const duplicates: any = [];
-
-        array.forEach((item: any, index: number) => {
-            const value = item[key];
-            if (map.has(value)) {
-                duplicates.push({ value, index });
-            } else {
-                map.set(value, true);
-            }
-        });
-
-        return duplicates;
-    }
 
     return (
         <div>
@@ -164,6 +117,17 @@ export default function Reporting(props: IReportingProps) {
                         </span>
                     </button>
                 </div>
+            )}
+            {loader && (
+                <Link className='fixed left-1/2 bottom-5' href='#camp-top'>
+                    <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-2 text-white shadow-sm'}>
+                        <div className='flex items-center justify-center w-8 h-8 mx-auto'>
+                            <div className='flex items-center justify-center w-6 h-6'>
+                                <div className='border-t-transparent border-solid animate-spin rounded-full border-white border-[3px] w-full h-full'></div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
             )}
             <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>
             <Link className='fixed right-5 bottom-5' href='#camp-top'>

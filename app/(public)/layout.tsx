@@ -8,9 +8,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className='flex items-end w-full p-5 text-black  font-bold border-b text-3xl'>
                 <div className='flex items-center space-x-3'>
                     <DynamicLogo />
-                    <Link href={'/'}>
-                        <span className=' uppercase text-xl font-bold'> Business</span>
-                    </Link>
                 </div>
             </div>
             <div className='flex flex-col px-5 py-3'>{children}</div>

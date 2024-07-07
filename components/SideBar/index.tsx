@@ -17,7 +17,7 @@ const items = [
     {
         name: 'Home',
         icon: ({ isActive }: { isActive: boolean }) => (
-            <svg width='26' height='26' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <svg width='32' height='32' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'>
                 <path
                     d='M20.04 7.31774L14.28 3.28774C12.71 2.18774 10.3 2.24774 8.78999 3.41774L3.77999 7.32774C2.77999 8.10774 1.98999 9.70774 1.98999 10.9677V17.8677C1.98999 20.4177 4.05999 22.4977 6.60999 22.4977H17.39C19.94 22.4977 22.01 20.4277 22.01 17.8777V11.0977C22.01 9.74774 21.14 8.08774 20.04 7.31774ZM12.75 18.4977C12.75 18.9077 12.41 19.2477 12 19.2477C11.59 19.2477 11.25 18.9077 11.25 18.4977V15.4977C11.25 15.0877 11.59 14.7477 12 14.7477C12.41 14.7477 12.75 15.0877 12.75 15.4977V18.4977Z'
                     fill={isActive ? '#000000' : '#CDCDCD'}
@@ -28,12 +28,12 @@ const items = [
     },
     {
         name: 'Users',
-        icon: ({ isActive }: { isActive: boolean }) => <FaUsers size={26} color={isActive ? '#000000' : '#CDCDCD'} />,
+        icon: ({ isActive }: { isActive: boolean }) => <FaUsers size={32} color={isActive ? '#000000' : '#CDCDCD'} />,
         link: '/users',
     },
     {
         name: 'Live Reports',
-        icon: ({ isActive }: { isActive: boolean }) => <HiOutlineQueueList size={26} color={isActive ? '#000000' : '#CDCDCD'} />,
+        icon: ({ isActive }: { isActive: boolean }) => <HiOutlineQueueList size={32} color={isActive ? '#000000' : '#CDCDCD'} />,
         link: '/queue',
     },
 ];
@@ -53,9 +53,9 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     </svg>
                 </div>
             )}
-            <div className='flex flex-col items-center w-16 border-r px-2 py-6 h-full w-28'>
+            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-28' style={{ height: '100vh' }}>
                 <div className='flex flex-col w-10 items-center'>
-                    <Link href={'/'} className='w-20'>
+                    <Link href={'/home'} className='w-20'>
                         <DynamicLogo />
                     </Link>
                 </div>
@@ -66,37 +66,22 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                                 user.role === 'admin' && (
                                     <Link href={item.link} key={item.name} className='flex items-center space-x-3'>
                                         <item.icon isActive={path === item.link} />
-                                        {/* <span className={`text-base font-bold ${path === item.link ? 'text-black' : 'text-[#676767]'}`}>{item.name}</span> */}
                                     </Link>
                                 )
                             ) : (
                                 <Link href={item.link} key={item.name} className='flex items-center space-x-3'>
                                     <item.icon isActive={path === item.link} />
-                                    {/* <span className={`text-base font-bold ${path === item.link ? 'text-black' : 'text-[#676767]'}`}>{item.name}</span> */}
                                 </Link>
                             )
                         )}
                     </div>
                 </div>
                 <div className='flex items-center flex-col space-y-6 r'>
-                    {/* {user.profilePic !== '' ? (
-                        <div
-                            className='w-11 h-11 bg-[#e2e8f0] rounded-full border border-gray-300 bg-cover bg-center'
-                            style={{ backgroundImage: `url("${user.profilePic}")` }}></div>
-                    ) : (
-                        <div
-                            key={'profilepic'}
-                            className='relative inline-flex items-center justify-center w-16 h-16 overflow-hidden rounded-full border border-gray-300 bg-cover bg-[#e2e8f0]'>
-                            <span className='font-medium text-2xl text-gray-600 '>{user.name.slice(0, 2).toUpperCase()}</span>
-                        </div>
-                    )} */}
-                    {/* <span className='text-base  font-bold mt-3'>{user.name}</span> */}
-                    {/* <span className='text-sm text-[#919191] font-bold'>{user.email}</span> */}
                     <Link href={'/profile'} key={'profile'} className='flex items-center space-x-3'>
                         <svg
                             fill={path === '/profile' ? '#000000' : '#CDCDCD'}
-                            width='26px'
-                            height='26px'
+                            width='32px'
+                            height='32px'
                             viewBox='0 0 24 24'
                             xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -110,8 +95,8 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     <Link href={'/contacts'} key={'contacts'} className='flex items-center space-x-3'>
                         <svg
                             fill={path === '/contacts' ? '#000000' : '#CDCDCD'}
-                            width='26px'
-                            height='26px'
+                            width='32px'
+                            height='32px'
                             viewBox='0 0 24 24'
                             xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -139,7 +124,7 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                             dispatch(setCampaignType(''));
                         }}
                         className='text-[#CCCCCC] group-hover:text-black text-xs'>
-                        <svg width='26' height='26' viewBox='0 0 24 24' fill='none' className='mr-2' xmlns='http://www.w3.org/2000/svg'>
+                        <svg width='32' height='32' viewBox='0 0 24 24' fill='none' className='mr-2' xmlns='http://www.w3.org/2000/svg'>
                             <path
                                 className='fill-[#CCCCCC] group-hover:fill-black'
                                 d='M16.8 2H14.2C11 2 9 4 9 7.2V11.25H15.25C15.66 11.25 16 11.59 16 12C16 12.41 15.66 12.75 15.25 12.75H9V16.8C9 20 11 22 14.2 22H16.79C19.99 22 21.99 20 21.99 16.8V7.2C22 4 20 2 16.8 2Z'

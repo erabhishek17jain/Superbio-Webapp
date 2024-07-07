@@ -39,7 +39,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
 
     let query: { [key: string]: string | number } = {
         page: 1,
-        limit: 6,
+        limit: 2000,
         sortBy: sort || 'analytics.likes',
         sortOrder: order || -1,
     };

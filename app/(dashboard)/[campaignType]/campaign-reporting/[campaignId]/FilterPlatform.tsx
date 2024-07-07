@@ -192,7 +192,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                 <div className='flex'>
                     <div className='flex w-full flex-col '>
                         <div
-                            className={`mt-3 sm:mt-6 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-3 w-full gap-4`}>
+                            className={`mt-3 sm:mt-6 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4`}>
                             {summary?.length > 0 &&
                                 summary
                                     .filter((el) => {

@@ -127,7 +127,13 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         });
         let data: any = [];
         let columns: any = [];
-        SheetNetworkService.instance.getCampaignData(params.campaignId, { ...query, page: 1, limit: 1000 }).then((res) => {
+        let promise: any;
+        if (isPublic) {
+            promise = PublicNetworkService.instance.getCampaignReportData(params.campaignId, { ...query, page: 1, limit: 2000 });
+        } else {
+            promise = SheetNetworkService.instance.getCampaignData(params.campaignId, { ...query, page: 1, limit: 2000 });
+        }
+        promise.then((res: any) => {
             data = [];
             columns = !isPublic
                 ? [
@@ -236,26 +242,26 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         });
     };
 
-    const downloadPdf = () => {
-        enqueueSnackbar('Please wait, we are preparing your pdf file.', {
-            variant: 'success',
-        });
-        if (isPublic) {
-            PublicNetworkService.instance
-                .getCampaignReportData(params.campaignId, {
-                    ...query,
-                    page: 1,
-                    limit: 1000,
-                })
-                .then((res) => {
-                    setPdfColumns(res?.data);
-                });
-        } else {
-            SheetNetworkService.instance.getCampaignData(params.campaignId, { ...query, page: 1, limit: 1000 }).then((res) => {
-                setPdfColumns(res?.data);
-            });
-        }
-    };
+    // const downloadPdf = () => {
+    //     enqueueSnackbar('Please wait, we are preparing your pdf file.', {
+    //         variant: 'success',
+    //     });
+    //     if (isPublic) {
+    //         PublicNetworkService.instance
+    //             .getCampaignReportData(params.campaignId, {
+    //                 ...query,
+    //                 page: 1,
+    //                 limit: 2000,
+    //             })
+    //             .then((res) => {
+    //                 setPdfColumns(res?.data);
+    //             });
+    //     } else {
+    //         SheetNetworkService.instance.getCampaignData(params.campaignId, { ...query, page: 1, limit: 2000 }).then((res) => {
+    //             setPdfColumns(res?.data);
+    //         });
+    //     }
+    // };
 
     React.useEffect(() => {
         if (csvData?.data?.length > 0) {

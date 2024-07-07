@@ -15,9 +15,6 @@ export default function RootLayout({
                   <div className='flex sm:w-[80%] w-[90%] flex-col'>
                       <div className='flex items-center space-x-3'>
                           <DynamicLogo />
-                          <Link href={'/'}>
-                              <span className=' uppercase text-xl font-bold'> Business</span>
-                          </Link>
                       </div>
                       <div className='flex text-4xl font-bold mt-4'>Get Started With Loqo ai</div>
 

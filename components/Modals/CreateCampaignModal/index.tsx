@@ -168,7 +168,7 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
                                 <input
                                     type='text'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
-                                    placeholder='Enter Keywords Seperated by comma'
+                                    placeholder='Enter Keywords and press enter'
                                     name='keywords'
                                     onChange={handleKeyWords}
                                     onKeyDown={setKeyWords}

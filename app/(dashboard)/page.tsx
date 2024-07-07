@@ -10,6 +10,8 @@ import React, { useState } from 'react';
 import CampaignNetworkService from '@/services/campaign.service';
 import useSWR from 'swr';
 import Image from 'next/image';
+import ADropdown from '@/components/ADropdown/ADropdown';
+import productShowcase from '@/public/product-homepage.png';
 
 export default function Home() {
     const dispatch = useAppDispatch();
@@ -63,7 +65,7 @@ export default function Home() {
         (archivedCampaignData && archivedCampaignData.length > 0);
 
     return (
-        <div className='flex flex-col w-full overflow-hidden'>
+        <div className='flex flex-col w-full overflow-hidden' style={{ height: '100vh' }}>
             {openCampaingModal && (
                 <CreateCampaignModal
                     mode={mode}
@@ -76,10 +78,10 @@ export default function Home() {
             {campaignType === '' && (
                 <div className='flex gap-4 h-screen w-full justify-start items-start p-10'>
                     <div
-                        className={`flex flex-col aspect-square rounded-xl p-10 pr-0 pb-6 ${selectType === 'campaign' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'campaign' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
                         onClick={() => setSelectType('campaign')}>
-                        <Image src={campaignImg} width={288} height={288} alt='Campaign' className='w-72 h-72 p-4 pr-0' />
-                        <div className={`flex flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
+                        <Image src={productShowcase} width={288} height={512} alt='Campaign' className='w-full p-4 pr-0' />
+                        <div className={`flex w-1/2 flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
                             <span className={`${selectType === 'campaign' ? 'text-white' : 'text-black'}`}>Campaign Reporting</span>
                             <span className='text-[#7D7D7D] text-sm'>Description</span>
                         </div>
@@ -101,9 +103,9 @@ export default function Home() {
                         )}
                     </div>
                     <div
-                        className={`flex flex-col aspect-square rounded-xl p-10 pr-0 pb-6 ${selectType === 'influncer' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'influncer' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
                         onClick={() => setSelectType('influncer')}>
-                        <Image src={influncerImg} width={288} height={288} alt='influncer' className='w-72 h-72 p-4 pr-0' />
+                        <Image src={productShowcase} width={288} height={512} alt='influncer' className='w-full p-4 pr-0' />
                         <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
                             <span className={`${selectType === 'influncer' ? 'text-white' : 'text-black'}`}>Influencer Analysis</span>
                             <span className='text-[#7D7D7D] text-sm'>Description</span>
@@ -130,7 +132,42 @@ export default function Home() {
             {campaignType !== '' && (
                 <>
                     <div className='flex w-full items-center justify-between pl-8 pr-4 py-3 border-b h-[88px]'>
-                        <span className='text-xl font-semibold lg:ml-0 xl:ml-0'>Your campaigns</span>
+                        <span className='lg:ml-0 xl:ml-0'>
+                            <ADropdown
+                                width={'w-[-webkit-fill-available]'}
+                                position='down'
+                                options={[
+                                    {
+                                        title: 'Campaign Reporting',
+                                        action: () => setSelectType('campaign'),
+                                    },
+                                    {
+                                        title: 'Influncer Analysis',
+                                        action: () => {},
+                                    },
+                                ]}
+                                header={
+                                    <div
+                                        className='flex h-12 w-auto items-center justify-center gap-2 rounded-lg cursor-pointer text-sm'
+                                        onClick={() => document.getElementById('date-dropdown')?.classList.toggle('hidden')}>
+                                        <span className='flex items-center gap-1 w-auto min-w-120 bg-[#F7F7F7] text-[#9ca3af] rounded-lg py-3 px-5 h-12 gap-4'>
+                                            <span>{selectType === 'campaign' ? ' Campaign Reporting' : 'Influncer Analysis'}</span>
+                                            <svg height='28px' width='28px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+                                                <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+                                                <g id='SVGRepo_iconCarrier'>
+                                                    <path
+                                                        fill-rule='evenodd'
+                                                        clip-rule='evenodd'
+                                                        d='M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z'
+                                                        fill='#7D7D7D'></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                }
+                            />
+                        </span>
                         <div className='flex gap-3'>
                             <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
                                 <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>

@@ -118,7 +118,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
 
     let type = '',
         username = '';
-    if (link.includes('twitter')) {
+    if (link.includes('twitter') || link.includes('x.com')) {
         type = 'twitter';
         username = link.split('/')[3];
     } else if (link.includes('youtube')) {
