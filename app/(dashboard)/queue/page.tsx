@@ -75,7 +75,7 @@ export default function Queue() {
                                             {queue?.campaign?.title}
                                         </th>
                                         <td className='px-6 py-4 capitalize'>{queue?.sheets[0]?.name}</td>
-                                        <td className='px-6 py-4 capitalize'>{queue?.status}</td>
+                                        <td className='px-6 py-4 capitalize'>{queue?.status ? queue?.status : 'Pending'}</td>
                                         <td className='px-6 py-4'>{queue?.user?.name}</td>
                                     </tr>
                                 ))

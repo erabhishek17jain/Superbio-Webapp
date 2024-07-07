@@ -196,7 +196,6 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                             {summary?.length > 0 &&
                                 summary
                                     .filter((el) => {
-                                        console.log(filters);
                                         if (filters['platform']?.includes('instagram')) {
                                             return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments');
                                         } else {

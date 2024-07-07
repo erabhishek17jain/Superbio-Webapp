@@ -3,12 +3,12 @@ import CampaignCard from '@/components/CampaignCard';
 import CreateCampaignModal from '@/components/Modals/CreateCampaignModal';
 import CampaignNetworkService from '@/services/campaign.service';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { ICampaign } from '@/context/campaign';
 
 export default function AllCampaignPage() {
-    const params:any = useParams();
+    const params: any = useParams();
     const [mode, setMode] = useState('add');
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
@@ -24,9 +24,12 @@ export default function AllCampaignPage() {
     });
     const [campaigns, setCampaigns] = useState<ICampaign[]>([]);
 
-    const status = params?.campaignType?.split("-")[0].includes("shared") ? "active" : params?.campaignType?.split("-")[0]
-    const ownerType = params?.campaignType?.split("-")[0].includes("shared") ? "shared" : "own"
-    const { data: respsonse, isLoading: loading } = useSWR(`?page=${page}&limit=${12}&status=${status}&ownerType=${ownerType}`, CampaignNetworkService.instance.fetcherWithMeta)
+    const status = params?.campaignType?.split('-')[0].includes('shared') ? 'active' : params?.campaignType?.split('-')[0];
+    const ownerType = params?.campaignType?.split('-')[0].includes('shared') ? 'shared' : 'own';
+    const { data: respsonse, isLoading: loading } = useSWR(
+        `?page=${page}&limit=${12}&status=${status}&ownerType=${ownerType}`,
+        CampaignNetworkService.instance.fetcherWithMeta
+    );
 
     const editCampaign = (campaign: any) => {
         setMode('edit');
@@ -45,24 +48,24 @@ export default function AllCampaignPage() {
 
     useEffect(() => {
         const observer = new IntersectionObserver(
-            entries => {
+            (entries) => {
                 if (entries[0].isIntersecting) {
                     if (campaigns.length < meta.total) {
-                        setPage(page + 1)
+                        setPage(page + 1);
                     }
                 }
             },
-            { threshold: .5 }
-        )
+            { threshold: 0.5 }
+        );
 
-        const target = document.getElementById('load-more')
+        const target = document.getElementById('load-more');
         if (target) {
-            observer.observe(target)
+            observer.observe(target);
         }
 
-        return () => observer.disconnect()
+        return () => observer.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [campaigns, meta])
+    }, [campaigns, meta]);
 
     return (
         <div className='flex px-8 py-4 flex-col'>

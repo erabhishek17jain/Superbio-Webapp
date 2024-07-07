@@ -272,6 +272,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                         {type === 'instagram' && (
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <InstagramEmbed url={link} width={'100%'} />
+                                {/* <iframe src='https://instagram.com/abhijsagar/embed/' width='300' height='400'></iframe> */}
                             </div>
                         )}
                         {type === 'twitter' && (

@@ -167,8 +167,10 @@ export default async function CampaignReporting({ searchParams, params }: { sear
     };
 
     useEffect(() => {
-        if (defFilters?.length > 0) dispatch(setFitlersState(defFilters));
-    }, []);
+        if (defFilters?.length > 0) {
+            dispatch(setFitlersState(defFilters));
+        }
+    }, [defFilters]);
 
     useEffect(() => {
         const filter = sParams.get('filter');
@@ -189,21 +191,23 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             }
             setFilters(filterObj);
         }
-    }, []);
+    }, [filterOptn]);
 
     useEffect(() => {
-        let filter = sParams.get('filter');
-        let value = sParams.get('value');
-        const filterHandler = new CampaignReportingFilter(defFilters);
-        let filterOptions = filterHandler.getAvailableFilters();
-        let filterKeys = Object.keys(filters);
-        if (filterKeys.length > 0 && filter !== null && value !== null) {
-            filterOptions = filterHandler.setSelectedFilters(filter?.split('|'), value?.split('|'));
+        if (defFilters) {
+            let filter = sParams.get('filter');
+            let value = sParams.get('value');
+            const filterHandler = new CampaignReportingFilter(defFilters);
+            let filterOptions = filterHandler.getAvailableFilters();
+            let filterKeys = Object.keys(filters);
+            if (filterKeys.length > 0 && filter !== null && value !== null) {
+                filterOptions = filterHandler.setSelectedFilters(filter?.split('|'), value?.split('|'));
+                setFilterOptn(filterOptions);
+                return;
+            }
             setFilterOptn(filterOptions);
-            return;
         }
-        setFilterOptn(filterOptions);
-    }, [filters]);
+    }, [defFilters]);
 
     useEffect(() => {
         if (campData?.data?.length > 0) {
@@ -216,9 +220,9 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         if (!loaded) {
             const defaultFilters = await SheetNetworkService.instance.getSheetFilters(params.campaignId);
             setDefFilters(defaultFilters);
-            const filterHandler = new CampaignReportingFilter(defFilters);
-            const filterOptn = filterHandler.getAvailableFilters();
-            setFilterOptn(filterOptn);
+            // const filterHandler = new CampaignReportingFilter(defFilters);
+            // const filterOptn = filterHandler.getAvailableFilters();
+            // setFilterOptn(filterOptn);
             const res = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
             setCampData(res);
         }
