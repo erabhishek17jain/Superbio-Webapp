@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                                     router.push('/');
                                                     dispatch(setLoading(true));
                                                 }}
-                                                className='flex text-[#BDBDBD] md:text-md lg:text-lg cursor-pointer items-center space-x-3 mt-[2px]'>
+                                                className='hidden sm:flex text-[#BDBDBD] md:text-md lg:text-lg cursor-pointer items-center space-x-3 mt-[2px]'>
                                                 <span>Home</span>
                                                 <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                     <path
@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                                                 fetchMore();
                                                             }
                                                         }}
-                                                        className={`flex ${active ? 'text-[#BDBDBD]' : 'text-black'} items-center cursor-pointer space-x-3 ml-3 mt-1`}>
+                                                        className={`hidden sm:flex ${active ? 'text-[#BDBDBD]' : 'text-black'} items-center cursor-pointer space-x-3 ml-3 mt-1`}>
                                                         <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
                                                         {active && (
                                                             <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>

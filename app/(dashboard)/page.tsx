@@ -77,7 +77,7 @@ export default function Home() {
                 </div>
                 {campaignType !== '' && (
                     <div className='flex w-full justify-between'>
-                        <span className='lg:ml-0 xl:ml-0'>
+                        <span className='hidden sm:flex lg:ml-0 xl:ml-0'>
                             <ADropdown
                                 width={'w-[-webkit-fill-available]'}
                                 position='down'
@@ -206,9 +206,9 @@ export default function Home() {
                 )}
             </div>
             {campaignType === '' && (
-                <div className='flex gap-4 h-screen justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2'>
+                <div className='flex flex-col sm:flex-row gap-4 h-screen justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2'>
                     <div
-                        className={`flex w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'campaign' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex w-full sm:w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'campaign' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
                         onClick={() => setSelectType('campaign')}>
                         <Image src={productShowcase} width={288} height={512} alt='Campaign' className='w-full p-4 pr-0' />
                         <div className={`flex flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
@@ -233,7 +233,7 @@ export default function Home() {
                         )}
                     </div>
                     <div
-                        className={`flex w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'influncer' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex w-full sm:w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'influncer' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
                         onClick={() => setSelectType('influncer')}>
                         <Image src={productShowcase} width={288} height={512} alt='influncer' className='w-full p-4 pr-0' />
                         <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
@@ -260,7 +260,7 @@ export default function Home() {
                 </div>
             )}
             {campaignType !== '' && (
-                <div className='flex px-8 py-4 w-full h-full flex-col overflow-y-auto'>
+                <div className='flex px-4 sm:px-8 py-4 w-full h-full flex-col overflow-y-auto'>
                     {searchText !== '' && isSearch && <div className='flex py-3 uppercase text-[#7D7D7D] text-sm'>Showing results for {searchText}</div>}
                     {loading ? (
                         <div className='flex items-center justify-center w-full h-[500px] my-6 mx-auto'>
