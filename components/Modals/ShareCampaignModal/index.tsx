@@ -37,7 +37,6 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
             setUsers(members);
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
 
     React.useLayoutEffect(() => {
@@ -57,7 +56,6 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
                 logout();
             });
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -79,22 +77,15 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
                             </svg>
                         </button>
                     </div>
-                    <div className='flex gap-3 items-center py-3 mt-2'>
-                        <svg
-                            fill='#707070'
-                            version='1.1'
-                            id='Capa_1'
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='24px'
-                            height='24px'
-                            viewBox='0 0 416.979 416.979'>
-                            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
-                            <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g>
-                            <g id='SVGRepo_iconCarrier'>
-                                <g>
-                                    <path d='M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z'></path>{' '}
-                                </g>
-                            </g>
+                    <div className='flex gap-[6px] items-center py-3 text-sm mt-2'>
+                        <svg width='16px' height='16px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                            <path
+                                d='M12 16.0001V12.0001M12 8.00008H12.01M3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37369 17.2077 3.52345 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7985 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L20.177 17.4573C20.4766 17.2909 20.6263 17.2077 20.7354 17.0893C20.8318 16.9847 20.9049 16.8606 20.9495 16.7254C21 16.5726 21 16.4013 21 16.0586V7.94153C21 7.59889 21 7.42756 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7985 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37369 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42756 3 7.59889 3 7.94153Z'
+                                stroke='#000'
+                                stroke-width='2'
+                                stroke-linecap='round'
+                                stroke-linejoin='round'
+                            />
                         </svg>
                         <span className='text-xs'>You can share this campaign with your team. They would be able to view/edit this campaign.</span>
                     </div>

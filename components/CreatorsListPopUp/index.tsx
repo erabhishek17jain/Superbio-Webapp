@@ -37,7 +37,6 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
             setUsers(members);
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
 
     React.useLayoutEffect(() => {
@@ -57,7 +56,6 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
             });
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

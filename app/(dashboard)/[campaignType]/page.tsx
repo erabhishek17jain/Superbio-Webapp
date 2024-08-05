@@ -43,7 +43,6 @@ export default function AllCampaignPage() {
             setMeta(respsonse.meta);
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [respsonse]);
 
     useEffect(() => {
@@ -64,7 +63,6 @@ export default function AllCampaignPage() {
         }
 
         return () => observer.disconnect();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [campaigns, meta]);
 
     return (

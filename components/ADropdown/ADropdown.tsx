@@ -29,7 +29,6 @@ const ADropdown = ({ item, header, options, activeItem, position = 'down', selec
     useEffect(() => {
         if (activeItem?._id !== item?._id && dropdownOpen) selectCase(item);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dropdownOpen]);
 
     return (

@@ -97,7 +97,6 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
             dispatch(setNewCampaign(campaignDetails));
             setCampaignDetail(campaignDetails);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

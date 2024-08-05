@@ -47,7 +47,6 @@ export default function CreateUserPopUp({ mode, closeModal, userDetails }: Props
             }
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const submitUser = async () => {

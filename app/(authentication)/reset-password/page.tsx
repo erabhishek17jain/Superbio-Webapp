@@ -18,8 +18,6 @@ export default function ResetPassword() {
     if (!query.get("token")) {
       router.push("/login");
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   const handleResetPassword = () => {

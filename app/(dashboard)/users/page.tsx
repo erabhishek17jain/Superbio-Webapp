@@ -34,8 +34,6 @@ export default function Users() {
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
                 dispatch(setMembers([user]));
             });
-
-            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meta.page]);
 
     return (

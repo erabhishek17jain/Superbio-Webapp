@@ -29,7 +29,6 @@ const AFilters = ({ item, header, options, activeItem, selectCase = () => {} }: 
     useEffect(() => {
         if (activeItem?._id !== item?._id && dropdownOpen) selectCase(item);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dropdownOpen]);
 
     return (

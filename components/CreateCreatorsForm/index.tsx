@@ -70,7 +70,6 @@ export default function CreateCreatorsForm() {
         fields.push({ id: `field${fields.length + 1}`, fieldType: 'http', fieldValue: '', fieldValueError: '' });
         setFields([...fields]);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div id='campaign-pop-up' className='fixed hidden w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>

@@ -14,7 +14,6 @@ export default function PublicForm(props: { data: IPublicForm; campaignId: strin
             setInputs((prev) => ({ ...prev, [field.label.replaceAll(' ', '_')]: '' }));
         });
     
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
