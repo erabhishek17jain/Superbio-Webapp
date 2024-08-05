@@ -30,30 +30,43 @@ export const Navbar = () => {
         }
     };
     return (
-        <nav className='flex w-full items-center bg-transparent px-6 py-8 text-black sm:px-12 md:px-8 lg:px-16 xl:px-24' role='navigation' id='navbar'>
-            <Link href='/home' className='mr-auto w-20'>
-                <Image src={logo} alt='logo' className='w-20' />
-            </Link>
-            <div className='hidden items-center justify-center lg:flex lg:gap-x-8 xl:gap-x-16'>
-                {NavbarItemList.map((item, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleClick(item.id)}
-                        className='flex items-center gap-x-2 whitespace-nowrap text-sm font-semibold text-black hover:text-gray-500'>
+        <nav
+            className='flex w-full items-center justify-between bg-transparent px-6 py-8 text-black sm:px-12 md:px-8 lg:px-24 xl:px-24'
+            role='navigation'
+            id='navbar'>
+            <div className='flex gap-x-8 w-24'>
+                <Link href='/home' className='mr-auto w-20'>
+                    <Image src={logo} alt='logo' className='w-20' />
+                </Link>
+            </div>
+            <div className='hidden items-center justify-between lg:flex lg:gap-x-8 w-[calc(100%_-_96px)]'>
+                <div className='flex gap-x-8'>
+                    {NavbarItemList.map((item, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleClick(item.id)}
+                            className='flex items-center gap-x-2 whitespace-nowrap text-sm font-semibold text-black hover:text-gray-500'>
+                            <ArrowRightIcon size={16} />
+                            {item.name}
+                        </button>
+                    ))}
+                </div>
+                <div className='flex gap-x-8'>
+                    <Link href='/login' className='flex capitalize items-center text-sm font-semibold text-black hover:text-gray-500 p-2 px-4'>
+                        Log In <BsArrowRight className='ml-2' size={20} />
+                    </Link>
+                    <Link
+                        href='mailto:loqoai@gmail.com'
+                        className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-white lg:text-black lg:hover:bg-black lg:hover:text-white'>
+                        Book a demo
+                    </Link>
+                    <Link
+                        href='/register'
+                        className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'>
+                        TRY IT FREE
                         <ArrowRightIcon size={16} />
-                        {item.name}
-                    </button>
-                ))}
-                <Link
-                    href='/login'
-                    className='flex capitalize items-center text-sm font-semibold text-black hover:text-gray-500 p-2 px-5 border border-black rounded-lg'>
-                    Login <BsArrowRight className='ml-2' size={20} />
-                </Link>
-                <Link
-                    className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'
-                    href='mailto:loqoai@gmail.com'>
-                    Schedule Appointment!
-                </Link>
+                    </Link>
+                </div>
             </div>
             <div className='mb-auto flex lg:hidden'>
                 <MobileView />
@@ -95,7 +108,7 @@ const MobileView = () => {
                 <MenuIcon size={24} className={cn('absolute right-6 opacity-100 transition-opacity duration-300 sm:right-8', isMenuOpen && 'opacity-0')} />
                 <XIcon size={24} className={cn('absolute right-6 opacity-0 transition-opacity duration-300 sm:right-8', isMenuOpen && 'opacity-100')} />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='main-card-v2 absolute right-2 top-10 block overflow-hidden rounded-sm p-0 backdrop-blur lg:hidden'>
+            <DropdownMenuContent className='w-40 main-card-v2 absolute right-2 top-10 block overflow-hidden rounded-sm p-0 backdrop-blur lg:hidden'>
                 {NavbarItemList.map((item) => (
                     <DropdownMenuItem
                         key={item.id}
@@ -110,14 +123,20 @@ const MobileView = () => {
                 <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/login')}>
                     <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                         <ArrowRightIcon size={16} />
-                        Login
+                        Log In
+                    </button>
+                </DropdownMenuItem>
+                <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/login')}>
+                    <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
+                        <ArrowRightIcon size={16} />
+                        TRY IT FREE
                     </button>
                 </DropdownMenuItem>
                 <DropdownMenuItem id='calendly-root' className='m-0 bg-white p-0 text-[#121212] transition-all duration-100 hover:invert'>
                     <Link
-                        className='flex w-fit items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'
+                        className='flex w-40 items-center gap-x-2 border px-6 py-3 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-black lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'
                         href='mailto:loqoai@gmail.com'>
-                        Schedule Appointment!
+                        BOOK A DEMO
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>

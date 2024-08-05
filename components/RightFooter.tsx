@@ -23,10 +23,10 @@ export const RightFooter = () => {
   };
 
   return (
-    <div className="flex flex-wrap items-start justify-between gap-10 md:flex-nowrap lg:w-1/2 xl:px-4">
+    <div className="flex items-start justify-between gap-10 lg:w-1/2 xl:px-4">
       {SocialLinks.map((list) => (
         <div key={list.title} className="flex flex-col gap-y-5">
-          <h3 className="text-sm font-semibold">{list.title}</h3>
+          <h3 className="text-sm font-semibold mb-4">{list.title}</h3>
           <div className="flex flex-col gap-y-5">
             {list.links.map((link, index) => (
               <div className="text-xs" key={index}>
@@ -42,7 +42,7 @@ export const RightFooter = () => {
         </div>
       ))}
       <div className="flex flex-col gap-y-5">
-        <h3 className="text-sm font-semibold">Contact Information</h3>
+        <h3 className="text-sm font-semibold mb-4">Contact Information</h3>
         <div className="flex flex-col gap-y-5">
           {ContactInfo.map((line, index) => (
             <div className="text-xs" key={index}>

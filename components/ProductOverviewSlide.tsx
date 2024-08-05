@@ -24,7 +24,7 @@ export const ProductOverviewSlide = () => {
       id="our-products" className="pt-10 pb-5 w-full px-6 sm:px-12 md:px-16 lg:px-24"><div className="flex flex-col gap-y-2 xl:w-1/2">
         <h2 className="text-xl font-semibold">Our Products</h2>
         <p className="text-pretty text-base font-medium text-gray-500">
-          Unlock success with Superbio: where efficient data organization meets advanced AI
+          Unlock 111success with Superbio: where efficient data organization meets advanced AI
           assistance, empowering creators to thrive.
         </p>
       </div>

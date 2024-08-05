@@ -18,26 +18,16 @@ import { StaticImageData } from "next/image";
 /**NAVBAR */
 
 export const NavbarItemList = [
-  {
-    name: "Why LOQO ai",
-    link: "#",
-    id: "why-LOQO ai",
-  },
-  {
-    name: "Our Products",
-    link: "#",
-    id: "our-products",
-  },
-  {
-    name: "Customer Feedback",
-    link: "#",
-    id: "customer-feedback",
-  },
-  {
-    name: "Blogs",
-    link: "/blogs",
-    id: "blogs",
-  },
+    {
+        name: 'Our Products',
+        link: '#',
+        id: 'our-products',
+    },
+    {
+        name: 'Why LOQO ai',
+        link: '#',
+        id: 'why-LOQO ai',
+    }
 ];
 export const HeroSectionFeatures = [
   {
@@ -61,16 +51,6 @@ export const HeroSectionFeatures = [
 /** */
 export const SocialLinks = [
   {
-    title: "Company",
-    links: [
-      { title: "Home", id: "navbar", href: "#", isValid: true },
-      { title: "About us", id: "our-products", href: "#our-products", isValid: true },
-      { title: "Services", id: "why-LOQO ai", href: "#why-LOQO ai", isValid: true },
-      { title: "Resources", id: "", href: "#", isValid: false },
-      { title: "Reviews", id: "customer-feedback", href: "#customer-feedback", isValid: true },
-    ],
-  },
-  {
     title: "Our Services",
     links: [
       { title: "Agency automation", id: "", href: "#", isValid: false },
@@ -81,11 +61,7 @@ export const SocialLinks = [
   },
 ];
 
-export const ContactInfo = [
-  "Nimbus The Golden Palm Sector 168",
-  "Noida, Uttar Pradesh 201301",
-  "(+91) 77959-83243",
-];
+export const ContactInfo = ['Nimbus The Golden Palm Sector 168', 'Noida, Uttar Pradesh 201301', '(+91) 77959-83243', 'hello@logo.ai'];
 
 /**WHY LOQO ai */
 
@@ -95,36 +71,36 @@ export type WhySuperbioListProps = {
   text: string;
 };
 export const WhySuperbioList: WhySuperbioListProps[] = [
-  {
-    title: "Campaign Performance Reporting",
-    icon: icon_1,
-    text: "Track and analyze campaign performance. Gain insights to optimize strategies.",
-  },
-  {
-    title: "Creator Communication in Bulk",
-    icon: icon_2,
-    text: "Streamline communication with creators. Save time and effort.",
-  },
-  {
-    title: "Creator Profile Selection",
-    icon: icon_3,
-    text: "Find and select creators easily. Make informed decisions.",
-  },
-  {
-    title: "Campaign History Management",
-    icon: icon_4,
-    text: "Manage campaign history effortlessly. Keep track of past campaigns.",
-  },
-  {
-    title: "Automatic Invoicing and Payments",
-    icon: icon_5,
-    text: "Simplify billing with automatic payments. Ensure timely payments.",
-  },
-  {
-    title: "AI medias Plan Generation",
-    icon: icon_6,
-    text: "Generate optimized medias plans with AI. Enhance campaign effectiveness.",
-  },
+    {
+        title: 'Campaign Reporting',
+        icon: icon_1,
+        text: 'Get detailed post metrics & dashboard for you and your brands',
+    },
+    {
+        title: 'Influencer Profile Analysis',
+        icon: icon_2,
+        text: 'Get precise profile analytics of hundreds of influencers',
+    },
+    {
+        title: 'Custom Tech Solutions',
+        icon: icon_3,
+        text: 'Custom AI powered solutions tailored for your agency processes',
+    },
+    // {
+    //     title: 'Campaign History Management',
+    //     icon: icon_4,
+    //     text: 'Manage campaign history effortlessly. Keep track of past campaigns.',
+    // },
+    // {
+    //     title: 'Automatic Invoicing and Payments',
+    //     icon: icon_5,
+    //     text: 'Simplify billing with automatic payments. Ensure timely payments.',
+    // },
+    // {
+    //     title: 'AI medias Plan Generation',
+    //     icon: icon_6,
+    //     text: 'Generate optimized medias plans with AI. Enhance campaign effectiveness.',
+    // },
 ];
 
 /**FEATURE_CARD */

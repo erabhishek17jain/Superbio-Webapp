@@ -49,7 +49,7 @@ export const AllBlogs = () => {
   };
   return (
     <>
-      <div className="w-full overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24">
+      <div className="w-full overflow-hidden px-6 sm:px-12 md:px-16 lg:px-16">
         <BlogHeroSection />
         <div className="mt-20 grid w-full gap-x-4 sm:grid-cols-2 md:gap-x-10 xl:grid-cols-3">
           {BlogList.slice(currentPage * ITEM_PER_PAGE, (currentPage + 1) * ITEM_PER_PAGE).map(
