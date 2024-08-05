@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useReactToPrint } from 'react-to-print';
 import PDFHandler, { ISummary } from './PDFHandler';
+import { useAppSelector } from '@/context';
 
 dayjs.extend(relativeTime);
 
@@ -28,6 +29,7 @@ interface DownloadHandlerProps {
 
 export default function DownloadHandler(props: DownloadHandlerProps) {
     const { meta, isPublic, columns, params, query, campaignName, summary } = props;
+    const { user } = useAppSelector((state) => state.user);
     const [valuesLoading] = useState(false);
     const [diffInMin, setDiffInMin] = useState(0);
     const [reportText, setReportText] = useState('Generate Report');
@@ -297,12 +299,78 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         }
     }, [reportText]);
 
+    useEffect(() => {
+        if (pdfColumns?.length > 0) {
+            handlePrint();
+            setPdfColumns([]);
+        }
+    }, []);
+
     return (
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[60px]'>
             {showConfirmModal && <ConfirmLastRefresh openCloseModal={openCloseConfirmModal} />}
             <div className='flex text-lg font-bold text-center md:text-left'>
-                <span className=' text-lg font-bold text-center md:text-left'>
-                    LIVE Reporting for Campaign - {campaignName.toString().replaceAll('_', ' ')}
+                <span className='flex text-lg font-bold text-center md:text-left'>
+                    {meta?.total && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.total > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Total</span>
+                                    <span className='text-[#959595]'>{meta?.total} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {meta?.reelsPosts && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.reelsPosts > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Reels</span>
+                                    <span className='text-[#959595]'>{meta?.reelsPosts} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {meta?.storiesPosts && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.storiesPosts > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Stories</span>
+                                    <span className='text-[#959595]'>{meta?.storiesPosts} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {meta?.privatePosts && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.privatePosts > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Private</span>
+                                    <span className='text-[#959595]'>{meta?.privatePosts} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {meta?.isLinkDeletedPosts && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.isLinkDeletedPosts > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Deleted</span>
+                                    <span className='text-[#959595]'>{meta?.isLinkDeletedPosts} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {meta?.otherPosts && (
+                        <div className='flex flex-col text-sm w-20'>
+                            {meta && meta?.otherPosts > 0 && (
+                                <>
+                                    <span className='text-black font-semibold'>Others</span>
+                                    <span className='text-[#959595]'>{meta?.otherPosts} posts</span>
+                                </>
+                            )}
+                        </div>
+                    )}
                 </span>
             </div>
             {!valuesLoading && isSheetExist === 'yes' && meta && meta?.total > 0 && (
@@ -361,7 +429,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                         {reportText === 'Generated' && (
                             <div className='flex items-center gap-3 text-[#959595] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm mr-3'>
                                 <span>Last Refresh {lastUpdate}</span>
-                                {!isPublic && (
+                                {!isPublic && user.role !== 'brand' && (
                                     <div
                                         onClick={() => refreshStats()}
                                         className='flex items-center justify-center p-2 bg-[#e6e6e6] rounded-xl h-11 w-11 cursor-pointer'>
@@ -451,7 +519,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params?.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName.toString()}`)}>
+                        onClick={() => router.push(`/${params?.campaignType}/create-reporting/${params.campaignId}`)}>
                         Add Links
                         <svg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>

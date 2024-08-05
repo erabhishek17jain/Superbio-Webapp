@@ -57,7 +57,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+            router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
         }
     };
 
@@ -106,13 +106,13 @@ export default function CreateReporting() {
             });
             Promise.all(promises)
                 .then((res) => {
-                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
                     dispatch(setSheet(res));
                     enqueueSnackbar('Sheet added successfully', { variant: 'success' });
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}?campaignName=${searchParams.get('campaignName')!.toString()}`);
+                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
                 });
         }
     };
@@ -275,7 +275,7 @@ export default function CreateReporting() {
                                                     document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
                                                     document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
                                                 }}>
-                                                {item?.title ? item?.title : 'Paste Google sheets link'}
+                                                {item?.title ? item?.title : 'Paste your Google Sheets link here'}
                                             </span>{' '}
                                             <span className='flex items-center justify-end w-[154px] gap-2'>
                                                 <svg

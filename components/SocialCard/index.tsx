@@ -136,39 +136,40 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
     const posted = new Date(parseInt(postedAt));
     return (
         <div className='w-full mt-4'>
-            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col '>
-                <div className='flex items-center justify-between mb-3'>
-                    <div className='flex items-center gap-2 px-1 text-[#959595]'>
-                        <div className='flex justify-center items-center w-9 h-9 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
-                        {postedAt && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span>}
-                    </div>
-                    <div className='flex gap-3'>
-                        <a target='_blank' href={link} className='flex justify-center items-center cursor-pointer w-9 h-9 bg-gray-300 rounded-lg truncate'>
-                            <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                <g id='SVGRepo_iconCarrier'>
-                                    <path
-                                        d='M21 9.00001L21 3.00001M21 3.00001H15M21 3.00001L12 12M10 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V14'
-                                        stroke='#374151'
-                                        strokeWidth='2'
-                                        strokeLinecap='round'
-                                        strokeLinejoin='round'></path>
-                                </g>
-                            </svg>
-                        </a>
+            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner'>
+                <div className='flex items-center justify-between mb-3 w-full'>
+                    <div className='flex items-center justify-between gap-2 px-1 text-[#959595] w-full'>
+                        <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
+                        {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Post Summary</span>}
+                        <div className='flex gap-3'>
+                            <a target='_blank' href={link} className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
+                                <svg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                    <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+                                    <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+                                    <g id='SVGRepo_iconCarrier'>
+                                        <path
+                                            d='M21 9.00001L21 3.00001M21 3.00001H15M21 3.00001L12 12M10 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V14'
+                                            stroke='#374151'
+                                            strokeWidth='2'
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div className='flex gap-3 mb-3'>
-                    <div className='flex flex-wrap gap-3'>
+                <div className='flex w-full mb-3'>
+                    <div className='grid grid-cols-3 rounded-2xl w-full'>
                         {Object.keys(item.analytics)
                             ?.filter((item) => !item.toLowerCase().includes('plays') && !item.toLowerCase().includes('islinkdeleted'))
-                            .map((data: any) => (
-                                <div key={uuidv4()} className='flex flex-col'>
-                                    <span className='bg-[#F5F8FF] captilize text-[#0151A0] text-sm px-3 py-1 rounded-2xl'>
-                                        {data}: {calculateSummary(item.analytics[data])}
-                                    </span>
+                            .map((data: any, index) => (
+                                <div
+                                    key={uuidv4()}
+                                    className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[3, 4, 5].includes(index) ? 'border-t' : ''} ${[1, 2, 4, 5].includes(index) ? 'border-l' : ''}`}>
+                                    <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
+                                    <span className='capitalize text-[#959595] text-sm drop-shadow-lg'>{data}</span>
                                 </div>
                             ))}
                     </div>
@@ -182,10 +183,10 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                             <input multiple type='file' id={username + 'upload'} accept='image/*' onChange={onImageChange} className={'hidden'} />
                             <label
                                 htmlFor={username + 'upload'}
-                                className='flex items-center w-[172px] border py-2 px-4 rounded-lg space-x-2 disabled:opacity-40'>
+                                className='flex items-center w-[180px] border py-2 px-4 rounded-lg space-x-2 disabled:opacity-40'>
                                 <svg
-                                    width='20'
-                                    height='20'
+                                    width='16'
+                                    height='16'
                                     viewBox='0 0 24 24'
                                     fill='#959595'
                                     xmlns='http://www.w3.org/2000/svg'
@@ -272,7 +273,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                         {type === 'instagram' && (
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <InstagramEmbed url={link} width={'100%'} />
-                                {/* <iframe src='https://instagram.com/abhijsagar/embed/' width='300' height='400'></iframe> */}
+                                {/* <iframe src='https://www.instagram.com/abhijsagar/embed/' width='300' height='400'></iframe> */}
                             </div>
                         )}
                         {type === 'twitter' && (

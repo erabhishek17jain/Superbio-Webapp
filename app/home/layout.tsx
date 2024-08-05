@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LOQO ai",
-  description: "LOQO ai is a bioinformatics platform for the analysis of biological data.",
+    title: 'LOQO Business',
+    description: 'Track & Share influencer campaigns with unmatched precision and ease.',
 };
 
 export default function RootLayout({

@@ -1,5 +1,8 @@
 'use client';
+import DynamicLogo from '@/components/DynamicLogo';
+import { logout } from '@/lib/utils';
 import SheetNetworkService from '@/services/sheet.service';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react';
@@ -15,6 +18,7 @@ export default function Queue() {
                 setQueues(res);
             })
             .catch((err) => {
+                logout();
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
             });
     }, []);
@@ -27,6 +31,7 @@ export default function Queue() {
                     setQueues(res);
                 })
                 .catch((err) => {
+                    logout();
                     enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
                 });
         }, 10000);
@@ -35,7 +40,12 @@ export default function Queue() {
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
-            <div className='flex w-full items-center justify-between pl-8 pr-4 py-3 border-b h-[80px]'>
+            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[74px] shadow-[rgba(0,0,15,0.5)_2px_2px_4px_0px] shadow-[#CDCDCD]'>
+                <div className='flex flex-col w-10 items-center'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
+                        <DynamicLogo />
+                    </Link>
+                </div>
                 <span className='text-2xl font-semibold ml-6 lg:ml-0 xl:ml-0'>Live Reports</span>
             </div>
             <div className='flex w-full items-center sm:p-8 px-8 py-6'>
@@ -64,14 +74,7 @@ export default function Queue() {
                                         <th
                                             scope='row'
                                             className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
-                                            onClick={() =>
-                                                router.push(
-                                                    `/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}?campaignName=${queue?.campaign?.title.replaceAll(
-                                                        ' ',
-                                                        '_'
-                                                    )}`
-                                                )
-                                            }>
+                                            onClick={() => router.push(`/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}`)}>
                                             {queue?.campaign?.title}
                                         </th>
                                         <td className='px-6 py-4 capitalize'>{queue?.sheets[0]?.name}</td>

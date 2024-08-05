@@ -1,7 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/context";
 import { setUser } from "@/context/user";
-import {register as userRegister} from "@/context/user/network"
 import UserNetworkService from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
@@ -48,7 +47,11 @@ export default function Register() {
       UserNetworkService.instance.register(payload).then((res) => {
         router.push("/verify-user")
       }).catch((err) => {
-        enqueueSnackbar(err.response.data, { variant: "error" });
+        const error =
+            err.response.data === 'User already exists'
+                ? 'This email is already registered on LOQO Business. Please log in or sign up with a different email.'
+                : err.response.data;
+        enqueueSnackbar(error, { variant: 'error' });
       })
     } catch (error) {
       console.error("Registration error:", error);

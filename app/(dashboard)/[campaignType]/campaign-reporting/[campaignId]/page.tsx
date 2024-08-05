@@ -9,10 +9,10 @@ import CampaignReportingFilter from './filter';
 import FilterUi from './FilterUi';
 import FilterPlatform from './FilterPlatform';
 import { IColumnResponse } from '@/services/public.service';
-import { useAppDispatch } from '@/context';
+import { useAppDispatch, useAppSelector } from '@/context';
 import { setFitlersState } from '@/context/campaign';
 import { useSearchParams } from 'next/navigation';
-
+import profiles from '../../../../../lib/profileResponse.json';
 interface ISummary {
     totCount: number;
     count: number;
@@ -25,6 +25,7 @@ interface ISummary {
 export default async function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const sParams = useSearchParams();
     const dispatch = useAppDispatch();
+    const { campaignType } = useAppSelector((state) => state.user);
     const [campData, setCampData] = React.useState<IColumnResponse>({ data: [], meta: {} as any });
     const [summary, setSummary] = React.useState<any>(null);
     const [defFilters, setDefFilters] = React.useState<any>(null);
@@ -65,15 +66,35 @@ export default async function CampaignReporting({ searchParams, params }: { sear
     };
 
     const calculateAnalytics = (campData: any) => {
+        const isTwitter = filterOptn?.platform.includes('twitter');
         if (campData?.meta.analytics) {
-            let keys: string[] = ['views', 'likes', 'comments'];
+            let keys: string[] =
+                campaignType === 'influncer'
+                    ? ['Estimated Reach', 'followers', 'medias', 'views', 'engagements', 'frequency', 'following']
+                    : ['Estimated Reach', 'views', 'likes', 'comments'];
             if (searchParams.isPublic) {
                 keys = ['Posts', 'Estimated Reach'];
             } else {
-                if (filterOptn?.platform.includes('twitter')) {
-                    keys = ['views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
+                if (isTwitter) {
+                    keys =
+                        campaignType === 'influncer'
+                            ? ['Estimated Reach', 'followers', 'medias', 'views', 'engagements', 'frequency', 'following']
+                            : ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
                 }
             }
+            const estimateCount = campaignType === 'influncer' ? Number(campData?.meta.analytics.followers) : Number(campData?.meta.analytics.likes);
+            const extimateReach = {
+                totCount: estimateCount,
+                count: calculateSummary(Number(campData?.meta.analytics.views) + estimateCount * 10),
+                icon: icons['Estimated Reach'],
+                color: colors['Estimated Reach'],
+                title: 'Estimated Reach',
+                basedOn: (
+                    <>
+                        <span>{campData?.meta.basedOnPosts.likes}</span>/<span className='text-sm'>{campData?.meta.total}</span>
+                    </>
+                ),
+            };
             let result: (ISummary | null)[] = [];
             if (searchParams.isPublic) {
                 result.push({
@@ -85,18 +106,6 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     basedOn: (
                         <>
                             <span>{campData?.meta.total}</span>/<span className='text-sm'>{campData?.meta.total}</span>
-                        </>
-                    ),
-                });
-                result.push({
-                    totCount: Number(campData?.meta.analytics.likes),
-                    count: calculateSummary(Number(campData?.meta.analytics.views) + Number(campData?.meta.analytics.likes) * 10),
-                    icon: icons['Estimated Reach'],
-                    color: colors['Estimated Reach'],
-                    title: 'Estimated Reach',
-                    basedOn: (
-                        <>
-                            <span>{campData?.meta.basedOnPosts.likes}</span>/<span className='text-sm'>{campData?.meta.total}</span>
                         </>
                     ),
                 });
@@ -115,7 +124,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                 });
             }
 
-            return result.filter((item) => item !== null) as ISummary[];
+            return [extimateReach, ...(result.filter((item) => item !== null) as ISummary[])];
         }
     };
 
@@ -216,27 +225,35 @@ export default async function CampaignReporting({ searchParams, params }: { sear
     }, [campData]);
 
     let loaded = false;
-    const initialLoad = async () => {
+    const initialLoadFilters = async () => {
         if (!loaded) {
             const defaultFilters = await SheetNetworkService.instance.getSheetFilters(params.campaignId);
             setDefFilters(defaultFilters);
-            // const filterHandler = new CampaignReportingFilter(defFilters);
-            // const filterOptn = filterHandler.getAvailableFilters();
-            // setFilterOptn(filterOptn);
-            const res = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
-            setCampData(res);
+        }
+    };
+
+    const initialLoadCampData = async () => {
+        if (!loaded) {
+            const resp = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
+            const metaResp = await SheetNetworkService.instance.getCampaignMeta(params.campaignId, query);
+            const data: any = campaignType === 'influncer' ? profiles : resp;
+            const meta = { ...data.meta, ...metaResp };
+            setCampData({ data: data.data, meta: meta });
+            loaded = true;
         }
     };
 
     useEffect(() => {
-        initialLoad();
-        loaded = true;
+        initialLoadCampData();
+    }, [filterOptn]);
+
+    useEffect(() => {
+        initialLoadFilters();
     }, []);
 
     return (
         <div className='flex'>
-            <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={filterOptn} />
-            <div className={`flex flex-col sm:px-6 md:px-6 mx-3 md:mx-0 sm:mx-0 w-full`} id='camp-top'>
+            <div className={`flex flex-col sm:px-6 md:px-6 mt-3 mx-3 md:mx-0 sm:mx-0 w-full`} id='camp-top'>
                 {campData?.data.length === 0 && campData?.meta?.total === 0 && (
                     <div className='flex flex-col gap-5 items-center justify-center w-96 h-[500px] m-auto'>
                         <div className='flex items-center justify-center rounded-lg bg-[#F5F8FF] w-20 h-20'>
@@ -254,7 +271,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                             one click!
                         </div>
                         <Link
-                            href={`/${params?.campaignType}/create-reporting/${params.campaignId}?campaignName=${campaignName}`}
+                            href={`/${params?.campaignType}/create-reporting/${params.campaignId}`}
                             className='bg-black flex items-center py-2 rounded-xl pl-4 pr-5 text-white text-sm gap-2'>
                             <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='stroke-2 stroke-black'>
                                 <path
@@ -289,6 +306,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     selectFilter={selectFilter}
                 />
             </div>
+            <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={filterOptn} />
         </div>
     );
 }

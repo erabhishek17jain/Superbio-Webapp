@@ -44,8 +44,8 @@ export default function FilterUi(props: FilterUiProps) {
     };
 
     return (
-        <div id='filterPanel' className='w-1/5 hidden'>
-            <div className='flex w-full min-w-[225px] flex-col border-r border-[#E6E6E6] py-4 px-3'>
+        <div id='filterPanel' className='w-[240px] fixed top-[74px] right-0 bg-white border-l border-[#E6E6E6] hidden h-screen'>
+            <div className='flex w-full min-w-[225px] flex-col py-4 px-3'>
                 <p className='flex justify-between text-lg font-bold'>
                     <span className='flex gap-2 items-center mb-2'>
                         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#000'>
@@ -88,7 +88,7 @@ export default function FilterUi(props: FilterUiProps) {
                     <>
                         {FILTERS.map((item, index) => {
                             let key = item;
-                            let value = filtersOptions[key.key];
+                            let value = key.key === 'postedAt' ? filtersOptions[key.key].sort().reverse() : filtersOptions[key.key].sort();
                             let radioEligible = ['platform', 'postType'].includes(key.key);
                             return (
                                 value &&
@@ -129,7 +129,7 @@ export default function FilterUi(props: FilterUiProps) {
                                                                 onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item)}
                                                             />
                                                             <label className='capitalize' htmlFor={item}>
-                                                                {item}
+                                                                {item.includes('1970-01-01') ? 'Others' : item}
                                                             </label>
                                                         </li>
                                                     ) : (
@@ -145,7 +145,7 @@ export default function FilterUi(props: FilterUiProps) {
                                                                     onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item._id.$oid)}
                                                                 />
                                                                 <label className='capitalize' htmlFor={item.name}>
-                                                                    {item.name}
+                                                                    {item.name.includes('1970-01-01') ? 'Others' : item.name}
                                                                 </label>
                                                             </li>
                                                         )

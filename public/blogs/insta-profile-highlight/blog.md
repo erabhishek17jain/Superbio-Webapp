@@ -36,9 +36,9 @@ Give your audience a sneak peek into your life behind the camera. Create highlig
 
 ## Desi Swag (Share Your Achievements)
 
-Celebrate your milestones and achievements through your highlights. Whether it's collaborations, brand partnerships, media features, or recognition, create highlights that showcase your success and inspire others. Let your audience share in your joy and feel proud of your accomplishments.
+Celebrate your milestones and achievements through your highlights. Whether it's collaborations, brand partnerships, medias features, or recognition, create highlights that showcase your success and inspire others. Let your audience share in your joy and feel proud of your accomplishments.
 
-**Example:** Press & Media, Brand Collaborations, Achievements
+**Example:** Press & medias, Brand Collaborations, Achievements
 
 **Hot Tip:** Don't shy away from sharing your wins. It not only boosts your credibility but also motivates your audience to dream big.
 

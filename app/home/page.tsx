@@ -11,7 +11,7 @@ import bgImage from "@/public/background.svg";
 
 export default function Home() {
   return (
-    <main
+    <main 
       style={{
         backgroundImage: `url(${bgImage.src})`,
       }}

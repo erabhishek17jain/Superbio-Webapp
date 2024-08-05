@@ -1,6 +1,6 @@
 # Dum Hai to Dikhao: Unlocking the Power of Consistency on Instagram!
 
-Hey Insta-fam! Ready to unleash the secret sauce for Instagram success? It's time to talk about an underrated superpower that can take your game to the next level – consistency! In the fast-paced world of social media, consistency is the key that unlocks doors to growth, engagement, and building a loyal following. So, let's dive in and discover why underestimating consistency is a big no-no for Indian Instagram influencers like you!
+Hey Insta-fam! Ready to unleash the secret sauce for Instagram success? It's time to talk about an underrated superpower that can take your game to the next level – consistency! In the fast-paced world of social medias, consistency is the key that unlocks doors to growth, engagement, and building a loyal following. So, let's dive in and discover why underestimating consistency is a big no-no for Indian Instagram influencers like you!
 
 ## Steady Samosa (The Magic of Regularity)
 

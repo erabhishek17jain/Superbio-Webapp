@@ -5,19 +5,23 @@ import { v4 as uuidv4 } from 'uuid';
 import UserNetworkService from '@/services/user.service';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setMembers } from '@/context/user';
+import { title } from 'process';
 
 const ROLES = [
     {
         name: 'Admin',
         value: 'admin',
+        title: 'Would be able to see/edit all campaign for an organisation',
     },
     {
         name: 'User',
         value: 'user',
+        title: 'Would be able to see only campaigns created by himself/herself and campaigns that are shared by other users.',
     },
     {
         name: 'Brand',
         value: 'brand',
+        title: 'Brand Role will be able to view only campaigns shared with brand by the user. The Brand can only view - no edit access.',
     },
 ];
 
@@ -79,10 +83,10 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
     };
 
     return (
-        <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black z-10 bg-opacity-40'>
+        <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
             <div className='flex w-full h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[40%]'>
-                    <span className='text-xl font-semibold'>Add a User</span>
+                    <span className='text-xl font-semibold'>Bring in your teammate</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
                         <div className='flex flex-col flex-1 '>
                             <div className='flex flex-col'>
@@ -139,7 +143,7 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
                                     onChange={setKeyAndValue}>
                                     <option value=''>Select Role</option>
                                     {ROLES.map((item) => (
-                                        <option key={uuidv4()} value={item.value}>
+                                        <option key={uuidv4()} value={item.value} title={item.title}>
                                             {item.name}
                                         </option>
                                     ))}
@@ -148,8 +152,28 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
                             </div>
                         </div>
                     </div>
-
-                    <div className='flex w-full mt-8 justify-end'>
+                    <div className='flex gap-3 items-center py-3 text-sm mt-2'>
+                        <svg
+                            fill='#707070'
+                            version='1.1'
+                            id='Capa_1'
+                            xmlns='http://www.w3.org/2000/svg'
+                            width='24px'
+                            height='24px'
+                            viewBox='0 0 416.979 416.979'>
+                            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
+                            <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g>
+                            <g id='SVGRepo_iconCarrier'>
+                                <g>
+                                    <path d='M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z'></path>{' '}
+                                </g>
+                            </g>
+                        </svg>
+                        <span className='text-xs'>
+                            Please ask the user to sign up with the same email and enter Organisation ID while creating their account.
+                        </span>
+                    </div>
+                    <div className='flex w-full mt-4 justify-end'>
                         <button
                             onClick={() => {
                                 closeModal();

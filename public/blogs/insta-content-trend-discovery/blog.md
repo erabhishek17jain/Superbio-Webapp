@@ -12,7 +12,7 @@ Instagram is all about celebrating our diverse Indian culture. Show your creativ
 
 Bollywood dialogues have a special place in every Indian's heart. Create engaging content using popular movie dialogues or give them a hilarious twist that resonates with your audience. Add your own flair and watch your followers join the dialogue party!
 
-**Hot Tip:** Keep an eye on the latest Bollywood releases or throwback classics for dialogues that are making waves on social media. Remix them with your own style and create magic!
+**Hot Tip:** Keep an eye on the latest Bollywood releases or throwback classics for dialogues that are making waves on social medias. Remix them with your own style and create magic!
 
 ## Duet with Influencers: #CollaborationGoals
 

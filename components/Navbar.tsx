@@ -2,14 +2,12 @@
 import { ArrowRightIcon, MenuIcon, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { NavbarItemList } from '@/constants';
 import { cn, scrollToElementById } from '@/lib/utils';
 import logo from '@/public/new-logo.svg';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import Calendly from './CalendlyDynamic';
 import { BsArrowRight } from 'react-icons/bs';
 
 export const Navbar = () => {
@@ -112,7 +110,7 @@ const MobileView = () => {
                 <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/login')}>
                     <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                         <ArrowRightIcon size={16} />
-                        Reporting Tool
+                        Login
                     </button>
                 </DropdownMenuItem>
                 <DropdownMenuItem id='calendly-root' className='m-0 bg-white p-0 text-[#121212] transition-all duration-100 hover:invert'>

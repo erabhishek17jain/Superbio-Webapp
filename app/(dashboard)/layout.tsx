@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 backgroundImage: `url(${bgImage.src})`,
             }}
             className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
-            <div className='flex'>
+            <div className='flex mt-[73px]'>
                 <SideBar />
             </div>
             <div className='flex flex-col w-full'>{children}</div>

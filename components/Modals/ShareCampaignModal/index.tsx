@@ -5,6 +5,7 @@ import CampaignNetworkService from '@/services/campaign.service';
 import { setMembers } from '@/context/user';
 import { useSnackbar } from 'notistack';
 import { v4 as uuidv4 } from 'uuid';
+import { logout } from '@/lib/utils';
 
 export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
     const dispatch = useAppDispatch();
@@ -53,6 +54,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
             })
             .catch((err) => {
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                logout();
             });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,6 +78,25 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
                                 <path d='M15 15L9 9' stroke='#333333' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
                             </svg>
                         </button>
+                    </div>
+                    <div className='flex gap-3 items-center py-3 mt-2'>
+                        <svg
+                            fill='#707070'
+                            version='1.1'
+                            id='Capa_1'
+                            xmlns='http://www.w3.org/2000/svg'
+                            width='24px'
+                            height='24px'
+                            viewBox='0 0 416.979 416.979'>
+                            <g id='SVGRepo_bgCarrier' stroke-width='0'></g>
+                            <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g>
+                            <g id='SVGRepo_iconCarrier'>
+                                <g>
+                                    <path d='M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85 c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786 c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576 c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765 c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z'></path>{' '}
+                                </g>
+                            </g>
+                        </svg>
+                        <span className='text-xs'>You can share this campaign with your team. They would be able to view/edit this campaign.</span>
                     </div>
                     <div className='flex justify-between my-3'>
                         <span className='text-base text-[#7D7D7D]'>Total teammates {users.length}</span>

@@ -35,8 +35,11 @@ export function middleware(req: NextRequest) {
         authRoutes.push(req.nextUrl.pathname);
     }
 
+    const hostname = req.nextUrl.hostname;
+
     if (!user && !authRoutes.includes(req.nextUrl.pathname)) {
-        return NextResponse.redirect(req.nextUrl.origin + '/home');
+        const page = hostname.includes('youngun') ? '/login' : '/home';
+        return NextResponse.redirect(req.nextUrl.origin + page);
     }
 
     if (user) {

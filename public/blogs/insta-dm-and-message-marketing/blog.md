@@ -34,9 +34,9 @@ Dosto, DM aur Messenger marketing ka ek superhit use hai exclusive offers aur di
 
 **Hot Tip:** Use a clear call-to-action in your messages to prompt your followers to take advantage of the offers!
 
-## Social Media Contests - "Khelo aur Jeeto" 🏆
+## Social medias Contests - "Khelo aur Jeeto" 🏆
 
-Dosto, DM aur Messenger marketing se aap social media contests bhi kar sakte ho! Aap apne followers ko DM mein contest details bhejkar unhein participate karne ke liye invite kar sakte ho. Yeh engagement aur excitement ko ekdum badha deta hai!
+Dosto, DM aur Messenger marketing se aap social medias contests bhi kar sakte ho! Aap apne followers ko DM mein contest details bhejkar unhein participate karne ke liye invite kar sakte ho. Yeh engagement aur excitement ko ekdum badha deta hai!
 
 **Example:** "Organized a fun contest and sent personalized invites to my followers - the participation was overwhelming, and we all had a blast! 🎉🎲 #ContestFun"
 

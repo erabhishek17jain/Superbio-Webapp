@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default function ArchiveCampaignModal({ campaign, openCloseModal }: any) {
+export default function DeleteCampaignModal({ campaign, openCloseModal }: any) {
     const archiveCampaign = () => {
         openCloseModal()
     };
@@ -9,7 +7,7 @@ export default function ArchiveCampaignModal({ campaign, openCloseModal }: any) 
             <div className='flex h-full justify-center items-center m-auto'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <div className='flex justify-between'>
-                        <span className='text-2xl font-semibold'>Archive Campaign</span>
+                        <span className='text-2xl font-semibold'>Delete Campaign</span>
                         <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
                             <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                 <path

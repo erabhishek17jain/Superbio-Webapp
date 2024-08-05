@@ -46,8 +46,8 @@ export default function Reporting(props: IReportingProps) {
     return (
         <div>
             {screenWidth > 1280 && (
-                <div className='flex my-6 flex-col md:flex-row flex-wrap gap-5 md:gap-3'>
-                    <div className='w-full md:w-[calc(33.3%-8px)] flex flex-col'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
+                    <div className='w-full md:w-[calc(33.3%-15px)] flex flex-col'>
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 1 && <SocialCard key={'social-1280-card-' + index} item={item} isPublic={isPublic} index={index} />
@@ -68,7 +68,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {screenWidth <= 1280 && screenWidth > 640 && (
-                <div className='flex my-6 flex-col md:flex-row flex-wrap gap-5 md:gap-3'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full md:w-[calc(50%-8px)] flex flex-col'>
                         {columns.map(
                             (item, index) =>
@@ -84,7 +84,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {screenWidth <= 640 && (
-                <div className='flex my-6 flex-col md:flex-row flex-wrap gap-5 md:gap-3'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full flex flex-col'>
                         {columns.map((item, index) => (
                             <SocialCard key={'social-s-card-' + index} item={item} isPublic={isPublic} index={index} />

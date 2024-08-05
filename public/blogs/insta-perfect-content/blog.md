@@ -20,11 +20,11 @@ Har ek influencer ka apna unique style hota hai, aur wohi style unhe alag banata
 
 ## Current Trends Ko Track Karo (Stay Updated with Current Trends)
 
-Social media aur trends hamesha badalte rehte hain. Isliye important hai ki aap unhe track karo. Dhyan rakho ki kya chal raha hai aur log kis tarah ke content ko pasand kar rahe hain. Agar aap apne content mein current trends ko incorporate karoge, toh aapki reach aur engagement mein bhi fark dekhoge.
+Social medias aur trends hamesha badalte rehte hain. Isliye important hai ki aap unhe track karo. Dhyan rakho ki kya chal raha hai aur log kis tarah ke content ko pasand kar rahe hain. Agar aap apne content mein current trends ko incorporate karoge, toh aapki reach aur engagement mein bhi fark dekhoge.
 
 **Example:** Agar current trend hai challenges ya dance videos, toh aap apne content mein woh trends follow kar sakte ho.
 
-**Hot Tip:** Social media platforms ko active raho, influencers aur content creators ko follow karo, aur industry news ko track karo. Isse aap hamesha updated rahoge aur apne content ko trending banane ka mauka paoge.
+**Hot Tip:** Social medias platforms ko active raho, influencers aur content creators ko follow karo, aur industry news ko track karo. Isse aap hamesha updated rahoge aur apne content ko trending banane ka mauka paoge.
 
 ## Apne Passion Ko Pursue Karo (Follow Your Passion)
 

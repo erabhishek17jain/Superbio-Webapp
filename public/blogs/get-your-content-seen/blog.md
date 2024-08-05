@@ -4,7 +4,7 @@ Okay, we’ve got all the facts: now it’s time to use them to our advantage. H
 
 ## 1. Respect the Community Guidelines
 
-Whether you’re posting on the Feed, in Reels, or to Stories, Instagram’s algorithms limit the visibility of content that goes against the app’s Community Guidelines. If you’re sharing misinformation, posts that are political in nature, content that’s potentially upsetting or sensitive, or even just low-resolution media, you may find your content less widely distributed.
+Whether you’re posting on the Feed, in Reels, or to Stories, Instagram’s algorithms limit the visibility of content that goes against the app’s Community Guidelines. If you’re sharing misinformation, posts that are political in nature, content that’s potentially upsetting or sensitive, or even just low-resolution medias, you may find your content less widely distributed.
 
 **Hot Tip:** If you think you’ve been shadowbanned, this is probably why!
 
@@ -20,10 +20,10 @@ Audience interaction is an important signal across the board on Instagram, so po
 
 ## 4. Encourage Engagement
 
-Engagement rules all on Instagram (in fact, it’s one of the most important ranking factors on all the top social media platforms). Views are great, but likes, comments, shares, and saves matter more. Consider encouraging your audience to engage with your content by asking questions, hosting giveaways, or creating ultra-shareable posts (here’s a whole blog post dedicated to increasing your engagement).
+Engagement rules all on Instagram (in fact, it’s one of the most important ranking factors on all the top social medias platforms). Views are great, but likes, comments, shares, and saves matter more. Consider encouraging your audience to engage with your content by asking questions, hosting giveaways, or creating ultra-shareable posts (here’s a whole blog post dedicated to increasing your engagement).
 
 ## 5. Respond to DMs and Comments
 
 This strategy is also all about engagement: the more you engage with your audience, the more likely they’ll be to engage with you. Being responsive in your comment section and your DMs builds trust with your followers, and helps remind them that there’s real people on the other side of their screens.
 
-**Bonus:** Notice any big dips or spikes in your stats recently? Analytics is often the first place a social media manager can tell if something has changed in the Instagram algorithm — and start adjusting their strategy accordingly.
+**Bonus:** Notice any big dips or spikes in your stats recently? Analytics is often the first place a social medias manager can tell if something has changed in the Instagram algorithm — and start adjusting their strategy accordingly.

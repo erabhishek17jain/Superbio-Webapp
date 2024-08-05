@@ -121,9 +121,9 @@ export const WhySuperbioList: WhySuperbioListProps[] = [
     text: "Simplify billing with automatic payments. Ensure timely payments.",
   },
   {
-    title: "AI Media Plan Generation",
+    title: "AI medias Plan Generation",
     icon: icon_6,
-    text: "Generate optimized media plans with AI. Enhance campaign effectiveness.",
+    text: "Generate optimized medias plans with AI. Enhance campaign effectiveness.",
   },
 ];
 
@@ -730,7 +730,7 @@ export const BlogList: BlogProps[] = [
   },
   {
     path: "insta-trending-market-stories",
-    title: "Riding the Social Media Wave: Trending Marketing Strategies in 2023",
+    title: "Riding the Social medias Wave: Trending Marketing Strategies in 2023",
     tags: [
       "#WanderlustDiaries",
       "#FoodieInspo",

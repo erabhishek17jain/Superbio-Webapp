@@ -5,7 +5,7 @@ declare interface ISheet {
     title: string;
     linkColumn: string;
     campaignId: { $oid: string };
-    socialMedia: string;
+    socialmedias: string;
     range: string;
     lastSyncedAt: MongoDate;
     createdAt: MongoDate;

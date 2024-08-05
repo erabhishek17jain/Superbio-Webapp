@@ -5,6 +5,7 @@ import UserNetworkService from '@/services/user.service';
 import CampaignNetworkService from '@/services/campaign.service';
 import { setMembers } from '@/context/user';
 import { useSnackbar } from 'notistack';
+import { logout } from '@/lib/utils';
 
 export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
     const dispatch = useAppDispatch();
@@ -52,6 +53,7 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
                 dispatch(setMembers(data));
             })
             .catch((err) => {
+                logout();
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
             });
 

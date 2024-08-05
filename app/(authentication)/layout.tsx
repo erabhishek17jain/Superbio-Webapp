@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const [buttonText, setButtonText] = React.useState('Sign up');
     const [buttonLink, setButtonLink] = React.useState('/register');
     const [buttonBeforeText, setButtonBeforeText] = React.useState('Not a member? ');
-    const [text, setText] = React.useState('Welcome to Loqo ai');
+    const [text, setText] = React.useState('Welcome to LOQO Business');
     const dispatch = useAppDispatch();
     const isInView = useInView(ref, { once: true });
 
@@ -28,17 +28,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             setButtonText('Sign up');
             setButtonLink('/register');
             setButtonBeforeText('Not a member? ');
-            setText('Welcome to Loqo ai');
+            setText('Welcome to LOQO Business');
         } else if (pathname === '/register' || pathname === '/setup') {
             setButtonText('Sign in');
             setButtonLink('/login');
             setButtonBeforeText('Already a member? ');
-            setText('Welcome to Loqo ai');
+            setText('Welcome to LOQO Business');
         } else {
             setButtonText('Sign in');
             setButtonLink('/login');
             setButtonBeforeText('Already a member? ');
-            setText('Reset your password');
+            setText('OTP Verification');
         }
     }, [pathname]);
 
@@ -109,18 +109,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <div className='flex sm:w-[80%] w-[90%] flex-col'>
                                 <div className='flex text-4xl font-bold mt-4'>{text}</div>
                                 <div className='flex flex-col mt-6'>{children}</div>
-                                <div className=' w-full mt-5 rounded-lg'>
-                                    <button
-                                        className='w-full border p-2 rounded-lg border-black flex space-x-4 justify-center items-center'
-                                        onClick={() => {
-                                            googleLogin();
-                                        }}>
-                                        <span className='cursor-pointer'>
-                                            <FcGoogle size={25} />
-                                        </span>
-                                        <span>{pathname === '/login' ? 'Login' : 'Signup'} With Google</span>
-                                    </button>
-                                </div>
+                                {pathname !== '/verify-user' && (
+                                    <div className=' w-full mt-5 rounded-lg'>
+                                        <button
+                                            className='w-full border p-2 rounded-lg border-black flex space-x-4 justify-center items-center'
+                                            onClick={() => {
+                                                googleLogin();
+                                            }}>
+                                            <span className='cursor-pointer'>
+                                                <FcGoogle size={25} />
+                                            </span>
+                                            <span>{pathname === '/login' ? 'Login' : 'Signup'} With Google</span>
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </motion.div>

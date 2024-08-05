@@ -1,9 +1,5 @@
 'use client';
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useAppDispatch } from '@/context';
-import { setFitlersState } from '@/context/campaign';
-import CampaignReportingFilter from './filter';
 import FilterHandler from './FilterHandler';
 import { ISummary } from './PDFHandler';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,41 +23,21 @@ export default function FilterPlatform(props: FilterPlatformProps) {
         selectFilter(true, 'platform', platform);
     };
 
+    const analytics: ISummary[] = summary?.filter((el) => {
+        if (filters['platform']?.includes('instagram')) {
+            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'Estimated Reach');
+        } else {
+            return el;
+        }
+    });
+
+    const cols = analytics?.length > 5 ? analytics.length : 5;
+    
     return (
         <>
             {campData?.data && campData?.data.length > 0 && (
                 <div className='flex items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-4'>
                     <div className='flex gap-3'>
-                        {campData?.meta?.total && (
-                            <div className='flex flex-col text-sm w-20'>
-                                {campData?.meta && campData?.meta?.total > 0 && (
-                                    <>
-                                        <span className='text-black font-semibold'>Total</span>
-                                        <span className='text-[#959595]'>{campData?.meta?.total} posts</span>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                        {campData?.meta?.stories && (
-                            <div className='flex flex-col text-sm w-20'>
-                                {campData?.meta && campData?.meta?.total > 0 && (
-                                    <>
-                                        <span className='text-black font-semibold'>Stories</span>
-                                        <span className='text-[#959595]'>{campData?.meta?.stories} posts</span>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                        {campData?.meta?.private && (
-                            <div className='flex flex-col text-sm w-20'>
-                                {campData?.meta && campData?.meta?.total > 0 && (
-                                    <>
-                                        <span className='text-black font-semibold'>Private</span>
-                                        <span className='text-[#959595]'>{campData?.meta?.private} posts</span>
-                                    </>
-                                )}
-                            </div>
-                        )}
                         <div className='flex gap-5'>
                             <div
                                 onClick={() => changePlatform('all')}
@@ -171,7 +147,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                                         r='1'
                                                         gradientUnits='userSpaceOnUse'
                                                         gradientTransform='translate(0.500002 3) rotate(-8.1301) scale(38.8909 8.31836)'>
-                                                        <stop offset='0.156701' stopColor='#406ADC'></stop>{' '}
+                                                        <stop offset='0.156701' stopColor='#406ADC'></stop>
                                                         <stop offset='0.467799' stopColor='#6A45BE'></stop>
                                                         <stop offset='1' stopColor='#6A45BE' stopOpacity='0'></stop>
                                                     </radialGradient>
@@ -192,35 +168,28 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                 <div className='flex'>
                     <div className='flex w-full flex-col '>
                         <div
-                            className={`mt-3 sm:mt-6 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4`}>
-                            {summary?.length > 0 &&
-                                summary
-                                    .filter((el) => {
-                                        if (filters['platform']?.includes('instagram')) {
-                                            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments');
-                                        } else {
-                                            return el;
-                                        }
-                                    })
-                                    .map((item) => (
-                                        <div
-                                            key={uuidv4()}
-                                            className={`flex justify-start flex-col sm:justify-center sm:py-4 ${item.color} w-full px-4 py-4 sm:px-4 mx-auto sm:mx-0 rounded-xl bg-opacity-20`}>
-                                            <div className='flex gap-2 justify-between sm:w-auto'>
-                                                <div className={`flex items-center justify-center ${item.color} bg-opacity-60 w-10 h-10 mr-3 rounded-full`}>
-                                                    {item.icon}
-                                                </div>
-                                                <div className='flex gap-2'>
-                                                    <p className='text-2xl text-black-100'>{item?.count}</p>
-                                                </div>
-                                            </div>
-                                            <div className='flex mr-3 h-9 items-end justify-between w-full'>
-                                                <p className='text-xs mt-1 text-black-500'>
-                                                    <span className='capitalize'>{item.title}</span> from {item.basedOn} posts
-                                                </p>
-                                            </div>
+                            className={`mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-${cols} md:grid-cols-${cols} lg:grid-cols-${cols} xl:grid-cols-${cols} w-full gap-4`}>
+                            {analytics?.map((item) => (
+                                <div
+                                    key={uuidv4()}
+                                    className={`flex justify-start flex-col sm:justify-center shadow-inner ${item.color} w-full p-4 mx-auto sm:mx-0 rounded-xl bg-opacity-20`}>
+                                    <div className='flex gap-2 justify-between sm:w-auto'>
+                                        <div className={`flex items-center justify-center ${item.color} bg-opacity-60 w-10 h-10 mr-3 rounded-full`}>
+                                            {item.icon}
                                         </div>
-                                    ))}
+                                        <div className='flex gap-2'>
+                                            <p className='text-2xl text-black-100'>{item?.count}</p>
+                                        </div>
+                                    </div>
+                                    <div className='flex h-9 items-end justify-between w-full'>
+                                        <p className='text-xs text-black-500'>
+                                            {item.title === 'Estimated Reach'
+                                                ? item.title
+                                                : `Only ${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ import CampaignNetworkService from '@/services/campaign.service';
 export default function CreateCampaignModal({ mode, closeModal, campaignDetails }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const { campaignType } = useAppSelector((state) => state.user);
     const { newCampaign } = useAppSelector((state) => state.campaign);
     const { enqueueSnackbar } = useSnackbar();
     const [isError, setIsError] = useState(false);
@@ -72,16 +73,19 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
             setIsError(true);
         }
         if (!error) {
+            if (campaignType === 'influncer') {
+                campaignDetail.status = campaignDetail.status + '_p';
+            }
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create-reporting/${res.id}?campaignName=${campaignDetail?.title.replaceAll(' ', '_')}`);
+                    router.push(`/${res.status}-campaign/create-reporting/${res.id}`);
                     closeModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create-reporting/${res.id}?campaignName=${campaignDetail?.title.replaceAll(' ', '_')}`);
+                    router.push(`/${res.status}-campaign/create-reporting/${res.id}`);
                     closeModal();
                 });
             }
@@ -97,7 +101,7 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
     }, []);
 
     return (
-        <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black z-10 bg-opacity-40'>
+        <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
             <div className='flex w-full h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <span className='text-xl font-semibold'>{mode === 'edit' ? 'Edit' : 'Create'} a Campaign</span>

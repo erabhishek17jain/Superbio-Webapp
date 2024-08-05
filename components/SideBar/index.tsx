@@ -1,12 +1,12 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/context';
-import { deleteCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaUsers } from 'react-icons/fa';
 import { HiOutlineQueueList } from 'react-icons/hi2';
 import DynamicLogo from '../DynamicLogo';
 import { setCampaignType } from '@/context/user';
+import { logout } from '@/lib/utils';
 
 interface SideBarProps {
     sidebarOpen?: boolean;
@@ -53,14 +53,9 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     </svg>
                 </div>
             )}
-            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-28 shadow-md shadow-[#CDCDCD]' style={{ height: '100vh' }}>
-                <div className='flex flex-col w-10 items-center'>
-                    <Link href={'/home'} className='w-20'>
-                        <DynamicLogo />
-                    </Link>
-                </div>
+            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-16 shadow-md shadow-[#CDCDCD] h-screen'>
                 <div className='flex h-full'>
-                    <div className='flex flex-col space-y-6 mt-10'>
+                    <div className='flex flex-col space-y-6'>
                         {items.map((item) =>
                             item?.name === 'Users' ? (
                                 user.role === 'admin' && (
@@ -76,7 +71,7 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                         )}
                     </div>
                 </div>
-                <div className='flex items-center flex-col space-y-6 r'>
+                <div className='flex items-center flex-col space-y-6 mb-[80px]'>
                     <Link href={'/profile'} key={'profile'} className='flex items-center space-x-3'>
                         <svg
                             fill={path === '/profile' ? '#000000' : '#CDCDCD'}
@@ -94,33 +89,21 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     </Link>
                     <Link href={'/contacts'} key={'contacts'} className='flex items-center space-x-3'>
                         <svg
+                            id='svg'
                             fill={path === '/contacts' ? '#000000' : '#CDCDCD'}
                             width='32px'
                             height='32px'
                             viewBox='0 0 24 24'
                             xmlns='http://www.w3.org/2000/svg'>
-                            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                            <g id='SVGRepo_iconCarrier'>
-                                <g id='style=fill'>
-                                    <g id='setting'>
-                                        <path
-                                            id='Subtract'
-                                            fillRule='evenodd'
-                                            clipRule='evenodd'
-                                            d='M10.8946 3.00654C10.2226 1.87704 8.75191 1.45656 7.59248 2.14193L5.86749 3.12906C4.59518 3.85639 4.16378 5.48726 4.8906 6.74522L4.89112 6.74611C5.26606 7.39298 5.20721 7.8062 5.09018 8.00929C4.97308 8.21249 4.64521 8.47001 3.9 8.47001C2.43322 8.47001 1.25 9.66837 1.25 11.12V12.88C1.25 14.3317 2.43322 15.53 3.9 15.53C4.64521 15.53 4.97308 15.7875 5.09018 15.9907C5.20721 16.1938 5.26606 16.607 4.89112 17.2539L4.8906 17.2548C4.16378 18.5128 4.59558 20.1439 5.8679 20.8712L7.59257 21.8581C8.75199 22.5434 10.2226 22.123 10.8946 20.9935L11.0091 20.7958C11.3841 20.1489 11.773 19.9925 12.0087 19.9925C12.2434 19.9925 12.6293 20.1476 12.9993 20.793L13.0009 20.7958L13.1109 20.9858L13.1154 20.9935C13.7874 22.123 15.258 22.5434 16.4174 21.8581L18.1425 20.871C19.4157 20.1431 19.8444 18.5235 19.1212 17.2579L19.1189 17.2539C18.7439 16.607 18.8028 16.1938 18.9198 15.9907C19.0369 15.7875 19.3648 15.53 20.11 15.53C21.5768 15.53 22.76 14.3317 22.76 12.88V11.12C22.76 9.65323 21.5616 8.47001 20.11 8.47001C19.3648 8.47001 19.0369 8.21249 18.9198 8.00929C18.8028 7.8062 18.7439 7.39298 19.1189 6.74611L19.1194 6.74522C19.8463 5.48713 19.4147 3.85604 18.1421 3.12883L16.4175 2.14193C15.2581 1.45656 13.7874 1.877 13.1154 3.00651L13.0009 3.20423C12.6259 3.85115 12.237 4.00751 12.0012 4.00751C11.7666 4.00751 11.3807 3.85247 11.0107 3.20701L11.0091 3.20423L10.8991 3.01421L10.8946 3.00654ZM15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z'
-                                            fill={path === '/contacts' ? '#000000' : '#CDCDCD'}></path>
-                                    </g>
-                                </g>
-                            </g>
+                            <path
+                                d='M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM7.67 5.5C7.67 5.09 8.01 4.75 8.42 4.75C8.83 4.75 9.17 5.09 9.17 5.5V9.4C9.17 9.81 8.83 10.15 8.42 10.15C8.01 10.15 7.67 9.81 7.67 9.4V5.5ZM9.52282 16.4313C9.31938 16.5216 9.17 16.7132 9.17 16.9358V18.5C9.17 18.91 8.83 19.25 8.42 19.25C8.01 19.25 7.67 18.91 7.67 18.5V16.9358C7.67 16.7132 7.5206 16.5216 7.31723 16.4311C6.36275 16.0064 5.7 15.058 5.7 13.95C5.7 12.45 6.92 11.22 8.42 11.22C9.92 11.22 11.15 12.44 11.15 13.95C11.15 15.0582 10.4791 16.0066 9.52282 16.4313ZM16.33 18.5C16.33 18.91 15.99 19.25 15.58 19.25C15.17 19.25 14.83 18.91 14.83 18.5V14.6C14.83 14.19 15.17 13.85 15.58 13.85C15.99 13.85 16.33 14.19 16.33 14.6V18.5ZM15.58 12.77C14.08 12.77 12.85 11.55 12.85 10.04C12.85 8.93185 13.5209 7.98342 14.4772 7.55873C14.6806 7.46839 14.83 7.27681 14.83 7.05421V5.5C14.83 5.09 15.17 4.75 15.58 4.75C15.99 4.75 16.33 5.09 16.33 5.5V7.06421C16.33 7.28681 16.4794 7.47835 16.6828 7.56885C17.6372 7.9936 18.3 8.94195 18.3 10.05C18.3 11.55 17.08 12.77 15.58 12.77Z'
+                                fill={path === '/contacts' ? '#000000' : '#CDCDCD'}></path>
                         </svg>
                     </Link>
 
                     <span
                         onClick={() => {
-                            deleteCookie('token');
-                            deleteCookie('user');
-                            window.location.reload();
+                            logout();
                             dispatch(setCampaignType(''));
                         }}
                         className='text-[#CCCCCC] group-hover:text-black text-xs'>
