@@ -46,7 +46,7 @@ export const LOQOAdvantages = () => {
                             <th className='border border-r-0 border-t-0 border-gray-300 text-sm px-8 py-6'>With LOQO</th>
                         </tr>
                         {adavtages.map((item) => (
-                            <tr>
+                            <tr key={item.title}>
                                 <th className='w-40 border border-l-0 border-gray-300 text-sm px-8 py-6 text-left'>{item.title}</th>
                                 <td className='border border-gray-300 text-sm px-8 py-6 text-center font-light'>{item.withOutLoqo}</td>
                                 <td className='border border-r-0 border-gray-300 text-sm px-8 py-6 text-center font-light'>{item.withLoqo}</td>
@@ -56,7 +56,7 @@ export const LOQOAdvantages = () => {
                 </table>
                 <div className='flex sm:hidden flex-col'>
                     {adavtages.map((item) => (
-                        <div className='flex flex-col shadow-lg'>
+                        <div className='flex flex-col shadow-lg' key={item.title}>
                             <div className='flex w-full font-semibold justify-center px-4 py-3 text-left mt-4 border border-gray-300'>{item.title}</div>
                             <div className='flex text-sm'>
                                 <div className='flex flex-col border-r border-gray-300 w-1/2'>
