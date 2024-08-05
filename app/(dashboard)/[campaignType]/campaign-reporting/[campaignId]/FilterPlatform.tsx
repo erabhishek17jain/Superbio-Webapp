@@ -31,7 +31,9 @@ export default function FilterPlatform(props: FilterPlatformProps) {
         }
     });
 
-    const cols = analytics?.length > 5 ? analytics.length : 5;
+    let cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 w-full gap-4';
+    if (analytics?.length === 6) cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4';
+    if (analytics?.length === 7) cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 w-full gap-4';
     
     return (
         <>
@@ -167,8 +169,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
             {campData?.meta && campData?.data.length > 0 && (
                 <div className='flex'>
                     <div className='flex w-full flex-col '>
-                        <div
-                            className={`mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-${cols} md:grid-cols-${cols} lg:grid-cols-${cols} xl:grid-cols-${cols} w-full gap-4`}>
+                        <div className={cols}>
                             {analytics?.map((item) => (
                                 <div
                                     key={uuidv4()}
