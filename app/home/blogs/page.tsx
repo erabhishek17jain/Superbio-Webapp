@@ -22,7 +22,7 @@ export default function Home() {
                 }>
                 <AllBlogs />
             </Suspense>
-            <div className='flex h-[100vh] w-full items-center overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24'>
+            <div className='flex my-6 h-auto sm:h-[100vh] w-full items-center overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24'>
                 <ContactUs />
             </div>
         </main>

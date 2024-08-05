@@ -22,46 +22,42 @@ export const BlogsClient = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section
-      id="blogs"
-      ref={ref}
-      className="relative flex w-full flex-col items-center justify-center gap-y-20 px-6 xs:px-12 sm:px-8 md:px-12 lg:px-16"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: "100%" }}
-        animate={isInView ? { opacity: 1, y: "0%" } : { opacity: 0, y: "100%" }}
-        transition={{ delay: 0.25, duration: 0.25, type: "spring" }}
-        className="mr-auto flex w-full flex-col gap-y-3"
-      >
-        <h3 className="text-xl font-semibold text-black">Our blogs</h3>
-        <p className="text-md w-full font-medium text-neutral-500 sm:w-3/4 lg:w-3/5 xl:w-1/2">
-          Explore our diverse range of blogs, covering Instagram influencer tips, algorithm
-          insights, and more!
-        </p>
-      </motion.div>
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {BlogList.map((blog, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <div className="p-1">
-                <BlogCard key={index} blog={blog} parentRef={ref} index={index} />
+      <section
+          id='blogs'
+          ref={ref}
+          className='relative flex w-full flex-col items-center justify-center gap-y-20 px-6 xs:px-12 sm:px-12 md:px-16 lg:px-24'>
+          <motion.div
+              initial={{ opacity: 0, y: '100%' }}
+              animate={isInView ? { opacity: 1, y: '0%' } : { opacity: 0, y: '100%' }}
+              transition={{ delay: 0.25, duration: 0.25, type: 'spring' }}
+              className='mr-auto flex w-full flex-col gap-y-3'>
+              <h3 className='text-xl font-semibold text-black'>Our blogs</h3>
+              <p className='text-md w-full font-medium text-neutral-500 sm:w-3/4 lg:w-3/5 xl:w-1/2'>
+                  Explore our diverse range of blogs, covering Instagram influencer tips, algorithm insights, and more!
+              </p>
+          </motion.div>
+          <Carousel
+              opts={{
+                  align: 'start',
+              }}
+              className='w-full'>
+              <CarouselContent>
+                  {BlogList.map((blog, index) => (
+                      <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/3'>
+                          <div className='p-1'>
+                              <BlogCard key={index} blog={blog} parentRef={ref} index={index} />
+                          </div>
+                      </CarouselItem>
+                  ))}
+              </CarouselContent>
+              <div className='relative flex w-full items-center justify-center pt-6'>
+                  <div className='relative flex w-fit items-center'>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                  </div>
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="relative flex w-full items-center justify-center pt-6">
-          <div className="relative flex w-fit items-center">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
-        </div>
-      </Carousel>
-    </section>
+          </Carousel>
+      </section>
   );
 };
 

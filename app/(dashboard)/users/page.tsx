@@ -54,7 +54,7 @@ export default function Users() {
                         <DynamicLogo />
                     </Link>
                 </div>
-                <div className='flex items-center justify-between w-full '>
+                <div className='flex items-center justify-between w-full ml-16 sm:ml-0'>
                     <span className='text-2xl font-semibold lg:ml-0 xl:ml-0'>All Users</span>
                     {user?.role === 'admin' && (
                         <button

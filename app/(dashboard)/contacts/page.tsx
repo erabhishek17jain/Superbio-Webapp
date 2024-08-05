@@ -12,7 +12,7 @@ export default function Contact() {
                         <DynamicLogo />
                     </Link>
                 </div>
-                <span className='text-2xl font-semibold lg:ml-0 xl:ml-0'>Contacts Us</span>
+                <span className='text-2xl font-semibold  pl-12 sm:pl-0 lg:ml-0 xl:ml-0'>Contacts Us</span>
             </div>
             <div className='flex flex-col gap-10 p-8 sm:pb-8 2xl:p-5'>
                 <div className='flex flex-col gap-10 pb-20 sm:pb-8'>

@@ -307,10 +307,10 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
     }, []);
 
     return (
-        <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[60px]'>
+        <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[150px] xs:h-[108px] sm:h-[60px]'>
             {showConfirmModal && <ConfirmLastRefresh openCloseModal={openCloseConfirmModal} />}
             <div className='flex text-lg font-bold text-center md:text-left'>
-                <span className='flex text-lg font-bold text-center md:text-left'>
+                <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
                     {meta?.total && (
                         <div className='flex flex-col text-sm w-20'>
                             {meta && meta?.total > 0 && (

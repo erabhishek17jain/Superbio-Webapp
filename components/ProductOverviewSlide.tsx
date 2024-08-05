@@ -64,9 +64,11 @@ export const ProductOverviewSlide = () => {
               />
             </div>
             <FeatureCard title={feature.title} description={feature.description} />
-          </div>
-        ))}
-      </motion.div>
-    </section></div>
+         
+                      </div>
+                  ))}
+              </motion.div>
+          </section>
+      </div>
   );
 };

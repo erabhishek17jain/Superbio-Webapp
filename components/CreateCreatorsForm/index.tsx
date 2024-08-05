@@ -77,7 +77,7 @@ export default function CreateCreatorsForm() {
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <span className='text-xl font-semibold'>Create a Form for Creators</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
-                        <div className={`flex flex-col flex-1 pr-5 'overflow-y-scroll max-h-80`}>
+                        <div className={`flex flex-col flex-1 pr-0 sm:pr-5 'overflow-y-scroll max-h-80`}>
                             <ComingSoon />
                             {/* {fields.map((item: any) => (
                                 <div className='flex mt-3 gap-2 w-[460px]' key={item.id}>
@@ -132,7 +132,7 @@ export default function CreateCreatorsForm() {
                             ))} */}
                         </div>
                     </div>
-                    <div className='flex w-full mt-8 justify-end'>
+                    <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>
                         <button
                             onClick={() => {
                                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');

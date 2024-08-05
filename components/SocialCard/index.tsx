@@ -136,7 +136,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
     const posted = new Date(parseInt(postedAt));
     return (
         <div className='w-full mt-4'>
-            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner'>
+            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-3 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#959595] w-full'>
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>

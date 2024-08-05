@@ -61,7 +61,7 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
     return (
         <div id='campaign-share' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center m-auto'>
-                <div className='flex flex-col justify-between bg-white rounded-xl p-6 w-[50%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[50%]'>
+                <div className='flex flex-col justify-between bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[50%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold'>Share Campaign</span>
                         <button onClick={openCloseModal} className='bg-white flex items-center text-black'>

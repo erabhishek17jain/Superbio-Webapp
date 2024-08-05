@@ -13,7 +13,7 @@ interface SideBarProps {
     onCloseSidebar?: () => void;
 }
 
-const items = [
+export const sidebarItems = [
     {
         name: 'Home',
         icon: ({ isActive }: { isActive: boolean }) => (
@@ -37,7 +37,6 @@ const items = [
         link: '/queue',
     },
 ];
-//df
 
 export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
     const path = usePathname();
@@ -56,7 +55,7 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
             <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-16 shadow-md shadow-[#CDCDCD] h-screen'>
                 <div className='flex h-full'>
                     <div className='flex flex-col space-y-6'>
-                        {items.map((item) =>
+                        {sidebarItems.map((item) =>
                             item?.name === 'Users' ? (
                                 user.role === 'admin' && (
                                     <Link href={item.link} key={item.name} className='flex items-center space-x-3'>
@@ -123,3 +122,4 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
         </>
     );
 }
+

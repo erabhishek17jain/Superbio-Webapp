@@ -270,7 +270,7 @@ export default function CreateReporting() {
                     </div>
                 </div>
                 {!isSheetLoading ? (
-                    <div className='flex justify-between mb-6'>
+                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
                                 <>
@@ -344,7 +344,7 @@ export default function CreateReporting() {
                                 </>
                             ))}
 
-                            <div className='flex flex-col mt-6 items-center min-w-[210] w-1/2'>
+                            <div className='flex flex-col mt-6 items-center min-w-[210] w-full sm:w-1/2'>
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     className='bg-black flex justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>

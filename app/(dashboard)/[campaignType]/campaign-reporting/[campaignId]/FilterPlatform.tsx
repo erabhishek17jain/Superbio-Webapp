@@ -38,7 +38,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
     return (
         <>
             {campData?.data && campData?.data.length > 0 && (
-                <div className='flex items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-4'>
+                <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
                     <div className='flex gap-3'>
                         <div className='flex gap-5'>
                             <div
@@ -168,7 +168,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
 
             {campData?.meta && campData?.data.length > 0 && (
                 <div className='flex'>
-                    <div className='flex w-full flex-col '>
+                    <div className='flex w-full flex-col mx-2 sm:mx-0'>
                         <div className={cols}>
                             {analytics?.map((item) => (
                                 <div

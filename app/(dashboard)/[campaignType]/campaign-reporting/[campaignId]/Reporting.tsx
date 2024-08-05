@@ -119,7 +119,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {loader && (
-                <Link className='fixed left-1/2 bottom-5' href='#camp-top'>
+                <Link className='fixed left-1/2 bottom-[72px] sm:bottom-5' href='#camp-top'>
                     <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-2 text-white shadow-sm'}>
                         <div className='flex items-center justify-center w-8 h-8 mx-auto'>
                             <div className='flex items-center justify-center w-6 h-6'>
@@ -130,7 +130,7 @@ export default function Reporting(props: IReportingProps) {
                 </Link>
             )}
             <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>
-            <Link className='fixed right-5 bottom-5' href='#camp-top'>
+            <Link className='fixed right-5 bottom-[72px] sm:bottom-5' href='#camp-top'>
                 <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-3 text-white shadow-sm'}>
                     <BiArrowFromBottom className='h-6 w-6' aria-hidden='true' />
                 </div>

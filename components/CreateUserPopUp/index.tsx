@@ -78,8 +78,8 @@ export default function CreateUserPopUp({ mode, closeModal, userDetails }: Props
     };
 
     return (
-        <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
-            <div className='flex w-full h-full justify-center items-center'>
+        <div id='create-users-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
+            <div className='flex w-full h-[90%] my-6 justify-center items-start'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[40%]'>
                     <span className='text-xl font-semibold'>Bring in your teammate</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
@@ -148,7 +148,7 @@ export default function CreateUserPopUp({ mode, closeModal, userDetails }: Props
                         </div>
                     </div>
 
-                    <div className='flex w-full mt-8 justify-end'>
+                    <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>
                         <button
                             onClick={() => {
                                 closeModal();

@@ -14,7 +14,7 @@ export const BeforeAfterProduct = () => {
   return (
     <section
       ref={ref}
-      className="mt-72 flex h-[175vh] w-full flex-col items-center justify-center gap-y-10 px-6 xs:mt-[30rem] xs:px-10 sm:mt-[30rem] sm:gap-x-2 sm:px-24 md:mt-0 md:h-[200vh] md:flex-row md:gap-x-4 md:gap-y-0 md:px-16 lg:h-screen lg:px-24 xl:mt-auto xl:gap-x-8"
+      className="mt-[30rem] sm:mt-72 flex w-full flex-col items-center justify-center gap-y-10 px-6 xs:px-10 sm:gap-x-2 sm:px-24 md:flex-row md:gap-x-4 md:gap-y-0 md:px-16 lg:h-screen lg:px-24 xl:gap-x-8"
     >
       <motion.div
         initial={{ opacity: 0, x: "100%" }}

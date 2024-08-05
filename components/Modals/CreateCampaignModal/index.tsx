@@ -101,11 +101,11 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
 
     return (
         <div id='create-campaign-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
-            <div className='flex w-full h-full justify-center items-center'>
-                <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
+            <div className='flex w-full h-[90%] my-6 justify-center items-start'>
+                <div className='flex flex-col bg-white rounded-xl p-5 sm:p-6 h-[95%] overflow-y-auto w-[94%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <span className='text-xl font-semibold'>{mode === 'edit' ? 'Edit' : 'Create'} a Campaign</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
-                        <div className='flex flex-col flex-1 pr-5'>
+                        <div className='flex flex-col flex-1 pr-0 sm:pr-5'>
                             <div className='flex flex-col'>
                                 <label htmlFor='' className='text-sm'>
                                     Title of the Campaign
@@ -163,7 +163,7 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
                                 {isError && campaignDetail?.status === '' && <p className='mt-1 text-[12px] text-[#d00a0a]'>This field is required</p>}
                             </div>
                         </div>
-                        <div className='flex flex-col flex-1 pr-5 mt-6 sm:mt-0'>
+                        <div className='flex flex-col flex-1 pr-0 sm:pr-5 mt-6 sm:mt-0'>
                             <div className='flex flex-col '>
                                 <label htmlFor='' className='text-sm'>
                                     Add Keywords (Important points to mention)
@@ -234,12 +234,12 @@ export default function CreateCampaignModal({ mode, closeModal, campaignDetails 
                         </div>
                     </div>
 
-                    <div className='flex w-full mt-8 justify-end'>
+                    <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>
                         <button
                             onClick={() => {
                                 closeModal();
                             }}
-                            className='bg-white border-black border mr-5 flex items-center rounded-xl py-2 pl-4 pr-5 text-black'>
+                            className='bg-white border-black border mr-5 flex items-center rounded-xl py-2 pl-4 pr-3 sm:pr-5 text-black'>
                             <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                 <path
                                     d='M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z'

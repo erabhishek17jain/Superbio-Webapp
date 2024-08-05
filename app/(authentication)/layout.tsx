@@ -85,13 +85,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <DynamicLogo />
                     </Link>
                     <div className='flex items-center gap-4 justify-center'>
-                        <span className='text-sm'>{buttonBeforeText} </span>
+                        <span className='text-sm hidden sm:flex'>{buttonBeforeText} </span>
                         <Link href={buttonLink} className='flex capitalize items-center text-xs p-2 px-5 border border-black rounded-lg'>
                             {buttonText} <BsArrowRight className='ml-2' size={20} />
                         </Link>
                     </div>
                 </nav>
-                <section ref={ref} className='flex items-center justify-center w-full h-full -mt-8 pb-10 sm:pl-4 text-center px-6 sm:px-10 md:pl-32 md:pr-10'>
+                <section ref={ref} className='flex items-center justify-center w-full h-full mt-4 sm:-mt-8 pb-10 sm:pl-4 text-center px-6 sm:px-10 md:pl-32 md:pr-10'>
                     <motion.div
                         initial={{ opacity: 0, x: '-100%' }}
                         animate={isInView ? { opacity: 1, x: 0, y: '15%' } : { opacity: 0, x: '100%', y: '-15%' }}
@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         className='z-10 flex gap-4 text-left w-full md:w-1/2 -mt-12'>
                         <div className='flex w-full justify-center items-center'>
                             <div className='flex sm:w-[80%] w-[90%] flex-col'>
-                                <div className='flex text-4xl font-bold mt-4'>{text}</div>
+                                <div className='flex text-3xl sm:text-4xl font-bold mt-4'>{text}</div>
                                 <div className='flex flex-col mt-6'>{children}</div>
                                 {pathname !== '/verify-user' && (
                                     <div className=' w-full mt-5 rounded-lg'>

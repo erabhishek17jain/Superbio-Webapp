@@ -19,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const params: any = useParams();
     const urlComponents = searchParams.split('/');
     const { enqueueSnackbar } = useSnackbar();
+    const { campaignType } = useAppSelector((state) => state.user);
     const { meta, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -35,13 +36,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const resetSearch = () => {
         setIsSearch(false);
         setSearchText('');
-        dispatch(getCampaigns({ page: 1, limit: 3, status: CampaignStatus.active, ownerType: ownerType, q: '' }));
+        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+        dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: ownerType, q: '' }));
     };
 
     const searhFilter = () => {
         if (searchText !== '') {
             setIsSearch(true);
-            dispatch(getCampaigns({ page: 1, limit: 3, status: CampaignStatus.active, ownerType: ownerType, q: searchText }));
+            const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+            dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: ownerType, q: searchText }));
         } else if (searchText === '') {
             resetSearch();
         }
@@ -55,7 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        dispatch(getCampaigns({ page: meta?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
+        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+        dispatch(getCampaigns({ page: meta?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
         dispatch(
             setMeta({
                 page: meta?.page || 0 + 1,
@@ -83,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-y-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between pl-6 pr-6 pt-3 pb-1 border-b h-[80px] shadow-md shadow-[#CDCDCD]`}>
+                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 pt-3 pb-1 border-b h-[80px] shadow-md shadow-[#CDCDCD]`}>
                         <div className='flex flex-col w-10 items-center'>
                             <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                                 <DynamicLogo />
@@ -143,7 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex gap-3 justify-center items-center'>
+                                <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
                                     {!isCampReport && (
                                         <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
@@ -197,7 +201,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                         <div className='flex'>
                                             <button
                                                 onClick={() => copyShareLink(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`)}
-                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 my-5 disabled:opacity-40'>
+                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2 disabled:opacity-40'>
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
                                                     data-name='Layer 1'
