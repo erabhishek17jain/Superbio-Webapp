@@ -64,7 +64,7 @@ export default function Home() {
                 <CreateCampaignModal
                     mode={mode}
                     campaignDetails={campaignDetails}
-                    closeModal={() => {
+                    openCloseModal={() => {
                         setOpenCampaingModal(false);
                     }}
                 />

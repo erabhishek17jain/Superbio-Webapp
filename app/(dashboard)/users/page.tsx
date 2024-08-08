@@ -41,7 +41,7 @@ export default function Users() {
             {openUserModal && (
                 <CreateUserModal
                     mode={mode}
-                    closeModal={() => {
+                    openCloseModal={() => {
                         setOpenUserModal(false);
                         setUserDetails(null);
                     }}

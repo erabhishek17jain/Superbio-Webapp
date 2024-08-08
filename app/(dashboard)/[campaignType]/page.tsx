@@ -71,7 +71,7 @@ export default function AllCampaignPage() {
                 <CreateCampaignModal
                     mode={mode}
                     campaignDetails={campaignDetails}
-                    closeModal={() => {
+                    openCloseModal={() => {
                         setOpenCampaingModal(false);
                     }}
                 />

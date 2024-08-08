@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ConfirmLastRefresh({ openCloseModal }: any) {
     return (
-        <div id='confirm-update-sheet' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
+        <div id='confirm-last-refresh' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center m-auto'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <span className='text-xl font-semibold'>Update Campaign</span>

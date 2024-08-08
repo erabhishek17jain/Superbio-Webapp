@@ -119,6 +119,18 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
+    public deleteCampaign = async (campaignId: ICampaignContext): Promise<ICampaignContext> => {
+        try {
+            const res = await axios.delete<ICampaign>(`${this.javaUrl}/campaign/${campaignId}`, {
+                headers: this.get_auth_header(),
+            });
+            return this.covertAPICampaignToCampaign(res.data);
+        } catch (err: any) {
+            enqueueSnackbar('Failed to create campaign', { variant: 'error' });
+            throw err;
+        }
+    };
+
     public getCampaigns = async (
         page: number,
         limit: number,
@@ -127,12 +139,12 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         q: string
     ): Promise<{ data: ICampaignContext[]; status: string; ownerType: string; meta: any; q: string }> => {
         try {
-            let params: {[key: string]: any} = {
+            let params: { [key: string]: any } = {
                 page,
                 limit,
                 status,
                 ownerType,
-            }
+            };
             if (q) {
                 params.q = q;
             }
@@ -152,34 +164,30 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public fetcher = async (
-        url: string,
-    ): Promise<ICampaignContext[]> => {
+    public fetcher = async (url: string): Promise<ICampaignContext[]> => {
         try {
             const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
                 headers: this.get_auth_header(),
             });
-            return res.data.data.map(this.covertAPICampaignToCampaign)
+            return res.data.data.map(this.covertAPICampaignToCampaign);
         } catch (err: any) {
             throw err;
         }
     };
 
-    public fetcherWithMeta = async (
-        url: string,
-    ): Promise<{data: ICampaignContext[], meta: any}> => {
+    public fetcherWithMeta = async (url: string): Promise<{ data: ICampaignContext[]; meta: any }> => {
         try {
             const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
                 headers: this.get_auth_header(),
             });
             return {
                 data: res.data.data.map(this.covertAPICampaignToCampaign),
-                meta: res.data.meta
-            }
+                meta: res.data.meta,
+            };
         } catch (err: any) {
             throw err;
         }
-    }
+    };
 
     public createCampaignForm = async (campaignForm: ICampaignFormContext): Promise<ICampaignContext> => {
         try {

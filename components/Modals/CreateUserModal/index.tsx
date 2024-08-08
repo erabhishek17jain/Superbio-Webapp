@@ -27,11 +27,11 @@ const ROLES = [
 
 interface Props {
     mode: string;
-    closeModal: () => void;
+    openCloseModal: () => void;
     userDetails?: User | null;
 }
 
-export default function CreateUserModal({ mode, closeModal, userDetails }: Props) {
+export default function CreateUserModal({ mode, openCloseModal, userDetails }: Props) {
     const { enqueueSnackbar } = useSnackbar();
     const [error, setError] = useState(false);
     const [user, setUser] = useState<User>({ name: '', email: '', mobileNo: '', role: '' });
@@ -64,7 +64,7 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
             try {
                 // await CampaignNetworkService.instance.updateCampaign(userDetails?._id, user);
                 enqueueSnackbar('User updated successfully', { variant: 'success' });
-                closeModal();
+                openCloseModal();
             } catch (error) {
                 enqueueSnackbar('Something went wrong', { variant: 'error' });
             }
@@ -74,7 +74,7 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
                 const data = await UserNetworkService.instance.getAllUsers({ page: meta.page, limit: meta.limit });
                 dispatch(setMembers(data.data));
                 enqueueSnackbar('User created successfully', { variant: 'success' });
-                closeModal();
+                openCloseModal();
             } catch (error) {
                 enqueueSnackbar('Something went wrong', { variant: 'error' });
             }
@@ -82,8 +82,8 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
     };
 
     return (
-        <div id='create-user-pop-up' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
-            <div className='flex w-full h-[90%] my-6 justify-center items-start'>
+        <div id='create-user' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
+            <div className='flex w-full h-screen justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[40%]'>
                     <span className='text-xl font-semibold'>Bring in your teammate</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
@@ -168,7 +168,7 @@ export default function CreateUserModal({ mode, closeModal, userDetails }: Props
                     <div className='flex w-full mt-4 justify-end'>
                         <button
                             onClick={() => {
-                                closeModal();
+                                openCloseModal();
                             }}
                             className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black'>
                             <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>

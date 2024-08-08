@@ -14,7 +14,7 @@ const getSheetInfo = () => {
 };
 
 export default function CreateReporting() {
-    const params:any = useParams();
+    const params: any = useParams();
     const dispatch = useAppDispatch();
     const searchParams = useSearchParams();
     const state = useAppSelector((state) => state?.campaign);
@@ -23,6 +23,7 @@ export default function CreateReporting() {
     const [selSheetData, setSelSheetData] = React.useState<ISheet[]>([]);
     const [sheetData, setSheetData] = React.useState<any>([]);
     const [initialSheetData, setInitialSheetData] = React.useState<any>([]);
+    const [viewGuidelines, setViewGuidelines] = React.useState<boolean>(false);
     const [isSheetLoading, setIsSheetLoading] = React.useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = React.useState<boolean>(false);
     const [isError, setIsError] = useState(false);
@@ -171,7 +172,7 @@ export default function CreateReporting() {
     };
 
     const setOpenGuidelines = () => {
-        document.getElementById('guidelinesPanel')?.classList.toggle('hidden');
+        setViewGuidelines(!viewGuidelines);
     };
 
     React.useEffect(() => {
@@ -206,7 +207,6 @@ export default function CreateReporting() {
             dispatch(setSheetLoading(false));
             setMode('view');
         }
-
     }, [selSheetData]);
 
     React.useLayoutEffect(() => {
@@ -382,7 +382,7 @@ export default function CreateReporting() {
                     </div>
                 )}
             </div>
-            <GuidelinesUi />
+            {viewGuidelines && <GuidelinesUi openCloseModal={setOpenGuidelines} />}
             {showConfirmModal && <ConfirmSheetUpdateModal handleConfirm={handleSheetSelect} openCloseModal={openCloseConfirmModal} />}
         </div>
     );

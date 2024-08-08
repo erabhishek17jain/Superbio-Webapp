@@ -2,20 +2,13 @@
 import Image from 'next/image';
 import guidelinesImg from '@/public/guidelines4.svg';
 
-export default function GuidelinesUi() {
-    const toggleFilter = () => {
-        const panel = document.getElementById('guidelinesPanel');
-        if (panel) {
-            panel.classList.toggle('hidden');
-        }
-    };
-
+export default function GuidelinesUi({ openCloseModal }: any) {
     return (
         <div id='guidelinesPanel' className='w-full fixed top-0 right-0 border-l border-[#E6E6E6] h-screen bg-black bg-opacity-40 z-20'>
             <div className='flex w-2/5 min-w-[225px] flex-col p-6 bg-white fixed right-0'>
                 <p className='flex justify-between text-lg font-bold'>
                     <span className='flex gap-2 items-center mb-2'>Google Sheets Guidelines</span>
-                    <span className='-mr-1' onClick={() => toggleFilter()}>
+                    <span className='-mr-1' onClick={openCloseModal}>
                         <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
