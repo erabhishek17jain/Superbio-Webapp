@@ -1,3 +1,4 @@
+import { CampaignTracker } from '@/components/CampaignTracker';
 import { ContactUs } from '@/components/ContactUs';
 import { EverythingLOQO } from '@/components/EverythingLOQO';
 import { HeroSection } from '@/components/HeroSection';
@@ -19,13 +20,10 @@ export default function Home() {
             </div>
             <div className='w-full px-6 sm:px-12 md:px-16 lg:px-24'>
                 <WhySuperbioNew />
+                <CampaignTracker />
                 <EverythingLOQO />
                 <LOQOAdvantages />
             </div>
-            {/* <ProductOverviewSlide /> */}
-            {/* <BeforeAfterProduct /> */}
-            {/* <CustomerFeedback /> */}
-            {/* <BlogsHydration /> */}
             <ContactUs />
         </main>
     );

@@ -4,28 +4,28 @@ import { useRef } from 'react';
 const adavtages = [
     {
         title: 'Speed',
-        withLoqo: 'Time-consuming data collection and analysis that are prone to human error and delays.',
-        withOutLoqo: 'Super fast data crunching and report generation that enable quick insights for decision-making.',
+        withOutLoqo: 'Time-consuming data collection and analysis that are prone to human error and delays.',
+        withLoqo: 'Super fast data crunching and report generation that enable quick insights for decision-making.',
     },
     {
         title: 'Scalability',
-        withLoqo: 'Has limited scalability and can become overwhelming with increased campaign volume.',
-        withOutLoqo: 'Analyzes 1000s of campaign posts at once. Scales with your agency needs.',
+        withOutLoqo: 'Has limited scalability and can become overwhelming with increased campaign volume.',
+        withLoqo: 'Analyzes 1000s of campaign posts at once. Scales with your agency needs.',
     },
     {
         title: 'Analytics',
-        withLoqo: 'Has limited insights and relies on basic data analysis.',
-        withOutLoqo: 'Uncovers trends and patterns with advanced analytics and reporting features.',
+        withOutLoqo: 'Has limited insights and relies on basic data analysis.',
+        withLoqo: 'Uncovers trends and patterns with advanced analytics and reporting features.',
     },
     {
         title: 'Visualization',
-        withLoqo: 'Heavy to consume presentation that requires manual creation of reports and visuals.',
-        withOutLoqo: 'Easy to understand data stories with interactive dashboards and visualization.',
+        withOutLoqo: 'Heavy to consume presentation that requires manual creation of reports and visuals.',
+        withLoqo: 'Easy to understand data stories with interactive dashboards and visualization.',
     },
     {
         title: 'Team Focus',
-        withLoqo: 'Team spends significant time on data collection and analysis.',
-        withOutLoqo: 'Team focuses on strategic tasks and have more time for campaign planning and optimization.',
+        withOutLoqo: 'Team spends significant time on data collection and analysis.',
+        withLoqo: 'Team focuses on strategic tasks and have more time for campaign planning and optimization.',
     },
 ];
 

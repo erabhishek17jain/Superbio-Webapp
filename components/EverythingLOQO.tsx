@@ -5,13 +5,12 @@ import everything1 from '@/public/everything1.svg';
 import everything2 from '@/public/everything2.svg';
 import everything3 from '@/public/everything3.svg';
 import everything4 from '@/public/everything4.svg';
-import campTracker from '@/public/campTracker.svg';
 
 export const EverythingLOQO = () => {
     const ref = useRef(null);
     return (
         <section ref={ref} id='' className='pt-6 pb-5 flex flex-col justify-center'>
-            <Image src={campTracker} alt='campTracker' className='w-full mb-8 sm:mb-12' />
+            {/* <Image src={campTracker} alt='campTracker' className='w-full mb-8 sm:mb-12' /> */}
             <div className='flex flex-col gap-y-2 xl:w-1/2'>
                 <h2 className='text-2xl font-normal'>Everything you need to track campaign ROIs</h2>
                 <p className='text-pretty text-base font-light text-gray-500'>Enjoy LOQO’s powerful features and measure your ROIs with ease</p>
