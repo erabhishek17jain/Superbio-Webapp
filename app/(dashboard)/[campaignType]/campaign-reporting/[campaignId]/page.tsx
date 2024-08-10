@@ -12,7 +12,7 @@ import { IColumnResponse } from '@/services/public.service';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setFitlersState } from '@/context/campaign';
 import { useSearchParams } from 'next/navigation';
-import profiles from '../../../../../lib/profileResponse.json';
+import profiles from '../../../../../lib/profileResp.json';
 interface ISummary {
     totCount: number;
     count: number;
