@@ -1,0 +1,148 @@
+{
+    "postSummaryResp": {
+        "totalPosts": 859,
+        "privatePosts": 0,
+        "publicPosts": 851,
+        "storiesPosts": 8,
+        "isLinkDeletedPosts": 6,
+        "otherPosts": -6
+    },
+    "filterValueResp": {
+        "postTypes": ["stories", "public"],
+        "postedAtDates": [
+            "2024-07-11",
+            "2024-07-10",
+            "1970-01-01",
+            "2024-07-14",
+            "2024-07-17",
+            "2024-07-12",
+            "2024-07-13",
+            "2024-07-15",
+            "2024-07-16",
+            "2024-07-18"
+        ],
+        "internalSheetIds": [
+            "6698b13b70dbba2fe43e236b",
+            "6694be1b70dbba2fe43e20a3",
+            "669218b970dbba2fe43e1f3e",
+            "6690c70b70dbba2fe43e1e52",
+            "668f73c870dbba2fe43e1ddc",
+            "66975af170dbba2fe43e226d",
+            "66912ed270dbba2fe43e1f1e",
+            "66960c3d70dbba2fe43e21b1",
+            "669a012870dbba2fe43e248e",
+            "6693653c70dbba2fe43e1fd7"
+        ],
+        "sheetNames": ["All Links", "11 July 24", "10 july", "12th July", "13th July", "14th July", "15th July", "16th July", "17th July", "18th July"],
+        "campaignPhases": [""],
+        "categories": ["Post Launch", "Product Reel", "Post launch", "Trend Zone"],
+        "subCategories": [""]
+    },
+    "campaignAnalyticsResp": {
+        "likes": 6749172,
+        "comments": 28484,
+        "views": 93008771,
+        "reposts": 16020,
+        "quotes": 693,
+        "bookmarks": 0,
+        "basedOnPostCountDto": {
+            "likePosts": 829,
+            "commentPosts": 724,
+            "viewPosts": 679,
+            "repostPosts": 441,
+            "quotePosts": 121,
+            "bookmarkPosts": 0
+        }
+    },
+    "postDtoPaginatedResponse": {
+        "items": [
+            {
+                "id": "6690c70c70dbba2fe43e1e9e",
+                "socialLink": "https://www.instagram.com/reel/C9R4n6qSO-t/",
+                "analytics": {
+                    "isLinkDeleted": 0,
+                    "comments": 2783,
+                    "plays": 21267118,
+                    "views": 21267118,
+                    "likes": 1687388
+                },
+                "otherData": [
+                    {
+                        "columnName": "Creator Name",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Creator email",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Campaign phase",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Category",
+                        "value": "Post Launch"
+                    },
+                    {
+                        "columnName": "Subcategory",
+                        "value": ""
+                    }
+                ],
+                "internalSheetId": "6690c70b70dbba2fe43e1e52",
+                "campaignId": "668f73b070dbba2fe43e1ddb",
+                "slug": "C9R4n6qSO-t-668f73b070dbba2fe43e1ddb",
+                "platform": "instagram",
+                "postType": "public",
+                "postedAt": "2024-07-11T10:43:37.000+00:00",
+                "createdAt": "2024-07-12T06:02:52.163+00:00",
+                "updatedAt": "2024-07-23T09:54:20.083+00:00",
+                "private": false
+            },
+            {
+                "id": "6698b13c70dbba2fe43e2376",
+                "socialLink": "https://www.instagram.com/reel/C9hvDLFoEGc/",
+                "analytics": {
+                    "isLinkDeleted": 0,
+                    "comments": 1291,
+                    "plays": 6549281,
+                    "views": 6549281,
+                    "likes": 809623
+                },
+                "otherData": [
+                    {
+                        "columnName": "Creator Name",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Creator email",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Campaign phase",
+                        "value": ""
+                    },
+                    {
+                        "columnName": "Category",
+                        "value": "Trend Zone"
+                    },
+                    {
+                        "columnName": "Subcategory",
+                        "value": ""
+                    }
+                ],
+                "internalSheetId": "6698b13b70dbba2fe43e236b",
+                "campaignId": "668f73b070dbba2fe43e1ddb",
+                "slug": "C9hvDLFoEGc-668f73b070dbba2fe43e1ddb",
+                "platform": "instagram",
+                "postType": "public",
+                "postedAt": "2024-07-17T14:29:50.000+00:00",
+                "createdAt": "2024-07-18T06:07:56.133+00:00",
+                "updatedAt": "2024-07-23T13:48:18.617+00:00",
+                "private": false
+            }
+        ],
+        "currentPage": 1,
+        "totalPages": 144,
+        "totalItems": 859
+    }
+}
