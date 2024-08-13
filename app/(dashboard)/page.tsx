@@ -9,7 +9,8 @@ import React, { useState } from 'react';
 import { CampaignStatus } from '@/services/campaign.service';
 import Image from 'next/image';
 import ADropdown from '@/components/ADropdown/ADropdown';
-import productShowcase from '@/public/product-homepage.png';
+import reporting from '@/public/reporting.png';
+import influencer from '@/public/influencer.png';
 import DynamicLogo from '@/components/DynamicLogo';
 import { getCampaigns } from '@/context/campaign/network';
 import { enqueueSnackbar } from 'notistack';
@@ -217,56 +218,60 @@ export default function Home() {
                 )}
             </div>
             {campaignType === '' && (
-                <div className='flex flex-col sm:flex-row gap-4 h-screen justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2 overflow-y-auto mb-16 sm:ml-0'>
+                <div className='flex flex-col sm:flex-row gap-10 justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2 overflow-y-auto mb-16 sm:ml-0'>
                     <div
-                        className={`flex w-full sm:w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'campaign' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#fafafa] ${selectType === 'campaign' ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
                         onClick={() => setSelectType('campaign')}>
-                        <Image src={productShowcase} width={288} height={512} alt='Campaign' className='w-full p-4 pr-0' />
+                        <Image src={reporting} alt='Campaign' className='w-16 h-[90px] p-4 pr-0' />
                         <div className={`flex flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
-                            <span className={`${selectType === 'campaign' ? 'text-white' : 'text-black'}`}>Campaign Reporting</span>
-                            <span className='text-[#7D7D7D] text-sm'>Description</span>
-                        </div>
-                        {selectType === 'campaign' && (
-                            <button onClick={() => dispatch(setCampaignType('campaign'))} className='flex items-center justify-end px-3'>
-                                <div className={`w-full flex gap-3 justify-end ${selectType === 'campaign' ? 'text-white' : 'text-black'}`}>
+                            <span className={'text-black'}>Campaign Reporting</span>
+                            <span className='text-[#7D7D7D] text-sm line-clamp-gray line-clamp-2'>
+                                Get detailed post metrics & dashboard for you and your brands
+                            </span>
+                            <button
+                                onClick={() => dispatch(setCampaignType('campaign'))}
+                                className={`${selectType === 'campaign' ? 'flex' : 'hidden'} items-center justify-end px-3`}>
+                                <div className={`w-full flex gap-3 justify-end text-black uppercase font-semibold mt-6 mb-2`}>
                                     <span className='hidden sm:flex'>Get Started</span>
                                     <svg width='24px' height='24px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' fill='none'>
                                         <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                                         <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
                                         <g id='SVGRepo_iconCarrier'>
                                             <path
-                                                fill={selectType === 'campaign' ? '#fff' : '#000'}
+                                                fill={'#000000'}
                                                 d='M8.235 4.045a.75.75 0 111.03-1.09l4.5 4.25a.75.75 0 010 1.09l-4.5 4.25a.75.75 0 01-1.03-1.09L11.364 8.5H2.75a.75.75 0 010-1.5h8.614L8.235 4.045z'></path>
                                         </g>
                                     </svg>
                                 </div>
                             </button>
-                        )}
+                        </div>
                     </div>
                     <div
-                        className={`flex w-full sm:w-1/2 flex-col aspect-[16/9] rounded-xl p-10 pr-0 pb-6 ${selectType === 'influncer' ? 'bg-[#323232]' : 'bg-[#F6F6F6]'}`}
+                        className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#fafafa] ${selectType === 'influncer' ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
                         onClick={() => setSelectType('influncer')}>
-                        <Image src={productShowcase} width={288} height={512} alt='influncer' className='w-full p-4 pr-0' />
+                        <Image src={influencer} alt='Campaign' className='w-16 h-[90px] p-4 pr-0' />
                         <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
-                            <span className={`${selectType === 'influncer' ? 'text-white' : 'text-black'}`}>Influencer Analysis</span>
-                            <span className='text-[#7D7D7D] text-sm'>Description</span>
-                        </div>
-                        {selectType === 'influncer' && (
-                            <button onClick={() => dispatch(setCampaignType('influncer'))} className='flex items-center justify-end px-3'>
-                                <div className={`w-full flex gap-3 justify-end ${selectType === 'influncer' ? 'text-white' : 'text-black'}`}>
+                            <span className={'text-black'}>Campaign Reporting</span>
+                            <span className='text-[#7D7D7D] text-sm line-clamp-gray line-clamp-2'>
+                                Get precise profile analytics of hundreds of influencers
+                            </span>
+                            <button
+                                onClick={() => dispatch(setCampaignType('influncer'))}
+                                className={`${selectType === 'influncer' ? 'flex' : 'hidden'} items-center justify-end px-3`}>
+                                <div className={`w-full flex gap-3 justify-end text-black uppercase font-semibold mt-6 mb-2`}>
                                     <span className='hidden sm:flex'>Get Started</span>
                                     <svg width='24px' height='24px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' fill='none'>
                                         <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                                         <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
                                         <g id='SVGRepo_iconCarrier'>
                                             <path
-                                                fill={selectType === 'influncer' ? '#fff' : '#000'}
+                                                fill={'#000000'}
                                                 d='M8.235 4.045a.75.75 0 111.03-1.09l4.5 4.25a.75.75 0 010 1.09l-4.5 4.25a.75.75 0 01-1.03-1.09L11.364 8.5H2.75a.75.75 0 010-1.5h8.614L8.235 4.045z'></path>
                                         </g>
                                     </svg>
                                 </div>
                             </button>
-                        )}
+                        </div>
                     </div>
                 </div>
             )}
