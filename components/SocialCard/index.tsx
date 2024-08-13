@@ -272,7 +272,10 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                     <div className='flex w-full' id='social-links'>
                         {type === 'instagram' && (
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <InstagramEmbed url={link} width={'100%'} />
+                                <InstagramEmbed
+                                    url={'https://www.instagram.com/p/C80EI7NNDFK/'}
+                                    width={'100%'}
+                                />
                                 {/* <iframe src='https://www.instagram.com/abhijsagar/embed/' width='300' height='400'></iframe> */}
                             </div>
                         )}

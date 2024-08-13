@@ -19,7 +19,7 @@ import { StaticImageData } from "next/image";
 
 export const NavbarItemList = [
     {
-        name: 'Our Products',
+        name: 'Products',
         link: '#',
         id: 'our-products',
     },
@@ -30,22 +30,22 @@ export const NavbarItemList = [
     }
 ];
 export const HeroSectionFeatures = [
-  {
-    name: "Tech Solutions",
-    icon: nav_logo_1,
-  },
-  {
-    name: "Automation",
-    icon: nav_logo_2,
-  },
-  {
-    name: "Custom Tools",
-    icon: nav_logo_3,
-  },
-  {
-    name: "Agency Automation",
-    icon: nav_logo_4,
-  },
+    {
+        name: 'Tech-first Solutions',
+        icon: nav_logo_1,
+    },
+    {
+        name: 'AI-Powered Insights',
+        icon: nav_logo_2,
+    },
+    {
+        name: 'Agency Automation',
+        icon: nav_logo_3,
+    },
+    {
+        name: 'Custom Tools',
+        icon: nav_logo_4,
+    },
 ];
 
 /** */
@@ -66,41 +66,46 @@ export const ContactInfo = ['Nimbus The Golden Palm Sector 168', 'Noida, Uttar P
 /**WHY LOQO ai */
 
 export type WhySuperbioListProps = {
-  title: string;
-  icon: string;
-  text: string;
+    title: string;
+    icon: string;
+    text: string;
+    text2: string;
+    button1: string;
+    button2: string;
+    actionUrl1: string;
+    actionUrl2: string;
 };
 export const WhySuperbioList: WhySuperbioListProps[] = [
     {
-        title: 'Campaign Reporting',
+        title: 'Campaign \n Performance \n Tracker',
         icon: icon_1,
-        text: 'Get detailed post metrics & dashboard for you and your brands',
+        text: 'Automate your campaign performance tracking',
+        text2: 'Get detailed post metrics & dashboard for you and your brands.',
+        button1: 'Try it now',
+        button2: 'Book a demo',
+        actionUrl1: 'https://calendly.com/deepak-jain-loqo',
+        actionUrl2: '/register',
     },
     {
-        title: 'Influencer Profile Analysis',
+        title: 'Influencer \n Profile \n Analysis',
         icon: icon_2,
-        text: 'Get precise profile analytics of hundreds of influencers',
+        text: 'Trouble choosing the best?',
+        text2: 'Get precise profile analytics of hundreds of influencers',
+        button1: 'Know More',
+        button2: '',
+        actionUrl1: 'https://calendly.com/deepak-jain-loqo',
+        actionUrl2: '',
     },
     {
         title: 'Custom Tech Solutions',
         icon: icon_3,
-        text: 'Custom AI powered solutions tailored for your agency processes',
+        text: 'If you can dream it, LOQO can do it.',
+        text2: 'Custom AI powered solutions tailored for your agency processes',
+        button1: 'Get in Touch ',
+        button2: '',
+        actionUrl1: 'https://calendly.com/deepak-jain-loqo',
+        actionUrl2: '',
     },
-    // {
-    //     title: 'Campaign History Management',
-    //     icon: icon_4,
-    //     text: 'Manage campaign history effortlessly. Keep track of past campaigns.',
-    // },
-    // {
-    //     title: 'Automatic Invoicing and Payments',
-    //     icon: icon_5,
-    //     text: 'Simplify billing with automatic payments. Ensure timely payments.',
-    // },
-    // {
-    //     title: 'AI medias Plan Generation',
-    //     icon: icon_6,
-    //     text: 'Generate optimized medias plans with AI. Enhance campaign effectiveness.',
-    // },
 ];
 
 /**FEATURE_CARD */

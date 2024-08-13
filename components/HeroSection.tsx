@@ -14,50 +14,50 @@ export const HeroLeft = ({ parentRef }: { parentRef: RefObject<HTMLElement> }) =
             initial={{ opacity: 0, x: '-100%' }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '-100%' }}
             transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-            className='z-10 flex flex-col gap-y-4 text-left md:w-1/2'>
+            className='z-10 flex flex-col gap-y-4 text-left md:w-1/2 w-full mt-4 sm:-mt-6'>
             <div className='flex flex-col'>
-                <p className='text-2xl sm:whitespace-nowrap'>
+                <p className='text-4xl sm:whitespace-nowrap'>
                     <span className='font-semibold'>Know </span>
                     exactly what your
                 </p>
-                <p className='text-2xl sm:whitespace-nowrap'>
+                <p className='text-4xl sm:whitespace-nowrap'>
                     <span className='font-semibold'>campaings </span>are
                     <span className='font-semibold'> delivering</span>
                 </p>
             </div>
-            <div className='flex text-sm font-light'>Map out the impact of your influencer campaigns with robust data-driven reporting</div>
+            <div className='flex text-sm font-light'>Map out the impact of your influencer campaigns with a robust AI-driven reporting software. </div>
             <button
-                onClick={() => window.open('mailto:loqoai@gmail.com')}
-                className='mt-8 flex w-fit items-center gap-x-2 border border-black bg-black px-10 py-3 text-sm font-semibold uppercase text-white shadow-xl shadow-border drop-shadow-sm transition-colors hover:bg-white hover:text-black'>
+                onClick={() => window.open('https://calendly.com/deepak-jain-loqo')}
+                className='mt-4 sm:mt-8 flex w-fit items-center gap-x-2 border border-black bg-black px-10 py-3 text-sm font-semibold uppercase text-white shadow-xl shadow-border drop-shadow-sm transition-colors hover:bg-white hover:text-black'>
                 REQUEST A CALLBACK
                 <ArrowRightIcon size={16} />
             </button>
-            <div className='mt-10 flex gap-x-4'>
-                <div className='flex flex-col gap-y-4'>
+            <div className='mt-4 sm:mt-16 flex gap-x-3 sm:gap-x-8'>
+                <div className='flex flex-col gap-y-3 sm:gap-y-8'>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-5 py-3 text-left text-sm font-medium shadow-xl shadow-border drop-shadow-sm'>
-                        <Image src={HeroSectionFeatures[0].icon} className='mr-2 h-4 w-4' alt='icon' />
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        <Image src={HeroSectionFeatures[0].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[0].name}
                     </button>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-5 py-3 text-left text-sm font-medium shadow-xl shadow-border drop-shadow-sm'>
-                        <Image src={HeroSectionFeatures[1].icon} className='mr-2 h-4 w-4' alt='icon' />
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        <Image src={HeroSectionFeatures[1].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[1].name}
                     </button>
                 </div>
-                <div className='flex flex-col gap-y-4'>
+                <div className='flex flex-col gap-y-3 sm:gap-y-8'>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-5 py-3 text-left text-sm font-medium shadow-xl shadow-border drop-shadow-sm'>
-                        <Image src={HeroSectionFeatures[2].icon} className='mr-2 h-4 w-4' alt='icon' />
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        <Image src={HeroSectionFeatures[2].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[2].name}
                     </button>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-5 py-3 text-left text-sm font-medium shadow-xl shadow-border drop-shadow-sm'>
-                        <Image src={HeroSectionFeatures[3].icon} className='mr-2 h-4 w-4' alt='icon' />
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        <Image src={HeroSectionFeatures[3].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[3].name}
                     </button>
                 </div>

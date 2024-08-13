@@ -15,7 +15,7 @@ export default function Home() {
             }}
             className='w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <Navbar />
-            <div className='w-full overflow-hidden px-6 sm:px-12 md:px-16 lg:px-24'>
+            <div className='w-full overflow-hidden px-4 sm:px-6 sm:px-12 md:px-16 lg:px-24 mt-12 sm:mt-[6.5rem]'>
                 <HeroSection />
             </div>
             <div className='w-full px-6 sm:px-12 md:px-16 lg:px-24'>
