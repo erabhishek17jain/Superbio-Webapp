@@ -24,7 +24,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
     };
 
     const analytics: ISummary[] = summary?.filter((el) => {
-        if (filters['platform']?.includes('instagram')) {
+        if (filters && filters['platform']?.includes('instagram')) {
             return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'Estimated Reach');
         } else {
             return el;
@@ -44,7 +44,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                             <div
                                 onClick={() => changePlatform('all')}
                                 className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
-                                    !filters['platform'] ? 'text-white bg-black' : 'text-black'
+                                    filters && filters['platform']?.length === 0 ? 'text-white bg-black' : 'text-black'
                                 }`}>
                                 All
                             </div>
@@ -162,7 +162,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                             )}
                         </div>
                     </div>
-                    <FilterHandler total={campData?.meta.total} shouldShowSort={true} query={query} />
+                    <FilterHandler meta={campData?.meta} shouldShowSort={true} query={query} />
                 </div>
             )}
 
@@ -198,11 +198,11 @@ export default function FilterPlatform(props: FilterPlatformProps) {
 
             {campData?.data && campData?.data.length > 0 && (
                 <Reporting
+                    query={query}
+                    meta={campData?.meta}
                     campaignId={params.campaignId}
                     initialColumns={campData?.data}
-                    meta={query}
                     isPublic={sParams.isPublic ? sParams.isPublic : false}
-                    total={campData?.meta.total}
                 />
             )}
         </>

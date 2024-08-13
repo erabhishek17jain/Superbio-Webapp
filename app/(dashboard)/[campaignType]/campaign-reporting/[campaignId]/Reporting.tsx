@@ -2,33 +2,39 @@
 import React from 'react';
 import Link from 'next/link';
 import { BiArrowFromBottom } from 'react-icons/bi';
-import { IColumn } from '@/services/sheet.service';
+import SheetNetworkService, { IColumn } from '@/services/sheet.service';
 import SocialCard from '@/components/SocialCard';
 import { InView } from 'react-intersection-observer';
+import { clearFilters } from '@/lib/utils';
 
 interface IReportingProps {
-    initialColumns: IColumn[];
-    meta: { [key: string]: any };
+    meta: any;
     isPublic: boolean;
     campaignId: string;
-    total: number;
+    initialColumns: IColumn[];
+    query: { [key: string]: any };
 }
 
 export default function Reporting(props: IReportingProps) {
-    const { meta, isPublic, total } = props;
+    const { query, meta, campaignId, isPublic, initialColumns } = props;
     const [screenWidth, setScreenWidth] = React.useState(0);
-    const [columns, setColumns] = React.useState<IColumn[]>(props.initialColumns.slice(0, 6));
-    const [isLoadMore] = React.useState(false);
+    const [columns, setColumns] = React.useState<IColumn[]>(initialColumns);
     const [loader, setloader] = React.useState(false);
 
+    const loadCampData = async (query: any) => {
+        const resp: any = await SheetNetworkService.instance.getPostsData(campaignId, clearFilters(query));
+        setColumns((prev: any) => [...prev, ...resp?.postDtoPaginatedResponse?.items]);
+        setloader(false);
+    };
+
     const loadMore = async () => {
-        if (total === columns.length) {
+        if (meta?.total === columns.length) {
             return;
         }
+        query.page = query.page + 1;
         setloader(true);
         setTimeout(() => {
-            setColumns((prev: any) => [...prev, ...props.initialColumns.slice(prev.length, prev.length + 6)]);
-            setloader(false);
+            loadCampData({ ...query });
         }, 2000);
     };
 
@@ -102,22 +108,6 @@ export default function Reporting(props: IReportingProps) {
             {columns.length === 0 && screenWidth > 0 && (
                 <div className='flex items-center justify-center w-full h-[200px] my-6 mx-auto text-xl font-semibold'>No Links Found</div>
             )}
-            {columns.length !== 0 && columns.length < meta.total && (
-                <div className='flex justify-center w-full my-5'>
-                    <button className='flex items-center bg-black ml-5 p-2 px-4 rounded-lg space-x-2 disabled:opacity-40' disabled={isLoadMore}>
-                        <span className='text-white'>
-                            {isLoadMore && (
-                                <div className='flex items-center justify-center w-full mx-auto gap-2'>
-                                    <div className='flex items-center justify-center w-7 h-7'>
-                                        <div className='border-t-transparent border-solid animate-spin rounded-full border-white border-4 w-full h-full'></div>
-                                    </div>
-                                    Loading...
-                                </div>
-                            )}
-                        </span>
-                    </button>
-                </div>
-            )}
             {loader && (
                 <Link className='fixed left-1/2 bottom-[72px] sm:bottom-5' href='#camp-top'>
                     <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-2 text-white shadow-sm'}>
@@ -129,7 +119,7 @@ export default function Reporting(props: IReportingProps) {
                     </div>
                 </Link>
             )}
-            <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>
+            {!loader && <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>}
             <Link className='fixed right-5 bottom-[72px] sm:bottom-5' href='#camp-top'>
                 <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-3 text-white shadow-sm'}>
                     <BiArrowFromBottom className='h-6 w-6' aria-hidden='true' />

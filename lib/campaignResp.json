@@ -5,7 +5,7 @@
         "publicPosts": 851,
         "storiesPosts": 8,
         "isLinkDeletedPosts": 6,
-        "otherPosts": -6
+        "otherPosts": 6
     },
     "filterValueResp": {
         "postTypes": ["stories", "public"],

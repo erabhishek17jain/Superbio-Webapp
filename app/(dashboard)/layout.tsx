@@ -11,12 +11,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return isPublic ? (
         children
     ) : (
-        <main
-            style={{
-                backgroundImage: `url(${bgImage.src})`,
-            }}
-            className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
-            <div className='hidden sm:flex mt-[73px] -mb-[73px]'>
+        <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
+            <div className='hidden sm:flex mt-[74px] -mb-[74px]'>
                 <SideBar />
             </div>
             <div className='flex flex-col w-full'>{children}</div>

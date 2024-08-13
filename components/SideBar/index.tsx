@@ -52,7 +52,7 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
                     </svg>
                 </div>
             )}
-            <div className='flex flex-col items-center w-16 border-r px-2 py-6 w-16 shadow-md shadow-[#CDCDCD] h-screen'>
+            <div className='flex flex-col items-center w-16 border-r border-t px-2 py-6 w-16 border-[#CDCDCD] h-screen'>
                 <div className='flex h-full'>
                     <div className='flex flex-col space-y-6'>
                         {sidebarItems.map((item) =>

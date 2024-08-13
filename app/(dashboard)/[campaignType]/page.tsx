@@ -77,7 +77,7 @@ export default function AllCampaignPage() {
                 />
             )}
             {campaigns && campaigns?.length > 0 && (
-                <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4 mb-16'>
+                <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 mb-16'>
                     {campaigns.map((item) => (
                         <CampaignCard key={item.id} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
                     ))}

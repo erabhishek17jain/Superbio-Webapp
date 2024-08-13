@@ -311,64 +311,40 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             {showConfirmModal && <ConfirmLastRefresh openCloseModal={openCloseConfirmModal} />}
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
-                    {meta?.total && (
+                    {meta?.postSummaryResp?.totalPosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.total > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Total</span>
-                                    <span className='text-[#959595]'>{meta?.total} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Total</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp?.totalPosts} posts</span>
                         </div>
                     )}
-                    {meta?.reelsPosts && (
+                    {meta?.postSummaryResp?.privatePosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.reelsPosts > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Reels</span>
-                                    <span className='text-[#959595]'>{meta?.reelsPosts} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Reels</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp?.privatePosts} posts</span>
                         </div>
                     )}
-                    {meta?.storiesPosts && (
+                    {meta?.postSummaryResp.storiesPosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.storiesPosts > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Stories</span>
-                                    <span className='text-[#959595]'>{meta?.storiesPosts} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Stories</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp?.storiesPosts} posts</span>
                         </div>
                     )}
-                    {meta?.privatePosts && (
+                    {meta?.postSummaryResp?.privatePosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.privatePosts > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Private</span>
-                                    <span className='text-[#959595]'>{meta?.privatePosts} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Private</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp?.privatePosts} posts</span>
                         </div>
                     )}
-                    {meta?.isLinkDeletedPosts && (
+                    {meta?.postSummaryResp.isLinkDeletedPosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.isLinkDeletedPosts > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Deleted</span>
-                                    <span className='text-[#959595]'>{meta?.isLinkDeletedPosts} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Deleted</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp?.isLinkDeletedPosts} posts</span>
                         </div>
                     )}
-                    {meta?.otherPosts && (
+                    {meta?.postSummaryResp.otherPosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
-                            {meta && meta?.otherPosts > 0 && (
-                                <>
-                                    <span className='text-black font-semibold'>Others</span>
-                                    <span className='text-[#959595]'>{meta?.otherPosts} posts</span>
-                                </>
-                            )}
+                            <span className='text-black font-semibold'>Others</span>
+                            <span className='text-[#959595]'>{meta?.postSummaryResp.otherPosts} posts</span>
                         </div>
                     )}
                 </span>

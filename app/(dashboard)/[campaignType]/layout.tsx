@@ -80,21 +80,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }, []);
 
     return (
-        <main
-            style={{
-                backgroundImage: `url(${bgImage.src})`,
-            }}
-            className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
+        <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-y-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 pt-3 pb-1 border-b h-[80px] shadow-md shadow-[#CDCDCD]`}>
+                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 py-3 border-b h-[80px] border-[#CDCDCD]`}>
                         <div className='flex flex-col w-10 items-center'>
                             <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                                 <DynamicLogo />
                             </Link>
                         </div>
-                        <div className='flex flex-col lg:ml-0 w-full'>
-                            <div className='flex justify-between'>
+                        <div className='flex flex-col lg:ml-0 w-full justify-center h-[50px]'>
+                            <div className='flex justify-between items-center'>
                                 <div className='flex flex-col'>
                                     <div className='flex justify-between'>
                                         <div className='flex'>

@@ -5,28 +5,28 @@ import { IColumn } from './sheet.service';
 export interface IPublicForm {
     campaignName: string;
     form: {
-      _id: { $oid: string };
-      campaignId: { $oid: string };
-      fields: [
-        {
-          fieldType: string;
-          label: string;
-          required: boolean;
-          isLinkField: boolean;
-        }
-      ]
-    }
+        _id: { $oid: string };
+        campaignId: { $oid: string };
+        fields: [
+            {
+                fieldType: string;
+                label: string;
+                required: boolean;
+                isLinkField: boolean;
+            },
+        ];
+    };
 }
 
 export interface ISubmitPublicForm {
-  formId: string;
-  campaignId: string;
-  fields: {
-      fieldType: string;
-      label: string;
-      value: string;
-      isLinkField: boolean;
-  }[]
+    formId: string;
+    campaignId: string;
+    fields: {
+        fieldType: string;
+        label: string;
+        value: string;
+        isLinkField: boolean;
+    }[];
 }
 
 interface IPublicNetworkService {
@@ -40,8 +40,22 @@ export interface IColumnResponse {
         total: number;
         page: number;
         limit: number;
-        totalLikes: number;
-        updatedAt: number;
+        analytics: {
+            likes: string;
+            quotes: string;
+            reposts: string;
+            views: string;
+            bookmarks: string;
+        };
+        basedOnPosts: {
+            likes: string;
+            quotes: string;
+            reposts: string;
+            views: string;
+            bookmarks: string;
+        };
+        postSummaryResp: any;
+        filterValueResp: any;
     };
 }
 
@@ -71,15 +85,15 @@ export default class PublicNetworkService extends BaseNetworkFramework implement
         } catch (err: any) {
             throw err;
         }
-    }
+    };
 
     public submitPublicForm = async (data: ISubmitPublicForm): Promise<string> => {
-      try {
-        const res = await axios.post<{message: string}>(`${this.nodeUrl}/form/submit`, data);
-        return res.data.message;
-      } catch (err: any) {
-          console.log(err);
-        return ""
-      }
-    }
+        try {
+            const res = await axios.post<{ message: string }>(`${this.nodeUrl}/form/submit`, data);
+            return res.data.message;
+        } catch (err: any) {
+            console.log(err);
+            return '';
+        }
+    };
 }

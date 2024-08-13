@@ -41,16 +41,12 @@ export interface IColumn {
     isPrivate: boolean;
 }
 
-interface IColumnResponse {
+interface IColumnDataResponse {
     data: IColumn[];
     meta: {
         total: number;
-        stories: number;
-        private: number;
         page: number;
         limit: number;
-        totalLikes: number;
-        updatedAt: number;
         analytics: {
             likes: string;
             quotes: string;
@@ -66,6 +62,12 @@ interface IColumnResponse {
             bookmarks: string;
         };
     };
+}
+export interface IReportingResponse {
+    postSummaryResp: any;
+    filterValueResp: any;
+    campaignAnalyticsResp: any;
+    postDtoPaginatedResponse: any;
 }
 
 interface ISheetNetworkService {
@@ -134,20 +136,20 @@ export default class SheetNetworkService extends BaseNetworkFramework implements
         }
     };
 
-    public getCampaignData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IColumnResponse> => {
+    public getCampaignData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IColumnDataResponse> => {
         try {
             let header: { [key: string]: string } = this.get_auth_header();
             if (getCookie('token')) {
                 header['Authorization'] = `Bearer ${getCookie('token')}`;
             }
             if (!header.Authorization.includes('undefined')) {
-                const res = await axios.get<IColumnResponse>(`${this.url}/sheet/get-by-campaign-id/${campaignId}`, {
+                const res = await axios.get<IColumnDataResponse>(`${this.url}/sheet/get-by-campaign-id/${campaignId}`, {
                     headers: header,
                     params,
                 });
                 return res.data;
             } else {
-                const res = await axios.get<IColumnResponse>(`${this.url}/public/public-reporting/${campaignId}`, {
+                const res = await axios.get<IColumnDataResponse>(`${this.url}/public/public-reporting/${campaignId}`, {
                     params,
                 });
                 return res.data;
@@ -157,28 +159,21 @@ export default class SheetNetworkService extends BaseNetworkFramework implements
         }
     };
 
-    public getCampaignMeta = async (campaignId: string, params: { [key: string]: number | string }): Promise<any> => {
+    public getReportingData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IReportingResponse> => {
         try {
-            let header: { [key: string]: string } = this.get_auth_header();
-            if (getCookie('token')) {
-                header['Authorization'] = `Bearer ${getCookie('token')}`;
-            }
-            if (!header.Authorization.includes('undefined')) {
-                const resp = await axios.get<any>(`${this.url}/posts/${campaignId}/posts-summary`, {
-                    headers: header,
-                });
-                return resp;
-            }
+            const res = await axios.get<IReportingResponse>(`${this.javaUrl}/reporting/${campaignId}`, { params });
+            return res.data;
         } catch (err: any) {
-            return {
-                totalPosts: 100,
-                privatePosts: 3,
-                publicPosts: 71,
-                storiesPosts: 4,
-                reelsPosts: 17,
-                otherPosts: 4,
-                isLinkDeletedPosts: 1,
-            };
+            throw err;
+        }
+    };
+
+    public getPostsData = async (campaignId: string, params: { [key: string]: number | string }): Promise<any> => {
+        try {
+            const res = await axios.get<any>(`${this.javaUrl}/post/${campaignId}/posts`, { params });
+            return res.data;
+        } catch (err: any) {
+            throw err;
         }
     };
 

@@ -2,11 +2,10 @@
 import ADropdown from '@/components/ADropdown/ADropdown';
 import CampaignReportingFilter from './filter';
 import { useSearchParams } from 'next/navigation';
-import { SearchParams } from './layout';
 import { useAppSelector } from '@/context';
 
 interface FilterHandlerProps {
-    total: number;
+    meta: any;
     shouldShowSort: boolean;
     query: any;
 }
@@ -21,31 +20,28 @@ const defFilterOptions: AvailableFilters = {
     subCategory: [],
 };
 
-export default function FilterHandler({ total, shouldShowSort, query }: FilterHandlerProps) {
+export default function FilterHandler({ meta, shouldShowSort, query }: FilterHandlerProps) {
     const searchParams = useSearchParams();
     const { campaignType } = useAppSelector((state) => state.user);
-    const { filters } = useAppSelector((state) => state.campaign);
-    const data = new CampaignReportingFilter(filters);
-    const filtersOptions = data.getAvailableFilters();
     const openFilter = searchParams.get('openFilter') && searchParams.get('openFilter') === 'true';
-    const sort = query.sortBy;
-    const order = query.sortOrder;
+    const sortBy = query.sortBy;
+    const sortDirection = query.sortDirection;
 
     const setOpenFilter = (open: boolean) => {
         document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
-    const setCampFilters = (filters: { sortBy: string; sortOrder: number }) => {
+    const setCampFilters = (filters: { sortBy: string; sortDirection: string }) => {
         const url = new URL(window.location.href);
-        url.searchParams.set('sort', filters.sortBy);
-        url.searchParams.set('order', filters.sortOrder.toString());
+        url.searchParams.set('sortBy', filters.sortBy);
+        url.searchParams.set('sortDirection', filters.sortDirection);
         window.location.href = url.href;
     };
 
     const sortLikeOptions = [
         {
             title: campaignType === 'influncer' ? 'Followers: Ascending' : 'Likes: Ascending',
-            action: () => setCampFilters({ sortBy: campaignType === 'influncer' ? 'analytics.followers' : 'analytics.likes', sortOrder: -1 }),
+            action: () => setCampFilters({ sortBy: campaignType === 'influncer' ? 'followers' : 'likes', sortDirection: 'ASC' }),
             icon: (
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#959595'>
                     <path
@@ -61,7 +57,7 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
         },
         {
             title: campaignType === 'influncer' ? 'Followers: Descending' : 'Likes: Descending',
-            action: () => setCampFilters({ sortBy: campaignType === 'influncer' ? 'analytics.followers' : 'analytics.likes', sortOrder: 1 }),
+            action: () => setCampFilters({ sortBy: campaignType === 'influncer' ? 'followers' : 'likes', sortDirection: 'DESC' }),
             icon: (
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#959595'>
                     <path
@@ -77,9 +73,89 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
         },
     ];
     const sortTimeOptions = [
+        // {
+        //     title: 'Comments: Ascending',
+        //     action: () => setCampFilters({ sortBy: 'comments', sortDirection: 'ASC' }),
+        //     icon: (
+        //         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
+        //             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+        //             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+        //             <g id='SVGRepo_iconCarrier'>
+        //                 <g id='Layer_2' data-name='Layer 2'>
+        //                     <g id='invisible_box' data-name='invisible box'>
+        //                         <rect width='48' height='48' fill='none'></rect>
+        //                     </g>
+        //                     <g id='icons_Q2' data-name='icons Q2'>
+        //                         <path d='M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM35.7,31A2.1,2.1,0,0,1,34,32a1.9,1.9,0,0,1-1-.3L22,25.1V14a2,2,0,0,1,4,0v8.9l9,5.4A1.9,1.9,0,0,1,35.7,31Z'></path>{' '}
+        //                     </g>
+        //                 </g>
+        //             </g>
+        //         </svg>
+        //     ),
+        // },
+        // {
+        //     title: 'Comments: Descending',
+        //     action: () => setCampFilters({ sortBy: 'comments', sortDirection: 'DESC' }),
+        //     icon: (
+        //         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
+        //             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+        //             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+        //             <g id='SVGRepo_iconCarrier'>
+        //                 <g id='Layer_2' data-name='Layer 2'>
+        //                     <g id='invisible_box' data-name='invisible box'>
+        //                         <rect width='48' height='48' fill='none'></rect>
+        //                     </g>
+        //                     <g id='icons_Q2' data-name='icons Q2'>
+        //                         <path d='M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM35.7,31A2.1,2.1,0,0,1,34,32a1.9,1.9,0,0,1-1-.3L22,25.1V14a2,2,0,0,1,4,0v8.9l9,5.4A1.9,1.9,0,0,1,35.7,31Z'></path>{' '}
+        //                     </g>
+        //                 </g>
+        //             </g>
+        //         </svg>
+        //     ),
+        // },
+        // {
+        //     title: 'Views: Ascending',
+        //     action: () => setCampFilters({ sortBy: 'views', sortDirection: 'ASC' }),
+        //     icon: (
+        //         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
+        //             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+        //             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+        //             <g id='SVGRepo_iconCarrier'>
+        //                 <g id='Layer_2' data-name='Layer 2'>
+        //                     <g id='invisible_box' data-name='invisible box'>
+        //                         <rect width='48' height='48' fill='none'></rect>
+        //                     </g>
+        //                     <g id='icons_Q2' data-name='icons Q2'>
+        //                         <path d='M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM35.7,31A2.1,2.1,0,0,1,34,32a1.9,1.9,0,0,1-1-.3L22,25.1V14a2,2,0,0,1,4,0v8.9l9,5.4A1.9,1.9,0,0,1,35.7,31Z'></path>{' '}
+        //                     </g>
+        //                 </g>
+        //             </g>
+        //         </svg>
+        //     ),
+        // },
+        // {
+        //     title: 'Views: Descending',
+        //     action: () => setCampFilters({ sortBy: 'views', sortDirection: 'DESC' }),
+        //     icon: (
+        //         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
+        //             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+        //             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+        //             <g id='SVGRepo_iconCarrier'>
+        //                 <g id='Layer_2' data-name='Layer 2'>
+        //                     <g id='invisible_box' data-name='invisible box'>
+        //                         <rect width='48' height='48' fill='none'></rect>
+        //                     </g>
+        //                     <g id='icons_Q2' data-name='icons Q2'>
+        //                         <path d='M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM35.7,31A2.1,2.1,0,0,1,34,32a1.9,1.9,0,0,1-1-.3L22,25.1V14a2,2,0,0,1,4,0v8.9l9,5.4A1.9,1.9,0,0,1,35.7,31Z'></path>{' '}
+        //                     </g>
+        //                 </g>
+        //             </g>
+        //         </svg>
+        //     ),
+        // },
         {
             title: 'Posted Time: Ascending',
-            action: () => setCampFilters({ sortBy: 'postedAt', sortOrder: 1 }),
+            action: () => setCampFilters({ sortBy: 'postedAt', sortDirection: 'ASC' }),
             icon: (
                 <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
                     <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -99,7 +175,7 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
         },
         {
             title: 'Posted Time: Descending',
-            action: () => setCampFilters({ sortBy: 'postedAt', sortOrder: -1 }),
+            action: () => setCampFilters({ sortBy: 'postedAt', sortDirection: 'DESC' }),
             icon: (
                 <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
                     <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -120,9 +196,9 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
     ];
 
     return (
-        total > 0 && (
+        meta?.postSummaryResp.totalPosts > 0 && (
             <span className='flex gap-4'>
-                {filtersOptions && Object.keys(filtersOptions).length > 0 && JSON.stringify(filtersOptions) !== JSON.stringify(defFilterOptions) && (
+                {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                     <span className='flex items-center justify-end text-sm gap-2 h-12'>
                         <span
                             className={`flex items-center gap-2 text-base font-semibold cursor-pointer ${openFilter ? 'text-black' : 'text-[#959595]'}`}
@@ -152,7 +228,7 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
                     <ADropdown
                         width={'w-60'}
                         position='down'
-                        options={campaignType === 'influncer' ? sortLikeOptions : [...sortLikeOptions, sortTimeOptions]}
+                        options={campaignType === 'influncer' ? sortLikeOptions : [...sortLikeOptions, ...sortTimeOptions]}
                         header={
                             <div
                                 className='flex h-12 w-auto items-center justify-center gap-2 rounded-lg cursor-pointer text-sm text-[#9A9AB0] font-semibold'
@@ -164,7 +240,7 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
                                 </svg>
                                 <span className='capitalize text-[#959595]'>Sort By:</span>
                                 <span className='flex items-center gap-1 w-auto min-w-120 bg-[#e6e6e6] text-[#959595] rounded-lg py-1 px-3 h-9'>
-                                    {sort === 'postedAt' ? (
+                                    {sortBy === 'postedAt' ? (
                                         <>
                                             <svg width='16px' height='16px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#959595'>
                                                 <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -197,7 +273,7 @@ export default function FilterHandler({ total, shouldShowSort, query }: FilterHa
                                             {campaignType === 'influncer' ? 'Followers: ' : 'Likes: '}
                                         </>
                                     )}
-                                    {Number(order) === -1 ? (
+                                    {sortDirection === 'DESC' ? (
                                         <span className='flex items-center gap-1'>
                                             Descending
                                             <svg

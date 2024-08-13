@@ -13,6 +13,8 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { setFitlersState } from '@/context/campaign';
 import { useSearchParams } from 'next/navigation';
 import profiles from '../../../../../lib/profileResp.json';
+import { calculateSummary, clearFilters, structureData } from '@/lib/utils';
+
 interface ISummary {
     totCount: number;
     count: number;
@@ -24,25 +26,30 @@ interface ISummary {
 
 export default async function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const sParams = useSearchParams();
-    const dispatch = useAppDispatch();
     const { campaignType } = useAppSelector((state) => state.user);
     const [campData, setCampData] = React.useState<IColumnResponse>({ data: [], meta: {} as any });
     const [summary, setSummary] = React.useState<any>(null);
-    const [defFilters, setDefFilters] = React.useState<any>(null);
-    const [filterOptn, setFilterOptn] = React.useState<any>(null);
-    const [filters, setFilters] = React.useState<AvailableFilters | any>({});
+    const [filters, setFilters] = React.useState<any>({
+        postedAt: [],
+        internalSheetId: [],
+        platform: [],
+        postType: [],
+        phase: [],
+        category: [],
+        subCategory: [],
+    });
 
-    const sort = searchParams.sort ? searchParams.sort : 'analytics.likes';
-    const order = searchParams.order ? parseInt(searchParams.order) : -1;
+    const sortBy = searchParams.sortBy ? searchParams.sortBy : 'likes';
+    const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
     const filter = searchParams.filter ? searchParams.filter : '';
     const value = searchParams.value ? searchParams.value : '';
     const campaignName = searchParams.campaignName ? searchParams.campaignName : '';
 
     let query: { [key: string]: string | number } = {
         page: 1,
-        limit: 2000,
-        sortBy: sort || 'analytics.likes',
-        sortOrder: order || -1,
+        size: 6,
+        sortBy: sortBy || 'likes',
+        sortDirection: sortDirection || 'DESC',
     };
     if (filter && value) {
         query = {
@@ -52,21 +59,8 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         };
     }
 
-    const calculateSummary = (count: number) => {
-        let calSum = 0 as any;
-        if (count !== undefined && count !== null && !isNaN(count)) {
-            calSum = (count / 1000000).toFixed(1) + 'M';
-            if (count > 1000 && count < 1000000) {
-                calSum = (count / 1000).toFixed(1) + 'K';
-            } else if (count < 1000) {
-                calSum = count;
-            }
-        }
-        return calSum;
-    };
-
     const calculateAnalytics = (campData: any) => {
-        const isTwitter = filterOptn?.platform.includes('twitter');
+        const isTwitter = campData?.meta.filterValueResp?.platform.includes('twitter');
         if (campData?.meta.analytics) {
             let keys: string[] =
                 campaignType === 'influncer'
@@ -135,7 +129,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         }
         if (value !== 'all') {
             if (checked) {
-                if (key === 'platform' || key === 'postType') {
+                if (key === 'platform') {
                     filter[key] = [value];
                 } else {
                     if (filter[key].indexOf(value) === -1) {
@@ -143,7 +137,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     }
                 }
             } else {
-                if (key === 'platform' || key === 'postType') {
+                if (key === 'platform') {
                     delete filter[key];
                 } else {
                     filter[key] = filter[key].filter((item: any) => item !== value);
@@ -171,15 +165,29 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             url.searchParams.delete('filter');
             url.searchParams.delete('value');
         }
-
         window.location.href = url.href;
     };
 
-    useEffect(() => {
-        if (defFilters?.length > 0) {
-            dispatch(setFitlersState(defFilters));
+    let loaded = false;
+    const initialLoadCampData = async (query: any) => {
+        if (!loaded) {
+            const resp = await SheetNetworkService.instance.getReportingData(params.campaignId, clearFilters(query));
+            if (campaignType === 'influncer') {
+                const data: any = profiles;
+                setCampData({ data: data.data, meta: data.meta });
+            } else {
+                const data = structureData(resp);
+                setCampData(data);
+            }
+            loaded = true;
         }
-    }, [defFilters]);
+    };
+
+    useEffect(() => {
+        if (campData?.data?.length > 0) {
+            setSummary(calculateAnalytics(campData));
+        }
+    }, [campData]);
 
     useEffect(() => {
         const filter = sParams.get('filter');
@@ -199,56 +207,10 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                 }
             }
             setFilters(filterObj);
+            initialLoadCampData({ ...query, ...filterObj });
+        } else {
+            initialLoadCampData(query);
         }
-    }, [filterOptn]);
-
-    useEffect(() => {
-        if (defFilters) {
-            let filter = sParams.get('filter');
-            let value = sParams.get('value');
-            const filterHandler = new CampaignReportingFilter(defFilters);
-            let filterOptions = filterHandler.getAvailableFilters();
-            let filterKeys = Object.keys(filters);
-            if (filterKeys.length > 0 && filter !== null && value !== null) {
-                filterOptions = filterHandler.setSelectedFilters(filter?.split('|'), value?.split('|'));
-                setFilterOptn(filterOptions);
-                return;
-            }
-            setFilterOptn(filterOptions);
-        }
-    }, [defFilters]);
-
-    useEffect(() => {
-        if (campData?.data?.length > 0) {
-            setSummary(calculateAnalytics(campData));
-        }
-    }, [campData]);
-
-    let loaded = false;
-    const initialLoadFilters = async () => {
-        if (!loaded) {
-            const defaultFilters = await SheetNetworkService.instance.getSheetFilters(params.campaignId);
-            setDefFilters(defaultFilters);
-        }
-    };
-
-    const initialLoadCampData = async () => {
-        if (!loaded) {
-            const resp = await SheetNetworkService.instance.getCampaignData(params.campaignId, query);
-            const metaResp = await SheetNetworkService.instance.getCampaignMeta(params.campaignId, query);
-            const data: any = campaignType === 'influncer' ? profiles : resp;
-            const meta = { ...data.meta, ...metaResp };
-            setCampData({ data: data.data, meta: meta });
-            loaded = true;
-        }
-    };
-
-    useEffect(() => {
-        initialLoadCampData();
-    }, [filterOptn]);
-
-    useEffect(() => {
-        initialLoadFilters();
     }, []);
 
     return (
@@ -296,17 +258,17 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     />
                 )}
                 <FilterPlatform
-                    campData={campData}
                     query={query}
                     params={params}
-                    sParams={searchParams}
-                    filters={filters}
                     summary={summary}
-                    filtersOptions={filterOptn}
+                    filters={filters}
+                    campData={campData}
+                    sParams={searchParams}
                     selectFilter={selectFilter}
+                    filtersOptions={campData?.meta.filterValueResp}
                 />
             </div>
-            <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={filterOptn} />
+            <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
         </div>
     );
 }

@@ -71,11 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     });
 
     return (
-        <main
-            style={{
-                backgroundImage: `url(${bgImage.src})`,
-            }}
-            className='flex w-full h-screen overflow-hidden bg-contain bg-fixed bg-repeat'>
+        <main className='flex w-full h-screen overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full overflow-hidden'>
                 <nav
                     className='flex w-full items-center justify-between bg-transparent px-6 py-8 text-black sm:px-12 md:px-8 lg:px-24 xl:px-24'

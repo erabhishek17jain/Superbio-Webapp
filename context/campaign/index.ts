@@ -89,6 +89,8 @@ export interface ICampaignState {
             views: string;
             bookmarks: string;
         };
+        postSummaryResp: any;
+        filterValueResp: any;
     } | null;
 }
 

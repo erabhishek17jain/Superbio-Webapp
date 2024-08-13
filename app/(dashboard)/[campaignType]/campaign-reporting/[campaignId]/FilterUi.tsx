@@ -29,17 +29,18 @@ export default function FilterUi(props: FilterUiProps) {
     };
 
     const resetFilters = () => {
-        setFilters({});
+        setFilters({
+            postedAt: [],
+            internalSheetId: [],
+            platform: [],
+            postType: [],
+            phase: [],
+            category: [],
+            subCategory: [],
+        });
         const url = new URL(window.location.href);
-        const filter = searchParams.get('filter')?.split('|') as string[];
-        const filterIndex = filter?.indexOf('platform') as number;
-        const value = searchParams.get('value')?.split('|') as string[];
         url.searchParams.delete('filter');
         url.searchParams.delete('value');
-        if (filterIndex > -1) {
-            url.searchParams.set('filter', filter[filterIndex]);
-            url.searchParams.set('value', value[filterIndex]);
-        }
         window.location.href = url.href;
     };
 
@@ -79,7 +80,7 @@ export default function FilterUi(props: FilterUiProps) {
                         </svg>
                     </span>
                 </p>
-                {Object.keys(filters).filter((item) => filters[item].length > 0).length > 0 && (
+                {filters && Object.keys(filters)?.filter((item) => filters[item]?.length > 0).length > 0 && (
                     <button className='flex w-full justify-end text-black font-semibold' onClick={resetFilters}>
                         Reset all
                     </button>
@@ -88,8 +89,9 @@ export default function FilterUi(props: FilterUiProps) {
                     <>
                         {FILTERS.map((item, index) => {
                             let key = item;
-                            let value = key.key === 'postedAt' ? filtersOptions[key.key].sort().reverse() : filtersOptions[key.key].sort();
-                            let radioEligible = ['platform', 'postType'].includes(key.key);
+                            console.log(key.key);
+                            let value = key.key === 'postedAt' ? filtersOptions[key.key]?.sort().reverse() : filtersOptions[key.key]?.sort();
+                            let radioEligible = ['platform'].includes(key.key);
                             return (
                                 value &&
                                 value.length > 0 && (
@@ -97,7 +99,7 @@ export default function FilterUi(props: FilterUiProps) {
                                         <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
                                             <div className='flex items-center'>
                                                 {item.name}{' '}
-                                                {filters[key.key] && filters[key.key].length > 0 && (
+                                                {filters && filters[key.key] && filters[key.key].length > 0 && (
                                                     <span className='w-2 h-2 ml-2 rounded-full bg-green-500'></span>
                                                 )}
                                             </div>
@@ -110,7 +112,7 @@ export default function FilterUi(props: FilterUiProps) {
                                                         id={'all-phase'}
                                                         value={'all'}
                                                         className='h-[18px] w-[18px]'
-                                                        checked={value?.length === 0 || filters[key.key] ? filters[key.key].length === 0 : true}
+                                                        checked={value?.length === 0 || (filters && filters[key.key]) ? filters[key.key].length === 0 : true}
                                                         onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, 'all')}
                                                     />
                                                     <label className='capitalize' htmlFor={'all-phase'}>
@@ -125,7 +127,7 @@ export default function FilterUi(props: FilterUiProps) {
                                                                 id={item}
                                                                 value={item}
                                                                 className='h-[18px] w-[18px]'
-                                                                checked={filters[key.key] ? filters[key.key].includes(item) : false}
+                                                                checked={filters && filters[key.key] ? filters[key.key].includes(item) : false}
                                                                 onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item)}
                                                             />
                                                             <label className='capitalize' htmlFor={item}>
@@ -141,7 +143,7 @@ export default function FilterUi(props: FilterUiProps) {
                                                                     id={item._id.$oid}
                                                                     value={item._id.$oid}
                                                                     className='h-[18px] w-[18px]'
-                                                                    checked={filters[key.key] ? filters[key.key].includes(item._id.$oid) : false}
+                                                                    checked={filters && filters[key.key] ? filters[key.key].includes(item._id.$oid) : false}
                                                                     onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item._id.$oid)}
                                                                 />
                                                                 <label className='capitalize' htmlFor={item.name}>

@@ -42,8 +42,8 @@ export default function Home() {
 
     React.useEffect(() => {
         const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: 'own', q: '' }));
-        dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: 'shared', q: '' }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: '' }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: '' }));
         if (user && campaignType !== '') {
             UserNetworkService.instance
                 .getAllUsers({ page: 1, limit: 100 })
@@ -70,15 +70,15 @@ export default function Home() {
                     }}
                 />
             )}
-            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 shadow-md shadow-[#CDCDCD] border-b h-[80px] z-10'>
-                <div className='flex flex-col w-10 items-center h-[49px]'>
+            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#CDCDCD] border-b h-[80px] z-10'>
+                <div className='flex flex-col w-10 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
                 {campaignType === '' && (
                     <div
-                        className='flex flex-col w-10 items-center'
+                        className='flex flex-col w-10 items-center h-[50px]'
                         onClick={() => {
                             logout();
                             dispatch(setCampaignType(''));
@@ -87,7 +87,7 @@ export default function Home() {
                     </div>
                 )}
                 {campaignType !== '' && (
-                    <div className='flex w-full justify-between'>
+                    <div className='flex w-full justify-between h-12'>
                         <span className='hidden sm:flex lg:ml-0 xl:ml-0'>
                             <ADropdown
                                 width={'w-[-webkit-fill-available]'}
@@ -290,7 +290,7 @@ export default function Home() {
                                         </Link>
                                     </div>
                                     {activeCampaign.data?.length > 0 ? (
-                                        <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
+                                        <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {activeCampaign.data?.map((data: any, index: number) => (
                                                 <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active-campaign' color={'#F5F8FF'} />
                                             ))}
@@ -313,7 +313,7 @@ export default function Home() {
                                         </Link>
                                     </div>
                                     {sharedCampaign.data?.length > 0 ? (
-                                        <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
+                                        <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {sharedCampaign.data?.map((data: any, index: number) => (
                                                 <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active-campaign' color={'#F5F8FF'} />
                                             ))}

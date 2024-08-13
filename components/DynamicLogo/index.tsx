@@ -1,27 +1,48 @@
 'use client';
-
-import { YoungunLogo } from '@/assets';
+import React, { useEffect, useState } from 'react';
+import YoungunLogo from '@/public/youngun-logo.svg';
+import SocheersLogo from '@/public/socheers-logo.png';
 import LoqoaiLogo from '@/public/new-logo.svg';
 import Image from 'next/image';
-import React from 'react';
+
+const LogoAI = () => {
+    return <Image src={LoqoaiLogo} alt='Logo' className='h-[30px] mix-blend-multiply' />;
+};
+
+const Youngun = () => {
+    return <Image src={YoungunLogo} alt='Logo' className='h-[30px] mix-blend-multiply' />;
+};
+
+const Socheers = () => {
+    return (
+        <div className='flex flex-col mt-[-6px]'>
+            <Image src={SocheersLogo} alt='Logo' className='mix-blend-multiply' />
+            <span className='flex items-center h-2 text-[6px] ml-1'>
+                <span className='flex w-[82px] text-[#7a7a7a]'>Powered by </span>
+                <Image src={LoqoaiLogo} alt='Logo' className='h-[8px]' />
+            </span>
+        </div>
+    );
+};
 
 const DynamicLogo = () => {
-    const [logo, setLogo] = React.useState(LoqoaiLogo);
+    const [company, setCompany] = useState('loqo');
 
-    React.useEffect(() => {
+    useEffect(() => {
         const hostname = window.location.hostname;
-        if (typeof window !== 'undefined' && hostname.includes('youngun')) {
-            setLogo(YoungunLogo);
+        if (typeof window !== 'undefined') {
+            if (hostname.includes('youngun')) setCompany('youngun');
+            if (hostname.includes('socheers')) setCompany('socheers');
         }
     }, []);
-    if (!logo) {
-        return (
-            <div className='flex justify-center '>
-                <div aria-hidden='true' className='w-8 h-8 ml-2 rounded-full bg-gray-200 animate-spin border-l-2 border-t-2 border-blue-500' />
-            </div>
-        );
-    }
-    return <Image src={logo} alt='Logo' className='h-[30px] mix-blend-multiply' />;
+
+    return (
+        <div className='flex w-20'>
+            {company === 'loqo' && <LogoAI />}
+            {company === 'youngun' && <Youngun />}
+            {company === 'socheers' && <Socheers />}
+        </div>
+    );
 };
 
 export default DynamicLogo;
