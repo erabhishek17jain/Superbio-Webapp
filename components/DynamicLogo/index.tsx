@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import YoungunLogo from '@/public/youngun-logo.svg';
-import SocheersLogo from '@/public/socheers-logo.png';
-import LoqoaiLogo from '@/public/logo-black.svg';
+import YoungunLogo from '@/public/logo/youngun-logo.svg';
+import SocheersLogo from '@/public/logo/socheers-logo.png';
+import LoqoaiLogo from '@/public/logo/logo-black.svg';
 import Image from 'next/image';
 
 const LogoAI = () => {

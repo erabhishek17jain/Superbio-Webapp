@@ -1,10 +1,10 @@
-import { CampaignTracker } from '@/components/CampaignTracker';
-import { ContactUs } from '@/components/ContactUs';
-import { EverythingLOQO } from '@/components/EverythingLOQO';
-import { HeroSection } from '@/components/HeroSection';
-import { LOQOAdvantages } from '@/components/LOQOAdvantages';
-import { Navbar } from '@/components/Navbar';
-import { WhySuperbioNew } from '@/components/WhySuperbioNew';
+import { CampaignTracker } from '@/components/website/CampaignTracker';
+import { ContactUs } from '@/components/website/ContactUs';
+import { EverythingLOQO } from '@/components/website/EverythingLOQO';
+import { HeroSection } from '@/components/website/HeroSection';
+import { LOQOAdvantages } from '@/components/website/LOQOAdvantages';
+import { Navbar } from '@/components/website/Navbar';
+import { WhySuperbioNew } from '@/components/website/WhySuperbioNew';
 import bgImage from '@/public/background.svg';
 
 export default function Home() {

@@ -10,7 +10,7 @@ export default function Profile() {
     return (
         <main className={'flex flex-col gap-10 pb-20 sm:pb-8'}>
             <div className='flex flex-col w-full overflow-hidden'>
-                <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[74px] shadow-[rgba(0,0,15,0.5)_2px_2px_4px_0px] shadow-[#CDCDCD]'>
+                <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[75px] border-[#CDCDCD]'>
                     <div className='flex flex-col w-10 items-center'>
                         <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                             <DynamicLogo />

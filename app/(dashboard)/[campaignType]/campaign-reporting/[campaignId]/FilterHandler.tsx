@@ -1,5 +1,5 @@
 'use client';
-import ADropdown from '@/components/ADropdown/ADropdown';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import CampaignReportingFilter from './filter';
 import { useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/context';
@@ -225,7 +225,7 @@ export default function FilterHandler({ meta, shouldShowSort, query }: FilterHan
                     </span>
                 )}
                 {shouldShowSort && (
-                    <ADropdown
+                    <Dropdown
                         width={'w-60'}
                         position='down'
                         options={campaignType === 'influncer' ? sortLikeOptions : [...sortLikeOptions, ...sortTimeOptions]}

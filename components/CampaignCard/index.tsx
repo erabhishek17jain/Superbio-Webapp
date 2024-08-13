@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/context';
-import ADropdown from '../ADropdown/ADropdown';
+import Dropdown from '../Dropdown/Dropdown';
 import ShareCampaignModal from '../Modals/ShareCampaignModal';
 import DeleteCampaignModal from '../Modals/DeleteCampaignModal';
 
@@ -258,7 +258,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
                         <BsCalendar3 size={16} color='#B3B3B3' className='mr-2' />
                         From {dayjs(campaign.startDate).format('DD MMM YYYY')} {campaign.endDate && `- ${dayjs(campaign.endDate).format('DD MMM YYYY')}`}
                     </div>
-                    <ADropdown
+                    <Dropdown
                         item={campaign}
                         position='left'
                         width={'w-44'}

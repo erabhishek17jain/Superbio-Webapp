@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import guidelinesImg from '@/public/guidelines4.svg';
+import guidelinesImg from '@/public/dashboard/guidelines4.svg';
 
 export default function GuidelinesUi({ openCloseModal }: any) {
     return (

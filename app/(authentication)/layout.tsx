@@ -8,9 +8,8 @@ import { usePathname } from 'next/navigation';
 import React, { useRef } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import bgImage from '@/public/background.svg';
 import { motion, useInView } from 'framer-motion';
-import productShowcase from '@/public/product-homepage.png';
+import productShowcase from '@/public/contact/homepage.png';
 import Image from 'next/image';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

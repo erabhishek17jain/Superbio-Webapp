@@ -1,4 +1,4 @@
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/website/Footer";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";

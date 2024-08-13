@@ -8,14 +8,14 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { CampaignStatus } from '@/services/campaign.service';
 import Image from 'next/image';
-import ADropdown from '@/components/ADropdown/ADropdown';
-import reporting from '@/public/reporting.png';
-import influencer from '@/public/influencer.png';
+import Dropdown from '@/components/Dropdown/Dropdown';
+import reporting from '@/public/dashboard/reporting.png';
+import influencer from '@/public/dashboard/influencer.png';
 import DynamicLogo from '@/components/DynamicLogo';
 import { getCampaigns } from '@/context/campaign/network';
 import { enqueueSnackbar } from 'notistack';
 import { logout } from '@/lib/utils';
-import LogoutIcon from '@/components/icons/LogoutIcon';
+import LogoutIcon from '@/icons/LogoutIcon';
 
 export default function Home() {
     const dispatch = useAppDispatch();
@@ -71,7 +71,7 @@ export default function Home() {
                     }}
                 />
             )}
-            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#CDCDCD] border-b h-[80px] z-10'>
+            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#CDCDCD] border-b h-[75px] z-10'>
                 <div className='flex flex-col w-10 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                         <DynamicLogo />
@@ -79,7 +79,7 @@ export default function Home() {
                 </div>
                 {campaignType === '' && (
                     <div
-                        className='flex flex-col w-10 items-center h-[50px]'
+                        className='flex w-full justify-end items-center'
                         onClick={() => {
                             logout();
                             dispatch(setCampaignType(''));
@@ -90,7 +90,7 @@ export default function Home() {
                 {campaignType !== '' && (
                     <div className='flex w-full justify-between h-12'>
                         <span className='hidden sm:flex lg:ml-0 xl:ml-0'>
-                            <ADropdown
+                            <Dropdown
                                 width={'w-[-webkit-fill-available]'}
                                 position='down'
                                 options={[
@@ -218,7 +218,7 @@ export default function Home() {
                 )}
             </div>
             {campaignType === '' && (
-                <div className='flex flex-col sm:flex-row gap-10 justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2 overflow-y-auto mb-16 sm:ml-0'>
+                <div className='flex flex-col sm:flex-row gap-10 justify-start items-start p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2 overflow-y-auto my-6 mx-8'>
                     <div
                         className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#fafafa] ${selectType === 'campaign' ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
                         onClick={() => setSelectType('campaign')}>
