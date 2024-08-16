@@ -323,7 +323,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                             <span className='text-[#959595]'>{meta?.postSummaryResp?.privatePosts} posts</span>
                         </div>
                     )}
-                    {meta?.postSummaryResp.storiesPosts >= 0 && (
+                    {meta?.postSummaryResp?.storiesPosts >= 0 && (
                         <div className='flex flex-col text-sm w-20'>
                             <span className='text-black font-semibold'>Stories</span>
                             <span className='text-[#959595]'>{meta?.postSummaryResp?.storiesPosts} posts</span>

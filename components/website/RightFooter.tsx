@@ -26,10 +26,10 @@ export const RightFooter = () => {
     <div className="flex items-start justify-between gap-10 lg:w-1/2 xl:px-4">
       {SocialLinks.map((list) => (
         <div key={list.title} className="flex flex-col gap-y-5">
-          <h3 className="text-sm font-semibold mb-4">{list.title}</h3>
-          <div className="flex flex-col gap-y-5">
+          <h3 className="text-base font-semibold mb-4">{list.title}</h3>
+          <div className="flex flex-col gap-y-3">
             {list.links.map((link, index) => (
-              <div className="text-xs" key={index}>
+              <div className="text-sm" key={index}>
                 <button
                   onClick={() => handleClick(link.id)}
                   className={cn(!link.isValid && "pointer-events-none")}
@@ -42,10 +42,10 @@ export const RightFooter = () => {
         </div>
       ))}
       <div className="flex flex-col gap-y-5">
-        <h3 className="text-sm font-semibold mb-4">Contact Information</h3>
-        <div className="flex flex-col gap-y-5">
+        <h3 className="text-base font-semibold mb-4">Contact Information</h3>
+        <div className="flex flex-col gap-y-3">
           {ContactInfo.map((line, index) => (
-            <div className="text-xs" key={index}>
+            <div className="text-sm" key={index}>
               <p>{line}</p>
             </div>
           ))}

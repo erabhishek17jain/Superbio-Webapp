@@ -15,32 +15,40 @@ export const EverythingLOQO = () => {
                 <p className='text-pretty text-base font-light text-gray-500'>Enjoy LOQO’s powerful features and measure your ROIs with ease</p>
             </div>
             <div className='flex flex-col sm:flex-row gap-6 mt-8 sm:mt-12'>
-                <div className='w-full sm:w-2/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg'>
-                    <div className='text-base font-semibold px-6'>Post Preview</div>
-                    <div className='text-sm font-light px-6'>Get convenient influencer post previews directly on your dashboard</div>
+                <div className='w-full sm:w-2/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg border border-black'>
+                    <div className='text-2xl font-semibold px-6'>
+                        <span className='w-auto text-white bg-black px-5 py-2 rounded-3xl'>Post Previews</span>
+                    </div>
+                    <div className='text-lg font-light px-6 my-4'>Get campaign's all post previews directly on your dashboard</div>
                     <div className='flex w-full justify-end'>
                         <Image src={everything1} alt='everything1' className='w-[95%] -mt-6 sm:-mt-12' />
                     </div>
                 </div>
-                <div className='w-full sm:w-1/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg'>
-                    <div className='text-base font-semibold px-6'>Spreadsheet enabled</div>
-                    <div className='text-sm font-light px-6'>Upload your usual Spreadsheet & leave the detailed reporting to us</div>
+                <div className='w-full sm:w-1/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg border border-black'>
+                    <div className='text-2xl font-semibold px-6'>
+                        <span className='w-auto text-white bg-black px-5 py-2 rounded-3xl'>Spreadsheet enabled</span>
+                    </div>
+                    <div className='text-lg font-light px-6 my-4'>Upload your usual Spreadsheet & leave the detailed reporting to us</div>
                     <div className='flex w-full justify-end'>
-                        <Image src={everything2} alt='everything2' className='w-[95%] -mt-16 sm:-mt-12' />
+                        <Image src={everything2} alt='everything2' className='w-[95%] -mt-16 sm:mt-[-66px]' />
                     </div>
                 </div>
             </div>
             <div className='flex flex-col sm:flex-row gap-6 mt-6'>
-                <div className='w-full sm:w-1/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg'>
-                    <div className='text-base font-semibold px-6'>Shareable Dashboard</div>
-                    <div className='text-sm font-light px-6'>Skip the slide presentations with LOQO’s data-rich shareable dashboard.</div>
+                <div className='w-full sm:w-1/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg border border-black'>
+                    <div className='text-2xl font-semibold px-6'>
+                        <span className='w-auto text-white bg-black px-5 py-2 rounded-3xl'>Shareable Dashboard</span>
+                    </div>
+                    <div className='text-lg font-light px-6 my-4'>Skip the slide presentations with LOQO’s data-rich shareable dashboard.</div>
                     <div className='flex w-full justify-end'>
                         <Image src={everything3} alt='everything1' className='w-[95%] -mt-3 sm:-mt-12' />
                     </div>
                 </div>
-                <div className='w-full sm:w-2/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg'>
-                    <div className='text-base font-semibold px-6'>Designed for Teams</div>
-                    <div className='text-sm font-light px-6'>Collaborate and work like as if you’re right next to each other</div>
+                <div className='w-full sm:w-2/3 bg-[#F7F7F7] pt-6 shadow-lg rounded-lg border border-black'>
+                    <div className='text-2xl font-semibold px-6'>
+                        <span className='w-auto text-white bg-black px-5 py-2 rounded-3xl'>Designed for Teams</span>
+                    </div>
+                    <div className='text-lg font-light px-6 my-4'>Collaborate and work like as if you’re right next to each other</div>
                     <div className='flex w-full justify-end'>
                         <Image src={everything4} alt='everything1' className='w-[95%] -mt-3 sm:-mt-12' />
                     </div>

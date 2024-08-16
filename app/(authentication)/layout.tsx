@@ -9,7 +9,13 @@ import React, { useRef } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { motion, useInView } from 'framer-motion';
-import productShowcase from '@/public/contact/homepage.png';
+import login2 from '@/public/login/login2.png';
+import login3 from '@/public/login/login3.png';
+import login4 from '@/public/login/login4.png';
+import login5 from '@/public/login/login5.png';
+import login6 from '@/public/login/login6.png';
+import login7 from '@/public/login/login7.png';
+import login8 from '@/public/login/login8.png';
 import Image from 'next/image';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -17,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const pathname = usePathname();
     const [buttonText, setButtonText] = React.useState('Sign up');
     const [buttonLink, setButtonLink] = React.useState('/register');
-    const [buttonBeforeText, setButtonBeforeText] = React.useState('Not a member? ');
+    const [isGoogleLogin, setIsGoogleLogin] = React.useState(true);
     const [text, setText] = React.useState('Welcome to LOQO Business');
     const dispatch = useAppDispatch();
     const isInView = useInView(ref, { once: true });
@@ -26,17 +32,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         if (pathname === '/login') {
             setButtonText('Sign up');
             setButtonLink('/register');
-            setButtonBeforeText('Not a member? ');
+            setIsGoogleLogin(true);
             setText('Welcome to LOQO Business');
-        } else if (pathname === '/register' || pathname === '/setup') {
+        } else if (pathname === '/register') {
             setButtonText('Sign in');
             setButtonLink('/login');
-            setButtonBeforeText('Already a member? ');
-            setText('Welcome to LOQO Business');
-        } else {
-            setButtonText('Sign in');
-            setButtonLink('/login');
-            setButtonBeforeText('Already a member? ');
+            setIsGoogleLogin(pathname === '/register' ? true : false);
+            setText('Register to LOQO Business');
+        } else if (pathname === '/reset-password') {
+            setButtonText('');
+            setButtonLink('');
+            setIsGoogleLogin(false);
+            setText('Reset Password');
+        } else if (pathname === '/forgot-password') {
+            setButtonText('');
+            setButtonLink('');
+            setIsGoogleLogin(false);
+            setText('Send recovery mail ');
+        } else if (pathname === '/verify-user') {
+            setButtonText('');
+            setButtonLink('');
+            setIsGoogleLogin(false);
             setText('OTP Verification');
         }
     }, [pathname]);
@@ -73,51 +89,73 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className='flex w-full h-screen overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full overflow-hidden'>
                 <nav
-                    className='flex w-full items-center justify-between bg-transparent px-6 py-8 text-black sm:px-12 md:px-8 lg:px-24 xl:px-24'
+                    className='flex w-full items-center justify-between bg-transparent px-6 py-3 text-black sm:px-12 md:px-8 lg:px-12 xl:px-12 h-24'
                     role='navigation'
                     id='navbar'>
                     <Link href={'/home'} className='text-sm flex items-center justify-center'>
-                        <DynamicLogo />
+                        <DynamicLogo login={true} />
                     </Link>
                     <div className='flex items-center gap-4 justify-center'>
-                        <span className='text-sm hidden sm:flex'>{buttonBeforeText} </span>
-                        <Link href={buttonLink} className='flex capitalize items-center text-xs p-2 px-5 border border-black rounded-lg'>
-                            {buttonText} <BsArrowRight className='ml-2' size={20} />
-                        </Link>
+                        {buttonText !== '' && (
+                            <Link href={buttonLink} className='flex capitalize items-center text-sm p-2 px-5 border border-black rounded-lg'>
+                                {buttonText} <BsArrowRight className='ml-2' size={20} />
+                            </Link>
+                        )}
                     </div>
                 </nav>
-                <section ref={ref} className='flex items-center justify-center w-full h-full mt-4 sm:-mt-8 pb-10 sm:pl-4 text-center px-6 sm:px-10 md:pl-32 md:pr-10'>
+                <section ref={ref} className='flex items-center justify-center w-full text-center px-6 pb-8 sm:px-10 h-[calc(100%_-_80px)]'>
                     <motion.div
                         initial={{ opacity: 0, x: '-100%' }}
-                        animate={isInView ? { opacity: 1, x: 0, y: '15%' } : { opacity: 0, x: '100%', y: '-15%' }}
+                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '-100%' }}
                         transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-                        className='hidden h-[75vh] md:block w-5/12'>
-                        <Image src={productShowcase} alt='right-hero-Image' className='main-card rotate-[-15deg] scale-150 object-cover lg:scale-125' />
+                        className={`hidden sm:flex items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
+                        <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
+                            <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6' />
+                            <Image src={login8} alt='ct9' className='max-w-[30   0px]' />
+                            <Image src={login3} alt='ct2' className='max-w-[320px] -mt-8 mb-4' />
+                        </div>
+                        <div className='w-1/2 flex flex-col items-end my-auto'>
+                            <Image src={login6} alt='ct8' className='w-full max-w-[340px] mt-4 -mb-16' />
+                            <Image src={login4} alt='ct8' className='max-w-[340px]' />
+                            <div className='bg-[#dfd8f5] p-1 rounded-2xl mr-5 max-w-[330px] w-[calc_-_20px]'>
+                                <Image src={login2} alt='ct10' className='max-w-[322px] rounded-2xl' />
+                            </div>
+                            <Image src={login5} alt='ct10' className='max-w-[340px] mt-3' />
+                        </div>
                     </motion.div>
-                    <div className='hidden md:block w-1/12'></div>
                     <motion.div
                         initial={{ opacity: 0, x: '100%' }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '100%' }}
                         transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-                        className='z-10 flex gap-4 text-left w-full md:w-1/2 -mt-12'>
+                        className={`flex items-center justify-center gap-4 text-left w-full h-full`}>
                         <div className='flex w-full justify-center items-center'>
                             <div className='flex sm:w-[80%] w-[90%] flex-col'>
-                                <div className='flex text-3xl sm:text-4xl font-bold mt-4'>{text}</div>
-                                <div className='flex flex-col mt-6'>{children}</div>
-                                {pathname !== '/verify-user' && (
-                                    <div className=' w-full mt-5 rounded-lg'>
+                                {buttonText !== 'Sign in' && (
+                                    <div className='flex justify-center mb-3'>
+                                        <DynamicLogo />
+                                    </div>
+                                )}
+                                <div className='flex flex-col items-center text-2xl sm:text-3xl font-bold pb-6'>
+                                    {text}
+                                    {buttonText !== 'Sign in' && (
+                                        <div className='flex justify-center text-sm sm:text-base font-light mt-2'>Let's quickly setup your account</div>
+                                    )}
+                                </div>
+                                {isGoogleLogin && (
+                                    <div className='flex justify-center w-full pb-8'>
                                         <button
-                                            className='w-full border p-2 rounded-lg border-black flex space-x-4 justify-center items-center'
+                                            className='border p-2 rounded-lg border-[#cdcdcd] flex justify-center items-center gap-2 text-sm w-3/4'
                                             onClick={() => {
                                                 googleLogin();
                                             }}>
                                             <span className='cursor-pointer'>
                                                 <FcGoogle size={25} />
                                             </span>
-                                            <span>{pathname === '/login' ? 'Login' : 'Signup'} With Google</span>
+                                            <span>Continue With Google</span>
                                         </button>
                                     </div>
                                 )}
+                                <div className='flex flex-col pt-6 w-[80%] mx-[10%] border-t border-[#cdcdcd]'>{children}</div>
                             </div>
                         </div>
                     </motion.div>

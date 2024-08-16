@@ -27,6 +27,10 @@ export const logout = () => {
 };
 
 export const structureData = (data: IReportingResponse) => {
+    let sheets = data.filterValueResp.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
+    sheets = sheets.map((item: any) => {
+        return { id: item.id, name: item.name };
+    });
     return {
         data: data.postDtoPaginatedResponse.items,
         meta: {
@@ -51,13 +55,15 @@ export const structureData = (data: IReportingResponse) => {
             },
             postSummaryResp: data.postSummaryResp,
             filterValueResp: {
-                postedAt: data.filterValueResp.postedAtDates?.filter((item: string) => item !== ''),
-                internalSheetId: data.filterValueResp.sheetNames?.filter((item: string) => item !== ''),
-                platform: ['instagram', 'twitter']?.filter((item: string) => item !== ''),
-                postType: data.filterValueResp.postTypes?.filter((item: string) => item !== ''),
-                phase: data.filterValueResp.campaignPhases?.filter((item: string) => item !== ''),
-                category: data.filterValueResp.categories?.filter((item: string) => item !== ''),
-                subCategory: data.filterValueResp.subCategories?.filter((item: string) => item !== ''),
+                postedAt:
+                    data.filterValueResp.lastAppliedFilterField === 'postedAt' ? data.filterValueResp.allPostedAtDates : data.filterValueResp.postedAtDates,
+                internalSheetId: sheets,
+                platform: data.filterValueResp.lastAppliedFilterField === 'platform' ? data.filterValueResp.allPlatforms : data.filterValueResp.platforms,
+                postType: data.filterValueResp.lastAppliedFilterField === 'postType' ? data.filterValueResp.allPostTypes : data.filterValueResp.postTypes,
+                phase: data.filterValueResp.lastAppliedFilterField === 'phase' ? data.filterValueResp.allCampaignPhases : data.filterValueResp.campaignPhases,
+                category: data.filterValueResp.lastAppliedFilterField === 'category' ? data.filterValueResp.allCategories : data.filterValueResp.categories,
+                subCategory:
+                    data.filterValueResp.lastAppliedFilterField === 'subCategory' ? data.filterValueResp.allSubCategories : data.filterValueResp.subCategories,
             },
         },
     };

@@ -7,12 +7,12 @@ export const ContactInfo = () => {
   return (
       <div className='flex flex-col gap-7'>
           <Link
-              href='mailto:loqoai@gmail.com'
+              href='mailto:business@loqo.ai'
               className='flex h-[50px] w-full items-center gap-2 rounded-xl bg-black px-6 py-3 shadow-md shadow-[#CDCDCD] sm:w-[420px] lg:w-[500px]'>
               <span className='fill-primary text-base xs:text-lg'>
                   <MailIcon color='#fff' size='28' />
               </span>
-              <span className='text-sm text-white xs:text-base'>Contact us via mail id: hello@loqo.ai</span>
+              <span className='text-sm text-white xs:text-base'>Contact us via mail id: business@loqo.ai</span>
           </Link>
           <a
               href='tel:+917795983243'

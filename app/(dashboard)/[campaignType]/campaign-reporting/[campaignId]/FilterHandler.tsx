@@ -1,6 +1,5 @@
 'use client';
 import Dropdown from '@/components/Dropdown/Dropdown';
-import CampaignReportingFilter from './filter';
 import { useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/context';
 
@@ -9,16 +8,6 @@ interface FilterHandlerProps {
     shouldShowSort: boolean;
     query: any;
 }
-
-const defFilterOptions: AvailableFilters = {
-    platform: [],
-    internalSheetId: [],
-    postType: [],
-    postedAt: [],
-    phase: [],
-    category: [],
-    subCategory: [],
-};
 
 export default function FilterHandler({ meta, shouldShowSort, query }: FilterHandlerProps) {
     const searchParams = useSearchParams();

@@ -21,7 +21,7 @@ export const HeroLeft = ({ parentRef }: { parentRef: RefObject<HTMLElement> }) =
                     exactly what your
                 </p>
                 <p className='text-4xl sm:whitespace-nowrap'>
-                    <span className='font-semibold'>campaings </span>are
+                    <span className='font-semibold'>campaigns </span>are
                     <span className='font-semibold'> delivering</span>
                 </p>
             </div>

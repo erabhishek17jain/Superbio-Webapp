@@ -5,7 +5,6 @@ import { Params, SearchParams } from './layout';
 import { colors, icons } from './icons-colors';
 import Link from 'next/link';
 import DownloadHandler from './DownloadHandler';
-import CampaignReportingFilter from './filter';
 import FilterUi from './FilterUi';
 import FilterPlatform from './FilterPlatform';
 import { IColumnResponse } from '@/services/public.service';
@@ -56,6 +55,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             ...query,
             filterKeys: filter,
             filterValues: value,
+            lastAppliedFilterField: '',
         };
     }
 
@@ -129,6 +129,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         }
         if (value !== 'all') {
             if (checked) {
+                query['lastAppliedFilterField'] = key;
                 if (key === 'platform') {
                     filter[key] = [value];
                 } else {
@@ -198,7 +199,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             }
             let filteNames = filter.split('|');
             let filteValues = value.split('|');
-            let filterObj: any = {};
+            let filterObj: any = { ...filters };
             for (let i = 0; i < filteNames.length; i++) {
                 if (filteNames[i] === 'platform' || filteNames[i] === 'postType') {
                     filterObj[filteNames[i]] = [filteValues[i]];
@@ -206,6 +207,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     filterObj[filteNames[i]] = filteValues[i].split('_');
                 }
             }
+            query['lastAppliedFilterField'] = filteNames[filteNames.length - 1];
             setFilters(filterObj);
             initialLoadCampData({ ...query, ...filterObj });
         } else {
@@ -268,7 +270,9 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     filtersOptions={campData?.meta.filterValueResp}
                 />
             </div>
-            <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+            {campData?.meta.filterValueResp && (
+                <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+            )}
         </div>
     );
 }

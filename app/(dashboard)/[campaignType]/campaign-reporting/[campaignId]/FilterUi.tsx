@@ -1,11 +1,8 @@
 'use client';
 import React from 'react';
-import CampaignReportingFilter, { FILTERS } from './filter';
+import { FILTERS } from './filter';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { Icon } from './icons-colors';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useAppDispatch } from '@/context';
-import { setFitlersState } from '@/context/campaign';
 import { v4 as uuidv4 } from 'uuid';
 
 interface FilterUiProps {
@@ -16,7 +13,6 @@ interface FilterUiProps {
 }
 
 export default function FilterUi(props: FilterUiProps) {
-    const searchParams = useSearchParams();
     const { filters, setFilters, selectFilter, filtersOptions } = props;
     const [open, setOpen] = React.useState<number>(0);
 
@@ -88,75 +84,76 @@ export default function FilterUi(props: FilterUiProps) {
                 {filtersOptions && (
                     <>
                         {FILTERS.map((item, index) => {
-                            let key = item;
-                            console.log(key.key);
-                            let value = key.key === 'postedAt' ? filtersOptions[key.key]?.sort().reverse() : filtersOptions[key.key]?.sort();
-                            let radioEligible = ['platform'].includes(key.key);
+                            const key = item;
+                            const lastKey = `all${key.key.charAt(0).toUpperCase()}''${key.key.slice(1, key.key.length)}`;
+                            const filterValue =
+                                filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === key.key
+                                    ? filtersOptions[lastKey]
+                                    : filtersOptions[key.key];
+                            const radioEligible = ['platform'].includes(key.key);
                             return (
-                                value &&
-                                value.length > 0 && (
-                                    <Accordion open={open === 5 + index} key={uuidv4()} icon={<Icon id={5 + index} open={open} />}>
-                                        <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
-                                            <div className='flex items-center'>
-                                                {item.name}{' '}
-                                                {filters && filters[key.key] && filters[key.key].length > 0 && (
-                                                    <span className='w-2 h-2 ml-2 rounded-full bg-green-500'></span>
-                                                )}
-                                            </div>
-                                        </AccordionHeader>
-                                        <AccordionBody className='py-2'>
-                                            <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
-                                                <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
-                                                    <input
-                                                        type={radioEligible ? 'radio' : 'checkbox'}
-                                                        id={'all-phase'}
-                                                        value={'all'}
-                                                        className='h-[18px] w-[18px]'
-                                                        checked={value?.length === 0 || (filters && filters[key.key]) ? filters[key.key].length === 0 : true}
-                                                        onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, 'all')}
-                                                    />
-                                                    <label className='capitalize' htmlFor={'all-phase'}>
-                                                        All
-                                                    </label>
-                                                </li>
-                                                {value?.map((item) =>
-                                                    typeof item === 'string' ? (
-                                                        <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                <Accordion open={open === 5 + index} key={uuidv4()} icon={<Icon id={5 + index} open={open} />}>
+                                    <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
+                                        <div className='flex items-center'>
+                                            {item.name}{' '}
+                                            {filters && filters[key.key] && filters[key.key].length > 0 && (
+                                                <span className='w-2 h-2 ml-2 rounded-full bg-green-500'></span>
+                                            )}
+                                        </div>
+                                    </AccordionHeader>
+                                    <AccordionBody className='py-2'>
+                                        <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
+                                            <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                                <input
+                                                    type={radioEligible ? 'radio' : 'checkbox'}
+                                                    id={'all-phase'}
+                                                    value={'all'}
+                                                    className='h-[18px] w-[18px]'
+                                                    disabled={filterValue?.length === 0}
+                                                    checked={filterValue?.length === 0 || (filters && filters[key.key]) ? filters[key.key].length === 0 : true}
+                                                    onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, 'all')}
+                                                />
+                                                <label className='capitalize' htmlFor={'all-phase'}>
+                                                    All
+                                                </label>
+                                            </li>
+                                            {filterValue?.map((item) =>
+                                                typeof item === 'string' ? (
+                                                    <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                                        <input
+                                                            type={radioEligible ? 'radio' : 'checkbox'}
+                                                            id={item}
+                                                            value={item}
+                                                            className='h-[18px] w-[18px]'
+                                                            checked={filters && filters[key.key] ? filters[key.key].includes(item) : false}
+                                                            onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item)}
+                                                        />
+                                                        <label className='capitalize' htmlFor={item}>
+                                                            {item.includes('1970-01-01') ? 'Others' : item}
+                                                        </label>
+                                                    </li>
+                                                ) : (
+                                                    item &&
+                                                    item.id && (
+                                                        <li key={item.id} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
                                                             <input
-                                                                type={radioEligible ? 'radio' : 'checkbox'}
-                                                                id={item}
-                                                                value={item}
+                                                                type='checkbox'
+                                                                id={item.id}
+                                                                value={item.id}
                                                                 className='h-[18px] w-[18px]'
-                                                                checked={filters && filters[key.key] ? filters[key.key].includes(item) : false}
-                                                                onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item)}
+                                                                checked={filters && filters[key.key] ? filters[key.key].includes(item.id) : false}
+                                                                onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item.id)}
                                                             />
-                                                            <label className='capitalize' htmlFor={item}>
-                                                                {item.includes('1970-01-01') ? 'Others' : item}
+                                                            <label className='capitalize' htmlFor={item.name}>
+                                                                {item.name.includes('1970-01-01') ? 'Others' : item.name}
                                                             </label>
                                                         </li>
-                                                    ) : (
-                                                        item &&
-                                                        item._id && (
-                                                            <li key={item._id.$oid} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
-                                                                <input
-                                                                    type='checkbox'
-                                                                    id={item._id.$oid}
-                                                                    value={item._id.$oid}
-                                                                    className='h-[18px] w-[18px]'
-                                                                    checked={filters && filters[key.key] ? filters[key.key].includes(item._id.$oid) : false}
-                                                                    onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item._id.$oid)}
-                                                                />
-                                                                <label className='capitalize' htmlFor={item.name}>
-                                                                    {item.name.includes('1970-01-01') ? 'Others' : item.name}
-                                                                </label>
-                                                            </li>
-                                                        )
                                                     )
-                                                )}
-                                            </ul>
-                                        </AccordionBody>
-                                    </Accordion>
-                                )
+                                                )
+                                            )}
+                                        </ul>
+                                    </AccordionBody>
+                                </Accordion>
                             );
                         })}
                     </>

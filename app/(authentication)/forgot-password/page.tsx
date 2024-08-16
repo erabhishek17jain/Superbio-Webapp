@@ -28,27 +28,28 @@ export default function ForgetPassword() {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col">
-        <label htmlFor="email">
-          <span className="text-xs font-semibold capitalize">Email id</span>
-        </label>
-        <input
-          type="text"
-          className="bg-[#F7F7F7] outline-none text-sm p-3 px-4 mt-1 rounded-md"
-          placeholder="hello@loqo.ai"
-          name="email"
-          value={user.email}
-          onChange={setKeyAndValue}
-        />
-      </div>
+      <div className='flex flex-col'>
+          <div className='flex flex-col gap-2'>
+              <label htmlFor='email'>
+                  <span className='text-base font-semibold capitalize'>Registered Email ID</span>
+              </label>
+              <input
+                  type='text'
+                  className='bg-[#F7F7F7] outline-none text-sm p-3 px-4 mt-1 rounded-md'
+                  placeholder='Registered email id'
+                  name='email'
+                  value={user.email}
+                  onChange={setKeyAndValue}
+              />
+          </div>
 
-      <div className="flex flex-col mt-6">
-        <button onClick={forgetPassword} className="flex capitalize items-center font-semibold justify-center text-white text-xs p-3 px-5 border bg-black rounded-lg">
-          Send recovery mail <BsArrowRight className="ml-2" size={20} />
-        </button>
+          <div className='flex flex-col mt-6'>
+              <button
+                  onClick={forgetPassword}
+                  className='flex capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
+                  Send recovery mail <BsArrowRight className='ml-2' size={20} />
+              </button>
+          </div>
       </div>
-
-    </div>
   );
 }

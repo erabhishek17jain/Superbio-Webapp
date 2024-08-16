@@ -4,7 +4,7 @@ declare interface OtherData {
 }
 
 declare interface SheetFilter {
-    _id: { $oid: string };
+    id: string;
     name: string;
 }
 
@@ -25,4 +25,5 @@ declare interface AvailableFilters {
     category: string[];
     subCategory: string[];
     [key: string]: string[] | SheetFilter[];
+    lastAppliedFilterField: string;
 }

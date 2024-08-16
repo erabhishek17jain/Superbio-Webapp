@@ -44,28 +44,27 @@ export const Navbar = () => {
                         <button
                             key={index}
                             onClick={() => handleClick(item.id)}
-                            className='flex items-center gap-x-2 whitespace-nowrap text-base text-black hover:text-gray-500'>
-                            {/* <ArrowRightIcon size={16} /> */}
+                            className='flex items-center gap-x-2 whitespace-nowrap text-lg text-white hover:text-gray-500'>
                             {item.name}
                         </button>
                     ))}
                 </div>
                 <div className='flex gap-x-4'>
                     <Link
-                        href='/login'
-                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'>
-                        Log In
-                    </Link>
-                    <Link
                         href='https://calendly.com/deepak-jain-loqo'
-                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'>
+                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-white lg:text-black lg:hover:bg-black lg:hover:text-white'>
                         Book a demo
                     </Link>
                     <Link
                         href='/register'
-                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-white lg:text-black lg:hover:bg-black lg:hover:text-white'>
+                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'>
                         TRY IT FREE
                         <ArrowRightIcon size={16} />
+                    </Link>
+                    <Link
+                        href='/login'
+                        className='flex w-fit items-center gap-x-2 border px-4 py-2 text-sm font-semibold uppercase shadow-xl shadow-border drop-shadow-sm transition-colors lg:border-white lg:bg-black lg:text-white lg:hover:bg-white lg:hover:text-black'>
+                        Sign In
                     </Link>
                 </div>
             </div>
@@ -132,7 +131,7 @@ const MobileView = () => {
                 <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/login')}>
                     <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                         <ArrowRightIcon size={16} />
-                        Log In
+                        Sign In
                     </button>
                 </DropdownMenuItem>
                 <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/register')}>
