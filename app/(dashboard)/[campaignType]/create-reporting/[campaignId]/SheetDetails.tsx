@@ -1,13 +1,14 @@
 export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, setTitle, sheetLoading, handleColumn, fetchSheets, handleSheet }: any) {
+    const isDisabled = sheetInfo?.index <= selSheetData.length ? true : false;
     return (
         <>
             <div className='w-full'>
                 <div className='flex mt-2 mb-3 gap-3'>
                     <input
                         type='text'
-                        disabled={sheetInfo?.index <= selSheetData.length ? true : false}
+                        disabled={isDisabled}
                         onChange={(e) => setUrl(sheetInfo?.index, e.target.value)}
-                        className='flex w-full h-11 bg-[#F7F7F7] outline-none py-2 px-4 rounded-lg text-sm disabled:opacity-40'
+                        className='flex w-full h-11 bg-[#F7F7F7] outline-none py-2 px-4 rounded-lg text-sm disabled:text-[#898989]'
                         placeholder='Past link'
                         value={sheetInfo?.url}
                     />
@@ -26,9 +27,9 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                 <div className='flex mt-2 mb-2 gap-3'>
                     <input
                         type='text'
-                        disabled={sheetInfo?.index <= selSheetData.length ? true : false}
+                        disabled={isDisabled}
                         onChange={(e) => setTitle(sheetInfo?.index, e.target.value)}
-                        className='flex w-full h-11 bg-[#F7F7F7] outline-none py-2 px-4 rounded-lg text-sm disabled:opacity-40'
+                        className='flex w-full h-11 bg-[#F7F7F7] outline-none py-2 px-4 rounded-lg text-sm disabled:text-[#898989]'
                         placeholder='Sheet title'
                         value={sheetInfo?.title}
                     />

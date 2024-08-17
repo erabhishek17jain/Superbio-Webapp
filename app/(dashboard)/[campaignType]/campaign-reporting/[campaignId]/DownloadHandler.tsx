@@ -11,11 +11,11 @@ import PublicNetworkService from '@/services/public.service';
 import { CSVLink } from 'react-csv';
 import { useRouter } from 'next/navigation';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useReactToPrint } from 'react-to-print';
-import PDFHandler, { ISummary } from './PDFHandler';
+import { ISummary } from './PDFHandler';
 import { useAppSelector } from '@/context';
 
 dayjs.extend(relativeTime);
+const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
 interface DownloadHandlerProps {
     meta: any;
@@ -23,12 +23,11 @@ interface DownloadHandlerProps {
     columns: IColumn[];
     params: Params;
     query: { [key: string]: any };
-    campaignName: string;
     summary: ISummary[];
 }
 
 export default function DownloadHandler(props: DownloadHandlerProps) {
-    const { meta, isPublic, columns, params, query, campaignName, summary } = props;
+    const { meta, isPublic, columns, params, query } = props;
     const { user } = useAppSelector((state) => state.user);
     const [valuesLoading] = useState(false);
     const [diffInMin, setDiffInMin] = useState(0);
@@ -38,15 +37,8 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
     const [gradInx, setGradInx] = useState(0);
     const [isSheetExist] = useState('yes');
     const [csvData, setCsvData] = useState({ columns: [], data: [] });
-    const [pdfColumns, setPdfColumns] = useState<IColumn[]>([]);
     const csvLink = useRef<any>(null);
     const router = useRouter();
-
-    const bodyRef = useRef<HTMLDivElement>(null);
-
-    const handlePrint = useReactToPrint({
-        content: () => bodyRef.current,
-    });
 
     const setLastRefresh = () => {
         if (meta) {
@@ -85,7 +77,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             });
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!isPublic) {
             if (columns !== undefined && reportText === 'Generate Report') {
                 getQueueData();
@@ -94,8 +86,6 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             setLastRefresh();
         }
     }, [columns]);
-
-    const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
     const refreshStats = () => {
         if (reportText === 'Generate Report' || diffInMin > 0) {
@@ -107,7 +97,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         const interval = setInterval(() => {
             setGradInx(gradInx === 3 ? 0 : gradInx + 1);
         }, 100);
@@ -244,42 +234,14 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         });
     };
 
-    // const downloadPdf = () => {
-    //     enqueueSnackbar('Please wait, we are preparing your pdf file.', {
-    //         variant: 'success',
-    //     });
-    //     if (isPublic) {
-    //         PublicNetworkService.instance
-    //             .getCampaignReportData(params.campaignId, {
-    //                 ...query,
-    //                 page: 1,
-    //                 limit: 2000,
-    //             })
-    //             .then((res) => {
-    //                 setPdfColumns(res?.data);
-    //             });
-    //     } else {
-    //         SheetNetworkService.instance.getCampaignData(params.campaignId, { ...query, page: 1, limit: 2000 }).then((res) => {
-    //             setPdfColumns(res?.data);
-    //         });
-    //     }
-    // };
-
-    useEffect(() => {
+    React.useEffect(() => {
         if (csvData?.data?.length > 0) {
             csvLink.current.link.click();
             setCsvData({ columns: [], data: [] });
         }
     }, [csvData]);
 
-    useEffect(() => {
-        if (pdfColumns?.length > 0) {
-            handlePrint();
-            setPdfColumns([]);
-        }
-    }, [pdfColumns]);
-
-    useEffect(() => {
+    React.useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const res = await SheetNetworkService.instance.getQueueData();
@@ -299,54 +261,28 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         }
     }, [reportText]);
 
-    useEffect(() => {
-        if (pdfColumns?.length > 0) {
-            handlePrint();
-            setPdfColumns([]);
-        }
-    }, []);
-
     return (
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[150px] xs:h-[108px] sm:h-[60px]'>
             {showConfirmModal && <ConfirmLastRefresh openCloseModal={openCloseConfirmModal} />}
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
-                    {meta?.postSummaryResp?.totalPosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Total</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp?.totalPosts} posts</span>
-                        </div>
-                    )}
-                    {meta?.postSummaryResp?.privatePosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Reels</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp?.privatePosts} posts</span>
-                        </div>
-                    )}
-                    {meta?.postSummaryResp?.storiesPosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Stories</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp?.storiesPosts} posts</span>
-                        </div>
-                    )}
-                    {meta?.postSummaryResp?.privatePosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Private</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp?.privatePosts} posts</span>
-                        </div>
-                    )}
-                    {meta?.postSummaryResp.isLinkDeletedPosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Deleted</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp?.isLinkDeletedPosts} posts</span>
-                        </div>
-                    )}
-                    {meta?.postSummaryResp.otherPosts >= 0 && (
-                        <div className='flex flex-col text-sm w-20'>
-                            <span className='text-black font-semibold'>Others</span>
-                            <span className='text-[#959595]'>{meta?.postSummaryResp.otherPosts} posts</span>
-                        </div>
-                    )}
+                    {!isPublic
+                        ? Object.keys(meta?.postSummaryResp)
+                              .filter(
+                                  (item) =>
+                                      !(meta?.postSummaryResp[item] === null || meta?.postSummaryResp[item] === 0 || meta?.postSummaryResp[item] === false)
+                              )
+                              .map((key) => {
+                                  return (
+                                      <div className='flex flex-col text-sm w-20'>
+                                          <span className='text-black font-semibold capitalize'>
+                                              {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
+                                          </span>
+                                          <span className='text-[#959595]'>{meta?.postSummaryResp[key]} posts</span>
+                                      </div>
+                                  );
+                              })
+                        : 'LOQO Campaign Tracker'}
                 </span>
             </div>
             {!valuesLoading && isSheetExist === 'yes' && meta && meta?.total > 0 && (
@@ -438,10 +374,6 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                                         title: 'CSV',
                                         action: downloadCsv,
                                     },
-                                    // {
-                                    //     title: 'PDF',
-                                    //     action: downloadPdf,
-                                    // },
                                 ]}
                                 header={
                                     <div className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11'>
@@ -507,8 +439,6 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
                     </button>
                 </div>
             )}
-
-            <PDFHandler bodyRef={bodyRef} pdfColumns={pdfColumns} isPublic={isPublic} summary={summary} />
         </div>
     );
 }

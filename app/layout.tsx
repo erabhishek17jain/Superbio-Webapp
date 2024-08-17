@@ -11,7 +11,7 @@ import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang='en'>
             <script async src='https://platform.twitter.com/widgets.js' charSet='utf-8'></script>

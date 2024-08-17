@@ -9,8 +9,7 @@ export default class BaseNetworkFramework {
     public get_auth_header = (): { [key: string]: string } => {
         return {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getCookie('token')}`,
-            'Accpet': 'application/json',
+            'Authorization': `Bearer ${getCookie('token')}`
         };
     };
 }

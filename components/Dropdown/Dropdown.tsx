@@ -6,7 +6,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
     const trigger = useRef<any>(null);
     const dropdown = useRef<any>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const clickHandler = ({ target }: MouseEvent) => {
             if (!dropdown.current) return;
             if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
@@ -17,7 +17,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
     });
 
     // close if the esc key is pressed
-    useEffect(() => {
+    React.useEffect(() => {
         const keyHandler = ({ keyCode }: KeyboardEvent) => {
             if (!dropdownOpen || keyCode !== 27) return;
             setDropdownOpen(false);
@@ -26,7 +26,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
         return () => document.removeEventListener('keydown', keyHandler);
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (activeItem?._id !== item?._id && dropdownOpen) selectCase(item);
 
     }, [dropdownOpen]);
@@ -64,7 +64,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
                         <li key={item.title} className={`px-4 py-3 border-stroke ${index !== options.length - 1 && 'border-b'}`}>
                             <button
                                 onClick={item?.action}
-                                className='flex items-center gap-2 text-sm text-[#7D7D7D] font-medium duration-300 ease-in-out hover:text-main'>
+                                className='flex items-center gap-2 text-sm text-[#8b8b8b] font-medium duration-300 ease-in-out hover:text-main'>
                                 {item.icon}
                                 {item.title}
                             </button>

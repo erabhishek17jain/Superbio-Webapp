@@ -44,7 +44,7 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: P
         setUser(copyUser);
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (mode === 'edit') {
             if (userDetails) {
                 setUser(userDetails);

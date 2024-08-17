@@ -1,11 +1,10 @@
 'use client';
 import SideBar from '@/components/SideBar';
 import { useSearchParams } from 'next/navigation';
-import React from 'react';
-import bgImage from '@/public/background.svg';
+import React, { ReactNode } from 'react';
 import BottomBar from '@/components/BottomBar/BottomBar';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     const searchParams = useSearchParams();
     const isPublic = searchParams.get('isPublic') === 'true';
     return isPublic ? (

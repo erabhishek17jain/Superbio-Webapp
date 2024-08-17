@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setLoading, setMeta } from '@/context/campaign';
@@ -8,11 +8,12 @@ import copy from 'copy-to-clipboard';
 import { getCampaigns } from '@/context/campaign/network';
 import { CampaignStatus } from '@/services/campaign.service';
 import Loading from '@/app/(public)/public/[campaignId]/form/loading';
-import bgImage from '@/public/background.svg';
+import logo from '@/public/logo/logo-black.svg';
+import Image from 'next/image';
 import DynamicLogo from '@/components/DynamicLogo';
 import Link from 'next/link';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const searchParams = usePathname();
@@ -24,9 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const ownerType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-    const searchParam = useSearchParams();
+    const searchParam: any = useSearchParams();
     const isPublic = searchParam.get('isPublic') === 'true';
-
+    
     const copyShareLink = (url: string) => {
         let base_url = window.location.origin;
         copy(base_url + url);
@@ -83,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-y-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 py-3 border-b h-[80px] border-[#CDCDCD]`}>
+                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 py-3 border-b h-[80px] border-[#cdcdcd]`}>
                         <div className='flex flex-col w-10 items-center'>
                             <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                                 <DynamicLogo />
@@ -99,12 +100,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                                     router.push('/');
                                                     dispatch(setLoading(true));
                                                 }}
-                                                className='hidden sm:flex text-[#BDBDBD] md:text-md lg:text-lg cursor-pointer items-center space-x-3 mt-[2px]'>
+                                                className='hidden sm:flex text-[#8b8b8b] md:text-md lg:text-lg cursor-pointer items-center space-x-3 mt-[2px]'>
                                                 <span>Home</span>
                                                 <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                     <path
                                                         d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                        stroke='#BDBDBD'
+                                                        stroke='#8b8b8b'
                                                         strokeWidth='1.5'
                                                         strokeMiterlimit='10'
                                                         strokeLinecap='round'
@@ -123,13 +124,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                                                 fetchMore();
                                                             }
                                                         }}
-                                                        className={`hidden sm:flex ${active ? 'text-[#BDBDBD]' : 'text-black'} items-center cursor-pointer space-x-3 ml-3 mt-1`}>
+                                                        className={`hidden sm:flex ${active ? 'text-[#8b8b8b]' : 'text-black'} items-center cursor-pointer space-x-3 ml-3 mt-1`}>
                                                         <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
                                                         {active && (
                                                             <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                                 <path
                                                                     d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                                    stroke='#BDBDBD'
+                                                                    stroke='#8b8b8b'
                                                                     strokeWidth='1.5'
                                                                     strokeMiterlimit='10'
                                                                     strokeLinecap='round'
@@ -149,7 +150,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                             <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
                                                 <path
                                                     d='M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
-                                                    stroke='#7D7D7D'
+                                                    stroke='#8b8b8b'
                                                     strokeWidth='2'
                                                     strokeLinecap='round'
                                                     strokeLinejoin='round'
@@ -171,7 +172,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                                     <g id='SVGRepo_iconCarrier'>
                                                         <path
                                                             d='M5 12H19M19 12L13 6M19 12L13 18'
-                                                            stroke='#7D7D7D'
+                                                            stroke='#8b8b8b'
                                                             strokeWidth='2'
                                                             strokeLinecap='round'
                                                             strokeLinejoin='round'></path>
@@ -196,8 +197,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                     {searchParams.indexOf('campaign-reporting') > -1 && (
                                         <div className='flex'>
                                             <button
-                                                onClick={() => copyShareLink(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`)}
-                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2 disabled:opacity-40'>
+                                                onClick={() =>
+                                                    copyShareLink(
+                                                        `/${params?.campaignType}/campaign-reporting/${params.campaignId}`
+                                                    )
+                                                }
+                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
                                                     data-name='Layer 1'
@@ -217,9 +222,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </div>
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
+                    {isPublic && (
+                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-3 text-black sm:px-6 md:px-8 lg:px-8 xl:px-8'>
+                            <div className='flex gap-x-8 w-48'>
+                                <Image src={logo} alt='logo' className='w-24' />
+                            </div>
+                        </div>
+                    )}
                     {!isCampReport && searchText !== '' && isSearch && (
                         <div className='flex pt-4 px-8 flex-col md:flex-row justify-between gap-4 items-center'>
-                            <div className='flex py-3 uppercase text-[#7D7D7D] text-sm'>Showing results for {searchText}</div>
+                            <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>
                         </div>
                     )}
                     {!isCampReport && count < (meta?.total || 0) && (

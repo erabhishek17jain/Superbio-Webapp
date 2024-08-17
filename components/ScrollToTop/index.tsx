@@ -19,7 +19,7 @@ export const ScrollToTop = () => {
         });
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.addEventListener('scroll', toggleVisibility);
         return () => {
             window.removeEventListener('scroll', toggleVisibility);

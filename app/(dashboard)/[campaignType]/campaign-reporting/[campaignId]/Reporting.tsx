@@ -23,7 +23,7 @@ export default function Reporting(props: IReportingProps) {
 
     const loadCampData = async (query: any) => {
         const resp: any = await SheetNetworkService.instance.getPostsData(campaignId, clearFilters(query));
-        setColumns((prev: any) => [...prev, ...resp?.postDtoPaginatedResponse?.items]);
+        setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };
 

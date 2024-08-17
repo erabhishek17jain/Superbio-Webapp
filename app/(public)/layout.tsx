@@ -2,7 +2,7 @@ import DynamicLogo from '@/components/DynamicLogo';
 import Link from 'next/link';
 import React from 'react';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <div className='flex flex-col w-full h-screen bg-white '>
             <div className='flex items-end w-full p-5 text-black  font-bold border-b text-3xl'>

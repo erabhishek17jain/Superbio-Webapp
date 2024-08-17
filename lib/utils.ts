@@ -36,7 +36,7 @@ export const structureData = (data: IReportingResponse) => {
         meta: {
             page: data.postDtoPaginatedResponse.currentPage,
             limit: 6,
-            total: data.postSummaryResp.totalPosts,
+            total: data.postDtoPaginatedResponse.totalItems,
             analytics: {
                 likes: data.campaignAnalyticsResp.likes,
                 comments: data.campaignAnalyticsResp.comments,

@@ -17,7 +17,7 @@ const HomePage = (props: any) => {
                 <Image src={reporting} alt='Campaign' className='w-16 h-[90px] p-4 pr-0' />
                 <div className={`flex flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
                     <span className={'text-black'}>Campaign Reporting</span>
-                    <span className='text-[#7D7D7D] text-sm line-clamp-gray line-clamp-2'>Get detailed post metrics & dashboard for you and your brands</span>
+                    <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get detailed post metrics & dashboard for you and your brands</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
                         {selectType === 'campaign' && (
                             <button className='flex gap-3 uppercase font-semibold ' onClick={() => dispatch(setCampaignType('campaign'))}>
@@ -42,11 +42,11 @@ const HomePage = (props: any) => {
                 <Image src={influencer} alt='Influencer' className='w-16 h-[90px] p-4 pr-0' />
                 <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
                     <span className={'text-black'}>Influencer Analysis</span>
-                    <span className='text-[#7D7D7D] text-sm line-clamp-gray line-clamp-2'>Get precise profile analytics of hundreds of influencers</span>
+                    <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get precise profile analytics of hundreds of influencers</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
                         {selectType === 'influncer' && (
-                            <button className='flex gap-3 uppercase font-semibold ' onClick={() => dispatch(setCampaignType('influncer'))}>
-                                Get Started
+                            <button className='flex gap-3 uppercase font-semibold ' onClick={() => {}}>
+                                Coming soon
                                 <svg width='24px' height='24px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' fill='none'>
                                     <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                                     <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>

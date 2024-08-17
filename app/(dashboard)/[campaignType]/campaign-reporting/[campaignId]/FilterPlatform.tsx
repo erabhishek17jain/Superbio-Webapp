@@ -184,7 +184,7 @@ export default function FilterPlatform(props: FilterPlatformProps) {
                                     </div>
                                     <div className='flex h-9 items-end justify-between w-full'>
                                         <p className='text-xs text-black-500'>
-                                            {item.title === 'Estimated Reach'
+                                            {item.title === 'Estimated Reach' || item.title === 'Posts'
                                                 ? item.title
                                                 : `Only ${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
                                         </p>

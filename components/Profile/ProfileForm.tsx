@@ -21,7 +21,7 @@ export const ProfileForm = () => {
                 )}
                 <ProfileInput label='Name' placeholder={user?.name + ''} buttonText='' isDelete={false} isLabelOutside onClick={()=>{}} />
                 <ProfileInput label='Mobile Number' placeholder={user?.mobileNo + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
-                <ProfileInput label='Email Address' placeholder={user?.email + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
+                <ProfileInput label='Work Email ID' placeholder={user?.email + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
             </div>
         </>
     );

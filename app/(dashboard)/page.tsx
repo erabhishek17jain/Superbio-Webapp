@@ -68,62 +68,26 @@ export default function Home() {
                     }}
                 />
             )}
-            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#CDCDCD] border-b h-[75px] z-10'>
-                <div className='flex flex-col w-10 items-center h-[50px]'>
+            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-[75px] z-10'>
+                <div className='flex flex-col w-8 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
-                {campaignType !== '' && (
-                    <div className='flex w-full justify-between h-12'>
-                        <span className='hidden sm:flex lg:ml-0 xl:ml-0'>
-                            <Dropdown
-                                width={'w-[-webkit-fill-available]'}
-                                position='down'
-                                options={[
-                                    {
-                                        title: 'Campaign Reporting',
-                                        action: () => {
-                                            dispatch(setCampaignType('campaign'));
-                                            setSelectType('campaign');
-                                        },
-                                    },
-                                    {
-                                        title: 'Influncer Analysis',
-                                        action: () => {
-                                            dispatch(setCampaignType('influncer'));
-                                            setSelectType('influncer');
-                                        },
-                                    },
-                                ]}
-                                header={
-                                    <div
-                                        className='flex h-12 w-auto items-center justify-center gap-2 rounded-lg cursor-pointer text-sm'
-                                        onClick={() => document.getElementById('date-dropdown')?.classList.toggle('hidden')}>
-                                        <span className='flex items-center gap-1 w-auto min-w-120 bg-[#F7F7F7] text-[#9ca3af] rounded-lg py-3 px-5 h-12 gap-4'>
-                                            <span>{selectType === 'campaign' ? ' Campaign Reporting' : 'Influncer Analysis'}</span>
-                                            <svg height='28px' width='28px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                                <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                                <g id='SVGRepo_iconCarrier'>
-                                                    <path
-                                                        fillRule='evenodd'
-                                                        clipRule='evenodd'
-                                                        d='M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z'
-                                                        fill='#7D7D7D'></path>
-                                                </g>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                }
-                            />
+                {campaignType !== '' ? (
+                    <div className='flex w-full justify-between items-center h-12'>
+                        <span className='hidden sm:flex gap-2 lg:ml-0 xl:ml-0'>
+                            <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
+                                All Products /{' '}
+                            </span>
+                            <span>LOQO Campaign Tracker</span>
                         </span>
                         <div className='flex gap-3 ml-16 sm:ml-0'>
                             <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
                                 <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
                                     <path
                                         d='M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
-                                        stroke='#7D7D7D'
+                                        stroke='#8b8b8b'
                                         strokeWidth='2'
                                         strokeLinecap='round'
                                         strokeLinejoin='round'
@@ -157,7 +121,7 @@ export default function Home() {
                                         <g id='SVGRepo_iconCarrier'>
                                             <path
                                                 d='M5 12H19M19 12L13 6M19 12L13 18'
-                                                stroke='#7D7D7D'
+                                                stroke='#8b8b8b'
                                                 strokeWidth='2'
                                                 strokeLinecap='round'
                                                 strokeLinejoin='round'></path>
@@ -202,12 +166,20 @@ export default function Home() {
                             )}
                         </div>
                     </div>
+                ) : (
+                    <div className='flex w-full justify-between items-center h-12'>
+                        <span className='hidden sm:flex gap-2 lg:ml-0 xl:ml-0'>
+                            <span className='cursor-pointer font-semibold' onClick={() => dispatch(setCampaignType(''))}>
+                                All Products
+                            </span>
+                        </span>
+                    </div>
                 )}
             </div>
             {campaignType === '' && <HomePage selectType={selectType} setSelectType={setSelectType} />}
             {campaignType !== '' && (
                 <div className='flex px-4 sm:px-8 py-4 w-full h-full flex-col overflow-y-auto mb-6 sm:mb-0'>
-                    {searchText !== '' && isSearch && <div className='flex py-3 uppercase text-[#7D7D7D] text-sm'>Showing results for {searchText}</div>}
+                    {searchText !== '' && isSearch && <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>}
                     {loading ? (
                         <div className='flex items-center justify-center w-full h-[500px] my-6 mx-auto'>
                             <div className='flex items-center justify-center w-32 h-32'>
@@ -220,7 +192,7 @@ export default function Home() {
                                 <div className='flex flex-col w-full mb-10'>
                                     <div className='flex w-full justify-between mb-5'>
                                         <span className='font-semibold text-xl text-opacity-80'>Active campaigns</span>
-                                        <Link href={`/active-campaign`} className='text-[#676767] cursor-pointer text-base font-semibold'>
+                                        <Link href={`/active-campaign`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
                                         </Link>
                                     </div>
@@ -232,7 +204,7 @@ export default function Home() {
                                         </div>
                                     ) : (
                                         <div className='flex flex-col w-full'>
-                                            <div className='flex h-48 justify-center items-center w-full text-[#676767]'>Campaign not Found.</div>
+                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>Campaign not Found.</div>
                                         </div>
                                     )}
                                 </div>
@@ -243,7 +215,7 @@ export default function Home() {
                                         <span className='capitalize font-semibold text-xl text-opacity-80'>
                                             {user.role !== 'admin' ? 'Shared Campaigns' : 'Created by other members'}
                                         </span>
-                                        <Link href={'/shared-campaign'} className='text-[#676767] cursor-pointer text-base font-semibold'>
+                                        <Link href={'/shared-campaign'} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
                                         </Link>
                                     </div>
@@ -255,7 +227,7 @@ export default function Home() {
                                         </div>
                                     ) : (
                                         <div className='flex flex-col w-full'>
-                                            <div className='flex h-48 justify-center items-center w-full text-[#676767]'>Campaign not Found.</div>
+                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>Campaign not Found.</div>
                                         </div>
                                     )}
                                 </div>

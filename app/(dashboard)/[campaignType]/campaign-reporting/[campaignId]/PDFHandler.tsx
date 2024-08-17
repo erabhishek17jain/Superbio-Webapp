@@ -58,7 +58,7 @@ export default function PDFHandler({
                       <p className="text-md text-black-500 capitalize">
                         {item.title}
                       </p>
-                      <p className="text-md text-black-300 text-[#676767]">
+                      <p className="text-md text-black-300 text-[#8b8b8b]">
                         {item.basedOn}
                       </p>
                     </div>

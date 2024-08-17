@@ -44,7 +44,7 @@ export const Navbar = () => {
                         <button
                             key={index}
                             onClick={() => handleClick(item.id)}
-                            className='flex items-center gap-x-2 whitespace-nowrap text-lg text-white hover:text-gray-500'>
+                            className='flex items-center gap-x-2 whitespace-nowrap text-base text-white hover:text-gray-500'>
                             {item.name}
                         </button>
                     ))}

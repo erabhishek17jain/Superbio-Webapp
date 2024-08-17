@@ -185,7 +185,7 @@ export default function FilterHandler({ meta, shouldShowSort, query }: FilterHan
     ];
 
     return (
-        meta?.postSummaryResp.totalPosts > 0 && (
+        meta?.total > 0 && (
             <span className='flex gap-4'>
                 {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                     <span className='flex items-center justify-end text-sm gap-2 h-12'>
@@ -222,10 +222,10 @@ export default function FilterHandler({ meta, shouldShowSort, query }: FilterHan
                             <div
                                 className='flex h-12 w-auto items-center justify-center gap-2 rounded-lg cursor-pointer text-sm text-[#9A9AB0] font-semibold'
                                 onClick={() => document.getElementById('date-dropdown')?.classList.toggle('hidden')}>
-                                <svg width='20' height='20' viewBox='0 0 24 24' fill='#7D7D7D' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M3 7H21' stroke='#7D7D7D' strokeWidth='2' strokeLinecap='round' />
-                                    <path d='M6 12H18' stroke='#7D7D7D' strokeWidth='2' strokeLinecap='round' />
-                                    <path d='M10 17H14' stroke='#7D7D7D' strokeWidth='2' strokeLinecap='round' />
+                                <svg width='20' height='20' viewBox='0 0 24 24' fill='#8b8b8b' xmlns='http://www.w3.org/2000/svg'>
+                                    <path d='M3 7H21' stroke='#8b8b8b' strokeWidth='2' strokeLinecap='round' />
+                                    <path d='M6 12H18' stroke='#8b8b8b' strokeWidth='2' strokeLinecap='round' />
+                                    <path d='M10 17H14' stroke='#8b8b8b' strokeWidth='2' strokeLinecap='round' />
                                 </svg>
                                 <span className='capitalize text-[#959595]'>Sort By:</span>
                                 <span className='flex items-center gap-1 w-auto min-w-120 bg-[#e6e6e6] text-[#959595] rounded-lg py-1 px-3 h-9'>

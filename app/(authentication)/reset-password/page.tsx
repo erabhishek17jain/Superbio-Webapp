@@ -14,7 +14,7 @@ export default function ResetPassword() {
   const router = useRouter()
   const query = useSearchParams()
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!query.get("token")) {
       router.push("/login");
     }

@@ -78,13 +78,13 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
                         </button>
                     </div>
                     <div className='flex justify-between my-3'>
-                        <span className='text-base text-[#7D7D7D]'>Total Teammates {users.length}</span>
+                        <span className='text-base text-[#8b8b8b]'>Total Teammates {users.length}</span>
                     </div>
                     <div className='flex justify-between px-4 items-center bg-[#F7F7F7] rounded-lg'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
                             <path
                                 d='M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
-                                stroke='#7D7D7D'
+                                stroke='#8b8b8b'
                                 strokeWidth='2'
                                 strokeLinecap='round'
                                 strokeLinejoin='round'
@@ -102,7 +102,7 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
                             <g id='SVGRepo_iconCarrier'>
-                                <path d='M5 12H19M19 12L13 6M19 12L13 18' stroke='#7D7D7D' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></path>{' '}
+                                <path d='M5 12H19M19 12L13 6M19 12L13 18' stroke='#8b8b8b' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></path>{' '}
                             </g>
                         </svg>
                     </div>
@@ -117,7 +117,7 @@ export default function CreatorsListPopUp({ campaign, openCloseModal }: any) {
                                                 style={{ backgroundImage: `url("${user?.profilePic}")` }}></div>
                                             <div className='flex flex-col px-2'>
                                                 <span className='text-base'>{user?.name}</span>
-                                                <span className='text-sm text-[#7D7D7D]'>{user?.email}</span>
+                                                <span className='text-sm text-[#8b8b8b]'>{user?.email}</span>
                                             </div>
                                         </div>
                                         <div className='flex'>

@@ -11,7 +11,7 @@ export default function AccountSetup() {
   const query = useSearchParams();
   const router = useRouter();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!query.get("token")) {
       router.push("/login");
     }

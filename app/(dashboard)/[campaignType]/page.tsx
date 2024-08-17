@@ -37,7 +37,7 @@ export default function AllCampaignPage() {
         setCampaignDetails(campaign);
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (respsonse && respsonse?.data?.length > 0) {
             setCampaigns([...campaigns, ...respsonse.data]);
             setMeta(respsonse.meta);
@@ -45,7 +45,7 @@ export default function AllCampaignPage() {
 
     }, [respsonse]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {

@@ -8,8 +8,7 @@ import DownloadHandler from './DownloadHandler';
 import FilterUi from './FilterUi';
 import FilterPlatform from './FilterPlatform';
 import { IColumnResponse } from '@/services/public.service';
-import { useAppDispatch, useAppSelector } from '@/context';
-import { setFitlersState } from '@/context/campaign';
+import { useAppSelector } from '@/context';
 import { useSearchParams } from 'next/navigation';
 import profiles from '../../../../../lib/profileResp.json';
 import { calculateSummary, clearFilters, structureData } from '@/lib/utils';
@@ -42,8 +41,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
     const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
     const filter = searchParams.filter ? searchParams.filter : '';
     const value = searchParams.value ? searchParams.value : '';
-    const campaignName = searchParams.campaignName ? searchParams.campaignName : '';
-
+    
     let query: { [key: string]: string | number } = {
         page: 1,
         size: 6,
@@ -92,14 +90,15 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             let result: (ISummary | null)[] = [];
             if (searchParams.isPublic) {
                 result.push({
-                    totCount: campData?.meta.total,
-                    count: campData?.meta.total,
+                    totCount: campData?.meta?.total,
+                    count: campData?.meta?.total,
                     icon: icons['Posts'],
                     color: colors['Posts'],
-                    title: 'Posts',
+                    title: 'Total Posts',
                     basedOn: (
                         <>
-                            <span>{campData?.meta.total}</span>/<span className='text-sm'>{campData?.meta.total}</span>
+                            <span>{campData?.meta?.total}</span>/
+                            <span className='text-sm'>{campData?.meta.total}</span>
                         </>
                     ),
                 });
@@ -184,13 +183,13 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
         }
     }, [campData]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const filter = sParams.get('filter');
         const value = sParams.get('value');
         if (filter && value) {
@@ -217,7 +216,10 @@ export default async function CampaignReporting({ searchParams, params }: { sear
 
     return (
         <div className='flex'>
-            <div className={`flex flex-col sm:px-6 md:px-6 mt-3 mx-3 md:mx-0 sm:mx-0 w-full`} id='camp-top'>
+            {campData?.meta.filterValueResp && (
+                <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+            )}
+            <div className='flex flex-col sm:px-6 md:px-6 mt-2 mx-3 md:mx-0 sm:mx-0 w-full'>
                 {campData?.data.length === 0 && campData?.meta?.total === 0 && (
                     <div className='flex flex-col gap-5 items-center justify-center w-96 h-[500px] m-auto'>
                         <div className='flex items-center justify-center rounded-lg bg-[#F5F8FF] w-20 h-20'>
@@ -247,7 +249,6 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                         </Link>
                     </div>
                 )}
-
                 {campData?.data && campData?.data.length > 0 && (
                     <DownloadHandler
                         meta={campData?.meta}
@@ -255,7 +256,6 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                         isPublic={searchParams.isPublic ? true : false}
                         columns={campData?.data}
                         params={params}
-                        campaignName={campaignName}
                         summary={summary}
                     />
                 )}
@@ -270,9 +270,6 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     filtersOptions={campData?.meta.filterValueResp}
                 />
             </div>
-            {campData?.meta.filterValueResp && (
-                <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
-            )}
         </div>
     );
 }

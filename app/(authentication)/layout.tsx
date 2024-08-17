@@ -18,7 +18,7 @@ import login7 from '@/public/login/login7.png';
 import login8 from '@/public/login/login8.png';
 import Image from 'next/image';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     const ref = useRef<HTMLElement>(null);
     const pathname = usePathname();
     const [buttonText, setButtonText] = React.useState('Sign up');
@@ -110,17 +110,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         transition={{ delay: 0.5, duration: 1, type: 'spring' }}
                         className={`hidden sm:flex items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
                         <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
-                            <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6' />
-                            <Image src={login8} alt='ct9' className='max-w-[30   0px]' />
-                            <Image src={login3} alt='ct2' className='max-w-[320px] -mt-8 mb-4' />
+                            <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6 hover:rotate-[-2deg]' />
+                            <Image src={login8} alt='ct9' className='max-w-[300px] hover:rotate-[-2deg]' />
+                            <Image src={login3} alt='ct2' className='max-w-[320px] -mt-8 mb-4 z-5 hover:rotate-[-2deg]' />
                         </div>
                         <div className='w-1/2 flex flex-col items-end my-auto'>
-                            <Image src={login6} alt='ct8' className='w-full max-w-[340px] mt-4 -mb-16' />
-                            <Image src={login4} alt='ct8' className='max-w-[340px]' />
-                            <div className='bg-[#dfd8f5] p-1 rounded-2xl mr-5 max-w-[330px] w-[calc_-_20px]'>
+                            <Image src={login6} alt='ct8' className='w-full max-w-[340px] mt-4 -mb-16 hover:rotate-[-2deg]' />
+                            <Image src={login4} alt='ct8' className='max-w-[340px] hover:rotate-[-2deg]' />
+                            <div className='bg-[#dfd8f5] p-1 rounded-2xl mr-5 max-w-[330px] w-[calc_-_20px] hover:rotate-[-2deg]'>
                                 <Image src={login2} alt='ct10' className='max-w-[322px] rounded-2xl' />
                             </div>
-                            <Image src={login5} alt='ct10' className='max-w-[340px] mt-3' />
+                            <Image src={login5} alt='ct10' className='max-w-[340px] mt-3 hover:rotate-[-2deg]' />
                         </div>
                     </motion.div>
                     <motion.div

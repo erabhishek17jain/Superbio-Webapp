@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { RefObject, useRef } from "react";
 
 type AnimationProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const AnimateToLeftFromRight = ({ children }: AnimationProps) => {

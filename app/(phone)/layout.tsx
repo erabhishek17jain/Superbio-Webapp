@@ -12,7 +12,7 @@ import login7 from '@/public/login/login7.png';
 import login8 from '@/public/login/login8.png';
 import Image from 'next/image';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     const ref = useRef<HTMLElement>(null);
     const isInView = useInView(ref, { once: true });
     return (

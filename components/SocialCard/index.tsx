@@ -38,7 +38,7 @@ export const calculateSummary = (count: number) => {
 export function Tweet({ tweetID }: TweetProps) {
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if ((window as any).twttr) {
             (window as any).twttr.widgets
                 .createTweet(tweetID, document.getElementById(tweetID), {
@@ -137,7 +137,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
     return (
         <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
-                <div className='flex items-center justify-between mb-3 w-full'>
+                <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#959595] w-full'>
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
                         {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Post Summary</span>}
@@ -159,8 +159,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                         </div>
                     </div>
                 </div>
-
-                <div className='flex w-full mb-3'>
+                <div className='flex w-full mb-1'>
                     <div className='grid grid-cols-3 rounded-2xl w-full'>
                         {Object.keys(item.analytics)
                             ?.filter((item) => !item.toLowerCase().includes('plays') && !item.toLowerCase().includes('islinkdeleted'))
@@ -181,9 +180,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                                 Due to privacy setting of this post, we're unable to display this content directly. Kindly share a screenshot as a subtitle.
                             </span>
                             <input multiple type='file' id={username + 'upload'} accept='image/*' onChange={onImageChange} className={'hidden'} />
-                            <label
-                                htmlFor={username + 'upload'}
-                                className='flex items-center w-[180px] border py-2 px-4 rounded-lg space-x-2 disabled:opacity-40'>
+                            <label htmlFor={username + 'upload'} className='flex items-center w-[180px] border py-2 px-4 rounded-lg space-x-2'>
                                 <svg
                                     width='16'
                                     height='16'
@@ -203,7 +200,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                                     {screenshots?.map((obj: any, i: number) => (
                                         <div key={uuidv4()} className='flex justify-between items-center border rounded-sm p-2'>
                                             <div className='flex items-center gap-2'>
-                                                <Image src={URL.createObjectURL(obj)} alt={i.toString()} className='w-12 h-12' />
+                                                <Image src={URL.createObjectURL(obj)} alt={i.toString()} width={100} height={100} className='w-12 h-12' />
                                                 <span className='text-[#0c8ce9] text-sm'>{obj?.name}</span>
                                             </div>
                                             <svg
@@ -230,7 +227,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                                     <button
                                         disabled={isUploading}
                                         onClick={() => uploadScreenShots(item?._id)}
-                                        className='flex items-center border py-2 px-4 bg-black rounded-lg space-x-2 text-white disabled:opacity-40'>
+                                        className='flex items-center border py-2 px-4 bg-black rounded-lg space-x-2 text-white disabled:text-[#898989]'>
                                         <svg
                                             fill='#fff'
                                             height='14px'

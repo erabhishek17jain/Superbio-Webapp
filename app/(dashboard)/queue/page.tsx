@@ -40,7 +40,7 @@ export default function Queue() {
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
-            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[75px] border-[#CDCDCD]'>
+            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[75px] border-[#cdcdcd]'>
                 <div className='flex flex-col w-10 items-center'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                         <DynamicLogo />
@@ -74,7 +74,11 @@ export default function Queue() {
                                         <th
                                             scope='row'
                                             className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
-                                            onClick={() => router.push(`/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}`)}>
+                                            onClick={() =>
+                                                router.push(
+                                                    `/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}`
+                                                )
+                                            }>
                                             {queue?.campaign?.title}
                                         </th>
                                         <td className='px-6 py-4 capitalize'>{queue?.sheets[0]?.name}</td>

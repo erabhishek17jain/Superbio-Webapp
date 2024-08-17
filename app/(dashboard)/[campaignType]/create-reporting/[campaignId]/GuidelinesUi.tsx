@@ -4,10 +4,9 @@ import guidelinesImg from '@/public/dashboard/guidelines4.svg';
 
 export default function GuidelinesUi({ openCloseModal }: any) {
     return (
-        <div id='guidelinesPanel' className='w-full fixed top-0 right-0 border-l border-[#E6E6E6] h-screen bg-black bg-opacity-40 z-20'>
-            <div className='flex w-2/5 min-w-[225px] flex-col p-6 bg-white fixed right-0'>
-                <p className='flex justify-between text-lg font-bold'>
-                    <span className='flex gap-2 items-center mb-2'>Google Sheets Guidelines</span>
+        <div id='guidelinesPanel' className='fixed top-0 right-0 h-screen z-20'>
+            <div className='flex w-2/5 min-w-[225px] flex-col p-6 border-l border-[#cdcdcd] bg-[#F5F8FF] fixed right-0'>
+                <p className='flex gap-4 text-lg font-bold'>
                     <span className='-mr-1' onClick={openCloseModal}>
                         <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
@@ -19,6 +18,7 @@ export default function GuidelinesUi({ openCloseModal }: any) {
                             </g>
                         </svg>
                     </span>
+                    <span className='flex gap-2 items-center mb-2'>Google Sheets Guidelines</span>
                 </p>
                 <div className='flex flex-col'>
                     <Image src={guidelinesImg} width={400} height={200} alt='Guidelines' className='w-full' />

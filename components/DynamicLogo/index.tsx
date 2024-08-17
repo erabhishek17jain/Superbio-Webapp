@@ -44,7 +44,7 @@ const Socheers = ({ login = false }: any) => {
 const DynamicLogo = ({ login = false }: any) => {
     const [company, setCompany] = useState('loqo');
 
-    useEffect(() => {
+    React.useEffect(() => {
         const hostname = window.location.hostname;
         if (typeof window !== 'undefined') {
             if (hostname.includes('youngun')) setCompany('youngun');

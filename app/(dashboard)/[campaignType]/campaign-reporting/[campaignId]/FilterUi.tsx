@@ -41,8 +41,8 @@ export default function FilterUi(props: FilterUiProps) {
     };
 
     return (
-        <div id='filterPanel' className='w-[240px] fixed top-[74px] right-0 bg-white border-l border-[#E6E6E6] hidden h-screen'>
-            <div className='flex w-full min-w-[225px] flex-col py-4 px-3'>
+        <div id='filterPanel' className='flex w-[222px] flex-col border-r border-[#cdcdcd]'>
+            <div className='flex w-full min-w-[210px] flex-col py-4 px-3'>
                 <p className='flex justify-between text-lg font-bold'>
                     <span className='flex gap-2 items-center mb-2'>
                         <svg width='20px' height='20px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' fill='#000'>

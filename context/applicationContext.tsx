@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 const UserContext = React.createContext({});
 
-export const Provider = ({ children }: { children: React.ReactNode }) => {
+export const Provider = ({ children }: { children: ReactNode }) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
