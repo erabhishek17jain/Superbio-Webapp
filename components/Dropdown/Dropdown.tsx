@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 const Dropdown = ({ item, header, options, activeItem, position = 'down', selectCase = () => {}, width }: any) => {
@@ -6,7 +7,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
     const trigger = useRef<any>(null);
     const dropdown = useRef<any>(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const clickHandler = ({ target }: MouseEvent) => {
             if (!dropdown.current) return;
             if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
@@ -17,7 +18,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
     });
 
     // close if the esc key is pressed
-    React.useEffect(() => {
+    useEffect(() => {
         const keyHandler = ({ keyCode }: KeyboardEvent) => {
             if (!dropdownOpen || keyCode !== 27) return;
             setDropdownOpen(false);
@@ -26,7 +27,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
         return () => document.removeEventListener('keydown', keyHandler);
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (activeItem?._id !== item?._id && dropdownOpen) selectCase(item);
 
     }, [dropdownOpen]);

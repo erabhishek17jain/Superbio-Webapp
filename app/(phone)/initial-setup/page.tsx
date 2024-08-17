@@ -2,12 +2,12 @@
 import UserNetworkService from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
-import React from "react";
+import React, { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function InitialSetup() {
-  const [number, setNumber] = React.useState<string>("");
-  const [company, setCompany] = React.useState<Orgs>({
+  const [number, setNumber] = useState<string>("");
+  const [company, setCompany] = useState<Orgs>({
     name: "",
     description: "",
   });

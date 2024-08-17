@@ -5,13 +5,13 @@ import SheetNetworkService from '@/services/sheet.service';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Queue() {
     const router = useRouter();
-    const [queues, setQueues] = React.useState<IQueue[]>([]);
+    const [queues, setQueues] = useState<IQueue[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         SheetNetworkService.instance
             .getQueueData()
             .then((res) => {
@@ -23,7 +23,7 @@ export default function Queue() {
             });
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const interval = setInterval(() => {
             SheetNetworkService.instance
                 .getQueueData()

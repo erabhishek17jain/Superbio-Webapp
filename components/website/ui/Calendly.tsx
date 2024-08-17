@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function Calendly() {
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window !== "undefined") {
       setRootElement(document.getElementById("calendly-root"));
     }

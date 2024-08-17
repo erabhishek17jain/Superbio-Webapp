@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { v4 as uuidv4 } from 'uuid';
 import UserNetworkService from '@/services/user.service';
@@ -38,13 +38,13 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: P
     const { meta } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
 
-    const setKeyAndValue = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const setKeyAndValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         let copyUser = JSON.parse(JSON.stringify(user));
         copyUser[e.target.name] = e.target.value;
         setUser(copyUser);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (mode === 'edit') {
             if (userDetails) {
                 setUser(userDetails);

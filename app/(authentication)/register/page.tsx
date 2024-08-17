@@ -4,7 +4,7 @@ import { setUser } from "@/context/user";
 import UserNetworkService from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { BsArrowRight } from "react-icons/bs";
 
 
@@ -14,7 +14,7 @@ export default function Register() {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
-  const setKeyAndValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setKeyAndValue = (e: ChangeEvent<HTMLInputElement>) => {
     const copyUser = JSON.parse(JSON.stringify(user));
     copyUser[e.target.name] = e.target.value;
     dispatch(setUser(copyUser));

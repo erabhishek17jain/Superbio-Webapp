@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { BiArrowFromBottom } from 'react-icons/bi';
 
@@ -19,7 +20,7 @@ export const ScrollToTop = () => {
         });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         window.addEventListener('scroll', toggleVisibility);
         return () => {
             window.removeEventListener('scroll', toggleVisibility);

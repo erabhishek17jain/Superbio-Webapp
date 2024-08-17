@@ -3,18 +3,18 @@ import { useAppSelector } from "@/context";
 import UserNetworkService from "@/services/user.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSnackbar } from "notistack";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function ResetPassword() {
-  const [password, setPassword] = React.useState<string>("");
-  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const {user} = useAppSelector(state => state.user)
   const {enqueueSnackbar} = useSnackbar()
   const router = useRouter()
   const query = useSearchParams()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!query.get("token")) {
       router.push("/login");
     }

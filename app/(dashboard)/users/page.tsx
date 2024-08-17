@@ -8,16 +8,16 @@ import UserNetworkService from '@/services/user.service';
 import Image from 'next/image';
 import Link from 'next/link';
 import { enqueueSnackbar } from 'notistack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Users() {
-    const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
-    const [mode, setMode] = React.useState<string>('add');
+    const [openUserModal, setOpenUserModal] = useState<boolean>(false);
+    const [mode, setMode] = useState<string>('add');
     const { members, meta, user } = useAppSelector((state) => state.user);
-    const [userDetails, setUserDetails] = React.useState<User | null>(null);
+    const [userDetails, setUserDetails] = useState<User | null>(null);
     const dispatch = useAppDispatch();
 
-    React.useEffect(() => {
+    useEffect(() => {
         UserNetworkService.instance
             .getAllUsers({ page: meta.page, limit: meta.page === 1 ? 9 : 10 })
             .then((res) => {

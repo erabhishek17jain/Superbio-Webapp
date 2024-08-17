@@ -2,16 +2,16 @@
 import UserNetworkService from '@/services/user.service';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 
 export default function AccountSetup() {
-  const [password, setPassword] = React.useState<string>("");
-  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const query = useSearchParams();
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!query.get("token")) {
       router.push("/login");
     }

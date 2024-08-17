@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/context";
 import { setUser } from "@/context/user";
 import {login as userLogin} from "@/context/user/network"
 import Link from "next/link";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { useSnackbar } from "notistack";
 
@@ -12,7 +12,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const setKeyAndValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setKeyAndValue = (e: ChangeEvent<HTMLInputElement>) => {
     const copyUser = JSON.parse(JSON.stringify(user));
     copyUser[e.target.name] = e.target.value;
     dispatch(setUser(copyUser))

@@ -77,7 +77,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
             });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!isPublic) {
             if (columns !== undefined && reportText === 'Generate Report') {
                 getQueueData();
@@ -97,7 +97,7 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const interval = setInterval(() => {
             setGradInx(gradInx === 3 ? 0 : gradInx + 1);
         }, 100);
@@ -234,14 +234,14 @@ export default function DownloadHandler(props: DownloadHandlerProps) {
         });
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (csvData?.data?.length > 0) {
             csvLink.current.link.click();
             setCsvData({ columns: [], data: [] });
         }
     }, [csvData]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const res = await SheetNetworkService.instance.getQueueData();

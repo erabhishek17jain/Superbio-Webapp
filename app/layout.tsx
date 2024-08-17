@@ -7,7 +7,7 @@ import { SnackbarProvider } from 'notistack';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider as ApplicationProvider } from '@/context/applicationContext';
 import { LoaderIcon } from 'lucide-react';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 

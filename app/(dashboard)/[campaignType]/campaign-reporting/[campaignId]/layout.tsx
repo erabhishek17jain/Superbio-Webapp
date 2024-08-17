@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface SearchParams {
     page: string;
     size: string;

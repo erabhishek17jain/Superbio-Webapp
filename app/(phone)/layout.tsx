@@ -2,7 +2,7 @@
 import DynamicLogo from '@/components/DynamicLogo';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import login2 from '@/public/login/login2.png';
 import login3 from '@/public/login/login3.png';
 import login4 from '@/public/login/login4.png';

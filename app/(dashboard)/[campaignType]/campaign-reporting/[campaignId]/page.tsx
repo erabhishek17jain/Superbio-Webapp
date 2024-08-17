@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SheetNetworkService from '@/services/sheet.service';
 import { Params, SearchParams } from './layout';
 import { colors, icons } from './icons-colors';
@@ -25,9 +25,9 @@ interface ISummary {
 export default async function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const sParams = useSearchParams();
     const { campaignType } = useAppSelector((state) => state.user);
-    const [campData, setCampData] = React.useState<IColumnResponse>({ data: [], meta: {} as any });
-    const [summary, setSummary] = React.useState<any>(null);
-    const [filters, setFilters] = React.useState<any>({
+    const [campData, setCampData] = useState<IColumnResponse>({ data: [], meta: {} as any });
+    const [summary, setSummary] = useState<any>(null);
+    const [filters, setFilters] = useState<any>({
         postedAt: [],
         internalSheetId: [],
         platform: [],
@@ -183,13 +183,13 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
         }
     }, [campData]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const filter = sParams.get('filter');
         const value = sParams.get('value');
         if (filter && value) {

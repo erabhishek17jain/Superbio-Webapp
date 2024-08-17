@@ -1,6 +1,6 @@
 import SocialCard from "@/components/SocialCard";
 import { IColumn } from "@/services/sheet.service";
-import React from "react";
+import React, { RefObject } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export interface ISummary {
@@ -13,7 +13,7 @@ export interface ISummary {
   }
 
 interface IPDFHandlerProps {
-  bodyRef: React.RefObject<HTMLDivElement>;
+  bodyRef: RefObject<HTMLDivElement>;
   isPublic: boolean | undefined;
   summary: ISummary[];
   pdfColumns: IColumn[];

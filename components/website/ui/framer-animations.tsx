@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { RefObject, useRef } from "react";
+import { ReactNode, RefObject, useRef } from "react";
 
 type AnimationProps = {
   children: ReactNode;

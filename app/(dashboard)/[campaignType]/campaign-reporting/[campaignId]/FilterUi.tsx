@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { FILTERS } from './filter';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { Icon } from './icons-colors';
@@ -14,7 +14,7 @@ interface FilterUiProps {
 
 export default function FilterUi(props: FilterUiProps) {
     const { filters, setFilters, selectFilter, filtersOptions } = props;
-    const [open, setOpen] = React.useState<number>(0);
+    const [open, setOpen] = useState<number>(0);
 
     const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
     const toggleFilter = () => {

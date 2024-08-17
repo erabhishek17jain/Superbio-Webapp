@@ -5,7 +5,7 @@ import { loginUsingGoogle } from '@/context/user/network';
 import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { motion, useInView } from 'framer-motion';
@@ -21,14 +21,14 @@ import Image from 'next/image';
 export default function RootLayout({ children }: { children: ReactNode }) {
     const ref = useRef<HTMLElement>(null);
     const pathname = usePathname();
-    const [buttonText, setButtonText] = React.useState('Sign up');
-    const [buttonLink, setButtonLink] = React.useState('/register');
-    const [isGoogleLogin, setIsGoogleLogin] = React.useState(true);
-    const [text, setText] = React.useState('Welcome to LOQO Business');
+    const [buttonText, setButtonText] = useState('Sign up');
+    const [buttonLink, setButtonLink] = useState('/register');
+    const [isGoogleLogin, setIsGoogleLogin] = useState(true);
+    const [text, setText] = useState('Welcome to LOQO Business');
     const dispatch = useAppDispatch();
     const isInView = useInView(ref, { once: true });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (pathname === '/login') {
             setButtonText('Sign up');
             setButtonLink('/register');

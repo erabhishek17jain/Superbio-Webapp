@@ -1,6 +1,6 @@
 import DynamicLogo from '@/components/DynamicLogo';
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (

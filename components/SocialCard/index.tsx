@@ -38,7 +38,7 @@ export const calculateSummary = (count: number) => {
 export function Tweet({ tweetID }: TweetProps) {
     const [isLoading, setIsLoading] = useState(true);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if ((window as any).twttr) {
             (window as any).twttr.widgets
                 .createTweet(tweetID, document.getElementById(tweetID), {

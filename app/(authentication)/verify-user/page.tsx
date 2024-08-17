@@ -2,13 +2,13 @@
 import { useAppSelector } from "@/context";
 import UserNetworkService from "@/services/user.service";
 import { useSnackbar } from "notistack";
-import React from "react";
+import React, { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function VerifyUser() {
   const {enqueueSnackbar} = useSnackbar()
   const {user} = useAppSelector(state => state.user)
-  const [otp, setOtp] = React.useState<string>("");
+  const [otp, setOtp] = useState<string>("");
 
   const verifyUser = () => {
     UserNetworkService.instance.verifyEmail(otp, user.email).then(r => {

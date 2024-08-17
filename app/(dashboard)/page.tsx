@@ -5,9 +5,8 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { setCampaignType, setMembers } from '@/context/user';
 import UserNetworkService from '@/services/user.service';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CampaignStatus } from '@/services/campaign.service';
-import Dropdown from '@/components/Dropdown/Dropdown';
 import DynamicLogo from '@/components/DynamicLogo';
 import { getCampaigns } from '@/context/campaign/network';
 import { enqueueSnackbar } from 'notistack';
@@ -38,20 +37,22 @@ export default function Home() {
         setCurrentSearchText('');
     };
 
-    React.useEffect(() => {
-        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: '' }));
-        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: '' }));
-        if (user && campaignType !== '') {
-            UserNetworkService.instance
-                .getAllUsers({ page: 1, limit: 100 })
-                .then((res) => {
-                    dispatch(setMembers([user, ...res.data]));
-                })
-                .catch((err) => {
-                    enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
-                    logout();
-                });
+    useEffect(() => {
+        if (campaignType !== '') {
+            const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+            dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: '' }));
+            dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: '' }));
+            if (user && campaignType !== '') {
+                UserNetworkService.instance
+                    .getAllUsers({ page: 1, limit: 100 })
+                    .then((res) => {
+                        dispatch(setMembers([user, ...res.data]));
+                    })
+                    .catch((err) => {
+                        enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                        logout();
+                    });
+            }
         }
     }, [user, campaignType]);
 

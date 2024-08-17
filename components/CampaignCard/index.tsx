@@ -40,7 +40,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
         setShowDeleteModal(!showDeleteModal);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (campaign.updatedAt) {
             const currentAt = dayjs(new Date()) as any;
             const updatedAt = dayjs(campaign.updatedAt);
@@ -49,7 +49,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
         }
     }, [campaign]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const timeInterval = setInterval(() => {
             setDiffInMin(diffInMin - 1);
         }, 60000);

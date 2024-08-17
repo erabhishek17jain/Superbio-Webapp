@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import SheetNetworkService from '@/services/sheet.service';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
@@ -18,13 +18,13 @@ export default function CreateReporting() {
     const dispatch = useAppDispatch();
     const state = useAppSelector((state) => state?.campaign);
     const router = useRouter();
-    const [mode, setMode] = React.useState('view');
-    const [selSheetData, setSelSheetData] = React.useState<ISheet[]>([]);
-    const [sheetData, setSheetData] = React.useState<any>([]);
-    const [initialSheetData, setInitialSheetData] = React.useState<any>([]);
-    const [viewGuidelines, setViewGuidelines] = React.useState<boolean>(false);
-    const [isSheetLoading, setIsSheetLoading] = React.useState<boolean>(false);
-    const [showConfirmModal, setShowConfirmModal] = React.useState<boolean>(false);
+    const [mode, setMode] = useState('view');
+    const [selSheetData, setSelSheetData] = useState<ISheet[]>([]);
+    const [sheetData, setSheetData] = useState<any>([]);
+    const [initialSheetData, setInitialSheetData] = useState<any>([]);
+    const [viewGuidelines, setViewGuidelines] = useState<boolean>(false);
+    const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isError, setIsError] = useState(false);
 
     const openCloseConfirmModal = () => {
@@ -174,7 +174,7 @@ export default function CreateReporting() {
         setViewGuidelines(!viewGuidelines);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
             const data: any = [];
@@ -208,7 +208,7 @@ export default function CreateReporting() {
         }
     }, [selSheetData]);
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
         setSheetData([]);
         setIsSheetLoading(true);
         SheetNetworkService.instance

@@ -1,5 +1,5 @@
 'use client';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setLoading, setMeta } from '@/context/campaign';
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const count = (meta?.page || 0) * (meta?.limit || 12);
     const isCampReport = searchParams.indexOf('campaign-reporting') > -1 || searchParams.indexOf('create-reporting') > -1;
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!isCampReport) {
             fetchMore();
         } else {

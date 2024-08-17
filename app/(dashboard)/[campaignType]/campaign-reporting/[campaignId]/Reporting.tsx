@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { BiArrowFromBottom } from 'react-icons/bi';
 import SheetNetworkService, { IColumn } from '@/services/sheet.service';
@@ -17,9 +17,9 @@ interface IReportingProps {
 
 export default function Reporting(props: IReportingProps) {
     const { query, meta, campaignId, isPublic, initialColumns } = props;
-    const [screenWidth, setScreenWidth] = React.useState(0);
-    const [columns, setColumns] = React.useState<IColumn[]>(initialColumns);
-    const [loader, setloader] = React.useState(false);
+    const [screenWidth, setScreenWidth] = useState(0);
+    const [columns, setColumns] = useState<IColumn[]>(initialColumns);
+    const [loader, setloader] = useState(false);
 
     const loadCampData = async (query: any) => {
         const resp: any = await SheetNetworkService.instance.getPostsData(campaignId, clearFilters(query));
@@ -38,7 +38,7 @@ export default function Reporting(props: IReportingProps) {
         }, 2000);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth);
         };

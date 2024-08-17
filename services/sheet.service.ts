@@ -162,7 +162,6 @@ export default class SheetNetworkService extends BaseNetworkFramework implements
     public getReportingData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IReportingResponse> => {
         try {
             const res = await axios.get<IReportingResponse>(`${this.javaUrl}/reporting/${campaignId}`, {
-                headers: this.get_auth_header(),
                 params,
             });
             return res.data;

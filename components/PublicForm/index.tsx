@@ -2,13 +2,13 @@
 import { setFormInputs } from '@/context/form';
 import PublicNetworkService, { IPublicForm } from '@/services/public.service';
 import { enqueueSnackbar } from 'notistack';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function PublicForm(props: { data: IPublicForm; campaignId: string }) {
     const [inputs, setInputs] = useState<{[key: string]: string}>({})
 
-    React.useEffect(() => {
+    useEffect(() => {
         const { fields } = props.data.form;
         fields.forEach((field) => {
             setInputs((prev) => ({ ...prev, [field.label.replaceAll(' ', '_')]: '' }));
@@ -16,7 +16,7 @@ export default function PublicForm(props: { data: IPublicForm; campaignId: strin
     
     }, []);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value, name } = e.target;
         setInputs((prev) => ({ ...prev, [name]: value }));
     };

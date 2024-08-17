@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setNewCampaign } from '@/context/campaign';
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import CampaignNetworkService from '@/services/campaign.service';
@@ -26,7 +26,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
     });
 
-    const setKeyAndValue = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const setKeyAndValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         let copyCampaign = JSON.parse(JSON.stringify(campaignDetail));
         copyCampaign[e.target.name] = e.target.value;
         setCampaignDetail({ ...copyCampaign });
@@ -54,7 +54,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         setCampaignDetail(copyCampaign);
     };
 
-    const setDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setDate = (e: ChangeEvent<HTMLInputElement>) => {
         let copyCampaign = JSON.parse(JSON.stringify(campaignDetail));
         copyCampaign[e.target.name] = dayjs(new Date(e.target.value)).format('YYYY-MM-DD');
         setCampaignDetail(copyCampaign);
@@ -92,7 +92,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (mode === 'edit') {
             dispatch(setNewCampaign(campaignDetails));
             setCampaignDetail(campaignDetails);

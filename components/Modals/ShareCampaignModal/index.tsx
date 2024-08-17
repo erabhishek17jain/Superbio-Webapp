@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/context';
 import UserNetworkService from '@/services/user.service';
 import CampaignNetworkService from '@/services/campaign.service';
@@ -30,7 +30,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (searchText !== '') {
             setUsers(members.filter((item: any) => item?.name.includes(searchText)));
         } else {
@@ -39,7 +39,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
 
     }, [searchText]);
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
         setUsers([]);
         UserNetworkService.instance
             .getAllUsers({ page: 1, limit: 100 })

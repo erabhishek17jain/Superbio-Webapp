@@ -66,7 +66,7 @@ export default function CreatorsFormModal() {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         fields.push({ id: `field${fields.length + 1}`, fieldType: 'http', fieldValue: '', fieldValueError: '' });
         setFields([...fields]);
 
