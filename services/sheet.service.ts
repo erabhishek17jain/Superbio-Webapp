@@ -1,74 +1,7 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
 import { getCookie } from 'cookies-next';
-
-export interface ISheetDetails {
-    sheetId: string;
-    sheetName: string;
-    rows: string[];
-    columns: string[];
-}
-
-export interface IColumnDetails {
-    column_name: string;
-    values: string[];
-}
-
-export interface ISheetPayload {
-    id?: string;
-    sheetId: string;
-    name: string;
-    linkColumn: string;
-    campaignId: string;
-    range?: string;
-    title?: string;
-}
-
-export interface IColumn {
-    socialLink: string;
-    analytics: {
-        [key: string]: number | string;
-    };
-    otherData: {
-        columnName?: string;
-        value: string;
-    }[];
-    postedAt: MongoDate;
-    internalSheetId: { $oid: string };
-    campaignId: { $oid: string };
-    createdAt: MongoDate;
-    updatedAt: MongoDate;
-    isPrivate: boolean;
-}
-
-interface IColumnDataResponse {
-    data: IColumn[];
-    meta: {
-        total: number;
-        page: number;
-        limit: number;
-        analytics: {
-            likes: string;
-            quotes: string;
-            reposts: string;
-            views: string;
-            bookmarks: string;
-        };
-        basedOnPosts: {
-            likes: string;
-            quotes: string;
-            reposts: string;
-            views: string;
-            bookmarks: string;
-        };
-    };
-}
-export interface IReportingResponse {
-    postSummaryResp: any;
-    filterValueResp: any;
-    campaignAnalyticsResp: any;
-    postDtoPaginatedResponse: any;
-}
+import { ISheetDetails, IColumnDetails, ISheetPayload, ISheet, IColumnDataResponse, IReportingResponse } from '@/interfaces/sheet';
 
 interface ISheetNetworkService {
     getSheet: (url: string) => Promise<ISheetDetails[]>;

@@ -1,4 +1,4 @@
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 

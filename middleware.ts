@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { User } from './interfaces/user';
 
 const authRoutes = ['/home', '/home/blogs', '/login', '/register', '/reset-password', '/verify-user', '/forgot-password', '/setup'];
 

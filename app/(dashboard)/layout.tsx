@@ -1,8 +1,8 @@
 'use client';
-import SideBar from '@/components/SideBar';
+import BottomBar from '@/components/shared-components/BottomBar';
+import SideBar from '@/components/shared-components/SideBar';
 import { useSearchParams } from 'next/navigation';
 import React, { ReactNode } from 'react';
-import BottomBar from '@/components/BottomBar/BottomBar';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const searchParams = useSearchParams();

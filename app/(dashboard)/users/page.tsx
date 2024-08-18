@@ -1,8 +1,9 @@
 'use client';
-import DynamicLogo from '@/components/DynamicLogo';
-import CreateUserModal from '@/components/Modals/CreateUserModal';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
+import CreateUserModal from '@/components/modals/CreateUserModal';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setMembers, setUserMeta } from '@/context/user';
+import { User } from '@/interfaces/user';
 import { logout } from '@/lib/utils';
 import UserNetworkService from '@/services/user.service';
 import Image from 'next/image';
@@ -38,16 +39,6 @@ export default function Users() {
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
-            {openUserModal && (
-                <CreateUserModal
-                    mode={mode}
-                    openCloseModal={() => {
-                        setOpenUserModal(false);
-                        setUserDetails(null);
-                    }}
-                    userDetails={userDetails}
-                />
-            )}
             <div className='flex w-full px-6 py-2 border-b h-[75px] border-[#cdcdcd]'>
                 <div className='flex flex-col w-10 items-center'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
@@ -142,6 +133,16 @@ export default function Users() {
                     </table>
                 </div>
             </div>
+            {openUserModal && (
+                <CreateUserModal
+                    mode={mode}
+                    openCloseModal={() => {
+                        setOpenUserModal(false);
+                        setUserDetails(null);
+                    }}
+                    userDetails={userDetails}
+                />
+            )}
         </div>
     );
 }

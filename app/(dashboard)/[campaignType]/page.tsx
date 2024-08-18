@@ -1,11 +1,11 @@
 'use client';
-import CampaignCard from '@/components/CampaignCard';
-import CreateCampaignModal from '@/components/Modals/CreateCampaignModal';
+import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
+import CampaignCard from '@/components/shared-components/CampaignCard';
+import { ICampaign } from '@/interfaces/campaign';
 import CampaignNetworkService from '@/services/campaign.service';
 import { useParams } from 'next/navigation';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { ICampaign } from '@/context/campaign';
 
 export default function AllCampaignPage() {
     const params: any = useParams();
@@ -79,7 +79,7 @@ export default function AllCampaignPage() {
             {campaigns && campaigns?.length > 0 && (
                 <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 mb-16'>
                     {campaigns.map((item) => (
-                        <CampaignCard key={item.id} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
+                        <CampaignCard key={item.title} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
                     ))}
                 </div>
             )}

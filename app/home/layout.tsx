@@ -1,15 +1,15 @@
-import { Footer } from "@/components/website/Footer";
-import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Footer } from '@/components/website/Footer';
+import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
 import '../globals.css';
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "auto",
-  variable: "--font-sans",
+    subsets: ['latin'],
+    weight: ['300', '400', '500', '600', '700'],
+    display: 'auto',
+    variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
@@ -18,15 +18,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: ReactNode;
+    children: ReactNode;
 }>) {
-  return (
-    <>    {children}
-        <div className="w-full bg-black px-6 sm:px-12 md:px-16 lg:px-24">
-          <Footer />
-        </div>
-      </>
-  );
+    return (
+        <>
+            {children}
+            <div className='w-full bg-black px-6 sm:px-12 md:px-16 lg:px-24'>
+                <Footer />
+            </div>
+        </>
+    );
 }

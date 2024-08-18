@@ -14,7 +14,7 @@ declare type OrderResponse = {
     amount_due: number;
     currency: string;
     receipt: string;
-    offer_id: string;
+    offerid: string;
     status: string;
     attempts: number;
     notes: any[];
@@ -23,8 +23,8 @@ declare type OrderResponse = {
 
 declare type CreditLedger = {
     id: string;
-    user_id: string;
-    rz_order_id: string;
+    userid: string;
+    rz_orderid: string;
     amount: number;
     status: string;
     created_at: number;
@@ -33,9 +33,9 @@ declare type CreditLedger = {
 
 declare type DebitLedger = {
     id: string;
-    user_id: string;
+    userid: string;
     amount: number;
-    sheet_id: string;
+    sheetid: string;
     created_at: number;
     updated_at: number;
 }

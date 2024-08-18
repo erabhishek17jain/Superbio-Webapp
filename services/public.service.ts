@@ -1,33 +1,7 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
-import { IColumn } from './sheet.service';
-
-export interface IPublicForm {
-    campaignName: string;
-    form: {
-        _id: { $oid: string };
-        campaignId: { $oid: string };
-        fields: [
-            {
-                fieldType: string;
-                label: string;
-                required: boolean;
-                isLinkField: boolean;
-            },
-        ];
-    };
-}
-
-export interface ISubmitPublicForm {
-    formId: string;
-    campaignId: string;
-    fields: {
-        fieldType: string;
-        label: string;
-        value: string;
-        isLinkField: boolean;
-    }[];
-}
+import { IPublicForm, ISubmitPublicForm } from '@/interfaces/public';
+import { IColumn } from '@/interfaces/sheet';
 
 interface IPublicNetworkService {
     getPublicForm: (campaignId: string) => Promise<IPublicForm>;

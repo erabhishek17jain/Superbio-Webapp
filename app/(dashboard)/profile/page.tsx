@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import { useAppSelector } from '@/context';
-import { ProfileForm } from '@/components/Profile/ProfileForm';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import Link from 'next/link';
+import { ProfileForm } from '@/components/shared-components/Profile';
 
 export default function Profile() {
     const { user } = useAppSelector((state) => state.user);

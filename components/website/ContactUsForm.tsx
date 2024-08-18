@@ -3,12 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/website/ui/button";
-import { Form} from "@/components/website/ui/form";
 import { motion, useInView } from "framer-motion";
 import { RefObject } from "react";
 import { z } from 'zod';
 import Link from "next/link";
+import { Form } from "./components/form";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -42,23 +41,6 @@ export const ContactUsForm = ({ parentRef }: { parentRef: RefObject<HTMLElement>
           </div>
           <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className='flex justify-start w-full gap-x-3 sm:w-4/5 mb-8 sm:mb-4'>
-                  {/* <FormField
-                      control={form.control}
-                      name='email'
-                      render={({ field }) => (
-                          <FormItem className='w-full'>
-                              <FormControl>
-                                  <Input
-                                      type='email'
-                                      {...field}
-                                      placeholder='Type in your email here'
-                                      className='rounded-none border-2 border-black bg-transparent py-5 placeholder:text-xs placeholder:text-neutral-500'
-                                  />
-                              </FormControl>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  /> */}
                   <Link
                       href='https://calendly.com/deepak-jain-loqo'
                       className='flex items-center gap-x-2 rounded-none bg-black text-xs font-semibold uppercase text-white px-[20px] py-[10px]'>

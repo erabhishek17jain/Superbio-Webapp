@@ -5,21 +5,7 @@ import {
     getUser,
     loginUsingGoogle,
 } from "./network"
-
-
-export interface IUserState {
-    user: User;
-    token: string | null;
-    loading: boolean;
-    members: User[];
-    meta: {
-        total: number;
-        page: number;
-        limit: number;
-    };
-    campaignType: string;
-}
-
+import { IUserState } from "@/interfaces/user";
 
 let initialState: IUserState = {
     user: {

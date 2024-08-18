@@ -1,5 +1,5 @@
 import { ContactInfo } from '@/components/website/ContactInfo';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import Link from 'next/link';
 import React from 'react';
 

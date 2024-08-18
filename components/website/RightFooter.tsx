@@ -1,7 +1,7 @@
 "use client";
-import { ContactInfo, SocialLinks } from "@/components/website/constants";
 import { cn, scrollToElementById } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
+import { SocialLinks, ContactInfo } from "./constants";
 
 export const RightFooter = () => {
   const router = useRouter();

@@ -1,26 +1,18 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import SheetNetworkService from '@/services/sheet.service';
-import { Params, SearchParams } from './layout';
-import { colors, icons } from './icons-colors';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import DownloadHandler from './DownloadHandler';
-import FilterUi from './FilterUi';
-import FilterPlatform from './FilterPlatform';
-import { IColumnResponse } from '@/services/public.service';
-import { useAppSelector } from '@/context';
+import GenerateReport from '../../../../../components/shared-components/GenerateReport';
+import FilterUi from '../../../../../components/shared-components/FilterUi';
 import { useSearchParams } from 'next/navigation';
-import profiles from '../../../../../lib/profileResp.json';
+import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
+import Reporting from '../../../../../components/shared-components/Reporting';
+import { useAppSelector } from '@/context';
+import { IColumnResponse } from '@/services/public.service';
+import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, structureData } from '@/lib/utils';
-
-interface ISummary {
-    totCount: number;
-    count: number;
-    icon: JSX.Element;
-    color: string;
-    title: string;
-    basedOn: number | JSX.Element;
-}
+import SheetNetworkService from '@/services/sheet.service';
+import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
+import { SUMMARY_ICONS, SUMMARY_COLORS } from '@/constants';
 
 export default async function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const sParams = useSearchParams();
@@ -41,7 +33,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
     const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
     const filter = searchParams.filter ? searchParams.filter : '';
     const value = searchParams.value ? searchParams.value : '';
-    
+
     let query: { [key: string]: string | number } = {
         page: 1,
         size: 6,
@@ -78,8 +70,8 @@ export default async function CampaignReporting({ searchParams, params }: { sear
             const extimateReach = {
                 totCount: estimateCount,
                 count: calculateSummary(Number(campData?.meta.analytics.views) + estimateCount * 10),
-                icon: icons['Estimated Reach'],
-                color: colors['Estimated Reach'],
+                icon: SUMMARY_ICONS['Estimated Reach'],
+                color: SUMMARY_ICONS['Estimated Reach'],
                 title: 'Estimated Reach',
                 basedOn: (
                     <>
@@ -92,13 +84,12 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                 result.push({
                     totCount: campData?.meta?.total,
                     count: campData?.meta?.total,
-                    icon: icons['Posts'],
-                    color: colors['Posts'],
+                    icon: SUMMARY_ICONS['Posts'],
+                    color: SUMMARY_COLORS['Posts'],
                     title: 'Total Posts',
                     basedOn: (
                         <>
-                            <span>{campData?.meta?.total}</span>/
-                            <span className='text-sm'>{campData?.meta.total}</span>
+                            <span>{campData?.meta?.total}</span>/<span className='text-sm'>{campData?.meta.total}</span>
                         </>
                     ),
                 });
@@ -109,8 +100,8 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     return {
                         totCount: (analytics as any)[key],
                         count: calculateSummary((analytics as any)[key]),
-                        icon: icons[key],
-                        color: colors[key],
+                        icon: SUMMARY_ICONS[key],
+                        color: SUMMARY_COLORS[key],
                         title: key,
                         basedOn: (basedOnPosts as any)[key],
                     };
@@ -173,7 +164,7 @@ export default async function CampaignReporting({ searchParams, params }: { sear
         if (!loaded) {
             const resp = await SheetNetworkService.instance.getReportingData(params.campaignId, clearFilters(query));
             if (campaignType === 'influncer') {
-                const data: any = profiles;
+                const data: any = { data: [], meta: {} };
                 setCampData({ data: data.data, meta: data.meta });
             } else {
                 const data = structureData(resp);
@@ -250,25 +241,36 @@ export default async function CampaignReporting({ searchParams, params }: { sear
                     </div>
                 )}
                 {campData?.data && campData?.data.length > 0 && (
-                    <DownloadHandler
+                    <GenerateReport
                         meta={campData?.meta}
                         query={query}
                         isPublic={searchParams.isPublic ? true : false}
                         columns={campData?.data}
                         params={params}
-                        summary={summary}
                     />
                 )}
-                <FilterPlatform
-                    query={query}
-                    params={params}
-                    summary={summary}
-                    filters={filters}
-                    campData={campData}
-                    sParams={searchParams}
-                    selectFilter={selectFilter}
-                    filtersOptions={campData?.meta.filterValueResp}
-                />
+                {campData?.data && campData?.data.length > 0 && (
+                    <>
+                        <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
+                            <FilterAndSorting
+                                meta={campData?.meta}
+                                shouldShowSort={true}
+                                query={query}
+                                filters={filters}
+                                selectFilter={selectFilter}
+                                filtersOptions={campData?.meta.filterValueResp}
+                            />
+                        </div>
+                        <AnalyticsSummary summary={summary} filters={filters} />
+                        <Reporting
+                            query={query}
+                            meta={campData?.meta}
+                            campaignId={params.campaignId}
+                            initialColumns={campData?.data}
+                            isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                        />
+                    </>
+                )}
             </div>
         </div>
     );

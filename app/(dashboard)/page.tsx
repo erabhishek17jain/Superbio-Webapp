@@ -1,17 +1,17 @@
 'use client';
-import CampaignCard from '@/components/CampaignCard';
-import CreateCampaignModal from '@/components/Modals/CreateCampaignModal';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setCampaignType, setMembers } from '@/context/user';
 import UserNetworkService from '@/services/user.service';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { CampaignStatus } from '@/services/campaign.service';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { getCampaigns } from '@/context/campaign/network';
 import { enqueueSnackbar } from 'notistack';
 import { logout } from '@/lib/utils';
-import HomePage from '@/components/HomePage';
+import HomePage from '@/components/shared-components/HomePage';
+import CampaignCard from '@/components/shared-components/CampaignCard';
+import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
+import { CampaignStatus } from './[campaignType]/layout';
 
 export default function Home() {
     const dispatch = useAppDispatch();
@@ -60,15 +60,6 @@ export default function Home() {
 
     return (
         <div className='flex flex-col w-full overflow-auto' style={{ height: '100vh' }}>
-            {openCampaingModal && (
-                <CreateCampaignModal
-                    mode={mode}
-                    campaignDetails={campaignDetails}
-                    openCloseModal={() => {
-                        setOpenCampaingModal(false);
-                    }}
-                />
-            )}
             <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-[75px] z-10'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
@@ -281,6 +272,15 @@ export default function Home() {
                         </div>
                     )}
                 </div>
+            )}
+            {openCampaingModal && (
+                <CreateCampaignModal
+                    mode={mode}
+                    campaignDetails={campaignDetails}
+                    openCloseModal={() => {
+                        setOpenCampaingModal(false);
+                    }}
+                />
             )}
         </div>
     );

@@ -4,6 +4,7 @@ import { useAppDispatch } from '.';
 import { getCookie } from 'cookies-next';
 import { setToken, setUser } from './user';
 import { useRouter } from 'next/navigation';
+import { User } from '@/interfaces/user';
 
 const UserContext = createContext({});
 

@@ -1,5 +1,5 @@
 'use client';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import { ReactNode, useRef } from 'react';

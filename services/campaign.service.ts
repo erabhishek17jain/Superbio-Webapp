@@ -1,51 +1,9 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
 import { enqueueSnackbar } from 'notistack';
-import { ICampaign as ICampaignContext, ICampaignForm as ICampaignFormContext } from '../context/campaign';
-
-export interface ICampaign {
-    _id: { $oid: string };
-    title: string;
-    description: string;
-    startDate: string;
-    status: string;
-    brand: string;
-    keywords: string[];
-    priority: number;
-    endDate?: string;
-    groups: number;
-    source: string;
-    sharedUsers?: any[];
-    updatedAt: MongoDate;
-    createdAt: MongoDate;
-    user?: {
-        _id: { $oid: string };
-        name: string;
-        email: string;
-    };
-}
-
-export interface ICampaignForm {
-    _id: { $oid: string };
-    fields: any[];
-}
-
-export interface ICampaignAPIResponse {
-    data: ICampaign[];
-    meta: {
-        page: number;
-        limit: number;
-        total: number;
-    };
-}
-
-export enum CampaignStatus {
-    'active' = 'active',
-    'shared' = 'shared',
-    'archived' = 'archived',
-    'active_p' = 'active_p',
-}
-
+import { ICampaign, ICampaignForm, ICampaignAPIResponse } from '@/interfaces/campaign';
+import { User } from '@/interfaces/user';
+import { CampaignStatus } from '@/app/(dashboard)/[campaignType]/layout';
 export default class CampaignNetworkService extends BaseNetworkFramework {
     public static instance: CampaignNetworkService = new this();
 
@@ -53,7 +11,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         super();
     }
 
-    private covertAPICampaignToCampaign = (campaign: ICampaign): ICampaignContext => {
+    private covertAPICampaignToCampaign = (campaign: any): ICampaign => {
         return {
             id: campaign._id.$oid,
             title: campaign.title,
@@ -61,8 +19,8 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             brand: campaign.brand,
             keywords: campaign.keywords,
             priority: campaign.priority,
-            startDate: new Date(campaign.startDate),
-            endDate: campaign.endDate ? new Date(campaign.endDate) : new Date(),
+            startDate: new Date(campaign.startDate).toDateString(),
+            endDate: campaign.endDate ? new Date(campaign.endDate).toDateString() : new Date().toDateString(),
             status: campaign.status,
             groups: campaign.groups,
             source: campaign.source,
@@ -77,7 +35,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         };
     };
 
-    public createCampaign = async (campaign: ICampaignContext): Promise<ICampaignContext> => {
+    public createCampaign = async (campaign: ICampaign): Promise<ICampaign> => {
         try {
             const res = await axios.post<ICampaign>(
                 `${this.url}/campaign/create`,
@@ -102,7 +60,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public updateCampaign = async (campaign: ICampaignContext): Promise<ICampaignContext> => {
+    public updateCampaign = async (campaign: ICampaign): Promise<ICampaign> => {
         try {
             let id = campaign.id;
             let campaignPayload: any = {
@@ -119,7 +77,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public deleteCampaign = async (campaignId: ICampaignContext): Promise<ICampaignContext> => {
+    public deleteCampaign = async (campaignId: ICampaign): Promise<ICampaign> => {
         try {
             const res = await axios.delete<ICampaign>(`${this.javaUrl}/campaign/${campaignId}`, {
                 headers: this.get_auth_header(),
@@ -137,7 +95,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         status: CampaignStatus,
         ownerType: string,
         q: string
-    ): Promise<{ data: ICampaignContext[]; status: string; ownerType: string; meta: any; q: string }> => {
+    ): Promise<{ data: ICampaign[]; status: string; ownerType: string; meta: any; q: string }> => {
         try {
             let params: { [key: string]: any } = {
                 page,
@@ -164,7 +122,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public fetcher = async (url: string): Promise<ICampaignContext[]> => {
+    public fetcher = async (url: string): Promise<ICampaign[]> => {
         try {
             const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
                 headers: this.get_auth_header(),
@@ -175,7 +133,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public fetcherWithMeta = async (url: string): Promise<{ data: ICampaignContext[]; meta: any }> => {
+    public fetcherWithMeta = async (url: string): Promise<{ data: ICampaign[]; meta: any }> => {
         try {
             const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
                 headers: this.get_auth_header(),
@@ -189,7 +147,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public createCampaignForm = async (campaignForm: ICampaignFormContext): Promise<ICampaignContext> => {
+    public createCampaignForm = async (campaignForm: ICampaignForm): Promise<ICampaign> => {
         try {
             const res = await axios.post<ICampaign>(`${this.url}/campaign/create-form`, campaignForm, {
                 headers: this.get_auth_header(),

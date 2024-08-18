@@ -5,9 +5,10 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
-import ConfirmSheetUpdateModal from '@/components/Modals/ConfirmSheetUpdateModal';
-import { SheetDetails } from './SheetDetails';
-import GuidelinesUi from './GuidelinesUi';
+import { SheetDetails } from '../../../../../components/shared-components/SheetDetails';
+import GuidelinesUi from '../../../../../components/shared-components/GuidelinesUi';
+import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
+import { ISheet } from '@/interfaces/sheet';
 
 const getSheetInfo = () => {
     return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: '', sheets: [], selectedSheet: {} };
@@ -195,7 +196,7 @@ export default function CreateReporting() {
                     title: item?.title,
                     sheetName: item?.name,
                     columnName: item?.linkColumn,
-                    id: item?._id,
+                    id: item?.id,
                     sheets: [sheetDetails],
                     selectedSheet: { ...sheetDetails },
                 });

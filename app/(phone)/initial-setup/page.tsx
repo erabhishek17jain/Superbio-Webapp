@@ -1,4 +1,5 @@
 "use client";
+import { Orgs } from "@/interfaces/user";
 import UserNetworkService from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";

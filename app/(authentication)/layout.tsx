@@ -1,5 +1,5 @@
 'use client';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { useAppDispatch } from '@/context';
 import { loginUsingGoogle } from '@/context/user/network';
 import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';

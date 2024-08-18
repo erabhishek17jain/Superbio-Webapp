@@ -2,25 +2,7 @@ import axios from "axios";
 import BaseNetworkFramework from "./base.service";
 import { deleteCookie, setCookie } from "cookies-next";
 import {enqueueSnackbar} from "notistack";
-
-
-export interface ILoginResponse {
-    token: string;
-    user: User;
-}
-
-export interface IUserReturn {
-    user: User;
-    token: string;
-}
-
-interface IRegisterPayload {
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-    mobileNo?: string;
-}
+import { IUserReturn, ILoginResponse, IRegisterPayload, User, IUserListResponse, Orgs } from "@/interfaces/user";
 
 export default class UserNetworkService extends BaseNetworkFramework {
     public static instance: UserNetworkService = new this();

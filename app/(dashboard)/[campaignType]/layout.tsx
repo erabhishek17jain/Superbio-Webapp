@@ -6,12 +6,18 @@ import { setLoading, setMeta } from '@/context/campaign';
 import { useSnackbar } from 'notistack';
 import copy from 'copy-to-clipboard';
 import { getCampaigns } from '@/context/campaign/network';
-import { CampaignStatus } from '@/services/campaign.service';
 import Loading from '@/app/(public)/public/[campaignId]/form/loading';
 import logo from '@/public/logo/logo-black.svg';
 import Image from 'next/image';
-import DynamicLogo from '@/components/DynamicLogo';
 import Link from 'next/link';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
+
+export enum CampaignStatus {
+    'active' = 'active',
+    'shared' = 'shared',
+    'archived' = 'archived',
+    'active_p' = 'active_p',
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();

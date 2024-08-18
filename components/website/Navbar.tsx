@@ -2,12 +2,12 @@
 import { ArrowRightIcon, MenuIcon, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/website/ui/dropdown-menu';
-import { NavbarItemList } from '@/components/website/constants';
 import { cn, scrollToElementById } from '@/lib/utils';
 import logo from '@/public/logo/logo-white.svg';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './components/dropdown-menu';
+import { NavbarItemList } from './constants';
 
 export const Navbar = () => {
     const router = useRouter();

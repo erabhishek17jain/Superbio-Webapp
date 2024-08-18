@@ -1,11 +1,10 @@
 'use client';
-import { HeroSectionFeatures } from '@/components/website/constants';
-import { scrollToElementById } from '@/lib/utils';
 import productShowcase from '@/public/contact/homepage.png';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import { RefObject, useRef } from 'react';
+import { HeroSectionFeatures } from './constants';
 
 export const HeroLeft = ({ parentRef }: { parentRef: RefObject<HTMLElement> }) => {
     const isInView = useInView(parentRef, { once: true });

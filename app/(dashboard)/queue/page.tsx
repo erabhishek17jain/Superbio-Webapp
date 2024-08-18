@@ -1,5 +1,5 @@
 'use client';
-import DynamicLogo from '@/components/DynamicLogo';
+import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { logout } from '@/lib/utils';
 import SheetNetworkService from '@/services/sheet.service';
 import Link from 'next/link';
@@ -70,7 +70,7 @@ export default function Queue() {
                         <tbody>
                             {queues?.length > 0 ? (
                                 queues.map((queue: any) => (
-                                    <tr key={queue._id.$oid.toString()} className='odd:bg-white even:bg-gray-50 border-b cursor-pointer hover:bg-gray-100'>
+                                    <tr key={queue.id.$oid.toString()} className='odd:bg-white even:bg-gray-50 border-b cursor-pointer hover:bg-gray-100'>
                                         <th
                                             scope='row'
                                             className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'

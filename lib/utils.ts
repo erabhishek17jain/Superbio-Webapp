@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { deleteCookie } from 'cookies-next';
-import { IReportingResponse } from '@/services/sheet.service';
+import { IReportingResponse } from '@/interfaces/sheet';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));

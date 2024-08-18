@@ -1,34 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getCampaigns, createCampaign, fetchSheetByCampaignId } from './network';
 import dayjs from 'dayjs';
-import { IColumn, IColumnDetails, ISheetDetails } from '@/services/sheet.service';
-
-export interface ICampaign {
-    id?: string;
-    title: string;
-    description: string;
-    brand: string;
-    keywords: string[];
-    priority: number;
-    startDate: Date;
-    endDate: Date;
-    status: string;
-    groups: number;
-    source: string;
-    createdAt?: Date;
-    sharedUsers?: any[];
-    updatedAt?: Date;
-    user?: {
-        id?: string;
-        name?: string;
-        email?: string;
-    };
-}
-
-export interface ICampaignForm {
-    id: string;
-    fields: any[];
-}
+import { ICampaign } from '@/interfaces/campaign';
+import { IColumn, IColumnDetails, ISheet, ISheetDetails } from '@/interfaces/sheet';
 
 let initialCampaign: ICampaign = {
     id: '',
@@ -37,8 +11,8 @@ let initialCampaign: ICampaign = {
     brand: '',
     keywords: [],
     priority: 3,
-    startDate: dayjs().toDate(),
-    endDate: dayjs().toDate(),
+    startDate: dayjs().toDate().toDateString(),
+    endDate: dayjs().toDate().toDateString(),
     status: '',
     groups: 0,
     source: '',
@@ -48,6 +22,8 @@ let initialCampaign: ICampaign = {
         email: '',
     },
     sharedUsers: [],
+    updatedAt: undefined,
+    createdAt: undefined,
 };
 
 export interface ICampaignState {
@@ -184,7 +160,7 @@ export const campaignSlice = createSlice({
         },
         setFitlersState: (state, action) => {
             state.filters = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCampaigns.rejected, (state) => {
@@ -242,5 +218,5 @@ export const {
     setColumns,
     setUpdatedAt,
     setMeta,
-    setFitlersState
+    setFitlersState,
 } = campaignSlice.actions;

@@ -1,6 +1,6 @@
 import React from "react";
 import PublicNetworkService from "@/services/public.service";
-import PublicForm from "@/components/PublicForm";
+import PublicForm from "@/components/shared-components/PublicForm";
 
 export default async function Form(props: { params: { campaignId: string } }) {
   const data = await PublicNetworkService.instance.getPublicForm(

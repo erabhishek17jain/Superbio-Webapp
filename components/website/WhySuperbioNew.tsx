@@ -1,11 +1,11 @@
 'use client';
 
-import { WhySuperbioList, WhySuperbioListProps } from '@/components/website/constants';
 import { cn } from '@/lib/utils';
 import { useInView, motion } from 'framer-motion';
 import Image from 'next/image';
 import { RefObject, useRef, useState } from 'react';
 import Link from 'next/link';
+import { WhySuperbioList, WhySuperbioListProps } from './constants';
 
 const LENGTH = WhySuperbioList.length;
 
