@@ -272,7 +272,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                               )
                               .map((key) => {
                                   return (
-                                      <div className='flex flex-col text-sm w-20'>
+                                      <div className='flex flex-col text-sm w-20' key={key}>
                                           <span className='text-black font-semibold capitalize'>
                                               {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
                                           </span>
