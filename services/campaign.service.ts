@@ -3,7 +3,13 @@ import BaseNetworkFramework from './base.service';
 import { enqueueSnackbar } from 'notistack';
 import { ICampaign, ICampaignForm, ICampaignAPIResponse } from '@/interfaces/campaign';
 import { User } from '@/interfaces/user';
-import { CampaignStatus } from '@/app/(dashboard)/[campaignType]/layout';
+
+export enum CampaignStatus {
+    'active' = 'active',
+    'shared' = 'shared',
+    'archived' = 'archived',
+    'active_p' = 'active_p',
+}
 export default class CampaignNetworkService extends BaseNetworkFramework {
     public static instance: CampaignNetworkService = new this();
 

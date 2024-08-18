@@ -11,7 +11,7 @@ import { logout } from '@/lib/utils';
 import HomePage from '@/components/shared-components/HomePage';
 import CampaignCard from '@/components/shared-components/CampaignCard';
 import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
-import { CampaignStatus } from './[campaignType]/layout';
+import { CampaignStatus } from '@/services/campaign.service';
 
 export default function Home() {
     const dispatch = useAppDispatch();

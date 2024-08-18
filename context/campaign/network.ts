@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import CampaignNetworkService from '@/services/campaign.service';
+import CampaignNetworkService, { CampaignStatus } from '@/services/campaign.service';
 import { enqueueSnackbar } from 'notistack';
 import SheetNetworkService from '@/services/sheet.service';
-import { CampaignStatus } from '@/app/(dashboard)/[campaignType]/layout';
 import { ICampaign } from '@/interfaces/campaign';
 
 export const getCampaigns = createAsyncThunk(

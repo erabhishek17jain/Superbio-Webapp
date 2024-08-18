@@ -11,13 +11,7 @@ import logo from '@/public/logo/logo-black.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
-
-export enum CampaignStatus {
-    'active' = 'active',
-    'shared' = 'shared',
-    'archived' = 'archived',
-    'active_p' = 'active_p',
-}
+import { CampaignStatus } from '@/services/campaign.service';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
