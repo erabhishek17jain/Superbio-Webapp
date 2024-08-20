@@ -1,6 +1,6 @@
 import whatsappIcon from '@/public/footer/whatsapp.svg';
 import googleIcon from '@/public/footer/google.svg';
-import { ArrowRightIcon, DribbbleIcon, FacebookIcon, LinkedinIcon, LucideInstagram, InstagramIcon, MailIcon } from 'lucide-react';
+import { ArrowRightIcon, LinkedinIcon, InstagramIcon, MailIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { RightFooter } from './RightFooter';

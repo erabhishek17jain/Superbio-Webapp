@@ -1,4 +1,4 @@
-import { getCookie } from "cookies-next";
+import { getCookie } from 'cookies-next';
 import { cookies } from 'next/headers';
 
 export default class BaseNetworkFramework {
@@ -9,7 +9,10 @@ export default class BaseNetworkFramework {
     public get_auth_header = (): { [key: string]: string } => {
         return {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getCookie('token')}`
+            'Authorization': `Bearer ${getCookie('token')}`,
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Methods': '*',
         };
     };
 }

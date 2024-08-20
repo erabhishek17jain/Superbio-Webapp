@@ -184,13 +184,13 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 const data = structureData(resp);
                 setCampData(data);
             }
+            setIsSheetLoading(false);
         });
     };
 
     useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
-            setIsSheetLoading(false);
         }
     }, [campData]);
 
