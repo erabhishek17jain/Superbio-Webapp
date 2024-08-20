@@ -13,6 +13,7 @@ import CampaignCard from '@/components/shared-components/CampaignCard';
 import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
 import { CampaignStatus } from '@/services/campaign.service';
 import { useRouter } from 'next/navigation';
+import LoadingBlack from '@/components/global-components/LoadingBlack';
 
 export default function Home() {
     const router = useRouter();
@@ -176,11 +177,7 @@ export default function Home() {
                 <div className='flex px-4 sm:px-8 py-4 w-full h-full flex-col overflow-y-auto mb-6 sm:mb-0'>
                     {searchText !== '' && isSearch && <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>}
                     {loading ? (
-                        <div className='flex items-center justify-center w-full h-[500px] my-6 mx-auto'>
-                            <div className='flex items-center justify-center w-32 h-32'>
-                                <div className='border-t-transparent border-solid animate-spin rounded-full border-black border-8 w-full h-full'></div>
-                            </div>
-                        </div>
+                        <LoadingBlack />
                     ) : shouldShowNoCampaign ? (
                         <>
                             {activeCampaign && activeCampaign.data?.length > 0 && (

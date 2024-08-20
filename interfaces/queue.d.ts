@@ -1,6 +1,6 @@
 
 declare interface IQueue {
-    id: { $oid: string };
+    _id: { $oid: string };
     sheets: ISheet[];
     campaign: ICampaign;
     campaignId: { $oid: string };

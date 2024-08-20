@@ -148,7 +148,7 @@ export const SUMMARY_ICONS: { [key: string]: JSX.Element } = {
             </g>
         </svg>
     ),
-    'Estimated Reach': (
+    'estimatedReach': (
         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='transparent' id='bar-graph'>
             <path
                 fill='#fff'
@@ -189,7 +189,7 @@ export const SUMMARY_COLORS: { [key: string]: string } = {
     'bookmarks': 'bg-bookmarks',
     'shares': 'bg-quotes',
     'saves': 'bg-bookmarks',
-    'Estimated Reach': 'bg-views',
+    'estimatedReach': 'bg-views',
     'Posts': 'bg-posts',
     'followers': 'bg-posts',
     'medias': 'bg-views',

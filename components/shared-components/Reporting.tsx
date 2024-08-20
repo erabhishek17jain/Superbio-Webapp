@@ -7,6 +7,7 @@ import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
 import SocialCard from './SocialCard';
+import JavaNetworkService from '@/services/java.service';
 
 interface IReportingProps {
     meta: any;
@@ -23,7 +24,7 @@ export default function Reporting(props: IReportingProps) {
     const [loader, setloader] = useState(false);
 
     const loadCampData = async (query: any) => {
-        const resp: any = await SheetNetworkService.instance.getPostsData(campaignId, clearFilters(query));
+        const resp: any = await JavaNetworkService.instance.getPostsData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };

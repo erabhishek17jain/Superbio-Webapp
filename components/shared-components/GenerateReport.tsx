@@ -42,44 +42,32 @@ export default function GenerateReport(props: GenerateReportProps) {
     const setLastRefresh = () => {
         if (meta) {
             const currentAt = dayjs(new Date()) as any;
-            const minutes = currentAt.diff(dayjs(parseInt(meta?.updatedAt?.$date?.$numberLong.toString())), 'minutes');
+            const minutes = currentAt.diff(dayjs(dayjs(meta?.campaignDto?.lastSyncedAt).valueOf()), 'minutes');
             setDiffInMin(isNaN(minutes) ? 0 : minutes);
             setReportText(meta?.analytics?.likes && meta?.analytics?.likes > '0' ? 'Generated' : 'Generate Report');
         }
         setGenerateStatus('');
     };
 
-    const getQueueData = () => {
-        SheetNetworkService.instance
-            .getQueueData()
-            .then((res) => {
-                const resp = res.filter((item: any) => item?.campaign?.id?.$oid === params.campaignId);
-                if (resp?.length > 0) {
-                    const currentAt = dayjs(new Date()) as any;
-                    const minutes = currentAt.diff(dayjs(parseInt(resp[0].updatedAt?.$date?.$numberLong.toString())), 'minutes');
-                    setDiffInMin(minutes);
-                    setReportText('Generating...');
-                    if (resp[0]?.status.includes('processed')) {
-                        const str = resp[0]?.status;
-                        const num: any = str.split(' ')[0].split('/');
-                        const per = (num[0] * 100) / num[1];
-                        setGenerateStatus(`${per.toFixed(0)}%`);
-                    } else {
-                        setGenerateStatus(resp[0]?.status);
-                    }
-                } else if (meta !== undefined) {
-                    setLastRefresh();
-                }
-            })
-            .catch(() => {
-                setLastRefresh();
-            });
+    const getQueueData = (queueDto: IQueue) => {
+        const currentAt = dayjs(new Date()) as any;
+        const minutes = currentAt.diff(dayjs(parseInt(queueDto.updatedAt?.$date?.$numberLong.toString())), 'minutes');
+        setDiffInMin(minutes);
+        setReportText('Generating...');
+        if (queueDto?.status.includes('processed')) {
+            const str = queueDto?.status;
+            const num: any = str.split(' ')[0].split('/');
+            const per = (num[0] * 100) / num[1];
+            setGenerateStatus(`${per.toFixed(0)}%`);
+        } else {
+            setGenerateStatus(queueDto?.status);
+        }
     };
 
     useEffect(() => {
-        if (!isPublic) {
-            if (columns !== undefined && reportText === 'Generate Report') {
-                getQueueData();
+        if (!isPublic && meta?.queueDto) {
+            if (reportText === 'Generate Report') {
+                getQueueData(meta?.queueDto);
             }
         } else {
             setLastRefresh();
@@ -425,7 +413,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params?.campaignType}/create-reporting/${params.campaignId}`)}>
+                        onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}>
                         Add Links
                         <svg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>

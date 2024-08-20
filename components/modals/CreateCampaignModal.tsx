@@ -79,13 +79,13 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create-reporting/${res.id}`);
+                    router.push(`/${res.status}-campaign/create/${res.id}`);
                     openCloseModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create-reporting/${res.id}`);
+                    router.push(`/${res.status}-campaign/create/${res.id}`);
                     openCloseModal();
                 });
             }

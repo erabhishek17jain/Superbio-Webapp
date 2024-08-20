@@ -29,7 +29,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
     };
 
     const navigateToReporting = () => {
-        router.push(`/${status}/campaign-reporting/${campaign.id}`);
+        router.push(`/${status}/campaign/${campaign.id}`);
     };
 
     const openCloseShareModal = () => {
@@ -96,7 +96,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
         },
         {
             title: 'Add/Edit Sheet',
-            action: () => router.push(`/${status}/create-reporting/${campaign?.id}`),
+            action: () => router.push(`/${status}/create/${campaign?.id}`),
             icon: (
                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' version='1.2' id='plus' fill='#959595'>
                     <path d='M18 10h-4V6a2 2 0 0 0-4 0l.071 4H6a2 2 0 0 0 0 4l4.071-.071L10 18a2 2 0 0 0 4 0v-4.071L18 14a2 2 0 0 0 0-4z'></path>
@@ -144,7 +144,7 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
     return (
         <div className='flex w-full relative'>
             {user.role !== 'brand' && (
-                <div className='absolute -right-[16px] -top-[10px] w-8 h-8 cursor-pointer' onClick={() => setMode(campaign)}>
+                <div className='absolute -right-[14px] -top-[8px] w-8 h-8 cursor-pointer' onClick={() => setMode(campaign)}>
                     <svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' id='edit' width={24} height={24}>
                         <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                         <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>

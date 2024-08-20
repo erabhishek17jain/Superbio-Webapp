@@ -58,7 +58,7 @@ export default function CreatorsFormModal() {
             CampaignNetworkService.instance.createCampaignForm(fieldPayload).then((res) => {
                 enqueueSnackbar('Campaign form created successfully', { variant: 'success' });
                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
-                router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
+                router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
             });
         } else {
             return enqueueSnackbar('Please fill all the fields', { variant: 'error' });

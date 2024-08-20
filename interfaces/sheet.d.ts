@@ -73,7 +73,13 @@ export interface IColumnDataResponse {
         };
     };
 }
+export interface IPostsResponse {
+    postDtoPaginatedResponse: any;
+}
+
 export interface IReportingResponse {
+    queueDto: any;
+    campaignDto: any;
     postSummaryResp: any;
     filterValueResp: any;
     campaignAnalyticsResp: any;

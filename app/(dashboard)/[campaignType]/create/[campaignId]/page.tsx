@@ -1,7 +1,7 @@
 'use client';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import SheetNetworkService from '@/services/sheet.service';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
@@ -9,6 +9,7 @@ import { SheetDetails } from '../../../../../components/shared-components/SheetD
 import GuidelinesUi from '../../../../../components/shared-components/GuidelinesUi';
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
+import LoadingBlack from '@/components/global-components/LoadingBlack';
 
 const getSheetInfo = () => {
     return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: '', sheets: [], selectedSheet: {} };
@@ -59,7 +60,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
+            router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
         }
     };
 
@@ -108,13 +109,13 @@ export default function CreateReporting() {
             });
             Promise.all(promises)
                 .then((res) => {
-                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
+                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
                     dispatch(setSheet(res));
                     enqueueSnackbar('Sheet added successfully', { variant: 'success' });
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign-reporting/${params.campaignId}`);
+                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
                 });
         }
     };
@@ -265,9 +266,7 @@ export default function CreateReporting() {
                                     stroke-linejoin='round'
                                 />
                             </svg>
-                            <span className='text-[13px] text-[#0B1571]'>
-                                View guidelines
-                            </span>
+                            <span className='text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                     </div>
                 </div>
@@ -377,11 +376,7 @@ export default function CreateReporting() {
                         </button>
                     </div>
                 ) : (
-                    <div className='flex items-center justify-center w-full h-[420px] my-6 mx-auto'>
-                        <div className='flex items-center justify-center w-32 h-32'>
-                            <div className='border-t-transparent border-solid animate-spin rounded-full border-black border-8 w-full h-full'></div>
-                        </div>
-                    </div>
+                    <LoadingBlack />
                 )}
             </div>
             {viewGuidelines && <GuidelinesUi openCloseModal={setOpenGuidelines} />}

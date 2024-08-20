@@ -83,18 +83,6 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public deleteCampaign = async (campaignId: ICampaign): Promise<ICampaign> => {
-        try {
-            const res = await axios.delete<ICampaign>(`${this.javaUrl}/campaign/${campaignId}`, {
-                headers: this.get_auth_header(),
-            });
-            return this.covertAPICampaignToCampaign(res.data);
-        } catch (err: any) {
-            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
-            throw err;
-        }
-    };
-
     public getCampaigns = async (
         page: number,
         limit: number,

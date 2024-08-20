@@ -43,6 +43,8 @@ export const structureData = (data: IReportingResponse) => {
                 reposts: data.campaignAnalyticsResp.reposts,
                 quotes: data.campaignAnalyticsResp.quotes,
                 bookmarks: data.campaignAnalyticsResp.bookmarks,
+                estimatedReach: data.campaignAnalyticsResp.estimatedReach,
+                customEstimatedReach: data.campaignAnalyticsResp.customEstimatedReach,
             },
             basedOnPosts: {
                 likes: data.campaignAnalyticsResp.basedOnPostCountDto.likePosts,
@@ -51,7 +53,11 @@ export const structureData = (data: IReportingResponse) => {
                 reposts: data.campaignAnalyticsResp.basedOnPostCountDto.repostPosts,
                 quotes: data.campaignAnalyticsResp.basedOnPostCountDto.quotePosts,
                 bookmarks: data.campaignAnalyticsResp.basedOnPostCountDto.bookmarkPosts,
+                estimatedReach: data.campaignAnalyticsResp.basedOnPostCountDto.estimatedReachPosts,
+                customEstimatedReach: data.campaignAnalyticsResp.basedOnPostCountDto.customEstimatedReachPosts,
             },
+            queueDto: data.queueDto,
+            campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
             filterValueResp: {
                 postedAt:

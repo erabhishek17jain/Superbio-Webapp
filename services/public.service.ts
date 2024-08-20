@@ -28,6 +28,8 @@ export interface IColumnResponse {
             views: string;
             bookmarks: string;
         };
+        queueDto: any;
+        campaignDto: any;
         postSummaryResp: any;
         filterValueResp: any;
     };

@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     };
 
     const count = (meta?.page || 0) * (meta?.limit || 12);
-    const isCampReport = searchParams.indexOf('campaign-reporting') > -1 || searchParams.indexOf('create-reporting') > -1;
+    const isCampReport = searchParams.indexOf('campaign') > -1 || searchParams.indexOf('campaign') > -1;
 
     useEffect(() => {
         if (!isCampReport) {
@@ -194,12 +194,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             </svg>
                                         </div>
                                     )}
-                                    {searchParams.indexOf('campaign-reporting') > -1 && (
+                                    {searchParams.indexOf('create') > -1 && (
                                         <div className='flex'>
                                             <button
                                                 onClick={() =>
                                                     copyShareLink(
-                                                        `/${params?.campaignType}/campaign-reporting/${params.campaignId}`
+                                                        `/${params?.campaignType}/create/${params.campaignId}`
                                                     )
                                                 }
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
