@@ -171,7 +171,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                             ?.filter(
                                 (item) =>
                                     !item.toLowerCase().includes('plays') &&
-                                    !item.toLowerCase().includes('deletedLink') &&
+                                    !item.toLowerCase().includes('deletedlink') &&
                                     !item.toLowerCase().includes('islinkdeleted')
                             )
                             .map((data: any, index) => (

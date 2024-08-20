@@ -73,9 +73,9 @@ export default function Home() {
                 </div>
                 {campaignType !== '' ? (
                     <div className='flex w-full justify-between items-center h-12'>
-                        <span className='hidden sm:flex gap-2 lg:ml-0 xl:ml-0'>
+                        <span className='hidden sm:flex'>
                             <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
-                                All Products /{' '}
+                                All Products<span className='px-3'>/</span>
                             </span>
                             <span>LOQO Campaign Tracker</span>
                         </span>

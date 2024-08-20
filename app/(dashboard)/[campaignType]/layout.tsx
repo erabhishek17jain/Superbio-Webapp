@@ -12,6 +12,7 @@ import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
+import { setCampaignType } from '@/context/user';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -77,71 +78,68 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const count = (allCampaign?.meta?.arg?.page || 0) * (allCampaign?.meta?.arg?.limit || 12);
     const isNotCampType = searchParams.indexOf('create') > -1 || searchParams.indexOf('campaign') > -1;
 
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
-            <div className='flex flex-col w-full h-screen overflow-y-auto'>
+            <div className='flex flex-col w-full h-screen overflow-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between px-4 sm:px-6 py-3 border-b h-[80px] border-[#cdcdcd]`}>
-                        <div className='flex flex-col w-10 items-center'>
+                    <div className={`flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-[14px] border-[#cdcdcd] border-b h-[75px] z-10`}>
+                        <div className='flex flex-col w-8 items-center h-[48px]'>
                             <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                                 <DynamicLogo />
                             </Link>
                         </div>
-                        <div className='flex flex-col lg:ml-0 w-full justify-center h-[50px]'>
+                        <div className='flex flex-col lg:ml-0 w-full justify-center h-12'>
                             <div className='flex justify-between items-center'>
-                                <div className='flex flex-col'>
-                                    <div className='flex justify-between'>
-                                        <div className='flex'>
-                                            <div
-                                                onClick={() => {
-                                                    router.push('/');
-                                                    dispatch(setLoading(true));
-                                                }}
-                                                className='hidden sm:flex text-[#8b8b8b] md:text-md lg:text-lg cursor-pointer items-center space-x-3 mt-[2px]'>
-                                                <span>Home</span>
-                                                <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                    <path
-                                                        d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                        stroke='#8b8b8b'
-                                                        strokeWidth='1.5'
-                                                        strokeMiterlimit='10'
-                                                        strokeLinecap='round'
-                                                        strokeLinejoin='round'
-                                                    />
-                                                </svg>
-                                            </div>
-                                            {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 1 : 0)).map((component, index) => {
-                                                const active = index !== urlComponents.slice(1).length - (isNotCampType ? 2 : 1);
-                                                return (
-                                                    <div
-                                                        key={component}
-                                                        onClick={() => {
-                                                            if (active) {
-                                                                router.push('/' + component);
-                                                                fetchMore();
-                                                            }
-                                                        }}
-                                                        className={`hidden sm:flex ${active ? 'text-[#8b8b8b]' : 'text-black'} items-center cursor-pointer space-x-3 ml-3 mt-1`}>
-                                                        <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
-                                                        {active && (
-                                                            <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                                <path
-                                                                    d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                                    stroke='#8b8b8b'
-                                                                    strokeWidth='1.5'
-                                                                    strokeMiterlimit='10'
-                                                                    strokeLinecap='round'
-                                                                    strokeLinejoin='round'
-                                                                />
-                                                            </svg>
-                                                        )}
-                                                    </div>
-                                                );
-                                            })}
+                                <div className='hidden sm:flex gap-2'>
+                                    <div className='flex'>
+                                        <div
+                                            onClick={() => {
+                                                router.push('/');
+                                                dispatch(setLoading(true));
+                                            }}
+                                            className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
+                                            <span>Home</span>
+                                            <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                <path
+                                                    d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
+                                                    stroke='#8b8b8b'
+                                                    strokeWidth='1.5'
+                                                    strokeMiterlimit='10'
+                                                    strokeLinecap='round'
+                                                    strokeLinejoin='round'
+                                                />
+                                            </svg>
                                         </div>
+                                        {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 1 : 0)).map((component, index) => {
+                                            const active = index !== urlComponents.slice(1).length - (isNotCampType ? 2 : 1);
+                                            return (
+                                                <div
+                                                    key={component}
+                                                    onClick={() => {
+                                                        if (active) {
+                                                            router.push('/' + component);
+                                                            fetchMore();
+                                                        }
+                                                    }}
+                                                    className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
+                                                    <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
+                                                    {active && (
+                                                        <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                            <path
+                                                                d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
+                                                                stroke='#8b8b8b'
+                                                                strokeWidth='1.5'
+                                                                strokeMiterlimit='10'
+                                                                strokeLinecap='round'
+                                                                strokeLinejoin='round'
+                                                            />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
@@ -197,7 +195,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     {searchParams.indexOf('campaign') > -1 && (
                                         <div className='flex'>
                                             <button
-                                                onClick={() => copyShareLink(`/${params?.campaignType}/create/${params.campaignId}`)}
+                                                onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
@@ -219,9 +217,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
                     {isNotCampType && isPublic && (
-                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-3 text-black sm:px-6 md:px-8 lg:px-8 xl:px-8'>
-                            <div className='flex gap-x-8 w-48'>
-                                <Image src={logo} alt='logo' className='w-24' />
+                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-4 text-black sm:px-6 md:px-8 lg:px-8 xl:px-8'>
+                            <div className='flex gap-x-8 w-40'>
+                                <Image src={logo} alt='logo' className='w-28' />
                             </div>
                         </div>
                     )}

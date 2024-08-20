@@ -44,7 +44,7 @@ export default function GenerateReport(props: GenerateReportProps) {
             const currentAt = dayjs(new Date()) as any;
             const minutes = currentAt.diff(dayjs(dayjs(meta?.campaignDto?.lastSyncedAt).valueOf()), 'minutes');
             setDiffInMin(isNaN(minutes) ? 0 : minutes);
-            setReportText(meta?.analytics?.likes && meta?.analytics?.likes > '0' ? 'Generated' : 'Generate Report');
+            setReportText(minutes > 0 ? 'Generated' : 'Generate Report');
         }
         setGenerateStatus('');
     };

@@ -8,7 +8,7 @@ export default function EstimatedReachModal({ campaign, openCloseModal }: any) {
 
     const updateEstimatedReach = () => {
         const params = { estimatedReach: parseInt(estimatedReach) };
-        if (estimatedReach !== '' && isNaN(params.estimatedReach)) {
+        if (estimatedReach !== '' && !isNaN(params.estimatedReach)) {
             JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
                 enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
                 openCloseModal();

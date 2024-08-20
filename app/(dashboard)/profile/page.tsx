@@ -11,7 +11,7 @@ export default function Profile() {
         <main className={'flex flex-col gap-10 pb-20 sm:pb-8'}>
             <div className='flex flex-col w-full overflow-hidden'>
                 <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[75px] border-[#cdcdcd]'>
-                    <div className='flex flex-col w-10 items-center'>
+                    <div className='flex flex-col w-8 items-center h-[50px]'>
                         <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
                             <DynamicLogo />
                         </Link>

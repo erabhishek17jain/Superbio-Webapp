@@ -75,7 +75,7 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter comments count'
                                     name='comment'
-                                    value={analytics.likes}
+                                    value={analytics.comments}
                                     onChange={(e) => setAnalytics({ ...analytics, comments: e.target.value })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct comments count</p>}
@@ -117,7 +117,7 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter bookmarks count'
                                     name='bookmarks'
-                                    value={analytics.likes}
+                                    value={analytics.bookmarks}
                                     onChange={(e) => setAnalytics({ ...analytics, bookmarks: e.target.value })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct estimated reach count</p>}
