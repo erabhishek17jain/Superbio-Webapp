@@ -79,13 +79,13 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create/${res.id}`);
+                    router.push(`/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}-campaign/create/${res.id}`);
+                    router.push(`/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             }
@@ -100,7 +100,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
     }, []);
 
     return (
-        <div id='create-campaign' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
+        <div id='create' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
             <div className='flex w-full h-screen justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-5 sm:p-6 overflow-y-auto mt-6 mb-20 sm:mb-6 h-[calc(100%_-_100px)] sm:h-auto w-[94%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <div className='flex justify-between'>

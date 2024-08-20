@@ -1,8 +1,8 @@
-import axios from "axios";
-import BaseNetworkFramework from "./base.service";
-import { deleteCookie, setCookie } from "cookies-next";
-import {enqueueSnackbar} from "notistack";
-import { IUserReturn, ILoginResponse, IRegisterPayload, User, IUserListResponse, Orgs } from "@/interfaces/user";
+import axios from 'axios';
+import BaseNetworkFramework from './base.service';
+import { deleteCookie, setCookie } from 'cookies-next';
+import { enqueueSnackbar } from 'notistack';
+import { IUserReturn, ILoginResponse, IRegisterPayload, User, IUserListResponse, Orgs } from '@/interfaces/user';
 
 export default class UserNetworkService extends BaseNetworkFramework {
     public static instance: UserNetworkService = new this();
@@ -100,7 +100,7 @@ export default class UserNetworkService extends BaseNetworkFramework {
 
     public getAllUsers = async ({ page, limit }: { page: number; limit: number }): Promise<IUserListResponse> => {
         try {
-            const res = await axios.get<IUserListResponse>(`${this.url}/user/all`, { headers: this.get_auth_header() });
+            const res = await axios.get<IUserListResponse>(`${this.url}/user/all`, { params: { page, limit }, headers: this.get_auth_header() });
             return res.data;
         } catch (err: any) {
             throw err;

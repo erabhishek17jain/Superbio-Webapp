@@ -180,7 +180,7 @@ export const campaignSlice = createSlice({
                 } else if (action.payload.ownerType === 'archive') {
                     state.archivedCampaign = action.payload;
                 }
-                state.allCampaign = action.payload;
+                state.allCampaign = { data: [...state.allCampaign.data, ...action.payload.data], meta: action.payload.meta };
                 state.loading = false;
             }),
             builder.addCase(createCampaign.pending, (state) => {

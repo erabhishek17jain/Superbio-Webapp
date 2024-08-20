@@ -6,12 +6,12 @@ import { setLoading, setMeta } from '@/context/campaign';
 import { useSnackbar } from 'notistack';
 import copy from 'copy-to-clipboard';
 import { getCampaigns } from '@/context/campaign/network';
-import Loading from '@/app/(public)/public/[campaignId]/form/loading';
 import logo from '@/public/logo/logo-black.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
+import LoadingBlack from '@/components/global-components/LoadingBlack';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -21,13 +21,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const urlComponents = searchParams.split('/');
     const { enqueueSnackbar } = useSnackbar();
     const { campaignType } = useAppSelector((state) => state.user);
-    const { meta, loading } = useAppSelector((state) => state.campaign);
+    const { allCampaign, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
-    const ownerType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
+    const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
     const searchParam: any = useSearchParams();
     const isPublic = searchParam.get('isPublic') === 'true';
-    
+
     const copyShareLink = (url: string) => {
         let base_url = window.location.origin;
         copy(base_url + url);
@@ -38,14 +38,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         setIsSearch(false);
         setSearchText('');
         const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: ownerType, q: '' }));
+        dispatch(getCampaigns({ page: 1, limit: 12, status: status, ownerType: ownerType, q: '' }));
     };
 
     const searhFilter = () => {
         if (searchText !== '') {
             setIsSearch(true);
             const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-            dispatch(getCampaigns({ page: 1, limit: 3, status: status, ownerType: ownerType, q: searchText }));
+            dispatch(getCampaigns({ page: 1, limit: 12, status: status, ownerType: ownerType, q: searchText }));
         } else if (searchText === '') {
             resetSearch();
         }
@@ -60,25 +60,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
         const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: meta?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
+        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
         dispatch(
             setMeta({
-                page: meta?.page || 0 + 1,
+                page: allCampaign?.meta?.arg?.page || 0 + 1,
                 limit: 12,
             })
         );
     };
 
-    const count = (meta?.page || 0) * (meta?.limit || 12);
-    const isCampReport = searchParams.indexOf('campaign') > -1 || searchParams.indexOf('campaign') > -1;
-
     useEffect(() => {
-        if (!isCampReport) {
+        if (!isNotCampType) {
             fetchMore();
         } else {
             dispatch(setLoading(false));
         }
     }, []);
+
+    const count = (allCampaign?.meta?.arg?.page || 0) * (allCampaign?.meta?.arg?.limit || 12);
+    const isNotCampType = searchParams.indexOf('create') > -1 || searchParams.indexOf('campaign') > -1;
 
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
@@ -113,8 +113,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                     />
                                                 </svg>
                                             </div>
-                                            {urlComponents.slice(1, urlComponents.length - (isCampReport ? 1 : 0)).map((component, index) => {
-                                                const active = index !== urlComponents.slice(1).length - (isCampReport ? 2 : 1);
+                                            {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 1 : 0)).map((component, index) => {
+                                                const active = index !== urlComponents.slice(1).length - (isNotCampType ? 2 : 1);
                                                 return (
                                                     <div
                                                         key={component}
@@ -145,7 +145,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     </div>
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
-                                    {!isCampReport && (
+                                    {!isNotCampType && (
                                         <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
                                                 <path
@@ -194,14 +194,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             </svg>
                                         </div>
                                     )}
-                                    {searchParams.indexOf('create') > -1 && (
+                                    {searchParams.indexOf('campaign') > -1 && (
                                         <div className='flex'>
                                             <button
-                                                onClick={() =>
-                                                    copyShareLink(
-                                                        `/${params?.campaignType}/create/${params.campaignId}`
-                                                    )
-                                                }
+                                                onClick={() => copyShareLink(`/${params?.campaignType}/create/${params.campaignId}`)}
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
@@ -222,26 +218,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     </div>
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
-                    {isPublic && (
+                    {isNotCampType && isPublic && (
                         <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-3 text-black sm:px-6 md:px-8 lg:px-8 xl:px-8'>
                             <div className='flex gap-x-8 w-48'>
                                 <Image src={logo} alt='logo' className='w-24' />
                             </div>
                         </div>
                     )}
-                    {!isCampReport && searchText !== '' && isSearch && (
+                    {!isNotCampType && searchText !== '' && isSearch && (
                         <div className='flex pt-4 px-8 flex-col md:flex-row justify-between gap-4 items-center'>
                             <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>
                         </div>
                     )}
-                    {!isCampReport && count < (meta?.total || 0) && (
-                        <div className='w-full my-5'>
-                            <button className='flex items-center bg-black p-2 px-4 rounded-lg space-x-2' onClick={() => fetchMore()}>
-                                <span className='text-white '>Load More</span>
-                            </button>
-                        </div>
-                    )}
-                    {loading ? <Loading /> : children}
+                    {allCampaign?.meta?.arg?.page === 1 && loading ? <LoadingBlack /> : children}
                 </div>
             </div>
         </main>

@@ -35,7 +35,7 @@ export default function CreateReporting() {
 
     const handleSheet = (item: any, sheetInfo: any) => {
         if (item.columns.length === 0) {
-            enqueueSnackbar('No columns found', { variant: 'error' });
+            enqueueSnackbar('No columns available', { variant: 'error' });
             return;
         }
         if (mode !== 'add') {
@@ -109,7 +109,6 @@ export default function CreateReporting() {
             });
             Promise.all(promises)
                 .then((res) => {
-                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
                     dispatch(setSheet(res));
                     enqueueSnackbar('Sheet added successfully', { variant: 'success' });
                 })

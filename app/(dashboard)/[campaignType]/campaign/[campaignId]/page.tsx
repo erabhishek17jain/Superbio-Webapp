@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import GenerateReport from '../../../../../components/shared-components/GenerateReport';
 import FilterUi from '../../../../../components/shared-components/FilterUi';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
 import Reporting from '../../../../../components/shared-components/Reporting';
 import { useAppSelector } from '@/context';
@@ -34,6 +34,7 @@ const SUMMARY_COLORS: { [key: string]: string } = {
 };
 
 export default function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
+    const router = useRouter();
     const sParams = useSearchParams();
     const { campaignType } = useAppSelector((state) => state.user);
     const [campData, setCampData] = useState<IColumnResponse>({ data: [], meta: {} as any });
@@ -224,7 +225,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             )}
             {!isSheetLoading ? (
                 <div className='flex flex-col sm:px-6 md:px-6 mt-2 mx-3 md:mx-0 sm:mx-0 w-full'>
-                    {campData?.data.length === 0 && campData?.meta?.total === 0 && <NewCampaign params={params} />}
+                    {campData?.data.length === 0 && campData?.meta?.total === 0 && (
+                        <NewCampaign
+                            buttonText={'Add links'}
+                            title={'Add links for reporting'}
+                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
+                            description={'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'}
+                        />
+                    )}
                     {campData?.data && campData?.data.length > 0 && (
                         <GenerateReport
                             meta={campData?.meta}

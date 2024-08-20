@@ -76,7 +76,7 @@ export default function Queue() {
                                         <th
                                             scope='row'
                                             className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
-                                            onClick={() => router.push(`/active-campaign/campaign/${queue.campaignId._id.$oid.toString()}`)}>
+                                            onClick={() => router.push(`/active/campaign/${queue.campaignId._id.$oid.toString()}`)}>
                                             {queue?.campaign?.title}
                                         </th>
                                         <td className='px-6 py-4 capitalize'>{queue?.sheets[0]?.name}</td>

@@ -10,7 +10,7 @@ export default function DeleteCampaignModal({ campaign, openCloseModal }: any) {
         });
     };
     return (
-        <div id='delete-campaign' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
+        <div id='delete' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <div className='flex justify-between'>

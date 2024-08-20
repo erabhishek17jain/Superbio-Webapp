@@ -14,28 +14,22 @@ import React, { useEffect, useState } from 'react';
 export default function Users() {
     const [openUserModal, setOpenUserModal] = useState<boolean>(false);
     const [mode, setMode] = useState<string>('add');
-    const { members, meta, user } = useAppSelector((state) => state.user);
+    const { members, user } = useAppSelector((state) => state.user);
     const [userDetails, setUserDetails] = useState<User | null>(null);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         UserNetworkService.instance
-            .getAllUsers({ page: meta.page, limit: meta.page === 1 ? 9 : 10 })
+            .getAllUsers({ page: 1, limit: 10 })
             .then((res) => {
-                if (meta.page === 1) {
-                    dispatch(setMembers([user, ...res.data]));
-                    dispatch(setUserMeta(res.meta));
-                } else {
-                    dispatch(setMembers(res.data));
-                    dispatch(setUserMeta(res.meta));
-                }
+                dispatch(setMembers(res.data));
+                dispatch(setUserMeta(res.meta));
             })
             .catch((err) => {
                 logout();
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
-                dispatch(setMembers([user]));
             });
-    }, [meta.page]);
+    }, []);
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
@@ -125,7 +119,7 @@ export default function Users() {
                             ) : (
                                 <tr>
                                     <td colSpan={4}>
-                                        <p className='my-4 text-center'>No User Found.</p>
+                                        <p className='my-4 text-center'>No users available.</p>
                                     </td>
                                 </tr>
                             )}

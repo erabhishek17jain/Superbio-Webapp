@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { BiArrowFromBottom } from 'react-icons/bi';
-import SheetNetworkService from '@/services/sheet.service';
 import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
@@ -108,7 +107,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {columns.length === 0 && screenWidth > 0 && (
-                <div className='flex items-center justify-center w-full h-[200px] my-6 mx-auto text-xl font-semibold'>No Links Found</div>
+                <div className='flex items-center justify-center w-full h-[200px] my-6 mx-auto text-xl font-semibold'>Links not available.</div>
             )}
             {loader && (
                 <Link className='fixed left-1/2 bottom-[72px] sm:bottom-5' href='#camp-top'>

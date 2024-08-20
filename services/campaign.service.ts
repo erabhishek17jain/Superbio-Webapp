@@ -9,6 +9,7 @@ export enum CampaignStatus {
     'shared' = 'shared',
     'archived' = 'archived',
     'active_p' = 'active_p',
+    'shared_p' = 'shared_p',
 }
 export default class CampaignNetworkService extends BaseNetworkFramework {
     public static instance: CampaignNetworkService = new this();

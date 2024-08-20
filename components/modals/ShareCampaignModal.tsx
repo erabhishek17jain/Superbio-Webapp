@@ -19,7 +19,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
     const shareCampaign = async (email: string) => {
         const payload: any = {
             email: email,
-            campaignid: campaign?.id,
+            campaign_id: campaign?.id,
         };
         try {
             await CampaignNetworkService.instance.shareCampaign(payload);
@@ -172,7 +172,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
                                         </div>
                                     ))
                                 ) : (
-                                    <p className='my-4'>No teammates found.</p>
+                                    <p className='my-4'>No teammates available.</p>
                                 )}
                             </div>
                         )}

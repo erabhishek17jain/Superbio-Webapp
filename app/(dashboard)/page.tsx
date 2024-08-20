@@ -14,6 +14,7 @@ import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
 import { CampaignStatus } from '@/services/campaign.service';
 import { useRouter } from 'next/navigation';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
+import NewCampaign from '@/components/shared-components/NewCampaign';
 
 export default function Home() {
     const router = useRouter();
@@ -49,7 +50,7 @@ export default function Home() {
                 UserNetworkService.instance
                     .getAllUsers({ page: 1, limit: 100 })
                     .then((res) => {
-                        dispatch(setMembers([user, ...res.data]));
+                        dispatch(setMembers(res.data));
                     })
                     .catch((err) => {
                         enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
@@ -184,19 +185,19 @@ export default function Home() {
                                 <div className='flex flex-col w-full mb-10'>
                                     <div className='flex w-full justify-between mb-5'>
                                         <span className='font-semibold text-xl text-opacity-80'>Active campaigns</span>
-                                        <Link href={`/active-campaign`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
+                                        <Link href={`/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
                                         </Link>
                                     </div>
                                     {activeCampaign.data?.length > 0 ? (
                                         <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {activeCampaign.data?.map((data: any, index: number) => (
-                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active-campaign' color={'#F5F8FF'} />
+                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active' color={'#F5F8FF'} />
                                             ))}
                                         </div>
                                     ) : (
                                         <div className='flex flex-col w-full'>
-                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>Campaign not Found.</div>
+                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>No campaigns available.</div>
                                         </div>
                                     )}
                                 </div>
@@ -207,69 +208,36 @@ export default function Home() {
                                         <span className='capitalize font-semibold text-xl text-opacity-80'>
                                             {user.role !== 'admin' ? 'Shared Campaigns' : 'Created by other members'}
                                         </span>
-                                        <Link href={'/shared-campaign'} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
+                                        <Link href={'/shared'} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
                                         </Link>
                                     </div>
                                     {sharedCampaign.data?.length > 0 ? (
                                         <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {sharedCampaign.data?.map((data: any, index: number) => (
-                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active-campaign' color={'#F5F8FF'} />
+                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active' color={'#F5F8FF'} />
                                             ))}
                                         </div>
                                     ) : (
                                         <div className='flex flex-col w-full'>
-                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>Campaign not Found.</div>
+                                            <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>No campaigns available.</div>
                                         </div>
                                     )}
                                 </div>
                             )}
                         </>
                     ) : (
-                        <div className='flex flex-col gap-5 items-center justify-center w-96 h-screen m-auto'>
-                            <div className='flex items-center justify-center rounded-lg bg-[#F5F8FF] w-20 h-20'>
-                                <div className='flex p-1 rounded-lg bg-[#F5F8FF]'>
-                                    <svg width='40' height='40' viewBox='0 0 24 26' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                        <path
-                                            d='M21.3329 0H2.66673C1.95936 0 1.28125 0.301101 0.781025 0.836812C0.281027 1.37276 0 2.09932 0 2.85721V8.57139C0 9.32904 0.281027 10.0558 0.781025 10.5918C1.28124 11.1275 1.95936 11.4286 2.66673 11.4286H21.3329C22.0403 11.4286 22.7184 11.1275 23.2186 10.5918C23.7186 10.0558 23.9996 9.32904 23.9996 8.57139V2.85721C23.9996 2.09932 23.7186 1.37277 23.2186 0.836812C22.7184 0.301101 22.0403 0 21.3329 0ZM2.66673 8.57139V2.85721H21.3329V8.57139H2.66673Z'
-                                            fill='#0151A0'
-                                        />
-                                        <path
-                                            d='M10.6667 12.8594H2.66673C1.95936 12.8594 1.28125 13.1605 0.781025 13.6962C0.281027 14.2321 0 14.9587 0 15.7166V22.8596V22.8594C0 23.6173 0.281027 24.3438 0.781025 24.8798C1.28124 25.4155 1.95936 25.7166 2.66673 25.7166H10.6667C11.3738 25.7166 12.0522 25.4155 12.5522 24.8798C13.0524 24.3438 13.3332 23.6173 13.3332 22.8594V15.717C13.3332 14.9591 13.0524 14.2325 12.5522 13.6966C12.0522 13.1608 11.3738 12.8597 10.6667 12.8597V12.8594ZM2.66673 22.8591V15.7167H10.6667V22.8597L2.66673 22.8591Z'
-                                            fill='#0151A0'
-                                        />
-                                        <path
-                                            d='M21.3325 12.8594H17.3325C16.6254 12.8594 15.947 13.1605 15.447 13.6962C14.9468 14.2321 14.666 14.9587 14.666 15.7166V22.8596V22.8594C14.666 23.6173 14.9468 24.3438 15.447 24.8798C15.947 25.4155 16.6254 25.7166 17.3325 25.7166H21.3325C22.0399 25.7166 22.718 25.4155 23.2182 24.8798C23.7182 24.3438 23.9992 23.6173 23.9992 22.8594V15.717C23.9992 14.9591 23.7182 14.2325 23.2182 13.6966C22.718 13.1608 22.0399 12.8597 21.3325 12.8597V12.8594ZM17.3325 22.8591V15.7167H21.3325V22.8597L17.3325 22.8591Z'
-                                            fill='#0151A0'
-                                        />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div className='text-3xl font-bold'>New Campaign</div>
-                            <div className='text-sm text-[#959595]'>
-                                Seize the moment! Hit that CTA button to launch your campaign and dive into the world of campaign reporting.
-                            </div>
-                            <button
-                                onClick={() => {
-                                    setMode('add');
-                                    setOpenCampaingModal(true);
-                                }}
-                                className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm gap-2'>
-                                <svg
-                                    width='20'
-                                    height='20'
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    className='stroke-2 stroke-black'>
-                                    <path
-                                        d='M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z'
-                                        fill='white'
-                                    />
-                                </svg>
-                                <span className='flex'>Create a new Campaigns</span>
-                            </button>
-                        </div>
+                        <NewCampaign
+                            action={() => {
+                                setMode('add');
+                                setOpenCampaingModal(true);
+                            }}
+                            title={'New Campaign'}
+                            buttonText={'Create a new Campaign'}
+                            description={
+                                'Create a campaign and automate your campaign performance tracking. Get detailed post metrics & dashboard for you and your brands.'
+                            }
+                        />
                     )}
                 </div>
             )}

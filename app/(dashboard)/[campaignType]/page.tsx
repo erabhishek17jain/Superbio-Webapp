@@ -1,35 +1,24 @@
 'use client';
+import Loading from '@/components/global-components/Loading';
 import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
 import CampaignCard from '@/components/shared-components/CampaignCard';
-import { ICampaign } from '@/interfaces/campaign';
-import CampaignNetworkService from '@/services/campaign.service';
+import NewCampaign from '@/components/shared-components/NewCampaign';
+import { useAppDispatch, useAppSelector } from '@/context';
+import { getCampaigns } from '@/context/campaign/network';
+import { LoaderIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { InView } from 'react-intersection-observer';
 
 export default function AllCampaignPage() {
     const params: any = useParams();
+    const dispatch = useAppDispatch();
     const [mode, setMode] = useState('add');
+    const { allCampaign } = useAppSelector((state) => state.campaign);
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
-    const [page, setPage] = useState(1);
-    const [meta, setMeta] = useState<{
-        page: number;
-        limit: number;
-        total: number;
-    }>({
-        page: 1,
-        limit: 12,
-        total: 0,
-    });
-    const [campaigns, setCampaigns] = useState<ICampaign[]>([]);
-
-    const status = params?.campaignType?.split('-')[0].includes('shared') ? 'active' : params?.campaignType?.split('-')[0];
-    const ownerType = params?.campaignType?.split('-')[0].includes('shared') ? 'shared' : 'own';
-    const { data: respsonse, isLoading: loading } = useSWR(
-        `?page=${page}&limit=${12}&status=${status}&ownerType=${ownerType}`,
-        CampaignNetworkService.instance.fetcherWithMeta
-    );
+    const [loader, setloader] = useState(false);
+    const [, setScreenWidth] = useState(0);
 
     const editCampaign = (campaign: any) => {
         setMode('edit');
@@ -37,36 +26,28 @@ export default function AllCampaignPage() {
         setCampaignDetails(campaign);
     };
 
-    useEffect(() => {
-        if (respsonse && respsonse?.data?.length > 0) {
-            setCampaigns([...campaigns, ...respsonse.data]);
-            setMeta(respsonse.meta);
+    const loadMore = async () => {
+        if (allCampaign?.meta.page && allCampaign?.meta.page * 12 < allCampaign?.meta.total) {
+            setloader(true);
+            const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
+            dispatch(getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '' }));
+            setloader(false);
         }
-
-    }, [respsonse]);
+    };
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    if (campaigns.length < meta.total) {
-                        setPage(page + 1);
-                    }
-                }
-            },
-            { threshold: 0.5 }
-        );
-
-        const target = document.getElementById('load-more');
-        if (target) {
-            observer.observe(target);
-        }
-
-        return () => observer.disconnect();
-    }, [campaigns, meta]);
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
-        <div className='flex px-4 sm:px-8 py-4 flex-col mb-12'>
+        <div className='flex px-4 sm:px-8 py-4 flex-col sm:mb-6 mb-12'>
             {openCampaingModal && (
                 <CreateCampaignModal
                     mode={mode}
@@ -76,45 +57,36 @@ export default function AllCampaignPage() {
                     }}
                 />
             )}
-            {campaigns && campaigns?.length > 0 && (
-                <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 mb-16'>
-                    {campaigns.map((item) => (
+            {allCampaign?.data && allCampaign?.data?.length > 0 ? (
+                <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 sm:mb-6 mb-16'>
+                    {allCampaign?.data.map((item) => (
                         <CampaignCard key={item.title} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
                     ))}
                 </div>
+            ) : (
+                allCampaign?.meta?.total > 0 && <div className='flex h-48 justify-center items-center w-full text-[#8b8b8b]'>No Campaigns available.</div>
             )}
 
-            <div id='load-more'></div>
-
-            {respsonse?.meta?.total === 0 && (
-                <div className='flex flex-col gap-5 items-center justify-center w-[22rem] h-screen m-auto'>
-                    <div className='flex items-center justify-center rounded-lg bg-[#F5F8FF] w-20 h-20'>
-                        <svg width='60' height='60' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='stroke-2 stroke-black'>
-                            <path
-                                d='M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z'
-                                fill='white'
-                            />
-                        </svg>
-                    </div>
-                    <div className='text-3xl font-bold'>New Campaign</div>
-                    <div className='text-sm text-[#959595]'>
-                        Seize the moment! Hit that CTA button to launch your campaign and dive into the world of campaign reporting.
-                    </div>
-                    <button
-                        onClick={() => {
-                            setMode('add');
-                            setOpenCampaingModal(true);
-                        }}
-                        className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white text-sm gap-2'>
-                        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='stroke-2 stroke-black'>
-                            <path
-                                d='M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z'
-                                fill='white'
-                            />
-                        </svg>
-                        <span className='flex'>Create a new Campaigns</span>
-                    </button>
+            {!loader ? (
+                <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>
+            ) : (
+                <div className='flex items-center justify-center h-8'>
+                    <LoaderIcon />
                 </div>
+            )}
+
+            {allCampaign?.meta?.total === 0 && (
+                <NewCampaign
+                    action={() => {
+                        setMode('add');
+                        setOpenCampaingModal(true);
+                    }}
+                    title={'New Campaign'}
+                    buttonText={'Create a new Campaign'}
+                    description={
+                        'Create a campaign and automate your campaign performance tracking. Get detailed post metrics & dashboard for you and your brands.'
+                    }
+                />
             )}
         </div>
     );
