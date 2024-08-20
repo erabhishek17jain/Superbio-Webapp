@@ -12,8 +12,10 @@ import HomePage from '@/components/shared-components/HomePage';
 import CampaignCard from '@/components/shared-components/CampaignCard';
 import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
 import { CampaignStatus } from '@/services/campaign.service';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const { user, campaignType } = useAppSelector((state) => state.user);
     const { activeCampaign, sharedCampaign, loading } = useAppSelector((state) => state.campaign);
@@ -51,6 +53,7 @@ export default function Home() {
                     .catch((err) => {
                         enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
                         logout();
+                        router.push('/login');
                     });
             }
         }

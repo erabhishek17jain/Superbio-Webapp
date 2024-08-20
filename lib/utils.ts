@@ -23,7 +23,6 @@ export const scrollToElementById = (id: string) => {
 export const logout = () => {
     deleteCookie('token');
     deleteCookie('user');
-    window.location.reload();
 };
 
 export const structureData = (data: IReportingResponse) => {

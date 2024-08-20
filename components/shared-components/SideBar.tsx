@@ -1,10 +1,9 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/context';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, } from 'next/navigation';
 import { FaUsers } from 'react-icons/fa';
 import { HiOutlineQueueList } from 'react-icons/hi2';
-import DynamicLogo from '../global-components/DynamicLogo';
 import { setCampaignType } from '@/context/user';
 import { logout } from '@/lib/utils';
 
@@ -39,6 +38,7 @@ export const sidebarItems = [
 ];
 
 export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
+    const router = useRouter();
     const path = usePathname();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.user);
@@ -102,8 +102,9 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
 
                     <span
                         onClick={() => {
-                            logout();
                             dispatch(setCampaignType(''));
+                            logout();
+                            router.push('/login');
                         }}
                         className='text-[#8b8b8b] group-hover:text-black text-xs'>
                         <svg width='32' height='32' viewBox='0 0 24 24' fill='none' className='mr-2' xmlns='http://www.w3.org/2000/svg'>
@@ -122,4 +123,3 @@ export default function SideBar({ sidebarOpen, onCloseSidebar }: SideBarProps) {
         </>
     );
 }
-

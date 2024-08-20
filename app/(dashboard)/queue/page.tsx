@@ -18,8 +18,9 @@ export default function Queue() {
                 setQueues(res);
             })
             .catch((err) => {
-                logout();
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                logout();
+                router.push('/login');
             });
     }, []);
 
@@ -31,8 +32,9 @@ export default function Queue() {
                     setQueues(res);
                 })
                 .catch((err) => {
-                    logout();
                     enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                    logout();
+                    router.push('/login');
                 });
         }, 10000);
         return () => clearInterval(interval);
@@ -74,11 +76,7 @@ export default function Queue() {
                                         <th
                                             scope='row'
                                             className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'
-                                            onClick={() =>
-                                                router.push(
-                                                    `/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}`
-                                                )
-                                            }>
+                                            onClick={() => router.push(`/active-campaign/campaign-reporting/${queue.campaignId.$oid.toString()}`)}>
                                             {queue?.campaign?.title}
                                         </th>
                                         <td className='px-6 py-4 capitalize'>{queue?.sheets[0]?.name}</td>

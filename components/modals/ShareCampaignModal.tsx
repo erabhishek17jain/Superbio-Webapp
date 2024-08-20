@@ -6,8 +6,10 @@ import { setMembers } from '@/context/user';
 import { useSnackbar } from 'notistack';
 import { v4 as uuidv4 } from 'uuid';
 import { logout } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { members, loading } = useAppSelector((state) => state.user);
@@ -54,6 +56,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
             .catch((err) => {
                 enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
                 logout();
+                router.push('/login');
             });
 
     }, []);

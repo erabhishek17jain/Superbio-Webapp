@@ -1,16 +1,8 @@
 import { Footer } from '@/components/website/Footer';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../globals.css';
 import { ReactNode } from 'react';
-
-const poppins = Poppins({
-    subsets: ['latin'],
-    weight: ['300', '400', '500', '600', '700'],
-    display: 'auto',
-    variable: '--font-sans',
-});
 
 export const metadata: Metadata = {
     title: 'LOQO Business',

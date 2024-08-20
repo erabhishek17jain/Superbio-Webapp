@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { sidebarItems } from './SideBar';
 import { useAppDispatch, useAppSelector } from '@/context';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { setCampaignType } from '@/context/user';
 
 export default function BottomBar() {
+    const router = useRouter();
     const path = usePathname();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.user);
@@ -51,8 +52,8 @@ export default function BottomBar() {
                 onClick={() => {
                     deleteCookie('token');
                     deleteCookie('user');
-                    window.location.reload();
                     dispatch(setCampaignType(''));
+                    router.push('/login');
                 }}
                 className='text-[#8b8b8b] group-hover:text-black text-xs'>
                 <svg width='32' height='32' viewBox='0 0 24 24' fill='none' className='mr-2' xmlns='http://www.w3.org/2000/svg'>
