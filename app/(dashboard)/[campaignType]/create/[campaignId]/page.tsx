@@ -261,9 +261,9 @@ export default function CreateReporting() {
                                 <path
                                     d='M12 16.0001V12.0001M12 8.00008H12.01M3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37369 17.2077 3.52345 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7985 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L20.177 17.4573C20.4766 17.2909 20.6263 17.2077 20.7354 17.0893C20.8318 16.9847 20.9049 16.8606 20.9495 16.7254C21 16.5726 21 16.4013 21 16.0586V7.94153C21 7.59889 21 7.42756 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7985 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37369 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42756 3 7.59889 3 7.94153Z'
                                     stroke='#0B1571'
-                                    stroke-width='2'
-                                    stroke-linecap='round'
-                                    stroke-linejoin='round'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
                                 />
                             </svg>
                             <span className='text-[13px] text-[#0B1571]'>View guidelines</span>
@@ -274,75 +274,73 @@ export default function CreateReporting() {
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
-                                <>
-                                    <div className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-3 py-2 rounded-md'>
-                                        <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
-                                            <span
-                                                style={{ width: 'calc(100% - 172px)' }}
-                                                onClick={() => {
-                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
-                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
-                                                }}>
-                                                {item?.title ? item?.title : 'Paste your Google Sheets link here'}
-                                            </span>{' '}
-                                            <span className='flex items-center justify-end w-[172px] gap-2'>
-                                                {item?.index <= selSheetData.length && (
-                                                    <div
-                                                        onClick={() => {
-                                                            refreshSheet(item);
-                                                        }}
-                                                        className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
-                                                        <svg width='14' height='14' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                <div key={item.title} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-3 py-2 rounded-md'>
+                                    <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
+                                        <span
+                                            style={{ width: 'calc(100% - 172px)' }}
+                                            onClick={() => {
+                                                document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
+                                                document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
+                                            }}>
+                                            {item?.title ? item?.title : 'Paste your Google Sheets link here'}
+                                        </span>
+                                        <span className='flex items-center justify-end w-[172px] gap-2'>
+                                            {item?.index <= selSheetData.length && (
+                                                <div
+                                                    onClick={() => {
+                                                        refreshSheet(item);
+                                                    }}
+                                                    className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
+                                                    <svg width='14' height='14' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                        <path
+                                                            d='M6.23291 7.78125H2.48291V4.03125'
+                                                            stroke='#0B1571'
+                                                            strokeWidth='2'
+                                                            strokeLinecap='round'
+                                                            strokeLinejoin='round'
+                                                        />
+                                                        <path
+                                                            d='M5.13916 14.8594C6.10042 15.8214 7.32542 16.4768 8.65919 16.7425C9.99297 17.0082 11.3756 16.8724 12.6322 16.3522C13.8887 15.832 14.9628 14.9508 15.7185 13.8201C16.4741 12.6894 16.8775 11.36 16.8775 10C16.8775 8.64002 16.4741 7.31058 15.7185 6.17988C14.9628 5.04917 13.8887 4.16798 12.6322 3.64779C11.3756 3.12761 9.99297 2.99179 8.65919 3.25752C7.32542 3.52324 6.10042 4.17858 5.13916 5.14063L2.48291 7.78907'
+                                                            stroke='#0B1571'
+                                                            strokeWidth='2'
+                                                            strokeLinecap='round'
+                                                            strokeLinejoin='round'
+                                                        />
+                                                    </svg>
+                                                    <span className='text-[14px] text-[#0B1571]'>Refresh sheet</span>
+                                                </div>
+                                            )}
+                                            {sheetData.length > 1 && (
+                                                <div
+                                                    className='flex items-center justify-center w-6 h-10 rounded-t-lg'
+                                                    onClick={() => deleteSheet(item?.index)}>
+                                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' id='trash' width='24px' height='24px'>
+                                                        <g data-name='Layer 2'>
                                                             <path
-                                                                d='M6.23291 7.78125H2.48291V4.03125'
-                                                                stroke='#0B1571'
-                                                                strokeWidth='2'
-                                                                strokeLinecap='round'
-                                                                strokeLinejoin='round'
-                                                            />
-                                                            <path
-                                                                d='M5.13916 14.8594C6.10042 15.8214 7.32542 16.4768 8.65919 16.7425C9.99297 17.0082 11.3756 16.8724 12.6322 16.3522C13.8887 15.832 14.9628 14.9508 15.7185 13.8201C16.4741 12.6894 16.8775 11.36 16.8775 10C16.8775 8.64002 16.4741 7.31058 15.7185 6.17988C14.9628 5.04917 13.8887 4.16798 12.6322 3.64779C11.3756 3.12761 9.99297 2.99179 8.65919 3.25752C7.32542 3.52324 6.10042 4.17858 5.13916 5.14063L2.48291 7.78907'
-                                                                stroke='#0B1571'
-                                                                strokeWidth='2'
-                                                                strokeLinecap='round'
-                                                                strokeLinejoin='round'
-                                                            />
-                                                        </svg>
-                                                        <span className='text-[14px] text-[#0B1571]'>Refresh sheet</span>
-                                                    </div>
-                                                )}
-                                                {sheetData.length > 1 && (
-                                                    <div
-                                                        className='flex items-center justify-center w-6 h-10 rounded-t-lg'
-                                                        onClick={() => deleteSheet(item?.index)}>
-                                                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' id='trash' width='24px' height='24px'>
-                                                            <g data-name='Layer 2'>
-                                                                <path
-                                                                    d='M21 6h-5V4.33A2.42 2.42 0 0 0 13.5 2h-3A2.42 2.42 0 0 0 8 4.33V6H3a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM10 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0zm0-11.67c0-.16.21-.33.5-.33h3c.29 0 .5.17.5.33V6h-4zM16 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0z'
-                                                                    data-name='trash-2'></path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                )}
-                                            </span>
-                                        </div>
-                                        <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
-                                            <SheetDetails
-                                                mode={mode}
-                                                state={state}
-                                                sheetInfo={item}
-                                                isError={isError}
-                                                setUrl={setUrl}
-                                                setTitle={setTitle}
-                                                handleSheet={handleSheet}
-                                                fetchSheets={fetchSheets}
-                                                handleColumn={handleColumn}
-                                                selSheetData={selSheetData}
-                                                sheetLoading={state?.sheetLoading}
-                                            />
-                                        </div>
+                                                                d='M21 6h-5V4.33A2.42 2.42 0 0 0 13.5 2h-3A2.42 2.42 0 0 0 8 4.33V6H3a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM10 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0zm0-11.67c0-.16.21-.33.5-.33h3c.29 0 .5.17.5.33V6h-4zM16 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0z'
+                                                                data-name='trash-2'></path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            )}
+                                        </span>
                                     </div>
-                                </>
+                                    <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
+                                        <SheetDetails
+                                            mode={mode}
+                                            state={state}
+                                            sheetInfo={item}
+                                            isError={isError}
+                                            setUrl={setUrl}
+                                            setTitle={setTitle}
+                                            handleSheet={handleSheet}
+                                            fetchSheets={fetchSheets}
+                                            handleColumn={handleColumn}
+                                            selSheetData={selSheetData}
+                                            sheetLoading={state?.sheetLoading}
+                                        />
+                                    </div>
+                                </div>
                             ))}
 
                             <div className='flex flex-col mt-6 items-center min-w-[210] w-full sm:w-1/2'>

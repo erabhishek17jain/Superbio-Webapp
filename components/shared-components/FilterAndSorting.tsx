@@ -113,7 +113,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     ];
 
     return (
-        <>
+        <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#959595] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
             <div className='flex gap-3'>
                 <div className='flex gap-5'>
                     <div
@@ -356,6 +356,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                     )}
                 </span>
             )}
-        </>
+        </div>
     );
 }
