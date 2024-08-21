@@ -231,7 +231,7 @@ export default function CreateReporting() {
     }, []);
 
     return (
-        <div className='flex w-full h-full flex-col px-8 py-4 lg:items-start'>
+        <div className='flex w-full h-full flex-col px-4 sm:px-8 py-4 lg:items-start'>
             <div className='flex w-full flex-col'>
                 <div className='flex items-center'>
                     <div className='flex flex-col'>
@@ -261,20 +261,22 @@ export default function CreateReporting() {
                     </div>
                 </div>
                 {!isSheetLoading ? (
-                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4'>
+                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
-                                <div key={index} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                <div
+                                    key={index}
+                                    className='flex flex-col gap-3 justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
-                                            style={{ width: 'calc(100% - 172px)' }}
+                                            className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
                                             onClick={() => {
                                                 document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
                                                 document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
                                             }}>
                                             {item?.title ? item?.title : 'Paste your Google Sheets link here'}
                                         </span>
-                                        <span className='flex items-center justify-end w-[172px] gap-2'>
+                                        <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
                                             {item?.index <= selSheetData.length && (
                                                 <div
                                                     onClick={() => {
@@ -282,7 +284,7 @@ export default function CreateReporting() {
                                                     }}
                                                     className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
                                                     <RefreshCcwIcon color='#0B1571' size={14} />
-                                                    <span className='text-[14px] text-[#0B1571]'>Refresh sheet</span>
+                                                    <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
                                                 </div>
                                             )}
                                             {sheetData.length > 1 && (
@@ -312,7 +314,7 @@ export default function CreateReporting() {
                                 </div>
                             ))}
 
-                            <div className='flex flex-col mt-6 items-center min-w-[210] w-full sm:w-1/2'>
+                            <div className='flex flex-col mt-0 sm:mt-2 mb-12 sm:mb-2 items-center min-w-[210] w-full sm:w-1/2'>
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>
@@ -323,7 +325,7 @@ export default function CreateReporting() {
                                 </button>
                             </div>
                         </div>
-                        <button onClick={addSheet} className='flex w-[210px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
+                        <button onClick={addSheet} className='flex w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
                             <PlusCircleIcon color='#000' size={24} />
                             <span className='flex'>Add New Sheet</span>
                         </button>

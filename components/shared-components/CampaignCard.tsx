@@ -62,14 +62,14 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
             icon: <WaypointsIcon color={'#8b8b8b'} size={22} />,
         },
         {
-            title: 'View Report',
-            action: navigateToReporting,
-            icon: <AreaChartIcon color={'#8b8b8b'} size={22} />,
-        },
-        {
             title: 'Delete',
             action: openCloseDeleteModal,
             icon: <Trash2Icon color={'#8b8b8b'} size={22} />,
+        },
+        {
+            title: 'View Report',
+            action: navigateToReporting,
+            icon: <AreaChartIcon color={'#8b8b8b'} size={22} />,
         },
         {
             title: 'Add/Edit Sheet',

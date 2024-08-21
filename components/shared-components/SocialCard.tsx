@@ -211,7 +211,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                                     <button
                                         disabled={isUploading}
                                         onClick={() => uploadScreenShots(item?.id)}
-                                        className='flex items-center border py-2 px-4 bg-black rounded-lg space-x-2 text-white disabled:text-[#898989]'>
+                                        className='flex items-center border py-2 px-4 bg-black rounded-lg space-x-2 text-white'>
                                         <UploadIcon color='#fff' size={18} />
                                         <span>{isUploading ? 'Uploading...' : 'Upload'}</span>
                                     </button>
