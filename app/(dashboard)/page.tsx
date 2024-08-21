@@ -81,7 +81,7 @@ export default function Home() {
                     </Link>
                 </div>
                 {campaignType !== '' ? (
-                    <div className='flex text-lg w-full justify-between items-center h-12'>
+                    <div className='flex text-base w-full justify-between items-center h-12'>
                         <span className='hidden sm:flex'>
                             <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
                                 All Products<span className='px-3'>/</span>
