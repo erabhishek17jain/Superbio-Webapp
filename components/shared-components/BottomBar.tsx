@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { sidebarItems } from './SideBar';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { usePathname, useRouter } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { setCampaignType } from '@/context/user';
-import { LogOutIcon, UserRoundCogIcon } from 'lucide-react';
+import { HouseIcon, LogOutIcon, LogsIcon, UserRoundCogIcon, UsersIcon } from 'lucide-react';
 
 export default function BottomBar() {
     const router = useRouter();
@@ -13,18 +12,16 @@ export default function BottomBar() {
     const { user } = useAppSelector((state) => state.user);
     return (
         <ul className='fixed bottom-0 left-0 flex h-fit min-h-[8%] w-full items-center sm:items-end justify-around border-t border-sky-600/15 bg-white sm:hidden z-50'>
-            {sidebarItems.map((item) =>
-                item?.name === 'Users' ? (
-                    user.role === 'admin' && (
-                        <Link href={item.link} key={item.name} className='flex items-center space-x-3'>
-                            <item.icon isActive={path === item.link} />
-                        </Link>
-                    )
-                ) : (
-                    <Link href={item.link} key={item.name} className='flex items-center space-x-3'>
-                        <item.icon isActive={path === item.link} />
-                    </Link>
-                )
+            <Link href='/' key='home' className='flex items-center space-x-3'>
+                <HouseIcon color={path === '/' ? '#000000' : '#8b8b8b'} size={32} />
+            </Link>
+            <Link href='/queue' key='queue' className='flex items-center space-x-3'>
+                <LogsIcon size={32} color={path === '/queue' ? '#000000' : '#8b8b8b'} />
+            </Link>
+            {user.role === 'admin' && (
+                <Link href='/users' key='users' className='flex items-center space-x-3'>
+                    <UsersIcon size={32} color={path === '/users' ? '#000000' : '#8b8b8b'} />
+                </Link>
             )}
             <Link href={'/profile'} key={'profile'} className='flex items-center space-x-3'>
                 <UserRoundCogIcon color={path === '/contacts' ? '#000000' : '#8b8b8b'} size={32} />

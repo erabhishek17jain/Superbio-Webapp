@@ -180,10 +180,8 @@ export default function CreateReporting() {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
             const data: any = [];
-            // const promises: any = [];
             selSheetData.forEach((item, index) => {
                 const url = `https://docs.google.com/spreadsheets/d/${item?.sheetId}`;
-                // promises.push(SheetNetworkService.instance.getSheet(url));
                 const sheetDetails = {
                     columns: [item?.linkColumn],
                     sheetName: item?.name,
@@ -263,10 +261,10 @@ export default function CreateReporting() {
                     </div>
                 </div>
                 {!isSheetLoading ? (
-                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse'>
+                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
-                                <div key={item.title} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                <div key={index} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
                                             style={{ width: 'calc(100% - 172px)' }}

@@ -69,7 +69,7 @@ export default function FilterUi(props: FilterUiProps) {
                                     : filtersOptions[key.key];
                             const radioEligible = ['platform'].includes(key.key);
                             return (
-                                <Accordion open={open === 5 + index} key={uuidv4()} icon={<ArrowUpDownIcon id={5 + index} open={open} />}>
+                                <Accordion open={open === 5 + index} key={uuidv4()} icon={<ArrowUpDownIcon id={5 + index} key={5 + index} open={open} />}>
                                     <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
                                         <div className='flex items-center'>
                                             {item.name}{' '}

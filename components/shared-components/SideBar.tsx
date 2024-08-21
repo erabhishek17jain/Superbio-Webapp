@@ -1,4 +1,3 @@
-'use client';
 import { useAppDispatch, useAppSelector } from '@/context';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -6,24 +5,6 @@ import { setCampaignType } from '@/context/user';
 import { logout } from '@/lib/utils';
 import { HouseIcon, LogOutIcon, LogsIcon, UserCog, UserCog2Icon, UserCogIcon, UsersIcon } from 'lucide-react';
 import ContactIcon from '../../icons/ContactIcon';
-
-export const sidebarItems = [
-    {
-        name: 'Home',
-        icon: ({ isActive }: { isActive: boolean }) => <HouseIcon color={isActive ? '#000000' : '#8b8b8b'} size={32} />,
-        link: '/',
-    },
-    {
-        name: 'Users',
-        icon: ({ isActive }: { isActive: boolean }) => <UsersIcon size={32} color={isActive ? '#000000' : '#8b8b8b'} />,
-        link: '/users',
-    },
-    {
-        name: 'Live Reports',
-        icon: ({ isActive }: { isActive: boolean }) => <LogsIcon size={32} color={isActive ? '#000000' : '#8b8b8b'} />,
-        link: '/queue',
-    },
-];
 
 export default function SideBar() {
     const router = useRouter();
@@ -55,7 +36,6 @@ export default function SideBar() {
                 <Link href={'/contacts'} key={'contacts'} className='flex items-center space-x-3'>
                     <ContactIcon size={32} color={path === '/contacts' ? '#000000' : '#8b8b8b'} />
                 </Link>
-
                 <span
                     onClick={() => {
                         dispatch(setCampaignType(''));
