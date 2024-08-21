@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { setMembers } from '@/context/user';
 import { User } from '@/interfaces/user';
 import { USER_ROLES } from '@/constants';
+import { AlertOctagonIcon, XIcon } from 'lucide-react';
+import ReportIcon from '../../icons/ReportIcon';
 
 interface CreateUserModalProps {
     mode: string;
@@ -134,15 +136,7 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
                         </div>
                     </div>
                     <div className='flex gap-[6px] items-center py-3 text-sm mt-2'>
-                        <svg width='18px' height='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                            <path
-                                d='M12 16.0001V12.0001M12 8.00008H12.01M3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37369 17.2077 3.52345 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7985 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L20.177 17.4573C20.4766 17.2909 20.6263 17.2077 20.7354 17.0893C20.8318 16.9847 20.9049 16.8606 20.9495 16.7254C21 16.5726 21 16.4013 21 16.0586V7.94153C21 7.59889 21 7.42756 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7985 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37369 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42756 3 7.59889 3 7.94153Z'
-                                stroke='#000'
-                                strokeWidth='2'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                            />
-                        </svg>
+                        <AlertOctagonIcon color='#0B1571' size={14} />
                         <span className='text-xs'>
                             Please ask the user to sign up with the same email and enter Organisation ID while creating their account.
                         </span>
@@ -152,30 +146,12 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
                             onClick={() => {
                                 openCloseModal();
                             }}
-                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black'>
-                            <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <path
-                                    d='M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z'
-                                    stroke='#333333'
-                                    strokeWidth='2'
-                                    strokeMiterlimit='10'
-                                />
-                                <path d='M15 9L9 15' stroke='#333333' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                                <path d='M15 15L9 9' stroke='#333333' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                            </svg>
+                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black gap-1'>
+                            <XIcon color='#000' size={24} />
                             Cancel
                         </button>
                         <button onClick={submitUser} className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm'>
-                            <svg width='20' height='20' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <path
-                                    d='M19.7158 3.36572L2.24081 8.28759C2.09205 8.32826 1.95945 8.4138 1.86106 8.53256C1.76267 8.65131 1.70329 8.79751 1.69099 8.95123C1.67869 9.10496 1.71408 9.25874 1.79233 9.39162C1.87059 9.52451 1.98791 9.63004 2.12831 9.69384L10.1533 13.4907C10.3105 13.5635 10.4368 13.6898 10.5096 13.847L14.3064 21.872C14.3702 22.0124 14.4758 22.1297 14.6087 22.2079C14.7415 22.2862 14.8953 22.3216 15.049 22.3093C15.2028 22.297 15.349 22.2376 15.4677 22.1392C15.5865 22.0408 15.672 21.9082 15.7127 21.7595L20.6346 4.28447C20.6719 4.15695 20.6742 4.02174 20.6412 3.89302C20.6083 3.7643 20.5414 3.64681 20.4474 3.55286C20.3535 3.45891 20.236 3.39197 20.1073 3.35904C19.9785 3.32611 19.8433 3.32842 19.7158 3.36572V3.36572Z'
-                                    stroke='white'
-                                    strokeWidth='2'
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                />
-                                <path d='M10 13.2375L14.2375 9' stroke='white' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                            </svg>
+                            <ReportIcon color='#fff' size={14} />
                             {mode === 'edit' ? 'Update User' : 'Add User'}
                         </button>
                     </div>

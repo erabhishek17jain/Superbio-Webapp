@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BiArrowFromBottom } from 'react-icons/bi';
 import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
 import SocialCard from './SocialCard';
 import JavaNetworkService from '@/services/java.service';
+import { ArrowUpFromDotIcon } from 'lucide-react';
 
 interface IReportingProps {
     meta: any;
@@ -123,7 +123,7 @@ export default function Reporting(props: IReportingProps) {
             {!loader && <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>}
             <Link className='fixed right-5 bottom-[72px] sm:bottom-5' href='#camp-top'>
                 <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-3 text-white shadow-sm'}>
-                    <BiArrowFromBottom className='h-6 w-6' aria-hidden='true' />
+                    <ArrowUpFromDotIcon size={24} color='#fff' />
                 </div>
             </Link>
         </div>

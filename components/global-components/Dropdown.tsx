@@ -1,3 +1,4 @@
+import { ChevronDownIcon, EllipsisIcon, MenuIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const Dropdown = ({ item, header, options, activeItem, position = 'down', selectCase = () => {}, width }: any) => {
@@ -32,23 +33,13 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
     }, [dropdownOpen]);
 
     return (
-        <div className='relative'>
+        <div className='flex relative'>
             <button ref={trigger} onClick={() => setDropdownOpen(!dropdownOpen)}>
                 {(position === 'down' || position === 'left') && header}
                 {position === 'right' && (
                     <div className='flex justify-center items-center gap-1 rounded-lg p-2 font-medium px-4 border border-main text-main hover:bg-grey'>
                         {header}
-                        <svg
-                            className={`h-4 w-4 fill-current stroke-main stroke-2 sm:block ${dropdownOpen ? 'rotate-180' : ''}`}
-                            viewBox='0 0 20 20'
-                            fill='currentColor'
-                            aria-hidden='true'>
-                            <path
-                                fillRule='evenodd'
-                                d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'
-                                clipRule='evenodd'
-                            />
-                        </svg>
+                        <MenuIcon color='#8b8b8b' size={24} />
                     </div>
                 )}
             </button>
@@ -56,7 +47,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
                 ref={dropdown}
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
-                className={`absolute z-10 ${width} ${position == 'down' && 'top-[50px] right-0'} ${
+                className={`absolute right-12 z-10 ${width} ${position == 'down' && 'top-[50px] right-0'} ${
                     position == 'left' && '-bottom-3 right-6'
                 } flex flex-col bg-clip-border border border-stroke rounded-lg bg-white shadow-lg ${dropdownOpen === true ? 'block' : 'hidden'}`}>
                 <ul className='flex flex-col'>

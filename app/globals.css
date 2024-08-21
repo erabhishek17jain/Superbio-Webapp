@@ -130,16 +130,16 @@ body,
 }
 
 .carousel .carousel-status {
-    color: #959595 !important;
+    color: #8b8b8b !important;
     text-shadow: none !important;
 }
 
 .carousel .control-next.control-arrow:before {
-    border-left: 8px solid #959595 !important;
+    border-left: 8px solid #8b8b8b !important;
 }
 
 .carousel .control-prev.control-arrow:before {
-    border-right: 8px solid #959595 !important;
+    border-right: 8px solid #8b8b8b !important;
 }
 
 .instagram {

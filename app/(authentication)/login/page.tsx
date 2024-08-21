@@ -4,8 +4,8 @@ import { setUser } from "@/context/user";
 import {login as userLogin} from "@/context/user/network"
 import Link from "next/link";
 import React, { ChangeEvent } from "react";
-import { BsArrowRight } from "react-icons/bs";
 import { useSnackbar } from "notistack";
+import { ArrowUpRightIcon } from "lucide-react";
 
 export default function Login() {
   const { user } = useAppSelector((state) => state.user);
@@ -69,8 +69,8 @@ export default function Login() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={login}
-                  className='flex capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
-                  Sign In <BsArrowRight className='ml-2' size={20} />
+                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
+                  Sign In <ArrowUpRightIcon color='#fff' size={20} />
               </button>
           </div>
 

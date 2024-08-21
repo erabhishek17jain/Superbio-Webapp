@@ -1,9 +1,9 @@
 "use client"
 import { useAppSelector } from "@/context";
 import UserNetworkService from "@/services/user.service";
+import { ArrowUpRightIcon } from "lucide-react";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
-import { BsArrowRight } from "react-icons/bs";
 
 export default function VerifyUser() {
   const {enqueueSnackbar} = useSnackbar()
@@ -36,8 +36,8 @@ export default function VerifyUser() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={verifyUser}
-                  className='flex capitalize items-center font-semibold justify-center text-white text-sm p-3 px-5 border bg-black rounded-lg'>
-                  Verify <BsArrowRight className='ml-2' size={20} />
+                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-sm p-3 px-5 border bg-black rounded-lg'>
+                  Verify <ArrowUpRightIcon color='#fff' size={20} />
               </button>
           </div>
       </div>

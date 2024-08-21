@@ -12,7 +12,7 @@ import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
-import { setCampaignType } from '@/context/user';
+import { ArrowRightIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -101,16 +101,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span>Home</span>
-                                            <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                <path
-                                                    d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                    stroke='#8b8b8b'
-                                                    strokeWidth='1.5'
-                                                    strokeMiterlimit='10'
-                                                    strokeLinecap='round'
-                                                    strokeLinejoin='round'
-                                                />
-                                            </svg>
+                                            <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
                                         {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 1 : 0)).map((component, index) => {
                                             const active = index !== urlComponents.slice(1).length - (isNotCampType ? 2 : 1);
@@ -125,18 +116,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                     }}
                                                     className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
                                                     <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
-                                                    {active && (
-                                                        <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                            <path
-                                                                d='M5.94 13.7787L10.2867 9.43208C10.8 8.91875 10.8 8.07875 10.2867 7.56542L5.94 3.21875'
-                                                                stroke='#8b8b8b'
-                                                                strokeWidth='1.5'
-                                                                strokeMiterlimit='10'
-                                                                strokeLinecap='round'
-                                                                strokeLinejoin='round'
-                                                            />
-                                                        </svg>
-                                                    )}
+                                                    {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
                                                 </div>
                                             );
                                         })}
@@ -145,15 +125,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
                                     {!isNotCampType && (
                                         <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
-                                                <path
-                                                    d='M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
-                                                    stroke='#8b8b8b'
-                                                    strokeWidth='2'
-                                                    strokeLinecap='round'
-                                                    strokeLinejoin='round'
-                                                />
-                                            </svg>
+                                            <SearchCheckIcon color='#8b8b8b' size={24} />
                                             <input
                                                 type='text'
                                                 name={`input_name}`}
@@ -164,32 +136,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                 className='flex outline-none bg-[#F7F7F7] p-3 h-10 text-sm w-full'
                                             />
                                             <div className='cursor-pointer pr-4 h-10 py-2' onClick={searhFilter}>
-                                                <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                    <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                                    <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                                    <g id='SVGRepo_iconCarrier'>
-                                                        <path
-                                                            d='M5 12H19M19 12L13 6M19 12L13 18'
-                                                            stroke='#8b8b8b'
-                                                            strokeWidth='2'
-                                                            strokeLinecap='round'
-                                                            strokeLinejoin='round'></path>
-                                                    </g>
-                                                </svg>
+                                                <ArrowRightIcon color='#8b8b8b' size={24} />
                                             </div>
                                         </div>
                                     )}
                                     {searchText !== '' && isSearch && (
                                         <div className='flex justify-between px-1 items-center bg-[#F7F7F7] rounded-lg' onClick={resetSearch}>
-                                            <svg width='30px' height='30px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                                <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                                <g id='SVGRepo_iconCarrier'>
-                                                    <path
-                                                        d='M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z'
-                                                        fill='#0F0F0F'></path>
-                                                </g>
-                                            </svg>
+                                            <XIcon color='#8b8b8b' size={24} />
                                         </div>
                                     )}
                                     {searchParams.indexOf('campaign') > -1 && (
@@ -197,15 +150,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <button
                                                 onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
-                                                <svg
-                                                    xmlns='http://www.w3.org/2000/svg'
-                                                    data-name='Layer 1'
-                                                    viewBox='0 0 24 24'
-                                                    id='share'
-                                                    width='20'
-                                                    fill='#fff'>
-                                                    <path d='m21.707 11.293-8-8A1 1 0 0 0 12 4v3.545A11.015 11.015 0 0 0 2 18.5V20a1 1 0 0 0 1.784.62 11.456 11.456 0 0 1 7.887-4.049c.05-.006.175-.016.329-.026V20a1 1 0 0 0 1.707.707l8-8a1 1 0 0 0 0-1.414ZM14 17.586V15.5a1 1 0 0 0-1-1c-.255 0-1.296.05-1.562.085a14.005 14.005 0 0 0-7.386 2.948A9.013 9.013 0 0 1 13 9.5a1 1 0 0 0 1-1V6.414L19.586 12Z'></path>
-                                                </svg>
+                                                <CopyIcon color='#ffffff' size={20} />
                                                 Copy Public Dashboard Link
                                             </button>
                                         </div>

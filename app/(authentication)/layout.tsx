@@ -6,8 +6,6 @@ import { useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { BsArrowRight } from 'react-icons/bs';
-import { FcGoogle } from 'react-icons/fc';
 import { motion, useInView } from 'framer-motion';
 import login2 from '@/public/login/login2.png';
 import login3 from '@/public/login/login3.png';
@@ -17,6 +15,8 @@ import login6 from '@/public/login/login6.png';
 import login7 from '@/public/login/login7.png';
 import login8 from '@/public/login/login8.png';
 import Image from 'next/image';
+import { ArrowUpRightIcon } from 'lucide-react';
+import GoogleColorIcon from '@/icons/GoogleColorIcon';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const ref = useRef<HTMLElement>(null);
@@ -97,8 +97,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     </Link>
                     <div className='flex items-center gap-4 justify-center'>
                         {buttonText !== '' && (
-                            <Link href={buttonLink} className='flex capitalize items-center text-sm p-2 px-5 border border-black rounded-lg'>
-                                {buttonText} <BsArrowRight className='ml-2' size={20} />
+                            <Link href={buttonLink} className='flex gap-2 capitalize items-center text-sm p-2 px-5 border border-black rounded-lg'>
+                                {buttonText} <ArrowUpRightIcon color='#fff' size={20} />
                             </Link>
                         )}
                     </div>
@@ -149,7 +149,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                 googleLogin();
                                             }}>
                                             <span className='cursor-pointer'>
-                                                <FcGoogle size={25} />
+                                                <GoogleColorIcon color={'#fff'} size={25} />
                                             </span>
                                             <span>Continue With Google</span>
                                         </button>

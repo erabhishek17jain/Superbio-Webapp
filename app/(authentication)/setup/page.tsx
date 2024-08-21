@@ -1,9 +1,9 @@
 'use client';
 import UserNetworkService from '@/services/user.service';
+import { ArrowUpRightIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
-import { BsArrowRight } from 'react-icons/bs';
 
 export default function AccountSetup() {
     const [password, setPassword] = useState<string>('');
@@ -15,8 +15,6 @@ export default function AccountSetup() {
         if (!query.get('token')) {
             router.push('/login');
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
     const submit = async () => {
@@ -73,8 +71,8 @@ export default function AccountSetup() {
             <div className='flex flex-col mt-6'>
                 <button
                     onClick={submit}
-                    className='flex capitalize items-center justify-center text-white text-base font-semibold p-3 px-5 border bg-black rounded-lg'>
-                    Finish Account Setup <BsArrowRight className='ml-2' size={20} />
+                    className='flex gap-2 capitalize items-center justify-center text-white text-base font-semibold p-3 px-5 border bg-black rounded-lg'>
+                    Finish Account Setup <ArrowUpRightIcon color='#fff' size={20} />
                 </button>
             </div>
         </div>

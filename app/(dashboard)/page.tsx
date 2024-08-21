@@ -15,6 +15,7 @@ import { CampaignStatus } from '@/services/campaign.service';
 import { useRouter } from 'next/navigation';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
+import { ArrowRightIcon, CrossIcon, PlusCircleIcon, PlusIcon, SearchCheckIcon, ShieldCloseIcon, XIcon } from 'lucide-react';
 
 export default function Home() {
     const router = useRouter();
@@ -81,15 +82,7 @@ export default function Home() {
                         </span>
                         <div className='flex gap-3 ml-16 sm:ml-0'>
                             <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' viewBox='0 0 24 24' fill='none'>
-                                    <path
-                                        d='M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
-                                        stroke='#8b8b8b'
-                                        strokeWidth='2'
-                                        strokeLinecap='round'
-                                        strokeLinejoin='round'
-                                    />
-                                </svg>
+                                <SearchCheckIcon color='#8b8b8b' size={24} />
                                 <input
                                     type='text'
                                     name={`input_name}`}
@@ -112,31 +105,12 @@ export default function Home() {
                                         }
                                     }}
                                     className='cursor-pointer pr-4 h-10 py-2'>
-                                    <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                        <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                        <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                        <g id='SVGRepo_iconCarrier'>
-                                            <path
-                                                d='M5 12H19M19 12L13 6M19 12L13 18'
-                                                stroke='#8b8b8b'
-                                                strokeWidth='2'
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'></path>
-                                        </g>
-                                    </svg>
+                                    <ArrowRightIcon color='#8b8b8b' size={24} />
                                 </div>
                             </div>
                             {searchText !== '' && isSearch && (
-                                <div className='flex justify-between px-1 items-center bg-[#F7F7F7] rounded-lg' onClick={resetSearch}>
-                                    <svg width='30px' height='30px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                        <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                                        <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                                        <g id='SVGRepo_iconCarrier'>
-                                            <path
-                                                d='M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z'
-                                                fill='#0F0F0F'></path>
-                                        </g>
-                                    </svg>
+                                <div className='flex justify-between px-3 items-center bg-[#F7F7F7] rounded-lg' onClick={resetSearch}>
+                                    <XIcon color='#8b8b8b' size={24} />
                                 </div>
                             )}
                             {user.role !== 'brand' && (
@@ -145,19 +119,8 @@ export default function Home() {
                                         setMode('add');
                                         setOpenCampaingModal(true);
                                     }}
-                                    className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white text-sm gap-2'>
-                                    <svg
-                                        width='20'
-                                        height='20'
-                                        viewBox='0 0 24 24'
-                                        fill='none'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        className='stroke-2 stroke-black'>
-                                        <path
-                                            d='M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z'
-                                            fill='white'
-                                        />
-                                    </svg>
+                                    className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white gap-2'>
+                                    <PlusCircleIcon color='#fff' size={22} />
                                     <span className='hidden sm:flex'>Create Campaigns</span>
                                 </button>
                             )}

@@ -88,9 +88,10 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 }
             }
             const estimateFollowers = Number(campData?.meta.analytics.views) + Number(campData?.meta.analytics.estimatedReach) * 10;
+            const estimatedReach = campData?.meta.analytics.customEstimatedReach ? campData?.meta.analytics.customEstimatedReach : campData?.meta.analytics.estimatedReach
             const extimateReach = {
-                totCount: campaignType === 'influncer' ? estimateFollowers : campData?.meta.analytics.estimatedReach,
-                count: calculateSummary(campaignType === 'influncer' ? estimateFollowers : campData?.meta.analytics.estimatedReach),
+                totCount: campaignType === 'influncer' ? estimateFollowers : estimatedReach,
+                count: calculateSummary(campaignType === 'influncer' ? estimateFollowers : estimatedReach),
                 icon: SUMMARY_ICONS['estimatedReach'],
                 color: SUMMARY_COLORS['estimatedReach'],
                 title: 'Estimated Reach',

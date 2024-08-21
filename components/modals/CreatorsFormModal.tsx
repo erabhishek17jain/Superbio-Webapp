@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import ComingSoon from '../global-components/ComingSoon';
+import { XIcon } from 'lucide-react';
 
 export default function CreatorsFormModal() {
     const params:any = useParams();
@@ -136,17 +137,8 @@ export default function CreatorsFormModal() {
                             onClick={() => {
                                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
                             }}
-                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black'>
-                            <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <path
-                                    d='M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z'
-                                    stroke='#333333'
-                                    strokeWidth='2'
-                                    strokeMiterlimit='10'
-                                />
-                                <path d='M15 9L9 15' stroke='#333333' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                                <path d='M15 15L9 9' stroke='#333333' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                            </svg>
+                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black gap-1'>
+                            <XIcon color='#000' size={24} />
                             Cancel
                         </button>
                         {/* <button onClick={handleSubmit} className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm'>

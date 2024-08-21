@@ -20,12 +20,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}>
                         <body suppressHydrationWarning className={inter.className}>
                             <Suspense
-                fallback={
-                    <div className='flex h-full w-full justify-center'>
-                        <LoaderIcon className='animate-spin' />
-                    </div>
-                }><SnackbarProvider>{children}</SnackbarProvider>
-                  </Suspense>      </body>
+                                fallback={
+                                    <div className='flex h-full w-full justify-center'>
+                                        <LoaderIcon className='animate-spin' />
+                                    </div>
+                                }>
+                                <SnackbarProvider>{children}</SnackbarProvider>
+                            </Suspense>{' '}
+                        </body>
                     </GoogleOAuthProvider>
                 </ApplicationProvider>
             </Provider>

@@ -2,10 +2,10 @@
 import { useAppDispatch, useAppSelector } from "@/context";
 import { setUser } from "@/context/user";
 import UserNetworkService from "@/services/user.service";
+import { ArrowUpRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React, { ChangeEvent } from "react";
-import { BsArrowRight } from "react-icons/bs";
 
 
 export default function Register() {
@@ -121,8 +121,8 @@ export default function Register() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={register}
-                  className='flex capitalize items-center justify-center text-white text-xs font-semibold p-3 px-5 border bg-black rounded-lg'>
-                  Sign Up <BsArrowRight className='ml-2' size={20} />
+                  className='flex gap-2 capitalize items-center justify-center text-white text-xs font-semibold p-3 px-5 border bg-black rounded-lg'>
+                  Sign Up <ArrowUpRightIcon color='#fff' size={20} />
               </button>
           </div>
       </div>

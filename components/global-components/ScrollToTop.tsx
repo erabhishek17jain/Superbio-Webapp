@@ -1,5 +1,5 @@
+import { ArrowUpFromDotIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { BiArrowFromBottom } from 'react-icons/bi';
 
 export const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +33,7 @@ export const ScrollToTop = () => {
                 onClick={scrollToTop}
                 className={`${isVisible ? 'opacity-100' : 'opacity-0'}
                     bg-[#000] inline-flex items-center rounded-full p-3 text-white shadow-sm`}>
-                <BiArrowFromBottom className='h-6 w-6' aria-hidden='true' />
+                <ArrowUpFromDotIcon size={24} color='#fff' />
             </button>
         </div>
     );

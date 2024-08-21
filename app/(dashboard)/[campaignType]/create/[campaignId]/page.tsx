@@ -10,6 +10,7 @@ import GuidelinesUi from '../../../../../components/shared-components/Guidelines
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
+import { AlertOctagonIcon, AreaChartIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon, TrashIcon } from 'lucide-react';
 
 const getSheetInfo = () => {
     return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: '', sheets: [], selectedSheet: {} };
@@ -256,15 +257,7 @@ export default function CreateReporting() {
                     <div className='flex items-center pl-3 gap-3'>
                         <span className='text-2xl font-semibold'>Campaign Reporting</span>
                         <div onClick={() => setOpenGuidelines()} className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer'>
-                            <svg width='13px' height='13px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <path
-                                    d='M12 16.0001V12.0001M12 8.00008H12.01M3 7.94153V16.0586C3 16.4013 3 16.5726 3.05048 16.7254C3.09515 16.8606 3.16816 16.9847 3.26463 17.0893C3.37369 17.2077 3.52345 17.2909 3.82297 17.4573L11.223 21.5684C11.5066 21.726 11.6484 21.8047 11.7985 21.8356C11.9315 21.863 12.0685 21.863 12.2015 21.8356C12.3516 21.8047 12.4934 21.726 12.777 21.5684L20.177 17.4573C20.4766 17.2909 20.6263 17.2077 20.7354 17.0893C20.8318 16.9847 20.9049 16.8606 20.9495 16.7254C21 16.5726 21 16.4013 21 16.0586V7.94153C21 7.59889 21 7.42756 20.9495 7.27477C20.9049 7.13959 20.8318 7.01551 20.7354 6.91082C20.6263 6.79248 20.4766 6.70928 20.177 6.54288L12.777 2.43177C12.4934 2.27421 12.3516 2.19543 12.2015 2.16454C12.0685 2.13721 11.9315 2.13721 11.7985 2.16454C11.6484 2.19543 11.5066 2.27421 11.223 2.43177L3.82297 6.54288C3.52345 6.70928 3.37369 6.79248 3.26463 6.91082C3.16816 7.01551 3.09515 7.13959 3.05048 7.27477C3 7.42756 3 7.59889 3 7.94153Z'
-                                    stroke='#0B1571'
-                                    strokeWidth='2'
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                />
-                            </svg>
+                            <AlertOctagonIcon color='#0B1571' size={14} />
                             <span className='text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                     </div>
@@ -273,7 +266,7 @@ export default function CreateReporting() {
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
-                                <div key={item.title} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-3 py-2 rounded-md'>
+                                <div key={item.title} className='flex flex-col gap-3 justify-between items-center w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
                                             style={{ width: 'calc(100% - 172px)' }}
@@ -290,22 +283,7 @@ export default function CreateReporting() {
                                                         refreshSheet(item);
                                                     }}
                                                     className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
-                                                    <svg width='14' height='14' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                        <path
-                                                            d='M6.23291 7.78125H2.48291V4.03125'
-                                                            stroke='#0B1571'
-                                                            strokeWidth='2'
-                                                            strokeLinecap='round'
-                                                            strokeLinejoin='round'
-                                                        />
-                                                        <path
-                                                            d='M5.13916 14.8594C6.10042 15.8214 7.32542 16.4768 8.65919 16.7425C9.99297 17.0082 11.3756 16.8724 12.6322 16.3522C13.8887 15.832 14.9628 14.9508 15.7185 13.8201C16.4741 12.6894 16.8775 11.36 16.8775 10C16.8775 8.64002 16.4741 7.31058 15.7185 6.17988C14.9628 5.04917 13.8887 4.16798 12.6322 3.64779C11.3756 3.12761 9.99297 2.99179 8.65919 3.25752C7.32542 3.52324 6.10042 4.17858 5.13916 5.14063L2.48291 7.78907'
-                                                            stroke='#0B1571'
-                                                            strokeWidth='2'
-                                                            strokeLinecap='round'
-                                                            strokeLinejoin='round'
-                                                        />
-                                                    </svg>
+                                                    <RefreshCcwIcon color='#0B1571' size={14} />
                                                     <span className='text-[14px] text-[#0B1571]'>Refresh sheet</span>
                                                 </div>
                                             )}
@@ -313,13 +291,7 @@ export default function CreateReporting() {
                                                 <div
                                                     className='flex items-center justify-center w-6 h-10 rounded-t-lg'
                                                     onClick={() => deleteSheet(item?.index)}>
-                                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' id='trash' width='24px' height='24px'>
-                                                        <g data-name='Layer 2'>
-                                                            <path
-                                                                d='M21 6h-5V4.33A2.42 2.42 0 0 0 13.5 2h-3A2.42 2.42 0 0 0 8 4.33V6H3a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM10 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0zm0-11.67c0-.16.21-.33.5-.33h3c.29 0 .5.17.5.33V6h-4zM16 16a1 1 0 0 1-2 0v-4a1 1 0 0 1 2 0z'
-                                                                data-name='trash-2'></path>
-                                                        </g>
-                                                    </svg>
+                                                    <Trash2Icon color='#0B1571' size={20} />
                                                 </div>
                                             )}
                                         </span>
@@ -345,17 +317,8 @@ export default function CreateReporting() {
                             <div className='flex flex-col mt-6 items-center min-w-[210] w-full sm:w-1/2'>
                                 <button
                                     onClick={() => addUpdateSheet()}
-                                    className='bg-black flex justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>
-                                    <svg width='20' height='20' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                        <path
-                                            d='M19.7158 3.36572L2.24081 8.28759C2.09205 8.32826 1.95945 8.4138 1.86106 8.53256C1.76267 8.65131 1.70329 8.79751 1.69099 8.95123C1.67869 9.10496 1.71408 9.25874 1.79233 9.39162C1.87059 9.52451 1.98791 9.63004 2.12831 9.69384L10.1533 13.4907C10.3105 13.5635 10.4368 13.6898 10.5096 13.847L14.3064 21.872C14.3702 22.0124 14.4758 22.1297 14.6087 22.2079C14.7415 22.2862 14.8953 22.3216 15.049 22.3093C15.2028 22.297 15.349 22.2376 15.4677 22.1392C15.5865 22.0408 15.672 21.9082 15.7127 21.7595L20.6346 4.28447C20.6719 4.15695 20.6742 4.02174 20.6412 3.89302C20.6083 3.7643 20.5414 3.64681 20.4474 3.55286C20.3535 3.45891 20.236 3.39197 20.1073 3.35904C19.9785 3.32611 19.8433 3.32842 19.7158 3.36572V3.36572Z'
-                                            stroke='white'
-                                            strokeWidth='2'
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                        />
-                                        <path d='M10 13.2375L14.2375 9' stroke='white' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                                    </svg>
+                                    className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>
+                                    <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}
                                     {mode === 'add' && 'Create Campaign using google sheet'}
@@ -363,12 +326,7 @@ export default function CreateReporting() {
                             </div>
                         </div>
                         <button onClick={addSheet} className='flex w-[210px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
-                            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                <path
-                                    d='M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z'
-                                    fill='#000'
-                                />
-                            </svg>
+                            <PlusCircleIcon color='#000' size={24} />
                             <span className='flex'>Add New Sheet</span>
                         </button>
                     </div>

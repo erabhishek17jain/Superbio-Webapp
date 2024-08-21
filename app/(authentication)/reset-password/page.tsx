@@ -1,10 +1,10 @@
 'use client'
 import { useAppSelector } from "@/context";
 import UserNetworkService from "@/services/user.service";
+import { ArrowUpRightIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
-import { BsArrowRight } from "react-icons/bs";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState<string>("");
@@ -69,8 +69,8 @@ export default function ResetPassword() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={handleResetPassword}
-                  className='flex capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
-                  Reset Password <BsArrowRight className='ml-2' size={20} />
+                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
+                  Reset Password <ArrowUpRightIcon color='#fff' size={20} />
               </button>
           </div>
       </div>

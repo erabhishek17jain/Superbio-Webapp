@@ -13,6 +13,7 @@ import { useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
 import { IColumn } from '@/interfaces/sheet';
 import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
+import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
@@ -264,7 +265,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                                           <span className='text-black font-semibold capitalize'>
                                               {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
                                           </span>
-                                          <span className='text-[#959595]'>{meta?.postSummaryResp[key]} posts</span>
+                                          <span className='text-[#8b8b8b]'>{meta?.postSummaryResp[key]} posts</span>
                                       </div>
                                   );
                               })
@@ -275,78 +276,36 @@ export default function GenerateReport(props: GenerateReportProps) {
                 <div className='flex flex-col items-center gap-3 sm:flex-row'>
                     <div className='flex'>
                         {reportText === 'Generate Report' && isPublic && (
-                            <div className='flex items-center gap-3 font-semibold text-black sm:text-center md:text-left text-[12px] sm:text-sm mr-4'>
-                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#000'>
-                                    <path
-                                        fill='#000'
-                                        d='M0,1v8c0,0.552246 0.447693,1 1,1h3v-10h-3c-0.552307,8.88178e-16 -1,0.447693 -1,1Z'
-                                        transform='translate(0 5)'></path>
-                                    <path
-                                        fill='#000'
-                                        d='M9.15332,5.02979h-2.9541c-0.258301,0 -0.387695,-0.172363 -0.431152,-0.246582c-0.043457,-0.0737305 -0.131348,-0.270508 -0.0063477,-0.496094l1.0415,-1.87549c0.228516,-0.410645 0.251953,-0.893555 0.0649414,-1.32471c-0.187012,-0.43164 -0.556152,-0.744629 -1.0127,-0.858398l-0.734375,-0.183594c-0.178711,-0.0449219 -0.368164,0.0122071 -0.492676,0.150391l-3.9873,4.42969c-0.413574,0.460449 -0.641113,1.0542 -0.641113,1.67236v5.23242c0,1.37842 1.12158,2.5 2.5,2.5l4.97412,-0.0004883c1.12305,0 2.11475,-0.756348 2.41113,-1.83887l1.06738,-4.89844c0.03125,-0.13623 0.0473633,-0.275879 0.0473633,-0.415527c0,-1.01807 -0.828613,-1.84668 -1.84668,-1.84668Z'
-                                        transform='translate(5 .97)'></path>
-                                </svg>
+                            <div className='flex items-center gap-2 font-semibold text-black sm:text-center md:text-left text-[12px] sm:text-[14px] mr-4'>
+                                <AreaChartIcon color='#000' size={20} />
                                 Report not generated yet
                             </div>
                         )}
                         {reportText === 'Generate Report' && !isPublic && (
                             <div
                                 onClick={() => refreshStats()}
-                                className='flex items-center gap-3 font-semibold text-black sm:text-center md:text-left text-[12px] sm:text-sm mr-4 cursor-pointer'>
-                                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#000'>
-                                    <path
-                                        fill='#000'
-                                        d='M0,1v8c0,0.552246 0.447693,1 1,1h3v-10h-3c-0.552307,8.88178e-16 -1,0.447693 -1,1Z'
-                                        transform='translate(0 5)'></path>
-                                    <path
-                                        fill='#000'
-                                        d='M9.15332,5.02979h-2.9541c-0.258301,0 -0.387695,-0.172363 -0.431152,-0.246582c-0.043457,-0.0737305 -0.131348,-0.270508 -0.0063477,-0.496094l1.0415,-1.87549c0.228516,-0.410645 0.251953,-0.893555 0.0649414,-1.32471c-0.187012,-0.43164 -0.556152,-0.744629 -1.0127,-0.858398l-0.734375,-0.183594c-0.178711,-0.0449219 -0.368164,0.0122071 -0.492676,0.150391l-3.9873,4.42969c-0.413574,0.460449 -0.641113,1.0542 -0.641113,1.67236v5.23242c0,1.37842 1.12158,2.5 2.5,2.5l4.97412,-0.0004883c1.12305,0 2.11475,-0.756348 2.41113,-1.83887l1.06738,-4.89844c0.03125,-0.13623 0.0473633,-0.275879 0.0473633,-0.415527c0,-1.01807 -0.828613,-1.84668 -1.84668,-1.84668Z'
-                                        transform='translate(5 .97)'></path>
-                                </svg>
+                                className='flex items-center gap-2 font-semibold text-black sm:text-center md:text-left text-sm mr-4 cursor-pointer'>
+                                <AreaChartIcon color='#000' size={20} />
                                 Generate Report
                             </div>
                         )}
                         {reportText === 'Generating...' && (
                             <div
-                                className={`flex gap-3 ${gradients[gradInx]} from-[#959595] to-white items-center rounded-lg p-[2px] text-[#959595] text-sm mr-3 cursor-not-allowed`}>
-                                <button className='flex items-center px-3 gap-3 h-full rounded-lg bg-white text-[#959595] text-sm'>
-                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#000'>
-                                        <path
-                                            fill='#959595'
-                                            d='M0,1v8c0,0.552246 0.447693,1 1,1h3v-10h-3c-0.552307,8.88178e-16 -1,0.447693 -1,1Z'
-                                            transform='translate(0 5)'></path>
-                                        <path
-                                            fill='#959595'
-                                            d='M9.15332,5.02979h-2.9541c-0.258301,0 -0.387695,-0.172363 -0.431152,-0.246582c-0.043457,-0.0737305 -0.131348,-0.270508 -0.0063477,-0.496094l1.0415,-1.87549c0.228516,-0.410645 0.251953,-0.893555 0.0649414,-1.32471c-0.187012,-0.43164 -0.556152,-0.744629 -1.0127,-0.858398l-0.734375,-0.183594c-0.178711,-0.0449219 -0.368164,0.0122071 -0.492676,0.150391l-3.9873,4.42969c-0.413574,0.460449 -0.641113,1.0542 -0.641113,1.67236v5.23242c0,1.37842 1.12158,2.5 2.5,2.5l4.97412,-0.0004883c1.12305,0 2.11475,-0.756348 2.41113,-1.83887l1.06738,-4.89844c0.03125,-0.13623 0.0473633,-0.275879 0.0473633,-0.415527c0,-1.01807 -0.828613,-1.84668 -1.84668,-1.84668Z'
-                                            transform='translate(5 .97)'></path>
-                                    </svg>
+                                className={`flex gap-3 ${gradients[gradInx]} from-[#8b8b8b] to-white items-center rounded-lg p-[2px] text-[#8b8b8b] text-sm mr-3 cursor-not-allowed`}>
+                                <button className='flex items-center px-3 gap-3 h-full rounded-lg bg-white text-[#8b8b8b] text-sm'>
+                                    <AreaChartIcon color='#8b8b8b' size={20} />
                                     Generating Report ({generateStatus !== '' ? generateStatus : 'This may take a few minutes'})
                                 </button>
                             </div>
                         )}
                         {reportText === 'Generated' && (
-                            <div className='flex items-center gap-3 text-[#959595] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm mr-3'>
+                            <div className='flex items-center gap-3 text-[#8b8b8b] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm mr-3'>
                                 <span>Last Refresh {lastUpdate}</span>
                                 {!isPublic && user.role !== 'brand' && (
                                     <div
                                         onClick={() => refreshStats()}
                                         className='flex items-center justify-center p-2 bg-[#e6e6e6] rounded-xl h-11 w-11 cursor-pointer'>
-                                        <svg width='24' height='24' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                            <path
-                                                d='M6.23291 7.78125H2.48291V4.03125'
-                                                stroke='#959595'
-                                                strokeWidth='2'
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                            />
-                                            <path
-                                                d='M5.13916 14.8594C6.10042 15.8214 7.32542 16.4768 8.65919 16.7425C9.99297 17.0082 11.3756 16.8724 12.6322 16.3522C13.8887 15.832 14.9628 14.9508 15.7185 13.8201C16.4741 12.6894 16.8775 11.36 16.8775 10C16.8775 8.64002 16.4741 7.31058 15.7185 6.17988C14.9628 5.04917 13.8887 4.16798 12.6322 3.64779C11.3756 3.12761 9.99297 2.99179 8.65919 3.25752C7.32542 3.52324 6.10042 4.17858 5.13916 5.14063L2.48291 7.78907'
-                                                stroke='#959595'
-                                                strokeWidth='2'
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                            />
-                                        </svg>
+                                        <RefreshCcwIcon color='#8b8b8b' size={24} />
                                     </div>
                                 )}
                             </div>
@@ -363,23 +322,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                                 ]}
                                 header={
                                     <div className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11'>
-                                        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                            <path
-                                                d='M8.0625 10.3125L12 14.25L15.9375 10.3125'
-                                                stroke='white'
-                                                strokeWidth='2'
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                            />
-                                            <path d='M12 3.75V14.25' stroke='white' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                                            <path
-                                                d='M20.25 14.25V19.5C20.25 19.6989 20.171 19.8897 20.0303 20.0303C19.8897 20.171 19.6989 20.25 19.5 20.25H4.5C4.30109 20.25 4.11032 20.171 3.96967 20.0303C3.82902 19.8897 3.75 19.6989 3.75 19.5V14.25'
-                                                stroke='white'
-                                                strokeWidth='2'
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                            />
-                                        </svg>
+                                        <DownloadIcon color='#fff' size={20} />
                                         <span className='text-opacity-80'>Download all</span>
                                     </div>
                                 }
@@ -399,29 +342,14 @@ export default function GenerateReport(props: GenerateReportProps) {
             {!valuesLoading && isSheetExist === 'yes' && meta && meta?.total === 0 && !isPublic && (
                 <div className='flex items-center border border-[#df4040] bg-[#ffe3e2] rounded-lg'>
                     <span className='flex gap-3 w-full text-sm text-[#df4040] px-3'>
-                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' id='like' width='20' height='20' fill='#959595'>
-                            <path
-                                fill='#df4040'
-                                d='M0,1v8c0,0.552246 0.447693,1 1,1h3v-10h-3c-0.552307,8.88178e-16 -1,0.447693 -1,1Z'
-                                transform='translate(0 5)'></path>
-                            <path
-                                fill='#df4040'
-                                d='M9.15332,5.02979h-2.9541c-0.258301,0 -0.387695,-0.172363 -0.431152,-0.246582c-0.043457,-0.0737305 -0.131348,-0.270508 -0.0063477,-0.496094l1.0415,-1.87549c0.228516,-0.410645 0.251953,-0.893555 0.0649414,-1.32471c-0.187012,-0.43164 -0.556152,-0.744629 -1.0127,-0.858398l-0.734375,-0.183594c-0.178711,-0.0449219 -0.368164,0.0122071 -0.492676,0.150391l-3.9873,4.42969c-0.413574,0.460449 -0.641113,1.0542 -0.641113,1.67236v5.23242c0,1.37842 1.12158,2.5 2.5,2.5l4.97412,-0.0004883c1.12305,0 2.11475,-0.756348 2.41113,-1.83887l1.06738,-4.89844c0.03125,-0.13623 0.0473633,-0.275879 0.0473633,-0.415527c0,-1.01807 -0.828613,-1.84668 -1.84668,-1.84668Z'
-                                transform='translate(5 .97)'></path>
-                        </svg>
+                        <AreaChartIcon color='#df4040' size={24} />
                         There are currently no links. To generate report you have to add links.
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
                         onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}>
                         Add Links
-                        <svg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-                            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-                            <g id='SVGRepo_iconCarrier'>
-                                <path d='M5 12H19M19 12L13 6M19 12L13 18' stroke='#ffe3e2' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'></path>
-                            </g>
-                        </svg>
+                        <PlusCircleIcon color='#ffe3e2' size={24} />
                     </button>
                 </div>
             )}
