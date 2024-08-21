@@ -16,7 +16,7 @@ export default function Profile() {
                             <DynamicLogo />
                         </Link>
                     </div>
-                    <span className='text-2xl font-semibold pl-12 sm:pl-0 lg:ml-0 xl:ml-0'>Your Profile</span>
+                    <span className='text-lg font-semibold pl-12 sm:pl-0 lg:ml-0 xl:ml-0'>Your Profile</span>
                 </div>
                 <div className='flex flex-col gap-1 p-8 justify-between'>
                     <div className='flex w-full flex-col justify-between gap-4 sm:items-center lg:items-baseline'>

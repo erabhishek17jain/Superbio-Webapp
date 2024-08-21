@@ -4,16 +4,17 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function EstimatedReachModal({ campaign, openCloseModal }: any) {
+export default function EstimatedReachModal({ campaignId, openCloseModal, refreshCampData }: any) {
     const [error, setError] = useState(false);
     const [estimatedReach, setEstimatedReach] = useState('');
 
     const updateEstimatedReach = () => {
         const params = { estimatedReach: parseInt(estimatedReach) };
         if (estimatedReach !== '' && !isNaN(params.estimatedReach)) {
-            JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
+            JavaNetworkService.instance.updateEstimatedReach(campaignId, params).then((res) => {
                 enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
                 openCloseModal();
+                refreshCampData();
             });
         } else {
             setError(true);

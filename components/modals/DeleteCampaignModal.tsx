@@ -1,13 +1,13 @@
-import { ICampaign } from '@/interfaces/campaign';
 import JavaNetworkService from '@/services/java.service';
 import { Trash2Icon, XIcon } from 'lucide-react';
 import { enqueueSnackbar } from 'notistack';
 
-export default function DeleteCampaignModal({ campaign, openCloseModal }: any) {
+export default function DeleteCampaignModal({ campaign, openCloseModal, fetchCampaigns }: any) {
     const archiveCampaign = () => {
-        JavaNetworkService.instance.deleteCampaign(campaign.id).then((res: ICampaign) => {
+        JavaNetworkService.instance.deleteCampaign(campaign.id).then(() => {
             enqueueSnackbar('Campaign deleted successfully', { variant: 'success' });
             openCloseModal();
+            fetchCampaigns();
         });
     };
     return (

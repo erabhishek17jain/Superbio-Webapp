@@ -48,7 +48,7 @@ export default function Queue() {
                         <DynamicLogo />
                     </Link>
                 </div>
-                <span className='text-2xl font-semibold ml-12 sm:0 lg:ml-0 xl:ml-0'>Live Reports</span>
+                <span className='text-lg font-semibold ml-12 sm:ml-0 lg:ml-0 xl:ml-0'>Live Reports</span>
             </div>
             <div className='flex w-full items-center px-4 py-4 sm:px-8 sm:py-6'>
                 <div className='relative overflow-x-auto w-full border rounded-xl'>

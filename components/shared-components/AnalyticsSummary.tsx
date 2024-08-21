@@ -10,10 +10,11 @@ interface AnalyticsSummaryProps {
     filters: any;
     summary: ISummary[];
     campaign: ICampaign;
+    refreshCampData: any;
 }
 
 export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
-    const { filters, summary, campaign } = props;
+    const { filters, summary, campaign, refreshCampData } = props;
     const [showEstimatedModal, setshowEstimatedModal] = useState(false);
 
     const openCloseEstimatedModal = () => {
@@ -64,7 +65,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                     ))}
                 </div>
             </div>
-            {showEstimatedModal && <EstimatedReachModal campaign={campaign.id} openCloseModal={openCloseEstimatedModal} />}
+            {showEstimatedModal && <EstimatedReachModal campaignId={campaign.id} openCloseModal={openCloseEstimatedModal} refreshCampData={refreshCampData} />}
         </div>
     );
 }

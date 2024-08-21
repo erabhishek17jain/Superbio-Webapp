@@ -9,7 +9,7 @@ import { logout } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { AlertOctagonIcon, ArrowRightIcon, CheckCircleIcon, SearchCheckIcon, XIcon } from 'lucide-react';
 
-export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
+export default function ShareCampaignModal({ campaign, openCloseModal, fetchCampaigns }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
@@ -28,6 +28,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal }: any) {
             const res = await UserNetworkService.instance.getAllUsers({ page: 1, limit: 100 });
             setUsers([...res.data]);
             dispatch(setMembers(res.data));
+            fetchCampaigns()
         } catch (error) {
             enqueueSnackbar('Something went wrong', { variant: 'error' });
         }

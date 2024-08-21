@@ -4,7 +4,7 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function UpdateAnalyticsModal({ postId, currentAnalytics, openCloseModal }: any) {
+export default function UpdateAnalyticsModal({ postId, currentAnalytics, openCloseModal, index, columns, setColumns }: any) {
     const [error, setError] = useState(false);
     const [analytics, setAnalytics] = useState({ ...currentAnalytics });
 
@@ -14,6 +14,8 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
             JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
                 enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
                 openCloseModal();
+                columns[index] = res;
+                setColumns([...columns]);
             });
         } else {
             setError(true);

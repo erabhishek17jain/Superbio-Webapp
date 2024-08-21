@@ -10,11 +10,33 @@ import Dropdown from '../global-components/Dropdown';
 import ShareCampaignModal from '../modals/ShareCampaignModal';
 import DeleteCampaignModal from '../modals/DeleteCampaignModal';
 import { ICampaign } from '@/interfaces/campaign';
-import { AreaChartIcon, CalendarCheck2Icon, ClipboardPenIcon, CopyCheckIcon, ListPlusIcon, MenuIcon, RefreshCcwIcon, Trash2Icon, WaypointsIcon } from 'lucide-react';
+import {
+    AreaChartIcon,
+    CalendarCheck2Icon,
+    ClipboardPenIcon,
+    CopyCheckIcon,
+    ListPlusIcon,
+    MenuIcon,
+    RefreshCcwIcon,
+    Trash2Icon,
+    WaypointsIcon,
+} from 'lucide-react';
 
 dayjs.extend(relativeTime);
 
-export default function CampaignCard({ campaign, status, setMode, color }: { campaign: ICampaign; status: string; setMode: any; color: string }) {
+export default function CampaignCard({
+    campaign,
+    status,
+    setMode,
+    color,
+    fetchCampaigns,
+}: {
+    campaign: ICampaign;
+    status: string;
+    setMode: any;
+    color: string;
+    fetchCampaigns: any;
+}) {
     const router = useRouter();
     const { user } = useAppSelector((state) => state.user);
     const { enqueueSnackbar } = useSnackbar();
@@ -197,8 +219,8 @@ export default function CampaignCard({ campaign, status, setMode, color }: { cam
                     <Dropdown item={campaign} position='left' width={'w-44'} options={campActions} header={<MenuIcon color={'#8b8b8b'} size={24} />} />
                 </div>
             </div>
-            {showShareModal && <ShareCampaignModal campaign={campaign} openCloseModal={openCloseShareModal} />}
-            {showDeleteModal && <DeleteCampaignModal campaign={campaign} openCloseModal={openCloseDeleteModal} />}
+            {showShareModal && <ShareCampaignModal campaign={campaign} openCloseModal={openCloseShareModal} fetchCampaigns={fetchCampaigns} />}
+            {showDeleteModal && <DeleteCampaignModal campaign={campaign} openCloseModal={openCloseDeleteModal} fetchCampaigns={fetchCampaigns} />}
         </div>
     );
 }

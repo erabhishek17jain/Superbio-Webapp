@@ -63,7 +63,19 @@ export function Tweet({ tweetID }: TweetProps) {
     );
 }
 
-export default function SocialCard({ item, isPublic, index }: { item: any; isPublic: boolean; index: number }) {
+export default function SocialCard({
+    item,
+    isPublic,
+    index,
+    columns,
+    setColumns,
+}: {
+    item: any;
+    isPublic: boolean;
+    index: number;
+    columns: any;
+    setColumns: any;
+}) {
     const postedAt = item?.postedAt?.$date?.$numberLong;
     const link = item.socialLink;
     const postType = item.postType;
@@ -108,7 +120,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
         if (values.length > 0) {
             SheetNetworkService.instance
                 .addScreenShotToReport({
-                    id: id,
+                    _id: id,
                     image: values,
                 })
                 .then((res) => {
@@ -219,7 +231,7 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                             )}
                         </div>
                     ) : (
-                        <div className='flex justify-center items-center font-semibold gap-3 mb-4 px-3' id='crausel'>
+                        <div className='flex flex-col justify-center items-center font-semibold gap-3 mb-4 px-3' id='crausel'>
                             {privateUrls?.length > 0 ? (
                                 <Carousel className='h-[26rem]' showArrows={true} emulateTouch={true} infiniteLoop={true} showStatus={true}>
                                     {privateUrls?.map((obj: any, i: number) => (
@@ -229,6 +241,10 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                             ) : (
                                 <span className='text-center'>Manual post screenshot not uploaded for private/story post or so.</span>
                             )}
+                            <button className='w-[150px] border p-2 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
+                                <span className='cursor-pointer'></span>
+                                <span>Update Analytics</span>
+                            </button>
                         </div>
                     )
                 ) : (
@@ -251,7 +267,16 @@ export default function SocialCard({ item, isPublic, index }: { item: any; isPub
                     </div>
                 )}
             </div>
-            {showAnalyticsModal && <UpdateAnalyticsModal postId={item.id} currentAnalytics={item.analytics} openCloseModal={openCloseAnalyticsModal} />}
+            {showAnalyticsModal && (
+                <UpdateAnalyticsModal
+                    postId={item.id}
+                    currentAnalytics={item.analytics}
+                    openCloseModal={openCloseAnalyticsModal}
+                    index={index}
+                    columns={columns}
+                    setColumns={setColumns}
+                />
+            )}
         </div>
     );
 }

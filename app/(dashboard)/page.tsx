@@ -42,11 +42,19 @@ export default function Home() {
         setCurrentSearchText('');
     };
 
+    const fetchCampaigns = () => {
+        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: searchText }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: searchText }));
+    };
+
+    useEffect(() => {
+        fetchCampaigns();
+    }, [searchText]);
+
     useEffect(() => {
         if (campaignType !== '') {
-            const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-            dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: '' }));
-            dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: '' }));
+            fetchCampaigns();
             if (user && campaignType !== '') {
                 UserNetworkService.instance
                     .getAllUsers({ page: 1, limit: 100 })
@@ -73,7 +81,7 @@ export default function Home() {
                     </Link>
                 </div>
                 {campaignType !== '' ? (
-                    <div className='flex w-full justify-between items-center h-12'>
+                    <div className='flex text-lg w-full justify-between items-center h-12'>
                         <span className='hidden sm:flex'>
                             <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
                                 All Products<span className='px-3'>/</span>
@@ -119,7 +127,7 @@ export default function Home() {
                                         setMode('add');
                                         setOpenCampaingModal(true);
                                     }}
-                                    className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white gap-2'>
+                                    className='bg-black text-base flex items-center py-3 rounded-xl px-3 sm:px-6 text-white gap-2'>
                                     <PlusCircleIcon color='#fff' size={22} />
                                     <span className='hidden sm:flex'>Create Campaigns</span>
                                 </button>
@@ -129,7 +137,7 @@ export default function Home() {
                 ) : (
                     <div className='flex w-full justify-between items-center h-12'>
                         <span className='hidden sm:flex gap-2 lg:ml-0 xl:ml-0'>
-                            <span className='cursor-pointer font-semibold' onClick={() => dispatch(setCampaignType(''))}>
+                            <span className='text-lg cursor-pointer font-semibold' onClick={() => dispatch(setCampaignType(''))}>
                                 All Products
                             </span>
                         </span>
@@ -155,7 +163,14 @@ export default function Home() {
                                     {activeCampaign.data?.length > 0 ? (
                                         <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {activeCampaign.data?.map((data: any, index: number) => (
-                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active' color={'#F5F8FF'} />
+                                                <CampaignCard
+                                                    key={index}
+                                                    campaign={data}
+                                                    setMode={editCampaign}
+                                                    status='active'
+                                                    color={'#F5F8FF'}
+                                                    fetchCampaigns={fetchCampaigns}
+                                                />
                                             ))}
                                         </div>
                                     ) : (
@@ -178,7 +193,14 @@ export default function Home() {
                                     {sharedCampaign.data?.length > 0 ? (
                                         <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4'>
                                             {sharedCampaign.data?.map((data: any, index: number) => (
-                                                <CampaignCard key={index} campaign={data} setMode={editCampaign} status='active' color={'#F5F8FF'} />
+                                                <CampaignCard
+                                                    key={index}
+                                                    campaign={data}
+                                                    setMode={editCampaign}
+                                                    status='active'
+                                                    color={'#F5F8FF'}
+                                                    fetchCampaigns={fetchCampaigns}
+                                                />
                                             ))}
                                         </div>
                                     ) : (

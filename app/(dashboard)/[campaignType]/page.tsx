@@ -1,10 +1,11 @@
 'use client';
-import Loading from '@/components/global-components/Loading';
 import CreateCampaignModal from '@/components/modals/CreateCampaignModal';
 import CampaignCard from '@/components/shared-components/CampaignCard';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { useAppDispatch, useAppSelector } from '@/context';
+import { setMeta } from '@/context/campaign';
 import { getCampaigns } from '@/context/campaign/network';
+import { CampaignStatus } from '@/services/campaign.service';
 import { LoaderIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -14,11 +15,24 @@ export default function AllCampaignPage() {
     const params: any = useParams();
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('add');
+    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign } = useAppSelector((state) => state.campaign);
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
     const [loader, setloader] = useState(false);
     const [, setScreenWidth] = useState(0);
+
+    const fetchMore = () => {
+        const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
+        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
+        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
+        dispatch(
+            setMeta({
+                page: allCampaign?.meta?.arg?.page || 0 + 1,
+                limit: 12,
+            })
+        );
+    };
 
     const editCampaign = (campaign: any) => {
         setMode('edit');
@@ -60,7 +74,14 @@ export default function AllCampaignPage() {
             {allCampaign?.data && allCampaign?.data?.length > 0 ? (
                 <div className='grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 sm:mb-6 mb-16'>
                     {allCampaign?.data.map((item) => (
-                        <CampaignCard key={item.title} campaign={item} status={params?.campaignType} setMode={editCampaign} color={'#F5F8FF'} />
+                        <CampaignCard
+                            key={item.title}
+                            campaign={item}
+                            status={params?.campaignType}
+                            setMode={editCampaign}
+                            color={'#F5F8FF'}
+                            fetchCampaigns={fetchMore}
+                        />
                     ))}
                 </div>
             ) : (

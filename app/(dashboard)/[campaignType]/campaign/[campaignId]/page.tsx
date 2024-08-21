@@ -88,7 +88,9 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 }
             }
             const estimateFollowers = Number(campData?.meta.analytics.views) + Number(campData?.meta.analytics.estimatedReach) * 10;
-            const estimatedReach = campData?.meta.analytics.customEstimatedReach ? campData?.meta.analytics.customEstimatedReach : campData?.meta.analytics.estimatedReach
+            const estimatedReach = campData?.meta.analytics.customEstimatedReach
+                ? campData?.meta.analytics.customEstimatedReach
+                : campData?.meta.analytics.estimatedReach;
             const extimateReach = {
                 totCount: campaignType === 'influncer' ? estimateFollowers : estimatedReach,
                 count: calculateSummary(campaignType === 'influncer' ? estimateFollowers : estimatedReach),
@@ -231,7 +233,9 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                             buttonText={'Add links'}
                             title={'Add links for reporting'}
                             action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
-                            description={'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'}
+                            description={
+                                'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
+                            }
                         />
                     )}
                     {campData?.data && campData?.data.length > 0 && (
@@ -253,7 +257,12 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                                 selectFilter={selectFilter}
                                 filtersOptions={campData?.meta.filterValueResp}
                             />
-                            <AnalyticsSummary summary={summary} filters={filters} campaign={campData?.meta.campaignDto} />
+                            <AnalyticsSummary
+                                summary={summary}
+                                filters={filters}
+                                campaign={campData?.meta.campaignDto}
+                                refreshCampData={() => initialLoadCampData(query)}
+                            />
                             <Reporting
                                 query={query}
                                 meta={campData?.meta}

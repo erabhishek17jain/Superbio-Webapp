@@ -55,13 +55,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    public deleteCampaign = async (campaignId: string): Promise<ICampaign> => {
+    public deleteCampaign = async (campaignId: string): Promise<any> => {
         try {
             const res = await axios.delete<ICampaign>(`/api/campaign/${campaignId}`, {
-                 headers: this.get_auth_header(),
+                headers: this.get_auth_header(),
                 withCredentials: true,
             });
-            return this.covertAPICampaignToCampaign(res.data);
+            return res;
         } catch (err: any) {
             enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
             throw err;
@@ -71,7 +71,7 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
     public getReportingData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IReportingResponse> => {
         try {
             const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}`, {
-                 headers: this.get_auth_header(),
+                headers: this.get_auth_header(),
                 withCredentials: true,
                 params,
             });
@@ -83,13 +83,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public updateEstimatedReach = async (campaignId: string, params: { [key: string]: number | string }): Promise<ICampaign> => {
         try {
-            const res = await axios.put<ICampaign>(`/api/campaign/${campaignId}/custom-analytics`, params, {
-                 headers: this.get_auth_header(),
-                 withCredentials: true,
+            const res = await axios.post<ICampaign>(`/api/campaign/${campaignId}/custom-analytics`, params, {
+                headers: this.get_auth_header(),
+                withCredentials: true,
             });
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to update estimated reach', { variant: 'error' });
             throw err;
         }
     };
@@ -97,12 +97,12 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
     public updatePostAnalytics = async (postId: string, params: { [key: string]: number | string }): Promise<ICampaign> => {
         try {
             const res = await axios.put<ICampaign>(`/api/post/${postId}`, params, {
-                 headers: this.get_auth_header(),
-                 withCredentials: true,
+                headers: this.get_auth_header(),
+                withCredentials: true,
             });
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to update post analytics', { variant: 'error' });
             throw err;
         }
     };
