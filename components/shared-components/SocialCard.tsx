@@ -270,6 +270,7 @@ export default function SocialCard({
             {showAnalyticsModal && (
                 <UpdateAnalyticsModal
                     postId={item.id}
+                    platform={item.platform}
                     currentAnalytics={item.analytics}
                     openCloseModal={openCloseAnalyticsModal}
                     index={index}

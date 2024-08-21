@@ -1,4 +1,4 @@
-import { ChevronDownIcon, EllipsisIcon, MenuIcon } from 'lucide-react';
+import { EllipsisIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const Dropdown = ({ item, header, options, activeItem, position = 'down', selectCase = () => {}, width }: any) => {
@@ -29,7 +29,6 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
 
     useEffect(() => {
         if (activeItem?.id !== item?.id && dropdownOpen) selectCase(item);
-
     }, [dropdownOpen]);
 
     return (
@@ -39,7 +38,7 @@ const Dropdown = ({ item, header, options, activeItem, position = 'down', select
                 {position === 'right' && (
                     <div className='flex justify-center items-center gap-1 rounded-lg p-2 font-medium px-4 border border-main text-main hover:bg-grey'>
                         {header}
-                        <MenuIcon color='#8b8b8b' size={24} />
+                        <EllipsisIcon color='#8b8b8b' size={20} />
                     </div>
                 )}
             </button>

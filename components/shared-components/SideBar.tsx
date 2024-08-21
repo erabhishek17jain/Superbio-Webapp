@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { setCampaignType } from '@/context/user';
 import { logout } from '@/lib/utils';
-import { HouseIcon, LogOutIcon, LogsIcon, UserCog, UserCog2Icon, UserCogIcon, UsersIcon } from 'lucide-react';
+import { LayoutPanelLeftIcon, LogOutIcon, LogsIcon, UserCogIcon, UsersIcon } from 'lucide-react';
 import ContactIcon from '../../icons/ContactIcon';
 
 export default function SideBar() {
@@ -17,7 +17,7 @@ export default function SideBar() {
             <div className='flex h-full'>
                 <div className='flex flex-col space-y-6'>
                     <Link href='/' key='home' className='flex items-center space-x-3'>
-                        <HouseIcon color={path === '/' ? '#000000' : '#8b8b8b'} size={32} />
+                        <LayoutPanelLeftIcon color={path === '/' ? '#000000' : '#8b8b8b'} size={32} />
                     </Link>
                     <Link href='/queue' key='queue' className='flex items-center space-x-3'>
                         <LogsIcon size={32} color={path === '/queue' ? '#000000' : '#8b8b8b'} />

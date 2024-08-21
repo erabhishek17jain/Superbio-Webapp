@@ -15,8 +15,8 @@ import {
     CalendarCheck2Icon,
     ClipboardPenIcon,
     CopyCheckIcon,
+    EllipsisVerticalIcon,
     ListPlusIcon,
-    MenuIcon,
     RefreshCcwIcon,
     Trash2Icon,
     WaypointsIcon,
@@ -216,7 +216,7 @@ export default function CampaignCard({
                         <CalendarCheck2Icon size={20} color='#b8b8b8' />
                         From {dayjs(campaign.startDate).format('DD MMM YYYY')} {campaign.endDate && `- ${dayjs(campaign.endDate).format('DD MMM YYYY')}`}
                     </div>
-                    <Dropdown item={campaign} position='left' width={'w-44'} options={campActions} header={<MenuIcon color={'#8b8b8b'} size={24} />} />
+                    <Dropdown item={campaign} position='left' width={'w-44'} options={campActions} header={<EllipsisVerticalIcon color={'#8b8b8b'} size={20} />} />
                 </div>
             </div>
             {showShareModal && <ShareCampaignModal campaign={campaign} openCloseModal={openCloseShareModal} fetchCampaigns={fetchCampaigns} />}

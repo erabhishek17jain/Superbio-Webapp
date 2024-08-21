@@ -4,7 +4,7 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function UpdateAnalyticsModal({ postId, currentAnalytics, openCloseModal, index, columns, setColumns }: any) {
+export default function UpdateAnalyticsModal({ postId, platform, currentAnalytics, openCloseModal, index, columns, setColumns }: any) {
     const [error, setError] = useState(false);
     const [analytics, setAnalytics] = useState({ ...currentAnalytics });
 
@@ -32,10 +32,10 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                         </button>
                     </div>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row lg:flex-row'>
-                        <div className={`grid grid-cols-2 gap-5 w-full overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
+                        <div className={`grid grid-cols-3 gap-5 w-full overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
                             <div className='flex flex-col'>
                                 <label htmlFor='' className='text-sm'>
-                                    Post Views
+                                    Views
                                 </label>
                                 <input
                                     type='number'
@@ -49,7 +49,7 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                             </div>
                             <div className='flex flex-col'>
                                 <label htmlFor='' className='text-sm'>
-                                    Post Likes
+                                    Likes
                                 </label>
                                 <input
                                     type='number'
@@ -63,7 +63,7 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                             </div>
                             <div className='flex flex-col'>
                                 <label htmlFor='' className='text-sm'>
-                                    Post Comments
+                                    Comments
                                 </label>
                                 <input
                                     type='number'
@@ -75,48 +75,54 @@ export default function UpdateAnalyticsModal({ postId, currentAnalytics, openClo
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct comments count</p>}
                             </div>
-                            <div className='flex flex-col'>
-                                <label htmlFor='' className='text-sm'>
-                                    Post Reposts
-                                </label>
-                                <input
-                                    type='number'
-                                    className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
-                                    placeholder='Enter reposts count'
-                                    name='reposts'
-                                    value={analytics.reposts}
-                                    onChange={(e) => setAnalytics({ ...analytics, reposts: e.target.value })}
-                                />
-                                {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
-                            </div>
-                            <div className='flex flex-col'>
-                                <label htmlFor='' className='text-sm'>
-                                    Post Quotes
-                                </label>
-                                <input
-                                    type='number'
-                                    className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
-                                    placeholder='Enter quotes count'
-                                    name='quotes'
-                                    value={analytics.quotes}
-                                    onChange={(e) => setAnalytics({ ...analytics, quotes: e.target.value })}
-                                />
-                                {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct quotes count</p>}
-                            </div>
-                            <div className='flex flex-col'>
-                                <label htmlFor='' className='text-sm'>
-                                    Post Bookmarks
-                                </label>
-                                <input
-                                    type='number'
-                                    className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
-                                    placeholder='Enter bookmarks count'
-                                    name='bookmarks'
-                                    value={analytics.bookmarks}
-                                    onChange={(e) => setAnalytics({ ...analytics, bookmarks: e.target.value })}
-                                />
-                                {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct estimated reach count</p>}
-                            </div>
+                            {platform === 'twitter' && (
+                                <div className='flex flex-col'>
+                                    <label htmlFor='' className='text-sm'>
+                                        Reposts
+                                    </label>
+                                    <input
+                                        type='number'
+                                        className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
+                                        placeholder='Enter reposts count'
+                                        name='reposts'
+                                        value={analytics.reposts}
+                                        onChange={(e) => setAnalytics({ ...analytics, reposts: e.target.value })}
+                                    />
+                                    {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
+                                </div>
+                            )}
+                            {platform === 'twitter' && (
+                                <div className='flex flex-col'>
+                                    <label htmlFor='' className='text-sm'>
+                                        Quotes
+                                    </label>
+                                    <input
+                                        type='number'
+                                        className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
+                                        placeholder='Enter quotes count'
+                                        name='quotes'
+                                        value={analytics.quotes}
+                                        onChange={(e) => setAnalytics({ ...analytics, quotes: e.target.value })}
+                                    />
+                                    {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct quotes count</p>}
+                                </div>
+                            )}
+                            {platform === 'twitter' && (
+                                <div className='flex flex-col'>
+                                    <label htmlFor='' className='text-sm'>
+                                        Bookmarks
+                                    </label>
+                                    <input
+                                        type='number'
+                                        className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
+                                        placeholder='Enter bookmarks count'
+                                        name='bookmarks'
+                                        value={analytics.bookmarks}
+                                        onChange={(e) => setAnalytics({ ...analytics, bookmarks: e.target.value })}
+                                    />
+                                    {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct estimated reach count</p>}
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>
