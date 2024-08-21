@@ -44,8 +44,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getPostsData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/post/${campaignId}/posts`, {
-                // headers: this.get_auth_header(),
+            const res = await axios.get<IPostsResponse>(`/api/post/${campaignId}/posts`, {
+                headers: this.get_auth_header(),
+                withCredentials: true,
                 params,
             });
             return res.data;
@@ -56,8 +57,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public deleteCampaign = async (campaignId: string): Promise<ICampaign> => {
         try {
-            const res = await axios.delete<ICampaign>(`${this.javaUrl}/campaign/${campaignId}`, {
-                // headers: this.get_auth_header(),
+            const res = await axios.delete<ICampaign>(`/api/campaign/${campaignId}`, {
+                 headers: this.get_auth_header(),
+                withCredentials: true,
             });
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
@@ -68,8 +70,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getReportingData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IReportingResponse> => {
         try {
-            const res = await axios.get<IReportingResponse>(`${this.javaUrl}/reporting/${campaignId}`, {
-                // headers: this.get_auth_header(),
+            const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}`, {
+                 headers: this.get_auth_header(),
+                withCredentials: true,
                 params,
             });
             return res.data;
@@ -80,8 +83,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public updateEstimatedReach = async (campaignId: string, params: { [key: string]: number | string }): Promise<ICampaign> => {
         try {
-            const res = await axios.put<ICampaign>(`${this.javaUrl}/campaign/${campaignId}/custom-analytics`, params, {
-                // headers: this.get_auth_header(),
+            const res = await axios.put<ICampaign>(`/api/campaign/${campaignId}/custom-analytics`, params, {
+                 headers: this.get_auth_header(),
+                 withCredentials: true,
             });
             return res.data;
         } catch (err: any) {
@@ -92,8 +96,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public updatePostAnalytics = async (postId: string, params: { [key: string]: number | string }): Promise<ICampaign> => {
         try {
-            const res = await axios.put<ICampaign>(`${this.javaUrl}/post/${postId}`, params, {
-                // headers: this.get_auth_header(),
+            const res = await axios.put<ICampaign>(`/api/post/${postId}`, params, {
+                 headers: this.get_auth_header(),
+                 withCredentials: true,
             });
             return res.data;
         } catch (err: any) {
