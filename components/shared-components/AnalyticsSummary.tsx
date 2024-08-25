@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EstimatedReachModal from '../modals/EstimatedReachModal';
 import { ICampaign } from '@/interfaces/campaign';
-import { FilePenLineIcon } from 'lucide-react';
+import { FilePenLineIcon, ListRestartIcon } from 'lucide-react';
+import JavaNetworkService from '@/services/java.service';
+import { enqueueSnackbar } from 'notistack';
 
 interface AnalyticsSummaryProps {
     filters: any;
@@ -20,6 +22,14 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
 
     const openCloseEstimatedModal = () => {
         setshowEstimatedModal(!showEstimatedModal);
+    };
+
+    const updateEstimatedReach = (params: any) => {
+        JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
+            enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
+            params.estimatedReach && openCloseEstimatedModal();
+            refreshCampData();
+        });
     };
 
     const analytics: ISummary[] = summary?.filter((el) => {
@@ -55,18 +65,27 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                             ? item.title
                                             : `Only ${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
                                     </p>
-                                    {item.title === 'Estimated Reach' && !isPublic && (
-                                        <div className='cursor-pointer' onClick={openCloseEstimatedModal}>
-                                            <FilePenLineIcon color='#8b8b8b' size={24} />
-                                        </div>
-                                    )}
+                                    {item.title === 'Estimated Reach' &&
+                                        !isPublic &&
+                                        (item.basedOn ? (
+                                            <div
+                                                className='cursor-pointer'
+                                                onClick={() => updateEstimatedReach({ estimatedReach: null })}
+                                                title='Add custom estimated reach'>
+                                                <ListRestartIcon color='#8b8b8b' size={24} />
+                                            </div>
+                                        ) : (
+                                            <div className='cursor-pointer' onClick={openCloseEstimatedModal} title='Reset estimated reach'>
+                                                <FilePenLineIcon color='#8b8b8b' size={24} />
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            {showEstimatedModal && <EstimatedReachModal campaignId={campaign.id} openCloseModal={openCloseEstimatedModal} refreshCampData={refreshCampData} />}
+            {showEstimatedModal && <EstimatedReachModal openCloseModal={openCloseEstimatedModal} updateEstimatedReach={updateEstimatedReach} />}
         </div>
     );
 }

@@ -4,18 +4,14 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function EstimatedReachModal({ campaignId, openCloseModal, refreshCampData }: any) {
+export default function EstimatedReachModal({ openCloseModal, updateEstimatedReach }: any) {
     const [error, setError] = useState(false);
     const [estimatedReach, setEstimatedReach] = useState('');
 
-    const updateEstimatedReach = () => {
+    const updateCustomEstimatedReach = () => {
         const params = { estimatedReach: parseInt(estimatedReach) };
         if (estimatedReach !== '' && !isNaN(params.estimatedReach)) {
-            JavaNetworkService.instance.updateEstimatedReach(campaignId, params).then((res) => {
-                enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
-                openCloseModal();
-                refreshCampData();
-            });
+            updateEstimatedReach(params);
         } else {
             setError(true);
         }
@@ -55,7 +51,7 @@ export default function EstimatedReachModal({ campaignId, openCloseModal, refres
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        <button onClick={updateEstimatedReach} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
+                        <button onClick={updateCustomEstimatedReach} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
                             <ReportIcon color='#fff' size={24} />
                             Update
                         </button>

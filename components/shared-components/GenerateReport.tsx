@@ -1,6 +1,5 @@
 'use client';
 
-import Dropdown from '@/components/global-components/Dropdown';
 import SheetNetworkService from '@/services/sheet.service';
 import dayjs from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
@@ -15,7 +14,7 @@ import { IColumn } from '@/interfaces/sheet';
 import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
-import { calculateStatus, clearFilters, setAnalytics, structureData } from '@/lib/utils';
+import { calculateStatus, clearFilters, structureData } from '@/lib/utils';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
@@ -234,7 +233,6 @@ export default function GenerateReport(props: GenerateReportProps) {
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
                 }
-                
             }, 30000);
             return () => clearInterval(interval);
         }
@@ -306,22 +304,12 @@ export default function GenerateReport(props: GenerateReportProps) {
                             </div>
                         )}
                         <div className='flex gap-3'>
-                            <Dropdown
-                                width={'w-32'}
-                                position='down'
-                                options={[
-                                    {
-                                        title: 'CSV',
-                                        action: downloadCsv,
-                                    },
-                                ]}
-                                header={
-                                    <div className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11'>
-                                        <DownloadIcon color='#fff' size={20} />
-                                        <span className='text-opacity-80'>Download all</span>
-                                    </div>
-                                }
-                            />
+                            <div
+                                onClick={downloadCsv}
+                                className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11'>
+                                <DownloadIcon color='#fff' size={20} />
+                                <span className='text-opacity-80'>Download CSV</span>
+                            </div>
                             <CSVLink
                                 ref={csvLink}
                                 target='_blank'

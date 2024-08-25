@@ -20,5 +20,5 @@ export interface ISummary {
     icon: JSX.Element;
     color: string;
     title: string;
-    basedOn: number | JSX.Element;
+    basedOn: number | any;
 }

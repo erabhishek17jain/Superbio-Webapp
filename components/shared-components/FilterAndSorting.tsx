@@ -30,6 +30,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     const sortBy = query.sortBy;
 
     const setOpenFilter = (open: boolean) => {
+        setIsFilter(open);
         document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
@@ -155,9 +156,9 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                                                 setCampFilters({ sortBy: query.sortBy, sortDirection: query.sortDirection === 'ASC' ? 'DESC' : 'ASC' })
                                             }>
                                             {query.sortDirection === 'ASC' ? (
-                                                <ArrowDownAZIcon color={'#000'} size={20} />
+                                                <ArrowDownAZIcon color={'#8b8b8b'} size={20} />
                                             ) : (
-                                                <ArrowDownZAIcon color={'#000'} size={20} />
+                                                <ArrowDownZAIcon color={'#8b8b8b'} size={20} />
                                             )}
                                         </span>
                                     </div>

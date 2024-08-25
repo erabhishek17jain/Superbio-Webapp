@@ -7,7 +7,7 @@ import FilterAndSorting from '../../../../../components/shared-components/Filter
 import Reporting from '../../../../../components/shared-components/Reporting';
 import { IColumnResponse } from '@/services/public.service';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, structureData } from '@/lib/utils';
+import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
@@ -90,7 +90,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 icon: SUMMARY_ICONS['estimatedReach'],
                 color: SUMMARY_COLORS['estimatedReach'],
                 title: 'Estimated Reach',
-                basedOn: <></>,
+                basedOn: campData?.meta.analytics.customEstimatedReach,
             };
             let result: (ISummary | null)[] = [];
             if (searchParams.isPublic) {
@@ -166,6 +166,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             url.searchParams.delete('value');
         }
         window.location.href = url.href;
+    };
+
+    const refreshCampaign = (query: any) => {
+        JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
+            campData.meta = {...campData.meta, ...setAnalytics(resp)}
+            setCampData({...campData});
+            setIsSheetLoading(false);
+        });
     };
 
     const initialLoadCampData = (query: any) => {
@@ -248,7 +256,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                                 filters={filters}
                                 isPublic={searchParams.isPublic ? searchParams.isPublic : false}
                                 campaign={campData?.meta.campaignDto}
-                                refreshCampData={() => initialLoadCampData(query)}
+                                refreshCampData={() => refreshCampaign(query)}
                             />
                             <Reporting
                                 query={{ ...query, ...filters }}

@@ -58,7 +58,7 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    public updateEstimatedReach = async (campaignId: string, params: { [key: string]: number | string }): Promise<ICampaign> => {
+    public updateEstimatedReach = async (campaignId: any, params: { [key: string]: number | string }): Promise<ICampaign> => {
         try {
             const res = await axios.post<ICampaign>(`/api/campaign/${campaignId}/custom-analytics`, params, {
                 headers: this.get_auth_header(),
