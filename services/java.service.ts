@@ -18,9 +18,18 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         super();
     }
 
+    // public getReportingData = async (campaignId: string, params: string): Promise<IReportingResponse> => {
+    //     try {
+    //         const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}${params}`);
+    //         return res.data;
+    //     } catch (err: any) {
+    //         throw err;
+    //     }
+    // };
+
     public getReportingData = async (campaignId: string, params: string): Promise<IReportingResponse> => {
         try {
-            const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}${params}`);
+            const res = await axios.get<IReportingResponse>(`${this.javaUrl}/reporting/${campaignId}${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
@@ -29,7 +38,7 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`/api/post/${campaignId}/posts/${params}`);
+            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/post/${campaignId}/posts/${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
@@ -38,7 +47,10 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getCampaignSummary = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`/api/campaign/${campaignId}/analytics/${params}`);
+            const res = await axios.get<IPostsResponse>(`/api/campaign/${campaignId}/analytics/${params}`, {
+                headers: this.get_auth_header(),
+                withCredentials: true,
+            });
             return res.data;
         } catch (err: any) {
             throw err;

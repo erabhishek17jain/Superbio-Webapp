@@ -165,7 +165,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <div className='flex gap-x-8 w-40'>
                                 <DynamicLogo />
                             </div>
-                            <div className='flex w-full justify-center -ml-20 font-bold text-lg pt-5'>LOQO Campaign Tracker</div>
+                            <div className='flex w-full justify-center -ml-20 font-bold text-lg'>LOQO Campaign Tracker</div>
                         </div>
                     )}
                     {!isNotCampType && searchText !== '' && isSearch && (
