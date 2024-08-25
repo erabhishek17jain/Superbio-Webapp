@@ -261,7 +261,7 @@ export default function CreateReporting() {
                             {sheetData.map((item: any, index: number) => (
                                 <div
                                     key={index}
-                                    className='flex flex-col gap-3 justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                    className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
                                             className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
@@ -309,7 +309,7 @@ export default function CreateReporting() {
                                 </div>
                             ))}
 
-                            <div className='flex flex-col mt-0 sm:mt-2 mb-12 sm:mb-2 items-center min-w-[210] w-full sm:w-1/2'>
+                            <div className='flex flex-col mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>

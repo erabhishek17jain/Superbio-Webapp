@@ -2,10 +2,78 @@
 import { useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
-import { ANALYTICS_FILTERS } from '@/constants';
+import { ANALYTICS_FILTERS, ANALYTICS_FILTERS_FROM_SHEETS } from '@/constants';
 import { SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { ArrowUpDownIcon } from '@/icons/ArrowUpDownIcon';
 
+const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filterValue }: any) => {
+    const radioEligible = ['platform'].includes(any_filter.key);
+    return (
+        <>
+            {' '}
+            <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
+                <div className='flex items-center'>
+                    {any_filter.name}{' '}
+                    {filters && filters[any_filter.key] && filters[any_filter.key].length > 0 && (
+                        <span className='w-2 h-2 ml-2 rounded-full bg-green-500'></span>
+                    )}
+                </div>
+            </AccordionHeader>
+            <AccordionBody className='py-2'>
+                <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
+                    <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                        <input
+                            type={radioEligible ? 'radio' : 'checkbox'}
+                            id={'all-phase'}
+                            value={'all'}
+                            className='h-[18px] w-[18px]'
+                            disabled={filterValue?.length === 0}
+                            checked={filterValue?.length === 0 || (filters && filters[any_filter.key]) ? filters[any_filter.key].length === 0 : true}
+                            onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, 'all')}
+                        />
+                        <label className='capitalize' htmlFor={'all-phase'}>
+                            All
+                        </label>
+                    </li>
+                    {filterValue?.map((item: any) =>
+                        typeof item === 'string' ? (
+                            <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                <input
+                                    type={radioEligible ? 'radio' : 'checkbox'}
+                                    id={item}
+                                    value={item}
+                                    className='h-[18px] w-[18px]'
+                                    checked={filters && filters[any_filter.key] ? filters[any_filter.key].includes(item) : false}
+                                    onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, item)}
+                                />
+                                <label className='capitalize' htmlFor={item}>
+                                    {item.includes('1970-01-01') ? 'Others' : item}
+                                </label>
+                            </li>
+                        ) : (
+                            item &&
+                            item.id && (
+                                <li key={item.id} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                    <input
+                                        type='checkbox'
+                                        id={item.id}
+                                        value={item.id}
+                                        className='h-[18px] w-[18px]'
+                                        checked={filters && filters[any_filter.key] ? filters[any_filter.key].includes(item.id) : false}
+                                        onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, item.id)}
+                                    />
+                                    <label className='capitalize' htmlFor={item.name}>
+                                        {item.name.includes('1970-01-01') ? 'Others' : item.name}
+                                    </label>
+                                </li>
+                            )
+                        )
+                    )}
+                </ul>
+            </AccordionBody>
+        </>
+    );
+};
 interface FilterUiProps {
     filters: any;
     setFilters: any;
@@ -60,77 +128,47 @@ export default function FilterUi(props: FilterUiProps) {
                 )}
                 {filtersOptions && (
                     <>
-                        {ANALYTICS_FILTERS.map((item, index) => {
-                            const key = item;
-                            const lastKey = `all${key.key.charAt(0).toUpperCase()}''${key.key.slice(1, key.key.length)}`;
+                        {ANALYTICS_FILTERS.map((any_filter, index) => {
+                            const lastKey = `all${any_filter.key.charAt(0).toUpperCase()}${any_filter.key.slice(1, any_filter.key.length)}`;
                             const filterValue =
-                                filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === key.key
+                                filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === any_filter.key
                                     ? filtersOptions[lastKey]
-                                    : filtersOptions[key.key];
-                            const radioEligible = ['platform'].includes(key.key);
+                                    : filtersOptions[any_filter.key];
                             return (
                                 <Accordion open={open === 5 + index} key={uuidv4()} icon={<ArrowUpDownIcon id={5 + index} key={5 + index} open={open} />}>
-                                    <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
-                                        <div className='flex items-center'>
-                                            {item.name}{' '}
-                                            {filters && filters[key.key] && filters[key.key].length > 0 && (
-                                                <span className='w-2 h-2 ml-2 rounded-full bg-green-500'></span>
-                                            )}
-                                        </div>
-                                    </AccordionHeader>
-                                    <AccordionBody className='py-2'>
-                                        <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
-                                            <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
-                                                <input
-                                                    type={radioEligible ? 'radio' : 'checkbox'}
-                                                    id={'all-phase'}
-                                                    value={'all'}
-                                                    className='h-[18px] w-[18px]'
-                                                    disabled={filterValue?.length === 0}
-                                                    checked={filterValue?.length === 0 || (filters && filters[key.key]) ? filters[key.key].length === 0 : true}
-                                                    onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, 'all')}
-                                                />
-                                                <label className='capitalize' htmlFor={'all-phase'}>
-                                                    All
-                                                </label>
-                                            </li>
-                                            {filterValue?.map((item) =>
-                                                typeof item === 'string' ? (
-                                                    <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
-                                                        <input
-                                                            type={radioEligible ? 'radio' : 'checkbox'}
-                                                            id={item}
-                                                            value={item}
-                                                            className='h-[18px] w-[18px]'
-                                                            checked={filters && filters[key.key] ? filters[key.key].includes(item) : false}
-                                                            onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item)}
-                                                        />
-                                                        <label className='capitalize' htmlFor={item}>
-                                                            {item.includes('1970-01-01') ? 'Others' : item}
-                                                        </label>
-                                                    </li>
-                                                ) : (
-                                                    item &&
-                                                    item.id && (
-                                                        <li key={item.id} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
-                                                            <input
-                                                                type='checkbox'
-                                                                id={item.id}
-                                                                value={item.id}
-                                                                className='h-[18px] w-[18px]'
-                                                                checked={filters && filters[key.key] ? filters[key.key].includes(item.id) : false}
-                                                                onChange={(e: any) => selectFilter(e?.currentTarget?.checked, key.key, item.id)}
-                                                            />
-                                                            <label className='capitalize' htmlFor={item.name}>
-                                                                {item.name.includes('1970-01-01') ? 'Others' : item.name}
-                                                            </label>
-                                                        </li>
-                                                    )
-                                                )
-                                            )}
-                                        </ul>
-                                    </AccordionBody>
+                                    <FilterList
+                                        any_filter={any_filter}
+                                        index={index}
+                                        handleOpen={handleOpen}
+                                        selectFilter={selectFilter}
+                                        filters={filters}
+                                        filterValue={filterValue}
+                                    />
                                 </Accordion>
+                            );
+                        })}
+                        {ANALYTICS_FILTERS_FROM_SHEETS.map((any_filter, index) => {
+                            const lastKey = `all${any_filter.key.charAt(0).toUpperCase()}${any_filter.key.slice(1, any_filter.key.length)}`;
+                            const filterValue =
+                                filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === any_filter.key
+                                    ? filtersOptions[lastKey]
+                                    : filtersOptions[any_filter.key];
+                            return (
+                                filterValue.length > 0 && (
+                                    <Accordion
+                                        open={open === 5 + index + 4}
+                                        key={uuidv4()}
+                                        icon={<ArrowUpDownIcon id={5 + index + 4} key={5 + index + 4} open={open} />}>
+                                        <FilterList
+                                            any_filter={any_filter}
+                                            index={index + 4}
+                                            handleOpen={handleOpen}
+                                            selectFilter={selectFilter}
+                                            filters={filters}
+                                            filterValue={filterValue}
+                                        />
+                                    </Accordion>
+                                )
                             );
                         })}
                     </>

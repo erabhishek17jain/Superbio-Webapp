@@ -2,7 +2,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
     const isDisabled = sheetInfo?.index <= selSheetData.length ? true : false;
     return (
         <>
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center">
                 <div className='w-full'>
                     <div className='flex mt-2 mb-3 gap-3'>
                         <input
@@ -33,7 +33,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                 {!(sheetInfo?.index <= selSheetData.length) && (
                     <button
                         onClick={() => fetchSheets(sheetInfo)}
-                        className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white ${sheetLoading && 'opacity-40'}`}>
+                        className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white my-2 ${sheetLoading && 'opacity-40'}`}>
                         {mode === 'add' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Sheets Info') : ''}
                     </button>
                 )}

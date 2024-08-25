@@ -16,7 +16,10 @@ export const ANALYTICS_FILTERS = [
     {
         name: 'Types',
         key: 'postType',
-    },
+    }
+];
+
+export const ANALYTICS_FILTERS_FROM_SHEETS = [
     {
         name: 'Phases',
         key: 'phase',
