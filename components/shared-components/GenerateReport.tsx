@@ -14,6 +14,8 @@ import { Params } from '@/interfaces/reporting';
 import { IColumn } from '@/interfaces/sheet';
 import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
+import JavaNetworkService from '@/services/java.service';
+import { calculateStatus, clearFilters, setAnalytics, structureData } from '@/lib/utils';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
@@ -24,10 +26,12 @@ interface GenerateReportProps {
     columns: IColumn[];
     params: Params;
     query: { [key: string]: any };
+    title: string;
+    setCampData: any;
 }
 
 export default function GenerateReport(props: GenerateReportProps) {
-    const { meta, isPublic, columns, params, query } = props;
+    const { meta, isPublic, columns, params, query, title, setCampData } = props;
     const { user } = useAppSelector((state) => state.user);
     const [valuesLoading] = useState(false);
     const [diffInMin, setDiffInMin] = useState(0);
@@ -55,14 +59,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         const minutes = currentAt.diff(dayjs(parseInt(queueDto.updatedAt?.$date?.$numberLong.toString())), 'minutes');
         setDiffInMin(minutes);
         setReportText('Generating...');
-        if (queueDto?.status.includes('processed')) {
-            const str = queueDto?.status;
-            const num: any = str.split(' ')[0].split('/');
-            const per = (num[0] * 100) / num[1];
-            setGenerateStatus(`${per.toFixed(0)}%`);
-        } else {
-            setGenerateStatus(queueDto?.status);
-        }
+        setGenerateStatus(calculateStatus(queueDto?.status, queueDto?.processed, queueDto?.totalPost));
     };
 
     useEffect(() => {
@@ -232,22 +229,20 @@ export default function GenerateReport(props: GenerateReportProps) {
     useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
-                const res = await SheetNetworkService.instance.getQueueData();
-                const resp = res.filter((item: any) => item?.campaign?.id?.$oid === params.campaignId);
-                if (resp?.length > 0) {
-                    if (resp[0]?.status.includes('processed')) {
-                        const str = resp[0]?.status;
-                        const num: any = str.split(' ')[0].split('/');
-                        const per = (num[0] * 100) / num[1];
-                        setGenerateStatus(`${per.toFixed(0)}%`);
-                    } else {
-                        setGenerateStatus(resp[0]?.status);
-                    }
+                const campData = await JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query));
+                setCampData(structureData(campData));
+                if (campData?.queueDto) {
+                    setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
                 }
-            }, 10000);
+                
+            }, 30000);
             return () => clearInterval(interval);
         }
     }, [reportText]);
+
+    if (reportText === 'Generate Report') {
+        delete meta?.postSummaryResp.otherPosts;
+    }
 
     return (
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[150px] xs:h-[108px] sm:h-[60px]'>
@@ -269,14 +264,14 @@ export default function GenerateReport(props: GenerateReportProps) {
                                       </div>
                                   );
                               })
-                        : 'LOQO Campaign Tracker'}
+                        : title}
                 </span>
             </div>
             {!valuesLoading && isSheetExist === 'yes' && meta && meta?.total > 0 && (
                 <div className='flex flex-col items-center gap-3 sm:flex-row'>
                     <div className='flex'>
                         {reportText === 'Generate Report' && isPublic && (
-                            <div className='flex items-center gap-2 font-semibold text-black sm:text-center md:text-left text-[12px] sm:text-[14px] mr-4'>
+                            <div className='flex items-center gap-2 border border-black px-2 rounded-lg font-semibold text-black sm:text-center md:text-left text-[12px] sm:text-[14px] mr-4'>
                                 <AreaChartIcon color='#000' size={20} />
                                 Report not generated yet
                             </div>
@@ -284,16 +279,16 @@ export default function GenerateReport(props: GenerateReportProps) {
                         {reportText === 'Generate Report' && !isPublic && (
                             <div
                                 onClick={() => refreshStats()}
-                                className='flex items-center gap-2 font-semibold text-black sm:text-center md:text-left text-sm mr-4 cursor-pointer'>
+                                className='flex items-center gap-2 border border-black px-2 rounded-lg font-semibold text-black sm:text-center md:text-left text-sm mr-4 cursor-pointer'>
                                 <AreaChartIcon color='#000' size={20} />
                                 Generate Report
                             </div>
                         )}
                         {reportText === 'Generating...' && (
                             <div
-                                className={`flex gap-3 ${gradients[gradInx]} from-[#8b8b8b] to-white items-center rounded-lg p-[2px] text-[#8b8b8b] text-sm mr-3 cursor-not-allowed`}>
-                                <button className='flex items-center px-3 gap-3 h-full rounded-lg bg-white text-[#8b8b8b] text-sm'>
-                                    <AreaChartIcon color='#8b8b8b' size={20} />
+                                className={`flex gap-3 ${gradients[gradInx]} from-[#000] to-white items-center rounded-lg p-[2px] text-[#8b8b8b] text-sm mr-3 cursor-not-allowed`}>
+                                <button className='flex items-center px-3 gap-3 h-full rounded-lg bg-white text-[#000] text-sm cursor-not-allowed'>
+                                    <AreaChartIcon color='#000' size={20} />
                                     Generating Report ({generateStatus !== '' ? generateStatus : 'This may take a few minutes'})
                                 </button>
                             </div>
@@ -347,7 +342,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}>
+                        onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}?title=${title}`)}>
                         Add Links
                         <PlusCircleIcon color='#ffe3e2' size={24} />
                     </button>

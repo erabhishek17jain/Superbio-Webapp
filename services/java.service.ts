@@ -18,37 +18,27 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         super();
     }
 
-    private covertAPICampaignToCampaign = (campaign: any): ICampaign => {
-        return {
-            id: campaign._id.$oid,
-            title: campaign.title,
-            description: campaign.description,
-            brand: campaign.brand,
-            keywords: campaign.keywords,
-            priority: campaign.priority,
-            startDate: new Date(campaign.startDate).toDateString(),
-            endDate: campaign.endDate ? new Date(campaign.endDate).toDateString() : new Date().toDateString(),
-            status: campaign.status,
-            groups: campaign.groups,
-            source: campaign.source,
-            updatedAt: new Date(campaign.updatedAt.$date.$numberLong),
-            createdAt: new Date(campaign.createdAt.$date.$numberLong),
-            sharedUsers: campaign.sharedUsers,
-            user: {
-                id: campaign.user?._id.$oid,
-                name: campaign.user?.name,
-                email: campaign.user?.email,
-            },
-        };
+    public getReportingData = async (campaignId: string, params: string): Promise<IReportingResponse> => {
+        try {
+            const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}${params}`);
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
     };
 
-    public getPostsData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IPostsResponse> => {
+    public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`/api/post/${campaignId}/posts`, {
-                headers: this.get_auth_header(),
-                withCredentials: true,
-                params,
-            });
+            const res = await axios.get<IPostsResponse>(`/api/post/${campaignId}/posts/${params}`);
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public getCampaignSummary = async (campaignId: string, params: string): Promise<IPostsResponse> => {
+        try {
+            const res = await axios.get<IPostsResponse>(`/api/campaign/${campaignId}/analytics/${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
@@ -64,19 +54,6 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             return res;
         } catch (err: any) {
             enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
-            throw err;
-        }
-    };
-
-    public getReportingData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IReportingResponse> => {
-        try {
-            const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}`, {
-                headers: this.get_auth_header(),
-                withCredentials: true,
-                params,
-            });
-            return res.data;
-        } catch (err: any) {
             throw err;
         }
     };

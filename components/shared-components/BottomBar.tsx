@@ -3,7 +3,8 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { usePathname, useRouter } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { setCampaignType } from '@/context/user';
-import { HouseIcon, LogOutIcon, LogsIcon, UserRoundCogIcon, UsersIcon } from 'lucide-react';
+import { HouseIcon, LogsIcon, UserRoundCogIcon, UsersIcon } from 'lucide-react';
+import LogoutIcon from '@/icons/LogoutIcon';
 
 export default function BottomBar() {
     const router = useRouter();
@@ -47,7 +48,7 @@ export default function BottomBar() {
                     router.push('/login');
                 }}
                 className='text-[#8b8b8b] group-hover:text-black text-xs'>
-                <LogOutIcon color={'#8b8b8b'} size={32} />
+                <LogoutIcon color={'#8b8b8b'} size={32} />
             </span>
         </ul>
     );

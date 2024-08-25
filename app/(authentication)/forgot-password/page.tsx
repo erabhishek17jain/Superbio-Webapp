@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/context";
 import { setUser } from "@/context/user";
 import UserNetworkService from "@/services/user.service";
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React, { ChangeEvent } from "react";
@@ -46,8 +46,8 @@ export default function ForgetPassword() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={forgetPassword}
-                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
-                  Send recovery mail <ArrowUpRightIcon color='#fff' size={20} />
+                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-4 border bg-black rounded-lg'>
+                  Send recovery mail <ArrowRightIcon color='#fff' size={20} />
               </button>
           </div>
       </div>

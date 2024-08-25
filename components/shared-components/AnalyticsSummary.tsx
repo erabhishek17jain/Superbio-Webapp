@@ -8,13 +8,14 @@ import { FilePenLineIcon } from 'lucide-react';
 
 interface AnalyticsSummaryProps {
     filters: any;
+    isPublic: boolean;
     summary: ISummary[];
     campaign: ICampaign;
     refreshCampData: any;
 }
 
 export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
-    const { filters, summary, campaign, refreshCampData } = props;
+    const { filters, summary, campaign, refreshCampData, isPublic } = props;
     const [showEstimatedModal, setshowEstimatedModal] = useState(false);
 
     const openCloseEstimatedModal = () => {
@@ -50,11 +51,11 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                 </div>
                                 <div className='flex h-9 items-end justify-between w-full'>
                                     <p className='text-xs text-black-500'>
-                                        {item.title === 'Estimated Reach' || item.title === 'Posts'
+                                        {item.title === 'Estimated Reach' || item.title === 'Total Posts'
                                             ? item.title
                                             : `Only ${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
                                     </p>
-                                    {item.title === 'Estimated Reach' && (
+                                    {item.title === 'Estimated Reach' && !isPublic && (
                                         <div className='cursor-pointer' onClick={openCloseEstimatedModal}>
                                             <FilePenLineIcon color='#8b8b8b' size={24} />
                                         </div>

@@ -43,13 +43,14 @@ export default function Home() {
     };
 
     const fetchCampaigns = () => {
-        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'own', q: searchText }));
-        dispatch(getCampaigns({ page: 1, limit: 4, status: status, ownerType: 'shared', q: searchText }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText }));
     };
 
     useEffect(() => {
-        fetchCampaigns();
+        if (campaignType !== '') {
+            fetchCampaigns();
+        }
     }, [searchText]);
 
     useEffect(() => {

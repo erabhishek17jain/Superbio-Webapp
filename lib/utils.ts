@@ -25,6 +25,39 @@ export const logout = () => {
     deleteCookie('user');
 };
 
+export const calculateStatus = (status: string, processed: number, totalPost: number) => {
+    if (processed) {
+        const per = (processed * 100) / totalPost;
+        return `${per.toFixed(0)}%`;
+    } else {
+        return status;
+    }
+};
+
+export const setAnalytics = (campaignAnalyticsResp: any) => {
+    const analytics = {
+        likes: campaignAnalyticsResp.likes,
+        comments: campaignAnalyticsResp.comments,
+        views: campaignAnalyticsResp.views,
+        reposts: campaignAnalyticsResp.reposts,
+        quotes: campaignAnalyticsResp.quotes,
+        bookmarks: campaignAnalyticsResp.bookmarks,
+        estimatedReach: campaignAnalyticsResp.estimatedReach,
+        customEstimatedReach: campaignAnalyticsResp.customEstimatedReach,
+    };
+    const basedOnPosts = {
+        likes: campaignAnalyticsResp.basedOnPostCountDto.likePosts,
+        comments: campaignAnalyticsResp.basedOnPostCountDto.commentPosts,
+        views: campaignAnalyticsResp.basedOnPostCountDto.viewPosts,
+        reposts: campaignAnalyticsResp.basedOnPostCountDto.repostPosts,
+        quotes: campaignAnalyticsResp.basedOnPostCountDto.quotePosts,
+        bookmarks: campaignAnalyticsResp.basedOnPostCountDto.bookmarkPosts,
+        estimatedReach: campaignAnalyticsResp.basedOnPostCountDto.estimatedReachPosts,
+        customEstimatedReach: campaignAnalyticsResp.basedOnPostCountDto.customEstimatedReachPosts,
+    };
+    return { analytics: analytics, basedOnPosts: basedOnPosts };
+};
+
 export const structureData = (data: IReportingResponse) => {
     let sheets = data.filterValueResp.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
     sheets = sheets.map((item: any) => {
@@ -33,29 +66,10 @@ export const structureData = (data: IReportingResponse) => {
     return {
         data: data.postDtoPaginatedResponse.items,
         meta: {
-            page: data.postDtoPaginatedResponse.currentPage,
+            ...setAnalytics(data.campaignAnalyticsResp),
             limit: 6,
+            page: data.postDtoPaginatedResponse.currentPage,
             total: data.postDtoPaginatedResponse.totalItems,
-            analytics: {
-                likes: data.campaignAnalyticsResp.likes,
-                comments: data.campaignAnalyticsResp.comments,
-                views: data.campaignAnalyticsResp.views,
-                reposts: data.campaignAnalyticsResp.reposts,
-                quotes: data.campaignAnalyticsResp.quotes,
-                bookmarks: data.campaignAnalyticsResp.bookmarks,
-                estimatedReach: data.campaignAnalyticsResp.estimatedReach,
-                customEstimatedReach: data.campaignAnalyticsResp.customEstimatedReach,
-            },
-            basedOnPosts: {
-                likes: data.campaignAnalyticsResp.basedOnPostCountDto.likePosts,
-                comments: data.campaignAnalyticsResp.basedOnPostCountDto.commentPosts,
-                views: data.campaignAnalyticsResp.basedOnPostCountDto.viewPosts,
-                reposts: data.campaignAnalyticsResp.basedOnPostCountDto.repostPosts,
-                quotes: data.campaignAnalyticsResp.basedOnPostCountDto.quotePosts,
-                bookmarks: data.campaignAnalyticsResp.basedOnPostCountDto.bookmarkPosts,
-                estimatedReach: data.campaignAnalyticsResp.basedOnPostCountDto.estimatedReachPosts,
-                customEstimatedReach: data.campaignAnalyticsResp.basedOnPostCountDto.customEstimatedReachPosts,
-            },
             queueDto: data.queueDto,
             campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
@@ -88,16 +102,19 @@ export const calculateSummary = (count: number) => {
 };
 
 export const clearFilters = (params: any) => {
+    let query = '';
     delete params.filterKeys;
     delete params.filterValues;
     for (const key in params) {
         if (Array.isArray(params[key])) {
             if (params[key].length > 0) {
-                params[key] = params[key][0];
-            } else {
-                delete params[key];
+                for (let i = 0; i < params[key].length; i++) {
+                    query = query + `&${key}=${params[key][i]}`;
+                }
             }
+        } else {
+            query = query + `&${key}=${params[key]}`;
         }
     }
-    return params;
+    return query.replace('&', '?');
 };

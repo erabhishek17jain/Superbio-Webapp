@@ -5,7 +5,6 @@ import FilterUi from '../../../../../components/shared-components/FilterUi';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
 import Reporting from '../../../../../components/shared-components/Reporting';
-import { useAppSelector } from '@/context';
 import { IColumnResponse } from '@/services/public.service';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, structureData } from '@/lib/utils';
@@ -36,7 +35,8 @@ const SUMMARY_COLORS: { [key: string]: string } = {
 export default function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const router = useRouter();
     const sParams = useSearchParams();
-    const { campaignType } = useAppSelector((state) => state.user);
+    const searchParam: any = useSearchParams();
+    const title = searchParam.get('title');
     const [campData, setCampData] = useState<IColumnResponse>({ data: [], meta: {} as any });
     const [summary, setSummary] = useState<any>(null);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
@@ -73,27 +73,20 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const calculateAnalytics = (campData: any) => {
         const isTwitter = campData?.meta.filterValueResp?.platform.includes('twitter');
         if (campData?.meta.analytics) {
-            let keys: string[] =
-                campaignType === 'influncer'
-                    ? ['Estimated Reach', 'followers', 'medias', 'views', 'engagements', 'frequency', 'following']
-                    : ['Estimated Reach', 'views', 'likes', 'comments'];
+            let keys: string[] = ['Estimated Reach', 'views', 'likes', 'comments'];
             if (searchParams.isPublic) {
                 keys = ['Posts', 'Estimated Reach'];
             } else {
                 if (isTwitter) {
-                    keys =
-                        campaignType === 'influncer'
-                            ? ['Estimated Reach', 'followers', 'medias', 'views', 'engagements', 'frequency', 'following']
-                            : ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
+                    keys = ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
                 }
             }
-            const estimateFollowers = Number(campData?.meta.analytics.views) + Number(campData?.meta.analytics.estimatedReach) * 10;
             const estimatedReach = campData?.meta.analytics.customEstimatedReach
                 ? campData?.meta.analytics.customEstimatedReach
                 : campData?.meta.analytics.estimatedReach;
             const extimateReach = {
-                totCount: campaignType === 'influncer' ? estimateFollowers : estimatedReach,
-                count: calculateSummary(campaignType === 'influncer' ? estimateFollowers : estimatedReach),
+                totCount: estimatedReach,
+                count: calculateSummary(estimatedReach),
                 icon: SUMMARY_ICONS['estimatedReach'],
                 color: SUMMARY_COLORS['estimatedReach'],
                 title: 'Estimated Reach',
@@ -107,11 +100,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                     icon: SUMMARY_ICONS['Posts'],
                     color: SUMMARY_COLORS['Posts'],
                     title: 'Total Posts',
-                    basedOn: (
-                        <>
-                            <span>{campData?.meta?.total}</span>/<span className='text-sm'>{campData?.meta.total}</span>
-                        </>
-                    ),
+                    basedOn: <></>,
                 });
             } else {
                 result = keys.map((key) => {
@@ -181,13 +170,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const initialLoadCampData = (query: any) => {
         JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            if (campaignType === 'influncer') {
-                const data: any = { data: [], meta: {} };
-                setCampData({ data: data.data, meta: data.meta });
-            } else {
-                const data = structureData(resp);
-                setCampData(data);
-            }
+            const data = structureData(resp);
+            setCampData(data);
             setIsSheetLoading(false);
         });
     };
@@ -232,7 +216,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         <NewCampaign
                             buttonText={'Add links'}
                             title={'Add links for reporting'}
-                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
+                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}?title=${title}`)}
                             description={
                                 'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                             }
@@ -242,9 +226,11 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         <GenerateReport
                             meta={campData?.meta}
                             query={query}
+                            params={params}
+                            title={title}
                             isPublic={searchParams.isPublic ? true : false}
                             columns={campData?.data}
-                            params={params}
+                            setCampData={setCampData}
                         />
                     )}
                     {campData?.data && campData?.data.length > 0 && (
@@ -252,7 +238,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                             <FilterAndSorting
                                 meta={campData?.meta}
                                 shouldShowSort={true}
-                                query={query}
+                                query={{ ...query, ...filters }}
                                 filters={filters}
                                 selectFilter={selectFilter}
                                 filtersOptions={campData?.meta.filterValueResp}
@@ -260,11 +246,12 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                             <AnalyticsSummary
                                 summary={summary}
                                 filters={filters}
+                                isPublic={searchParams.isPublic ? searchParams.isPublic : false}
                                 campaign={campData?.meta.campaignDto}
                                 refreshCampData={() => initialLoadCampData(query)}
                             />
                             <Reporting
-                                query={query}
+                                query={{ ...query, ...filters }}
                                 meta={campData?.meta}
                                 campaignId={params.campaignId}
                                 initialColumns={campData?.data}

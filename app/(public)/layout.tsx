@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <DynamicLogo />
                 </div>
             </div>
-            <div className='flex flex-col px-5 py-3'>{children}</div>
+            <div className='flex flex-col px-4 py-3'>{children}</div>
         </div>
     );
 }

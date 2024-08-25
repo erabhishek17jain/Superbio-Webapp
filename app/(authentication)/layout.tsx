@@ -15,7 +15,7 @@ import login6 from '@/public/login/login6.png';
 import login7 from '@/public/login/login7.png';
 import login8 from '@/public/login/login8.png';
 import Image from 'next/image';
-import { ArrowUpRightIcon } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import GoogleColorIcon from '@/icons/GoogleColorIcon';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -97,8 +97,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     </Link>
                     <div className='flex items-center gap-4 justify-center'>
                         {buttonText !== '' && (
-                            <Link href={buttonLink} className='flex gap-2 capitalize items-center text-sm p-2 px-5 border border-black rounded-lg'>
-                                {buttonText} <ArrowUpRightIcon color='#fff' size={20} />
+                            <Link href={buttonLink} className='flex gap-2 capitalize items-center text-sm p-2 px-4 border border-black rounded-lg'>
+                                {buttonText} <ArrowRightIcon color='#000' size={20} />
                             </Link>
                         )}
                     </div>
@@ -108,19 +108,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         initial={{ opacity: 0, x: '-100%' }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '-100%' }}
                         transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-                        className={`hidden sm:flex items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
-                        <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
-                            <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6 hover:rotate-[-2deg]' />
-                            <Image src={login8} alt='ct9' className='max-w-[300px] hover:rotate-[-2deg]' />
-                            <Image src={login3} alt='ct2' className='max-w-[320px] -mt-8 mb-4 z-5 hover:rotate-[-2deg]' />
+                        className={`hidden sm:flex flex-col items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
+                        <div className='flex flex-col w-full items-center'>
+                            <div className='flex w-full justify-center -ml-20 font-bold text-lg'>LOQO Campaign Tracker</div>
+                            <div className='flex w-full justify-center -ml-20 font-light text-base'>Post Links Analysis and Sharable Dashboards</div>
                         </div>
-                        <div className='w-1/2 flex flex-col items-end my-auto'>
-                            <Image src={login6} alt='ct8' className='w-full max-w-[340px] mt-4 -mb-16 hover:rotate-[-2deg]' />
-                            <Image src={login4} alt='ct8' className='max-w-[340px] hover:rotate-[-2deg]' />
-                            <div className='bg-[#dfd8f5] p-1 rounded-2xl mr-5 max-w-[330px] w-[calc_-_20px] hover:rotate-[-2deg]'>
-                                <Image src={login2} alt='ct10' className='max-w-[322px] rounded-2xl' />
+                        <div className='flex w-full'>
+                            <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
+                                <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6 hover:rotate-[-2deg]' />
+                                <Image src={login8} alt='ct9' className='max-w-[300px] hover:rotate-[-2deg]' />
+                                <Image src={login3} alt='ct2' className='max-w-[320px] -mt-12 mb-4 z-5 hover:rotate-[-2deg]' />
                             </div>
-                            <Image src={login5} alt='ct10' className='max-w-[340px] mt-3 hover:rotate-[-2deg]' />
+                            <div className='w-1/2 flex flex-col items-end my-auto'>
+                                <Image src={login6} alt='ct8' className='w-full max-w-[340px] mt-4 -mb-16 hover:rotate-[-2deg]' />
+                                <Image src={login4} alt='ct8' className='max-w-[340px] hover:rotate-[-2deg] -mt-3' />
+                                <div className='bg-[#dfd8f5] p-1 rounded-2xl mr-5 max-w-[330px] w-[calc_-_20px] hover:rotate-[-2deg] -mt-5'>
+                                    <Image src={login2} alt='ct10' className='max-w-[322px] rounded-2xl' />
+                                </div>
+                                <Image src={login5} alt='ct10' className='max-w-[340px] mt-3 hover:rotate-[-2deg]' />
+                            </div>
                         </div>
                     </motion.div>
                     <motion.div

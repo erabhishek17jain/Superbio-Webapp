@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     </div>
                                 }>
                                 <SnackbarProvider>{children}</SnackbarProvider>
-                            </Suspense>{' '}
+                            </Suspense>
                         </body>
                     </GoogleOAuthProvider>
                 </ApplicationProvider>

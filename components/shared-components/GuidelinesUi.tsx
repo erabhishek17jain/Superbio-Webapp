@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import guidelinesImg from '@/public/dashboard/guidelines4.svg';
 import { XIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export default function GuidelinesUi({ openCloseModal }: any) {
     return (
@@ -14,7 +15,9 @@ export default function GuidelinesUi({ openCloseModal }: any) {
                     <span className='flex gap-2 items-center'>Google Sheets Guidelines</span>
                 </p>
                 <div className='flex flex-col'>
-                    <Image src={guidelinesImg} width={400} height={200} alt='Guidelines' className='w-full' />
+                    <Link target='_blank' href='https://docs.google.com/spreadsheets/d/1nCkfK33g8cB0rJoGINAueDC1Go4AZh715DPYTb7ZkCo'>
+                        <Image src={guidelinesImg} width={400} height={200} alt='Guidelines' className='w-full' />
+                    </Link>
                     <span className='test-base mt-5 font-semibold'>Google Sheet Format for Campaign Tracking</span>
                     <ul className='flex flex-col gap-2 text-sm mt-4 mx-4 list-disc'>
                         <li>

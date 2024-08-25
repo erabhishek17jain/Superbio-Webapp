@@ -11,6 +11,7 @@ export interface SearchParams {
 export interface Params {
     campaignType: string;
     campaignId: string;
+    title: string;
 }
 
 export interface ISummary {

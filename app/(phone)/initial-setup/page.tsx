@@ -1,7 +1,7 @@
 "use client";
 import { Orgs } from "@/interfaces/user";
 import UserNetworkService from "@/services/user.service";
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -84,8 +84,8 @@ export default function InitialSetup() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={submit}
-                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-5 border bg-black rounded-lg'>
-                  Getting Started <ArrowUpRightIcon color='#fff' size={20} />
+                  className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-4 border bg-black rounded-lg'>
+                  Getting Started <ArrowRightIcon color='#fff' size={20} />
               </button>
           </div>
       </div>

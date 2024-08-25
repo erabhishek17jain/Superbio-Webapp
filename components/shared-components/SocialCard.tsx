@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import UpdateAnalyticsModal from '../modals/UpdateAnalyticsModal';
 import { PlusCircleIcon, SquareArrowOutDownRightIcon, SquareArrowOutUpRightIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import { calculateSummary } from '@/lib/utils';
 
 export function fileToBase64(file: any) {
     return new Promise((resolve, reject) => {
@@ -23,19 +24,6 @@ export function fileToBase64(file: any) {
         };
     });
 }
-
-export const calculateSummary = (count: number) => {
-    let calSum = 0 as any;
-    if (count !== undefined && count !== null && !isNaN(count)) {
-        calSum = (count / 1000000).toFixed(1) + 'M';
-        if (count > 1000 && count < 1000000) {
-            calSum = (count / 1000).toFixed(1) + 'K';
-        } else if (count < 1000) {
-            calSum = count;
-        }
-    }
-    return calSum;
-};
 
 interface TweetProps {
     tweetID: string;
@@ -76,7 +64,7 @@ export default function SocialCard({
     columns: any;
     setColumns: any;
 }) {
-    const postedAt = item?.postedAt?.$date?.$numberLong;
+    const postedAt = item?.postedAt;
     const link = item.socialLink;
     const postType = item.postType;
     const privateUrls = item?.privateUrls;
@@ -152,7 +140,7 @@ export default function SocialCard({
         }
     }
 
-    const posted = new Date(parseInt(postedAt));
+    const posted = new Date(postedAt);
     return (
         <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>

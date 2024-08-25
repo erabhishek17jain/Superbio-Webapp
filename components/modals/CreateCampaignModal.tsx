@@ -75,19 +75,16 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
             setIsError(true);
         }
         if (!error) {
-            if (campaignType === 'influncer') {
-                campaignDetail.status = campaignDetail.status + '_p';
-            }
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${res.status}/create/${res.id}?title=${res.title}`);
                     openCloseModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${res.status}/create/${res.id}?title=${res.title}`);
                     openCloseModal();
                 });
             }
@@ -173,7 +170,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                         <div className='flex flex-col flex-1 pr-0 sm:pr-5 mt-6 sm:mt-0'>
                             <div className='flex flex-col '>
                                 <label htmlFor='' className='text-sm'>
-                                    Add Keywords (Important points to mention)
+                                    Add Keywords <span className='text-xs'>(Important tags to group campaigns)</span>
                                 </label>
                                 <input
                                     type='text'
@@ -204,7 +201,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                                                 campaignDetail?.priority === index
                                                     ? 'bg-black text-white text-opacity-100'
                                                     : 'bg-[#F7F7F7] text-opacity-30 text-black'
-                                            } px-5 rounded-xl mr-2 p-2 font-semibold`}
+                                            } px-4 rounded-xl mr-2 p-2 font-semibold`}
                                             key={item}
                                             onClick={() => setPriority(index)}>
                                             <span>{item}</span>

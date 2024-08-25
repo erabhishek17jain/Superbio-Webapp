@@ -17,16 +17,16 @@ import { ArrowRightIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } fr
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const searchParams = usePathname();
+    const paths = usePathname();
     const params: any = useParams();
-    const urlComponents = searchParams.split('/');
+    const urlComponents = paths.split('/');
     const { enqueueSnackbar } = useSnackbar();
-    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
     const searchParam: any = useSearchParams();
+    const title = searchParam.get('title');
     const isPublic = searchParam.get('isPublic') === 'true';
 
     const copyShareLink = (url: string) => {
@@ -38,15 +38,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const resetSearch = () => {
         setIsSearch(false);
         setSearchText('');
-        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: 1, limit: 12, status: status, ownerType: ownerType, q: '' }));
+        dispatch(getCampaigns({ page: 1, limit: 12, status: CampaignStatus.active, ownerType: ownerType, q: '' }));
     };
 
     const searhFilter = () => {
         if (searchText !== '') {
             setIsSearch(true);
-            const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-            dispatch(getCampaigns({ page: 1, limit: 12, status: status, ownerType: ownerType, q: searchText }));
+            dispatch(getCampaigns({ page: 1, limit: 12, status: CampaignStatus.active, ownerType: ownerType, q: searchText }));
         } else if (searchText === '') {
             resetSearch();
         }
@@ -60,8 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
+        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
         dispatch(
             setMeta({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,
@@ -78,7 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const isNotCampType = searchParams.indexOf('create') > -1 || searchParams.indexOf('campaign') > -1;
+    const isNotCampType = paths.indexOf('create') > -1 || paths.indexOf('campaign') > -1;
 
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
@@ -115,7 +112,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         }
                                                     }}
                                                     className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
-                                                    <span className='capitalize'>{component.replaceAll('-', ' ')}</span>
+                                                    <span className='capitalize'>{isNotCampType && active ? component.replaceAll('-', ' ') : title}</span>
                                                     {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
                                                 </div>
                                             );
@@ -145,10 +142,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <XIcon color='#8b8b8b' size={24} />
                                         </div>
                                     )}
-                                    {searchParams.indexOf('campaign') > -1 && (
+                                    {paths.indexOf('campaign') > -1 && (
                                         <div className='flex'>
                                             <button
-                                                onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
+                                                onClick={() =>
+                                                    copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true&title=${title}`)
+                                                }
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
                                                 <CopyIcon color='#ffffff' size={20} />
                                                 Copy Public Dashboard Link
@@ -162,10 +161,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
                     {isNotCampType && isPublic && (
-                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-4 text-black sm:px-6 md:px-8 lg:px-8 xl:px-8'>
+                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-4 text-black sm:px-6'>
                             <div className='flex gap-x-8 w-40'>
-                                <Image src={logo} alt='logo' className='w-28' />
+                                <DynamicLogo />
                             </div>
+                            <div className='flex w-full justify-center -ml-20 font-bold text-lg pt-5'>LOQO Campaign Tracker</div>
                         </div>
                     )}
                     {!isNotCampType && searchText !== '' && isSearch && (

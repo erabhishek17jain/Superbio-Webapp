@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { setCampaignType } from '@/context/user';
 import { logout } from '@/lib/utils';
-import { LayoutPanelLeftIcon, LogOutIcon, LogsIcon, UserCogIcon, UsersIcon } from 'lucide-react';
+import { LayoutPanelLeftIcon, LogsIcon, UserCogIcon, UsersIcon } from 'lucide-react';
 import ContactIcon from '../../icons/ContactIcon';
+import LogoutIcon from '@/icons/LogoutIcon';
 
 export default function SideBar() {
     const router = useRouter();
@@ -43,7 +44,7 @@ export default function SideBar() {
                         router.push('/login');
                     }}
                     className='text-[#8b8b8b] group-hover:text-black text-xs'>
-                    <LogOutIcon size={32} color={path === '/contacts' ? '#000000' : '#8b8b8b'} />
+                    <LogoutIcon size={32} color={path === '/logout' ? '#000000' : '#8b8b8b'} />
                 </span>
             </div>
         </div>

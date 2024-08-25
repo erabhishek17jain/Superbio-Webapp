@@ -24,8 +24,7 @@ export default function AllCampaignPage() {
 
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        const status = campaignType === 'influncer' ? CampaignStatus.active_p : CampaignStatus.active;
-        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: status, ownerType: ownedType, q: '' }));
+        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
         dispatch(
             setMeta({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,

@@ -1,10 +1,8 @@
 'use client';
 import Dropdown from '@/components/global-components/Dropdown';
-import { useSearchParams } from 'next/navigation';
-import { useAppSelector } from '@/context';
 import {
-    ArrowDown01Icon,
-    ArrowDown10Icon,
+    ArrowDownAZIcon,
+    ArrowDownZAIcon,
     ArrowUpDownIcon,
     CalendarCheck2Icon,
     EyeIcon,
@@ -15,6 +13,7 @@ import {
 } from 'lucide-react';
 import TwitterIcon from '../../icons/TwitterIcon';
 import InstagramIcon from '../../icons/InstagramIcon';
+import { useEffect, useState } from 'react';
 
 interface FilterAndSortingProps {
     meta: any;
@@ -27,11 +26,8 @@ interface FilterAndSortingProps {
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
     const { meta, shouldShowSort, query, filters, selectFilter, filtersOptions } = props;
-    const searchParams = useSearchParams();
-    const { campaignType } = useAppSelector((state) => state.user);
-    const openFilter = searchParams.get('openFilter') && searchParams.get('openFilter') === 'true';
+    const [isFilter, setIsFilter] = useState(false);
     const sortBy = query.sortBy;
-    const sortDirection = query.sortDirection;
 
     const setOpenFilter = (open: boolean) => {
         document.getElementById('filterPanel')?.classList.toggle('hidden');
@@ -48,15 +44,23 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         selectFilter(true, 'platform', platform);
     };
 
-    const sortLikeOptions = [
+    useEffect(() => {
+        if (filters) {
+            const index = Object.keys(filters)?.filter((item: any) => filters[item].length > 0);
+            if (index.length > 0) {
+                setIsFilter(true);
+                document.getElementById('filterPanel')?.classList.toggle('hidden');
+            }
+        }
+    }, []);
+
+    const sortByOptions = [
         {
-            id: campaignType === 'influncer' ? 'followers' : 'likes',
-            title: campaignType === 'influncer' ? 'Followers' : 'Likes',
-            action: () => setCampFilters({ sortBy: campaignType === 'influncer' ? 'followers' : 'likes', sortDirection: query.sortDirection }),
+            id: 'likes',
+            title: 'Likes',
+            action: () => setCampFilters({ sortBy: 'likes', sortDirection: query.sortDirection }),
             icon: <HeartIcon color={'#8b8b8b'} size={20} />,
         },
-    ];
-    const sortTimeOptions = [
         {
             id: 'views',
             title: 'Views',
@@ -77,7 +81,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         },
     ];
 
-    const sorted = [...sortLikeOptions, ...sortTimeOptions].find((item) => item.id === sortBy);
+    const sorted = sortByOptions.find((item) => item.id === sortBy);
 
     return (
         <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
@@ -121,9 +125,9 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                         <span className='flex items-center justify-end text-sm gap-2 h-12'>
                             <span
-                                className={`flex items-center gap-2 text-base font-semibold cursor-pointer ${openFilter ? 'text-black' : 'text-[#8b8b8b]'}`}
-                                onClick={() => setOpenFilter(!openFilter)}>
-                                <SlidersHorizontalIcon color={openFilter ? '#000' : '#8b8b8b'} size={20} />
+                                className={`flex items-center gap-2 text-base font-semibold cursor-pointer ${isFilter ? 'text-black' : 'text-[#8b8b8b]'}`}
+                                onClick={() => setOpenFilter(!isFilter)}>
+                                <SlidersHorizontalIcon color={isFilter ? '#000' : '#8b8b8b'} size={20} />
                                 Filter by
                             </span>
                         </span>
@@ -133,7 +137,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                             <Dropdown
                                 width={'w-40'}
                                 position='down'
-                                options={campaignType === 'influncer' ? sortLikeOptions : [...sortLikeOptions, ...sortTimeOptions]}
+                                options={sortByOptions}
                                 header={
                                     <div className='flex h-12 w-auto items-center justify-center gap-2 rounded-lg cursor-pointer text-sm text-[#9A9AB0] font-semibold'>
                                         <ArrowUpDownIcon color={'#8b8b8b'} size={20} />
@@ -145,14 +149,15 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                                             <span>{sorted?.title}</span>
                                         </span>
                                         <span
+                                            title={query.sortDirection === 'ASC' ? 'Sort Ascending' : 'Sort Descending'}
                                             className='flex items-center gap-2 w-auto min-w-120 bg-[#e6e6e6] text-[#000] rounded-md py-1 px-3 h-9'
                                             onClick={() =>
                                                 setCampFilters({ sortBy: query.sortBy, sortDirection: query.sortDirection === 'ASC' ? 'DESC' : 'ASC' })
                                             }>
                                             {query.sortDirection === 'ASC' ? (
-                                                <ArrowDown01Icon color={'#000'} size={20} />
+                                                <ArrowDownAZIcon color={'#000'} size={20} />
                                             ) : (
-                                                <ArrowDown10Icon color={'#000'} size={20} />
+                                                <ArrowDownZAIcon color={'#000'} size={20} />
                                             )}
                                         </span>
                                     </div>

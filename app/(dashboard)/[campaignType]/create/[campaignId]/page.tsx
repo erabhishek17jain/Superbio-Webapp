@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import SheetNetworkService from '@/services/sheet.service';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
@@ -29,6 +29,8 @@ export default function CreateReporting() {
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isError, setIsError] = useState(false);
+    const searchParam: any = useSearchParams();
+    const title = searchParam.get('title');
 
     const openCloseConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
@@ -61,7 +63,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+            router.push(`/${params?.campaignType}/campaign/${params.campaignId}?title=${title}`);
         }
     };
 
@@ -115,7 +117,7 @@ export default function CreateReporting() {
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}?title=${title}`);
                 });
         }
     };
@@ -245,6 +247,12 @@ export default function CreateReporting() {
                             <AlertOctagonIcon color='#0B1571' size={14} />
                             <span className='text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
+                        {viewGuidelines && (
+                            <button onClick={addSheet} className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
+                                <PlusCircleIcon color='#000' size={24} />
+                                <span className='flex'>Add New Sheet</span>
+                            </button>
+                        )}
                     </div>
                 </div>
                 {!isSheetLoading ? (

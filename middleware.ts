@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (req.nextUrl.pathname.includes('campaign-reporting')) {
+    if (req.nextUrl.pathname.includes('campaign')) {
         if (!user) {
             let url = new URL(req.nextUrl.href);
             if (url.searchParams.has('isPublic')) {
@@ -32,8 +32,8 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (req.nextUrl.pathname.includes('blogs/')) {
-        authRoutes.push(req.nextUrl.pathname);
+    if (req.nextUrl.pathname.startsWith('/home')) {
+        return NextResponse.next();
     }
 
     const hostname = req.nextUrl.hostname;

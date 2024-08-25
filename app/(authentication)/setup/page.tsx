@@ -1,6 +1,6 @@
 'use client';
 import UserNetworkService from '@/services/user.service';
-import { ArrowUpRightIcon } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
@@ -71,8 +71,8 @@ export default function AccountSetup() {
             <div className='flex flex-col mt-6'>
                 <button
                     onClick={submit}
-                    className='flex gap-2 capitalize items-center justify-center text-white text-base font-semibold p-3 px-5 border bg-black rounded-lg'>
-                    Finish Account Setup <ArrowUpRightIcon color='#fff' size={20} />
+                    className='flex gap-2 capitalize items-center justify-center text-white text-base font-semibold p-3 px-4 border bg-black rounded-lg'>
+                    Finish Account Setup <ArrowRightIcon color='#fff' size={20} />
                 </button>
             </div>
         </div>

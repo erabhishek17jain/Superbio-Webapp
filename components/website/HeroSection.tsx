@@ -35,13 +35,13 @@ export const HeroLeft = ({ parentRef }: { parentRef: RefObject<HTMLElement> }) =
                 <div className='flex flex-col gap-y-3 sm:gap-y-8'>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-4 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
                         <Image src={HeroSectionFeatures[0].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[0].name}
                     </button>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-4 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
                         <Image src={HeroSectionFeatures[1].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[1].name}
                     </button>
@@ -49,13 +49,13 @@ export const HeroLeft = ({ parentRef }: { parentRef: RefObject<HTMLElement> }) =
                 <div className='flex flex-col gap-y-3 sm:gap-y-8'>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-4 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
                         <Image src={HeroSectionFeatures[2].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[2].name}
                     </button>
                     <button
                         disabled
-                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-5 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
+                        className='col-span-1 flex min-w-fit items-center whitespace-nowrap bg-white px-3 sm:px-4 py-3 text-left text-xs sm:text-base font-medium shadow-lg sm:shadow-xl shadow-border drop-shadow-sm'>
                         <Image src={HeroSectionFeatures[3].icon} className='mr-2 h-4 sm:h-6 w-4 sm:w-6' alt='icon' />
                         {HeroSectionFeatures[3].name}
                     </button>
