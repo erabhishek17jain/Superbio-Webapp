@@ -18,15 +18,6 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         super();
     }
 
-    // public getReportingData = async (campaignId: string, params: string): Promise<IReportingResponse> => {
-    //     try {
-    //         const res = await axios.get<IReportingResponse>(`/api/reporting/${campaignId}${params}`);
-    //         return res.data;
-    //     } catch (err: any) {
-    //         throw err;
-    //     }
-    // };
-
     public getReportingData = async (campaignId: string, params: string): Promise<IReportingResponse> => {
         try {
             const res = await axios.get<IReportingResponse>(`${this.javaUrl}/reporting/${campaignId}${params}`);
@@ -36,9 +27,10 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
+
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/post/${campaignId}/posts/${params}`);
+            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/post/${campaignId}/posts${params}`);
             return res.data;
         } catch (err: any) {
             throw err;

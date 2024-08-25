@@ -36,7 +36,7 @@ export default function Reporting(props: IReportingProps) {
         setloader(true);
         setTimeout(() => {
             loadCampData({ ...query });
-        }, 2000);
+        }, 1000);
     };
 
     useEffect(() => {

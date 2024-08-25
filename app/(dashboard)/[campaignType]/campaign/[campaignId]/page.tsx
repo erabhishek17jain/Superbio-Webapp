@@ -84,12 +84,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             const estimatedReach = campData?.meta.analytics.customEstimatedReach
                 ? campData?.meta.analytics.customEstimatedReach
                 : campData?.meta.analytics.estimatedReach;
+                const estimatedReachText =
+                    campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated Reach (Custom)' : 'Estimated Reach';
             const extimateReach = {
                 totCount: estimatedReach,
                 count: calculateSummary(estimatedReach),
                 icon: SUMMARY_ICONS['estimatedReach'],
                 color: SUMMARY_COLORS['estimatedReach'],
-                title: 'Estimated Reach',
+                title: estimatedReachText,
                 basedOn: campData?.meta.analytics.customEstimatedReach,
             };
             let result: (ISummary | null)[] = [];

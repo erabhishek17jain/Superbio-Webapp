@@ -112,7 +112,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         }
                                                     }}
                                                     className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
-                                                    <span className='capitalize'>{isNotCampType && active ? component.replaceAll('-', ' ') : title}</span>
+                                                    <span className='capitalize'>{isNotCampType && active ? component.replaceAll('-', ' ') : <span className='font-[500] text-[21px]'>{title}</span>}</span>
                                                     {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
                                                 </div>
                                             );
@@ -122,7 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
                                     {!isNotCampType && (
                                         <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                            <SearchCheckIcon color='#8b8b8b' size={24} />
+                                            <SearchCheckIcon color='#8b8b8b' size={28} />
                                             <input
                                                 type='text'
                                                 name={`input_name}`}
@@ -165,7 +165,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <div className='flex gap-x-8 w-40'>
                                 <DynamicLogo />
                             </div>
-                            <div className='flex w-full justify-center -ml-20 font-bold text-lg'>LOQO Campaign Tracker</div>
+                            <Link target='_blank' href='/home'>
+                                <div className='flex w-full justify-end font-semibold text-base text-[#002554]'>LOQO Campaign Tracker</div>
+                            </Link>
                         </div>
                     )}
                     {!isNotCampType && searchText !== '' && isSearch && (

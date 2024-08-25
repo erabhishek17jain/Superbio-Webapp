@@ -150,7 +150,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                                             <span>{sorted?.title}</span>
                                         </span>
                                         <span
-                                            title={query.sortDirection === 'ASC' ? 'Sort Ascending' : 'Sort Descending'}
+                                            title={query.sortDirection === 'ASC' ? 'Sort Descending' : 'Sort Ascending'}
                                             className='flex items-center gap-2 w-auto min-w-120 bg-[#e6e6e6] text-[#000] rounded-md py-1 px-3 h-9'
                                             onClick={() =>
                                                 setCampFilters({ sortBy: query.sortBy, sortDirection: query.sortDirection === 'ASC' ? 'DESC' : 'ASC' })

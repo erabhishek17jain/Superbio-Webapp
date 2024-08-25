@@ -247,23 +247,29 @@ export default function GenerateReport(props: GenerateReportProps) {
         <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[150px] xs:h-[108px] sm:h-[60px]'>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
-                    {!isPublic
-                        ? Object.keys(meta?.postSummaryResp)
-                              .filter(
-                                  (item) =>
-                                      !(meta?.postSummaryResp[item] === null || meta?.postSummaryResp[item] === 0 || meta?.postSummaryResp[item] === false)
-                              )
-                              .map((key) => {
-                                  return (
-                                      <div className='flex flex-col text-sm w-20' key={key}>
-                                          <span className='text-black font-semibold capitalize'>
-                                              {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
-                                          </span>
-                                          <span className='text-[#8b8b8b]'>{meta?.postSummaryResp[key]} posts</span>
-                                      </div>
-                                  );
-                              })
-                        : title}
+                    {!isPublic ? (
+                        Object.keys(meta?.postSummaryResp)
+                            .filter(
+                                (item) => !(meta?.postSummaryResp[item] === null || meta?.postSummaryResp[item] === 0 || meta?.postSummaryResp[item] === false)
+                            )
+                            .map((key) => {
+                                return (
+                                    <div className='flex flex-col text-sm w-20' key={key}>
+                                        <span className='text-black font-semibold capitalize'>
+                                            {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
+                                        </span>
+                                        <span className='text-[#8b8b8b]'>{meta?.postSummaryResp[key]} posts</span>
+                                    </div>
+                                );
+                            })
+                    ) : (
+                        <div className='flex text-[25px] gap-2'>
+                            <div className='font-semibold'>Brand: </div>
+                            <span className='font-light mr-5'>{'Netflix'}</span>
+                            <div className='font-semibold'>Campaign: </div>
+                            <span className='font-light'>{title}</span>
+                        </div>
+                    )}
                 </span>
             </div>
             {!valuesLoading && isSheetExist === 'yes' && meta && meta?.total > 0 && (

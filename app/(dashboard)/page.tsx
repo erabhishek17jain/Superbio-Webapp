@@ -91,7 +91,7 @@ export default function Home() {
                         </span>
                         <div className='flex gap-3 ml-16 sm:ml-0'>
                             <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                <SearchCheckIcon color='#8b8b8b' size={24} />
+                                <SearchCheckIcon color='#8b8b8b' size={28} />
                                 <input
                                     type='text'
                                     name={`input_name}`}

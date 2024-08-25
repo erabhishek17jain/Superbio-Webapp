@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EstimatedReachModal from '../modals/EstimatedReachModal';
 import { ICampaign } from '@/interfaces/campaign';
-import { FilePenLineIcon, ListRestartIcon } from 'lucide-react';
+import { FilePenLineIcon, ListRestartIcon, RefreshCwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
 import { enqueueSnackbar } from 'notistack';
 
@@ -61,24 +61,25 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                 </div>
                                 <div className='flex h-9 items-end justify-between w-full'>
                                     <p className='text-xs text-black-500'>
-                                        {item.title === 'Estimated Reach' || item.title === 'Total Posts'
+                                        {item.title.includes('Estimated Reach') || item.title === 'Total Posts'
                                             ? item.title
                                             : `${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
                                     </p>
-                                    {item.title === 'Estimated Reach' &&
-                                        !isPublic &&
-                                        (item.basedOn ? (
-                                            <div
-                                                className='cursor-pointer'
-                                                onClick={() => updateEstimatedReach({ estimatedReach: null })}
-                                                title='Add custom estimated reach'>
-                                                <ListRestartIcon color='#8b8b8b' size={24} />
+                                    {item.title.includes('Estimated Reach') && !isPublic && (
+                                        <div className='flex gap-1'>
+                                            {item.basedOn > 0 && (
+                                                <div
+                                                    className='cursor-pointer'
+                                                    onClick={() => updateEstimatedReach({ estimatedReach: null })}
+                                                    title='Reset estimated reach'>
+                                                    <RefreshCwIcon color='#8b8b8b' size={18} />
+                                                </div>
+                                            )}
+                                            <div className='cursor-pointer' onClick={openCloseEstimatedModal} title='Add custom estimated reach'>
+                                                <FilePenLineIcon color='#8b8b8b' size={18} />
                                             </div>
-                                        ) : (
-                                            <div className='cursor-pointer' onClick={openCloseEstimatedModal} title='Reset estimated reach'>
-                                                <FilePenLineIcon color='#8b8b8b' size={24} />
-                                            </div>
-                                        ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
