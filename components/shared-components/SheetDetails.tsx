@@ -2,7 +2,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
     const isDisabled = sheetInfo?.index <= selSheetData.length ? true : false;
     return (
         <>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col items-center gap-2">
                 <div className='w-full'>
                     <div className='flex mt-2 mb-3 gap-3'>
                         <input

@@ -15,6 +15,7 @@ import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
 import { calculateStatus, clearFilters, structureData } from '@/lib/utils';
+import DownloadCSV from './DownloadCSV';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
@@ -303,22 +304,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                                 )}
                             </div>
                         )}
-                        <div className='flex gap-3'>
-                            <div
-                                onClick={downloadCsv}
-                                className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11'>
-                                <DownloadIcon color='#fff' size={20} />
-                                <span className='text-opacity-80'>Download CSV</span>
-                            </div>
-                            <CSVLink
-                                ref={csvLink}
-                                target='_blank'
-                                className='hidden'
-                                data={csvData.data}
-                                headers={csvData.columns}
-                                filename={`${!isPublic ? 'campaignName'.toString().replaceAll('_', ' ').slice(0, -1) : 'CampaignData'}.csv`}
-                            />
-                        </div>
+                        <DownloadCSV total={meta?.total} isPublic={isPublic} campaignId={params.campaignId} fileName={title} />
                     </div>
                 </div>
             )}

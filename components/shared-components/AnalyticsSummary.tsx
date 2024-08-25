@@ -63,7 +63,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                     <p className='text-xs text-black-500'>
                                         {item.title === 'Estimated Reach' || item.title === 'Total Posts'
                                             ? item.title
-                                            : `Only ${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
+                                            : `${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
                                     </p>
                                     {item.title === 'Estimated Reach' &&
                                         !isPublic &&
