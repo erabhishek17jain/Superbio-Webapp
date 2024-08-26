@@ -75,9 +75,9 @@ export default function Home() {
 
     return (
         <div className='flex flex-col w-full overflow-auto' style={{ height: '100vh' }}>
-            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-[75px] z-10'>
+            <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-16 z-10'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
-                    <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
                         <DynamicLogo />
                     </Link>
                 </div>

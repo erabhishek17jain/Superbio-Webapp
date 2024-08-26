@@ -12,7 +12,6 @@ import ReportIcon from '../../icons/ReportIcon';
 export default function CreateCampaignModal({ mode, openCloseModal, campaignDetails }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { campaignType } = useAppSelector((state) => state.user);
     const { newCampaign } = useAppSelector((state) => state.campaign);
     const { enqueueSnackbar } = useSnackbar();
     const [isError, setIsError] = useState(false);
@@ -78,13 +77,13 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}?title=${res.title}`);
+                    router.push(`/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}?title=${res.title}`);
+                    router.push(`/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             }

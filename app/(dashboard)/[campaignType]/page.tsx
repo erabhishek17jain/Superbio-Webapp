@@ -15,7 +15,6 @@ export default function AllCampaignPage() {
     const params: any = useParams();
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('add');
-    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign } = useAppSelector((state) => state.campaign);
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);

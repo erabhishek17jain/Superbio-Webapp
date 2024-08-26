@@ -5,7 +5,6 @@ import FilterUi from '../../../../../components/shared-components/FilterUi';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
 import Reporting from '../../../../../components/shared-components/Reporting';
-import { IColumnResponse } from '@/services/public.service';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
@@ -13,6 +12,8 @@ import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
+import { setCampData } from '@/context/reporting';
+import { useAppDispatch, useAppSelector } from '@/context';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
@@ -34,11 +35,10 @@ const SUMMARY_COLORS: { [key: string]: string } = {
 
 export default function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const router = useRouter();
+    const dispatch = useAppDispatch();
     const sParams = useSearchParams();
-    const searchParam: any = useSearchParams();
-    const title = searchParam.get('title');
-    const [campData, setCampData] = useState<IColumnResponse>({ data: [], meta: {} as any });
     const [summary, setSummary] = useState<any>(null);
+    const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState<any>({
         postedAt: [],
@@ -84,8 +84,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             const estimatedReach = campData?.meta.analytics.customEstimatedReach
                 ? campData?.meta.analytics.customEstimatedReach
                 : campData?.meta.analytics.estimatedReach;
-                const estimatedReachText =
-                    campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated Reach (Custom)' : 'Estimated Reach';
+            const estimatedReachText = campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated Reach (Custom)' : 'Estimated Reach';
             const extimateReach = {
                 totCount: estimatedReach,
                 count: calculateSummary(estimatedReach),
@@ -172,8 +171,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const refreshCampaign = (query: any) => {
         JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
-            campData.meta = {...campData.meta, ...setAnalytics(resp)}
-            setCampData({...campData});
+            campData.meta = { ...campData.meta, ...setAnalytics(resp) };
+            dispatch(setCampData({ ...campData }));
             setIsSheetLoading(false);
         });
     };
@@ -181,7 +180,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const initialLoadCampData = (query: any) => {
         JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structureData(resp);
-            setCampData(data);
+            dispatch(setCampData(data))
             setIsSheetLoading(false);
         });
     };
@@ -226,22 +225,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         <NewCampaign
                             buttonText={'Add links'}
                             title={'Add links for reporting'}
-                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}?title=${title}`)}
+                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
                             description={
                                 'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                             }
                         />
                     )}
                     {campData?.data && campData?.data.length > 0 && (
-                        <GenerateReport
-                            meta={campData?.meta}
-                            query={query}
-                            params={params}
-                            title={title}
-                            isPublic={searchParams.isPublic ? true : false}
-                            columns={campData?.data}
-                            setCampData={setCampData}
-                        />
+                        <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
                     )}
                     {campData?.data && campData?.data.length > 0 && (
                         <>

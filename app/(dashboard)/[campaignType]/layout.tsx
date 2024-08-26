@@ -21,12 +21,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const params: any = useParams();
     const urlComponents = paths.split('/');
     const { enqueueSnackbar } = useSnackbar();
+    const { campData } = useAppSelector((state) => state.reporting);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
     const searchParam: any = useSearchParams();
-    const title = searchParam.get('title');
     const isPublic = searchParam.get('isPublic') === 'true';
 
     const copyShareLink = (url: string) => {
@@ -81,9 +81,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-[14px] border-[#cdcdcd] border-b h-[75px] z-10`}>
+                    <div className={`flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-[14px] border-[#cdcdcd] border-b h-16 z-10`}>
                         <div className='flex flex-col w-8 items-center h-[48px]'>
-                            <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
+                            <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
                                 <DynamicLogo />
                             </Link>
                         </div>
@@ -112,7 +112,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         }
                                                     }}
                                                     className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
-                                                    <span className='capitalize'>{isNotCampType && active ? component.replaceAll('-', ' ') : <span className='font-[500] text-[21px]'>{title}</span>}</span>
+                                                    <span className='capitalize'>
+                                                        {isNotCampType && active ? (
+                                                            component.replaceAll('-', ' ')
+                                                        ) : (
+                                                            <span className='font-[500] text-[21px]'>{campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}</span>
+                                                        )}
+                                                    </span>
                                                     {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
                                                 </div>
                                             );
@@ -145,9 +151,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     {paths.indexOf('campaign') > -1 && (
                                         <div className='flex'>
                                             <button
-                                                onClick={() =>
-                                                    copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true&title=${title}`)
-                                                }
+                                                onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
                                                 className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
                                                 <CopyIcon color='#ffffff' size={20} />
                                                 Copy Public Dashboard Link
@@ -161,8 +165,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
                     {isNotCampType && isPublic && (
-                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-4 text-black sm:px-6'>
-                            <div className='flex gap-x-8 w-40'>
+                        <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-2 text-black sm:px-6'>
+                            <div className='flex gap-x-8 w-20'>
                                 <DynamicLogo />
                             </div>
                             <Link target='_blank' href='/home'>

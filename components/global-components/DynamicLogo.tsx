@@ -17,7 +17,7 @@ const Youngun = ({ login = false }: any) => {
     return login ? (
         <Image src={YoungunLogo} alt='Logo' className='h-[70px] mix-blend-multiply' />
     ) : (
-        <Image src={YoungunLogo} alt='Logo' className='h-[30px] mix-blend-multiply' />
+        <Image src={YoungunLogo} alt='Logo' className='h-[34px] mix-blend-multiply' />
     );
 };
 
@@ -31,9 +31,9 @@ const Socheers = ({ login = false }: any) => {
             </span>
         </div>
     ) : (
-        <div className='flex flex-col mt-[-6px]'>
+        <div className='flex flex-col -mt-2'>
             <Image src={SocheersLogo} alt='Logo' className='h-[38px] mix-blend-multiply' />
-            <span className='flex items-center h-2 text-[6px] ml-1'>
+            <span className='flex items-center h-2 text-[6px] ml-1 -mt-[6px]'>
                 <span className='flex w-[82px] text-[#7a7a7a]'>Powered by </span>
                 <Image src={LoqoaiLogo} alt='Logo' className='h-[8px]' />
             </span>

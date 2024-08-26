@@ -29,8 +29,6 @@ export default function CreateReporting() {
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isError, setIsError] = useState(false);
-    const searchParam: any = useSearchParams();
-    const title = searchParam.get('title');
 
     const openCloseConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
@@ -63,7 +61,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign/${params.campaignId}?title=${title}`);
+            router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
         }
     };
 
@@ -117,7 +115,7 @@ export default function CreateReporting() {
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}?title=${title}`);
+                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
                 });
         }
     };

@@ -110,8 +110,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         transition={{ delay: 0.5, duration: 1, type: 'spring' }}
                         className={`hidden sm:flex flex-col items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
                         <div className='flex flex-col w-full items-center'>
-                            <div className='flex w-full justify-center -ml-20 font-bold text-lg'>LOQO Campaign Tracker</div>
-                            <div className='flex w-full justify-center -ml-20 font-light text-base'>Post Links Analysis and Sharable Dashboards</div>
+                            <div className='flex w-full justify-center font-bold text-lg mt-8'>LOQO Campaign Tracker</div>
+                            <div className='flex w-full justify-center font-light text-base'>Post Links Analysis and Sharable Dashboards</div>
                         </div>
                         <div className='flex w-full'>
                             <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
@@ -138,7 +138,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <div className='flex sm:w-[80%] w-[90%] flex-col'>
                                 {buttonText !== 'Sign in' && (
                                     <div className='flex justify-center mb-3'>
-                                        <DynamicLogo />
+                                        <div className='w-20'>
+                                            <DynamicLogo />
+                                        </div>
                                     </div>
                                 )}
                                 <div className='flex flex-col items-center text-2xl sm:text-3xl font-bold pb-6'>

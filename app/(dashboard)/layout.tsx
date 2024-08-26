@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         children
     ) : (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
-            <div className='hidden sm:flex mt-[74px] -mb-[74px]'>
+            <div className='hidden sm:flex mt-[63px] -mb-[63px]'>
                 <SideBar />
             </div>
             <div className='flex flex-col w-full'>{children}</div>

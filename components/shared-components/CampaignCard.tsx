@@ -51,7 +51,7 @@ export default function CampaignCard({
     };
 
     const navigateToReporting = () => {
-        router.push(`/${status}/campaign/${campaign.id}?title=${campaign.title}`);
+        router.push(`/${status}/campaign/${campaign.id}`);
     };
 
     const openCloseShareModal = () => {
@@ -95,7 +95,7 @@ export default function CampaignCard({
         },
         {
             title: 'Add/Edit Sheet',
-            action: () => router.push(`/${status}/create/${campaign?.id}?title=${campaign.title}`),
+            action: () => router.push(`/${status}/create/${campaign?.id}`),
             icon: <ListPlusIcon color={'#8b8b8b'} size={22} />,
         },
     ];

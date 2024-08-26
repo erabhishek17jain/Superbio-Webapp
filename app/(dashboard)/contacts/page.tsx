@@ -6,9 +6,9 @@ import React from 'react';
 export default function Contact() {
     return (
         <main className={'flex flex-col pb-20 sm:pb-8'}>
-            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-[75px] border-[#cdcdcd]'>
+            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-16 border-[#cdcdcd]'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
-                    <Link href={'/home'} className='w-20 absolute left-6 top-[22px]'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
