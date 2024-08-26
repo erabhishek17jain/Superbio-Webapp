@@ -32,7 +32,7 @@
         "eslint": "8.43.0",
         "eslint-config-next": "13.4.7",
         "framer-motion": "^11.0.3",
-        "lucide-react": "^0.428.0",
+        "lucide-react": "^0.436.0",
         "marked": "^12.0.0",
         "next": "^14.2.4",
         "next-client-cookies": "^1.1.1",
