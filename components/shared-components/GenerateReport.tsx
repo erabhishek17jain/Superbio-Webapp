@@ -24,6 +24,7 @@ interface GenerateReportProps {
 }
 
 export default function GenerateReport(props: GenerateReportProps) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const { isPublic, params, query } = props;
     const { user } = useAppSelector((state) => state.user);
@@ -35,7 +36,31 @@ export default function GenerateReport(props: GenerateReportProps) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [gradInx, setGradInx] = useState(0);
     const [isSheetExist] = useState('yes');
-    const router = useRouter();
+
+    let postSummary = 0;
+    const displayPostSummary = () => {
+        const postsData = Object.keys(campData.meta?.postSummaryResp)
+            .filter(
+                (item) =>
+                    !(
+                        campData.meta?.postSummaryResp[item] === null ||
+                        campData.meta?.postSummaryResp[item] === 0 ||
+                        campData.meta?.postSummaryResp[item] === false
+                    )
+            )
+            .map((key) => {
+                return (
+                    !(reportText === 'Generate Report' && key === 'otherPosts') && (
+                        <div className='flex flex-col text-sm w-20' key={key}>
+                            <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}</span>
+                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
+                        </div>
+                    )
+                );
+            });
+        postSummary = postsData.length;
+        return postsData;
+    };
 
     const setLastRefresh = () => {
         if (campData.meta) {
@@ -55,16 +80,6 @@ export default function GenerateReport(props: GenerateReportProps) {
         setGenerateStatus(calculateStatus(queueDto?.status, queueDto?.processed, queueDto?.totalPost));
     };
 
-    useEffect(() => {
-        if (!isPublic && campData.meta?.queueDto) {
-            if (reportText === 'Generate Report') {
-                getQueueData(campData.meta?.queueDto);
-            }
-        } else {
-            setLastRefresh();
-        }
-    }, [campData.data]);
-
     const refreshStats = () => {
         if (reportText === 'Generate Report' || diffInMin > 0) {
             setDiffInMin(0);
@@ -74,6 +89,16 @@ export default function GenerateReport(props: GenerateReportProps) {
             openCloseConfirmModal();
         }
     };
+
+    useEffect(() => {
+        if (!isPublic && campData.meta?.queueDto) {
+            if (reportText === 'Generate Report') {
+                getQueueData(campData.meta?.queueDto);
+            }
+        } else {
+            setLastRefresh();
+        }
+    }, [campData.data]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -105,38 +130,19 @@ export default function GenerateReport(props: GenerateReportProps) {
     }, [reportText]);
 
     return (
-        <div className='flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[150px] xs:h-[108px] sm:h-[60px]'>
+        <div className={`flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[${postSummary > 0 ? '168px' : '108px'}] sm:h-[60px]`}>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
                     {!isPublic ? (
-                        Object.keys(campData.meta?.postSummaryResp)
-                            .filter(
-                                (item) =>
-                                    !(
-                                        campData.meta?.postSummaryResp[item] === null ||
-                                        campData.meta?.postSummaryResp[item] === 0 ||
-                                        campData.meta?.postSummaryResp[item] === false
-                                    )
-                            )
-                            .map((key) => {
-                                return (
-                                    reportText === 'Generate Report' &&
-                                    key !== 'otherPosts' && (
-                                        <div className='flex flex-col text-sm w-20' key={key}>
-                                            <span className='text-black font-semibold capitalize'>
-                                                {key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}
-                                            </span>
-                                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
-                                        </div>
-                                    )
-                                );
-                            })
+                        displayPostSummary()
                     ) : (
-                        <div className='flex text-[25px] gap-2'>
-                            <div className='font-semibold'>Brand: </div>
-                            <span className='font-light mr-5'>{campData.meta?.campaignDto?.brand}</span>
-                            <div className='font-semibold'>Campaign: </div>
-                            <span className='font-light'>{campData.meta?.campaignDto?.title}</span>
+                        <div className='flex flex-col sm:flex-row text-xl sm:text-2xl gap-2'>
+                            <div className='font-semibold'>
+                                Brand: <span className='font-light mr-5'>{campData.meta?.campaignDto?.brand}</span>
+                            </div>
+                            <div className='font-semibold'>
+                                Campaign: <span className='font-light'>{campData.meta?.campaignDto?.title}</span>
+                            </div>
                         </div>
                     )}
                 </span>
@@ -169,7 +175,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                         )}
                         {reportText === 'Generated' && (
                             <div className='flex items-center gap-3 text-[#8b8b8b] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm mr-3'>
-                                <span>Last Refresh {lastUpdate}</span>
+                                <span>Refreshed {lastUpdate}</span>
                                 {!isPublic && user.role !== 'brand' && (
                                     <div
                                         onClick={() => refreshStats()}

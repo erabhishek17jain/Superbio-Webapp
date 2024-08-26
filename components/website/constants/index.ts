@@ -20,7 +20,7 @@ export const NavbarItemList = [
 ];
 export const HeroSectionFeatures = [
     {
-        name: 'Tech-first Solutions',
+        name: 'Tech-First Solutions',
         icon: hero_logo_1,
     },
     {
@@ -41,7 +41,7 @@ export const SocialLinks = [
     {
         title: 'Our Services',
         links: [
-            { title: 'Tech-first Solutions', id: '', href: '#', isValid: false },
+            { title: 'Tech-First Solutions', id: '', href: '#', isValid: false },
             { title: 'Agency Automation', id: '', href: '#', isValid: false },
             { title: 'AI-Powered Insights', id: '', href: '#', isValid: false },
             { title: 'Custom Tools', id: '', href: '#', isValid: false },
@@ -49,7 +49,7 @@ export const SocialLinks = [
     },
 ];
 
-export const ContactInfo = ['Nimbus The Golden Palm Sector 168', 'Noida, Uttar Pradesh 201301', '(+91) 77959-83243', 'business@logo.ai'];
+export const ContactInfo = ['Nimbus The Golden Palm Sector 168', 'Noida, Uttar Pradesh 201301', '(+91) 77959-83243', 'business@loqo.ai'];
 
 export type WhySuperbioListProps = {
     title: string;

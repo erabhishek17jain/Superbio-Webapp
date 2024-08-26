@@ -36,13 +36,13 @@ export default function Users() {
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
-            <div className='flex w-full px-6 py-2 border-b h-16 border-[#cdcdcd]'>
+            <div className='flex w-full px-4 sm:px-6 py-2 border-b h-16 border-[#cdcdcd]'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
-                    <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
-                <div className='flex items-center justify-between w-full ml-16 sm:ml-0'>
+                <div className='flex items-center justify-between w-full ml-16 sm:ml-0 pl-2 sm:pl-0'>
                     <span className='text-lg font-semibold ml-2'>All Users</span>
                     {user?.role === 'admin' && (
                         <button
@@ -50,8 +50,8 @@ export default function Users() {
                                 setMode('add');
                                 setOpenUserModal(true);
                             }}
-                            className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm gap-2 h-10'>
-                            <PlusCircleIcon color='#fff' size={24} />
+                            className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white text-sm gap-2 h-10'>
+                            <PlusCircleIcon color='#fff' size={22} />
                             <span className='hidden sm:flex'>Add User</span>
                         </button>
                     )}

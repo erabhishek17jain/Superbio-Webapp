@@ -220,7 +220,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
             )}
             {!isSheetLoading ? (
-                <div className='flex flex-col sm:px-6 md:px-6 mt-2 mx-3 md:mx-0 sm:mx-0 w-full'>
+                <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
                     {campData?.data.length === 0 && campData?.meta?.total === 0 && (
                         <NewCampaign
                             buttonText={'Add links'}

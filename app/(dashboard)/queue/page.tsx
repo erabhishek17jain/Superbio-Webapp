@@ -42,13 +42,13 @@ export default function Queue() {
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>
-            <div className='flex w-full items-center justify-start pl-8 pr-4 py-3 border-b h-16 border-[#cdcdcd]'>
+            <div className='flex w-full items-center justify-start pl-4 sm:pl-8 pr-4 py-3 border-b h-16 border-[#cdcdcd]'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
-                    <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
-                <span className='text-lg font-semibold ml-12 sm:ml-0 lg:ml-0 xl:ml-0'>Live Reports</span>
+                <span className='text-lg font-semibold ml-16 sm:ml-0 pl-2 sm:pl-0'>Live Reports</span>
             </div>
             <div className='flex w-full items-center px-4 py-4 sm:px-8 sm:py-6'>
                 <div className='relative overflow-x-auto w-full border rounded-xl'>

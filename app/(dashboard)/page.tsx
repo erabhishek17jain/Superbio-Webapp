@@ -77,12 +77,12 @@ export default function Home() {
         <div className='flex flex-col w-full overflow-auto' style={{ height: '100vh' }}>
             <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-16 z-10'>
                 <div className='flex flex-col w-8 items-center h-[50px]'>
-                    <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
+                    <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>
                 </div>
                 {campaignType !== '' ? (
-                    <div className='flex text-base w-full justify-between items-center h-12'>
+                    <div className='flex text-base w-full justify-between items-center h-12 ml-2 sm:ml-0'>
                         <span className='hidden sm:flex'>
                             <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
                                 All Products<span className='px-3'>/</span>
@@ -90,8 +90,8 @@ export default function Home() {
                             <span>LOQO Campaign Tracker</span>
                         </span>
                         <div className='flex gap-3 ml-16 sm:ml-0'>
-                            <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                <SearchCheckIcon color='#8b8b8b' size={28} />
+                            <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>
+                                <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex'/>
                                 <input
                                     type='text'
                                     name={`input_name}`}
@@ -113,7 +113,7 @@ export default function Home() {
                                             setIsSearch(true);
                                         }
                                     }}
-                                    className='cursor-pointer pr-4 h-10 py-2'>
+                                    className='cursor-pointer pr-3 h-10 py-2'>
                                     <ArrowRightIcon color='#8b8b8b' size={24} />
                                 </div>
                             </div>
@@ -147,15 +147,15 @@ export default function Home() {
             </div>
             {campaignType === '' && <HomePage selectType={selectType} setSelectType={setSelectType} />}
             {campaignType !== '' && (
-                <div className='flex px-4 sm:px-8 py-4 w-full h-full flex-col overflow-y-auto mb-6 sm:mb-0'>
+                <div className='flex px-4 sm:px-8 py-4 w-full h-full flex-col overflow-y-auto mb-10 sm:mb-0'>
                     {searchText !== '' && isSearch && <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>}
                     {loading ? (
                         <LoadingBlack />
                     ) : shouldShowNoCampaign ? (
                         <>
                             {activeCampaign && activeCampaign.data?.length > 0 && (
-                                <div className='flex flex-col w-full mb-10'>
-                                    <div className='flex w-full justify-between mb-5'>
+                                <div className='flex flex-col w-full mb-4 sm:mb-10'>
+                                    <div className='flex w-full justify-between mb-3 sm:mb-5'>
                                         <span className='font-semibold text-xl text-opacity-80'>Active campaigns</span>
                                         <Link href={`/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
@@ -182,8 +182,8 @@ export default function Home() {
                                 </div>
                             )}
                             {sharedCampaign && sharedCampaign.data?.length > 0 && (
-                                <div className='flex flex-col w-full mb-10'>
-                                    <div className='flex w-full justify-between mb-5'>
+                                <div className='flex flex-col w-full mb-4 sm:mb-10'>
+                                    <div className='flex w-full justify-between mb-3 sm:mb-5'>
                                         <span className='capitalize font-semibold text-xl text-opacity-80'>
                                             {user.role !== 'admin' ? 'Shared Campaigns' : 'Created by other members'}
                                         </span>

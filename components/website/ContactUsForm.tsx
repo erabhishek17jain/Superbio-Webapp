@@ -34,7 +34,7 @@ export const ContactUsForm = ({ parentRef }: { parentRef: RefObject<HTMLElement>
           transition={{ delay: 0.5, duration: 1, type: 'spring' }}
           className='flex w-full flex-col items-start justify-center gap-y-6 sm:gap-y-10 lg:w-3/4 xl:w-1/2'>
           <div className='flex flex-col gap-y-3'>
-              <h3 className='text-4xl font-medium text-black'>Your data. Your Cloud</h3>
+              <h3 className='text-4xl font-medium text-black'>Your Data. Your Cloud.</h3>
               <p className='text-base font-light text-sm sm:text-base text-neutral-500'>
                   All your Campaign & Influencer Data stays in your cloud. Only you & your selected employees can access the data.
               </p>

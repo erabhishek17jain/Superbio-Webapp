@@ -41,9 +41,11 @@ export const ProfileForm = () => {
         <>
             <div className='flex w-full flex-col gap-6 sm:gap-8 lg:w-[590px]'>
                 {user.profilePic !== '' ? (
-                    <div
-                        className='w-32 h-32 bg-[#e2e8f0] rounded-full border border-gray-300 bg-cover bg-center'
-                        style={{ backgroundImage: `url("${user.profilePic}")` }}></div>
+                    <div className='flex w-full justify-center sm:justify-start'>
+                        <div
+                            className='w-32 h-32 bg-[#e2e8f0] rounded-full border border-gray-300 bg-cover bg-center'
+                            style={{ backgroundImage: `url("${user.profilePic}")` }}></div>
+                    </div>
                 ) : (
                     <div
                         key={'profilepic'}
@@ -51,7 +53,7 @@ export const ProfileForm = () => {
                         <span className='font-medium text-2xl text-gray-600 '>{user.name.slice(0, 2).toUpperCase()}</span>
                     </div>
                 )}
-                <ProfileInput label='Name' placeholder={user?.name + ''} buttonText='' isDelete={false} isLabelOutside onClick={()=>{}} />
+                <ProfileInput label='Name' placeholder={user?.name + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
                 <ProfileInput label='Mobile Number' placeholder={user?.mobileNo + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
                 <ProfileInput label='Work Email ID' placeholder={user?.email + ''} buttonText='' isDelete={false} isLabelOutside onClick={() => {}} />
             </div>

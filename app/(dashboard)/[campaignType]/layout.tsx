@@ -81,14 +81,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-auto'>
                 {!isPublic && (
-                    <div className={`flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-[14px] border-[#cdcdcd] border-b h-16 z-10`}>
+                    <div className={`flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-3 sm:pb-[14px] border-[#cdcdcd] border-b h-16 z-10`}>
                         <div className='flex flex-col w-8 items-center h-[48px]'>
-                            <Link href={'/home'} className='w-20 absolute left-6 top-[14px]'>
+                            <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                                 <DynamicLogo />
                             </Link>
                         </div>
                         <div className='flex flex-col lg:ml-0 w-full justify-center h-12'>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-end sm:justify-between items-center'>
                                 <div className='hidden sm:flex gap-2'>
                                     <div className='flex'>
                                         <div
@@ -116,7 +116,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         {isNotCampType && active ? (
                                                             component.replaceAll('-', ' ')
                                                         ) : (
-                                                            <span className='font-[500] text-[21px]'>{campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}</span>
+                                                            <span className='font-[500] text-[21px]'>
+                                                                {campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}
+                                                            </span>
                                                         )}
                                                     </span>
                                                     {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
@@ -127,8 +129,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
                                     {!isNotCampType && (
-                                        <div className='flex justify-between pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                            <SearchCheckIcon color='#8b8b8b' size={28} />
+                                        <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>
+                                            <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex' />
                                             <input
                                                 type='text'
                                                 name={`input_name}`}
@@ -138,7 +140,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                 onKeyUp={(e: any) => searchByFilter(e)}
                                                 className='flex outline-none bg-[#F7F7F7] p-3 h-10 text-sm w-full'
                                             />
-                                            <div className='cursor-pointer pr-4 h-10 py-2' onClick={searhFilter}>
+                                            <div className='cursor-pointer pr-3 h-10 py-2' onClick={searhFilter}>
                                                 <ArrowRightIcon color='#8b8b8b' size={24} />
                                             </div>
                                         </div>
@@ -152,7 +154,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         <div className='flex'>
                                             <button
                                                 onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
-                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm lg:my-0 md:mt-0 md:mb-4 mt-1 mb-2'>
+                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm'>
                                                 <CopyIcon color='#ffffff' size={20} />
                                                 Copy Public Dashboard Link
                                             </button>

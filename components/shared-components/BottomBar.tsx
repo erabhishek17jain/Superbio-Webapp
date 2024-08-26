@@ -25,7 +25,7 @@ export default function BottomBar() {
                 </Link>
             )}
             <Link href={'/profile'} key={'profile'} className='flex items-center space-x-3'>
-                <UserRoundCogIcon color={path === '/contacts' ? '#000000' : '#8b8b8b'} size={32} />
+                <UserRoundCogIcon color={path === '/profile' ? '#000000' : '#8b8b8b'} size={32} />
             </Link>
             <Link href={'/contacts'} key={'contacts'} className='flex items-center space-x-3'>
                 <svg

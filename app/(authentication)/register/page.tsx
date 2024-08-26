@@ -121,7 +121,7 @@ export default function Register() {
           <div className='flex flex-col mt-6'>
               <button
                   onClick={register}
-                  className='flex gap-2 capitalize items-center justify-center text-white text-xs font-semibold p-3 px-4 border bg-black rounded-lg'>
+                  className='flex gap-2 capitalize items-center justify-center text-white text-sm sm:text-base font-semibold p-3 px-4 border bg-black rounded-lg'>
                   Sign Up <ArrowRightIcon color='#fff' size={20} />
               </button>
           </div>

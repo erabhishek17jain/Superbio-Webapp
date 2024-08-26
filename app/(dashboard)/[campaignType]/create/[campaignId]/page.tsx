@@ -235,15 +235,16 @@ export default function CreateReporting() {
             <div className='flex w-full flex-col'>
                 <div className='flex items-center'>
                     <div className='flex flex-col'>
-                        <div className='flex p-3 rounded-lg bg-[#F5F8FF]'>
-                            <LayoutPanelLeftIcon size={36} color='#0151A0' />
+                        <div className='flex p-2 sm:p-3 rounded-lg bg-[#F5F8FF]'>
+                            <LayoutPanelLeftIcon size={24} color='#0151A0' className='flex sm:hidden' />
+                            <LayoutPanelLeftIcon size={36} color='#0151A0' className='sm:flex hidden' />
                         </div>
                     </div>
-                    <div className='flex items-center pl-3 gap-3'>
-                        <span className='text-2xl font-semibold'>Campaign Reporting</span>
+                    <div className='flex items-center pl-3 gap-3 w-full sm:w-auto justify-between sm:justify-start'>
+                        <span className='text-xl sm:text-2xl font-semibold'>Campaign Reporting</span>
                         <div onClick={() => setOpenGuidelines()} className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer'>
-                            <AlertOctagonIcon color='#0B1571' size={14} />
-                            <span className='text-[13px] text-[#0B1571]'>View guidelines</span>
+                            <AlertOctagonIcon color='#0B1571' size={18} />
+                            <span className='hidden sm:flex text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                         {viewGuidelines && (
                             <button onClick={addSheet} className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
@@ -254,12 +255,10 @@ export default function CreateReporting() {
                     </div>
                 </div>
                 {!isSheetLoading ? (
-                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-4'>
+                    <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-2 sm:gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
                             {sheetData.map((item: any, index: number) => (
-                                <div
-                                    key={index}
-                                    className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                <div key={index} className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
                                             className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
@@ -318,7 +317,9 @@ export default function CreateReporting() {
                                 </button>
                             </div>
                         </div>
-                        <button onClick={addSheet} className='flex w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
+                        <button
+                            onClick={addSheet}
+                            className='flex w-[186px] sm:w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
                             <PlusCircleIcon color='#000' size={24} />
                             <span className='flex'>Add New Sheet</span>
                         </button>
