@@ -1,6 +1,7 @@
-import { AreaChartIcon, ArrowDownAZIcon, ArrowUpDownIcon, DownloadIcon, HeartIcon, Instagram, SlidersHorizontalIcon, TwitterIcon } from 'lucide-react';
 import Dropdown from './Dropdown';
+import { v4 as uuidv4 } from 'uuid';
 import { useMediaQuery } from 'usehooks-ts';
+import { AreaChartIcon, ArrowDownAZIcon, ArrowUpDownIcon, DownloadIcon, HeartIcon, Instagram, SlidersHorizontalIcon, TwitterIcon } from 'lucide-react';
 
 export default function LoadingReporting({ isPublic, title }: any) {
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
@@ -81,7 +82,7 @@ export default function LoadingReporting({ isPublic, title }: any) {
                             {Array(isPublic ? 2 : isSmallDevice ? 4 : 6)
                                 .fill('')
                                 ?.map(() => (
-                                    <div className='flex relative'>
+                                    <div className='flex relative' key={uuidv4()}>
                                         <div
                                             className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full py-3 px-3 mx-auto sm:mx-0 rounded-xl bg-opacity-20`}>
                                             <div className='flex gap-2 justify-between sm:w-auto'>
@@ -105,7 +106,7 @@ export default function LoadingReporting({ isPublic, title }: any) {
                             {Array(isSmallDevice ? 1 : 3)
                                 .fill('')
                                 ?.map(() => (
-                                    <div className='flex relative'>
+                                    <div className='flex relative' key={uuidv4()}>
                                         <div
                                             className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full py-3 px-3 mx-auto sm:mx-0 rounded-xl bg-opacity-20`}>
                                             <div className='flex gap-2 justify-between sm:w-auto'>
