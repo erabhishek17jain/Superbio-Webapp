@@ -33,6 +33,7 @@ export default function EstimatedReachModal({ openCloseModal, updateEstimatedRea
                                     Estimated Reach
                                 </label>
                                 <input
+                                    min='0'
                                     type='number'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter estimated reach count'

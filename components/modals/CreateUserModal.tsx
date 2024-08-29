@@ -105,6 +105,7 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
                                     Mobile Number
                                 </label>
                                 <input
+                                    min='0'
                                     type='number'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='9999999999'

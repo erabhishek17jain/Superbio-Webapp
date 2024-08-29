@@ -92,7 +92,7 @@ export const calculateSummary = (count: number) => {
     let calSum = 0 as any;
     if (count !== undefined && count !== null && !isNaN(count)) {
         calSum = (count / 1000000).toFixed(1) + 'M';
-        if (count > 1000 && count < 1000000) {
+        if (count > 999 && count < 1000000) {
             calSum = (count / 1000).toFixed(1) + 'K';
         } else if (count < 1000) {
             calSum = count;

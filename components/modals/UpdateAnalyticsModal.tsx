@@ -14,8 +14,9 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
             JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
                 enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
                 openCloseModal();
-                columns[index] = res;
-                setColumns([...columns]);
+                const cols = [...columns]
+                cols[index] = res;
+                setColumns([...cols]);
             });
         } else {
             setError(true);
@@ -38,12 +39,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     Views
                                 </label>
                                 <input
+                                    min='0'
                                     type='number'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter Views count'
                                     name='views'
                                     value={analytics.views}
-                                    onChange={(e) => setAnalytics({ ...analytics, views: e.target.value })}
+                                    onChange={(e) => setAnalytics({ ...analytics, views: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct views count</p>}
                             </div>
@@ -52,12 +54,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     Likes
                                 </label>
                                 <input
+                                    min='0'
                                     type='number'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter likes count'
                                     name='likes'
                                     value={analytics.likes}
-                                    onChange={(e) => setAnalytics({ ...analytics, likes: e.target.value })}
+                                    onChange={(e) => setAnalytics({ ...analytics, likes: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct likes count</p>}
                             </div>
@@ -66,12 +69,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     Comments
                                 </label>
                                 <input
+                                    min='0'
                                     type='number'
                                     className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                     placeholder='Enter comments count'
                                     name='comment'
                                     value={analytics.comments}
-                                    onChange={(e) => setAnalytics({ ...analytics, comments: e.target.value })}
+                                    onChange={(e) => setAnalytics({ ...analytics, comments: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct comments count</p>}
                             </div>
@@ -81,12 +85,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                         Reposts
                                     </label>
                                     <input
+                                        min='0'
                                         type='number'
                                         className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                         placeholder='Enter reposts count'
                                         name='reposts'
                                         value={analytics.reposts}
-                                        onChange={(e) => setAnalytics({ ...analytics, reposts: e.target.value })}
+                                        onChange={(e) => setAnalytics({ ...analytics, reposts: parseInt(e.target.value) })}
                                     />
                                     {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
                                 </div>
@@ -97,12 +102,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                         Quotes
                                     </label>
                                     <input
+                                        min='0'
                                         type='number'
                                         className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                         placeholder='Enter quotes count'
                                         name='quotes'
                                         value={analytics.quotes}
-                                        onChange={(e) => setAnalytics({ ...analytics, quotes: e.target.value })}
+                                        onChange={(e) => setAnalytics({ ...analytics, quotes: parseInt(e.target.value) })}
                                     />
                                     {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct quotes count</p>}
                                 </div>
@@ -113,12 +119,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                         Bookmarks
                                     </label>
                                     <input
+                                        min='0'
                                         type='number'
                                         className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
                                         placeholder='Enter bookmarks count'
                                         name='bookmarks'
                                         value={analytics.bookmarks}
-                                        onChange={(e) => setAnalytics({ ...analytics, bookmarks: e.target.value })}
+                                        onChange={(e) => setAnalytics({ ...analytics, bookmarks: parseInt(e.target.value) })}
                                     />
                                     {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct estimated reach count</p>}
                                 </div>

@@ -10,10 +10,10 @@ import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/l
 import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
-import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
+import LoadingReporting from '@/components/global-components/LoadingReporting';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
@@ -262,7 +262,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                     )}
                 </div>
             ) : (
-                <LoadingBlack />
+                <LoadingReporting isPublic={searchParams.isPublic ? searchParams.isPublic : false} title={campData.meta?.campaignDto?.title} />
             )}
         </div>
     );

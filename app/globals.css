@@ -134,6 +134,10 @@ body,
     text-shadow: none !important;
 }
 
+.carousel .control-dots .dot {
+  background: #000000 !important;
+}
+
 .carousel .control-next.control-arrow:before {
     border-left: 8px solid #8b8b8b !important;
 }

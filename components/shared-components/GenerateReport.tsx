@@ -37,29 +37,8 @@ export default function GenerateReport(props: GenerateReportProps) {
     const [gradInx, setGradInx] = useState(0);
     const [isSheetExist] = useState('yes');
 
-    let postSummary = 0;
-    const displayPostSummary = () => {
-        const postsData = Object.keys(campData.meta?.postSummaryResp)
-            .filter(
-                (item) =>
-                    !(
-                        campData.meta?.postSummaryResp[item] === null ||
-                        campData.meta?.postSummaryResp[item] === 0 ||
-                        campData.meta?.postSummaryResp[item] === false
-                    )
-            )
-            .map((key) => {
-                return (
-                    !(reportText === 'Generate Report' && key === 'otherPosts') && (
-                        <div className='flex flex-col text-sm w-20' key={key}>
-                            <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}</span>
-                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
-                        </div>
-                    )
-                );
-            });
-        postSummary = postsData.length;
-        return postsData;
+    const openCloseConfirmModal = () => {
+        setShowConfirmModal(!showConfirmModal);
     };
 
     const setLastRefresh = () => {
@@ -107,15 +86,6 @@ export default function GenerateReport(props: GenerateReportProps) {
         return () => clearInterval(interval);
     });
 
-    const openCloseConfirmModal = () => {
-        setShowConfirmModal(!showConfirmModal);
-    };
-
-    let lastUpdate = dayjs(Number(campData.meta?.campaignDto.lastSyncedAt)).fromNow();
-    if (diffInMin > 0) {
-        lastUpdate = dayjs(new Date()).subtract(diffInMin, 'minutes').fromNow();
-    }
-
     useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
@@ -129,12 +99,40 @@ export default function GenerateReport(props: GenerateReportProps) {
         }
     }, [reportText]);
 
+    let lastUpdate = dayjs(Number(campData.meta?.campaignDto.lastSyncedAt)).fromNow();
+    if (diffInMin > 0) {
+        lastUpdate = dayjs(new Date()).subtract(diffInMin, 'minutes').fromNow();
+    }
+
+    let postsData: any = [];
+    if (!isPublic) {
+        postsData = Object.keys(campData.meta?.postSummaryResp)
+            .filter(
+                (item) =>
+                    !(
+                        campData.meta?.postSummaryResp[item] === null ||
+                        campData.meta?.postSummaryResp[item] === 0 ||
+                        campData.meta?.postSummaryResp[item] === false
+                    )
+            )
+            .map((key) => {
+                return (
+                    !(reportText === 'Generate Report' && key === 'otherPosts') && (
+                        <div className='flex flex-col text-sm w-20' key={key}>
+                            <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}</span>
+                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
+                        </div>
+                    )
+                );
+            });
+    }
+
     return (
-        <div className={`flex py-2 flex-col md:flex-row justify-between gap-4 items-center h-[${postSummary > 0 ? '168px' : '108px'}] sm:h-[60px]`}>
+        <div className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[${postsData.length > 4 ? '168px' : '108px'}] sm:h-[60px]`}>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
                     {!isPublic ? (
-                        displayPostSummary()
+                        postsData
                     ) : (
                         <div className='flex flex-col sm:flex-row text-xl sm:text-2xl gap-2'>
                             <div className='font-semibold'>
