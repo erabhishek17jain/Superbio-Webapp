@@ -22,21 +22,13 @@ export default function Reporting(props: IReportingProps) {
     const [columns, setColumns] = useState<IColumn[]>(initialColumns);
     const [loader, setloader] = useState(false);
 
-    const loadCampData = async (query: any) => {
+    const loadMore = async () => {
+        if (meta?.total === columns.length) return;
+        setloader(true);
+        query.page = query.page + 1;
         const resp: any = await JavaNetworkService.instance.getPostsData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
-    };
-
-    const loadMore = async () => {
-        if (meta?.total === columns.length) {
-            return;
-        }
-        query.page = query.page + 1;
-        setloader(true);
-        setTimeout(() => {
-            loadCampData({ ...query });
-        }, 1000);
     };
 
     useEffect(() => {

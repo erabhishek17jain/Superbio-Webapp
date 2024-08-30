@@ -192,21 +192,20 @@ export default function SocialCard({
                                 Due to privacy setting of this post, we're unable to display this content directly. Kindly share a screenshot as a subtitle.
                             </span>
                             <input multiple type='file' id={username + 'upload'} accept='image/*' onChange={onImageChange} className={'hidden'} />
-                            <div className='flex justify-between gap-4'>
+                            <div className='flex justify-between gap-4 font-semibold '>
                                 <label
                                     htmlFor={username + 'upload'}
-                                    className='w-[180px] flex items-center border border-[#cdcdcd] py-2 px-4 rounded-lg space-x-2'>
-                                    <PlusCircleIcon color='#000' size={22} />
+                                    className='w-auto flex items-center border border-[#cdcdcd] py-2 px-3 rounded-lg space-x-2 text-sm'>
                                     <span className='text-sm'>Add screenshots</span>
                                 </label>
-                                <button className='w-[150px] border p-2 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
+                                <button className='w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
                                     <span className='cursor-pointer'></span>
                                     <span>Update Analytics</span>
                                 </button>
                             </div>
                         </div>
                     ) : !isShowScreenshots ? (
-                        <div className='flex flex-col justify-center items-center font-semibold gap-3 mb-4 px-3' id='crausel'>
+                        <div className='flex flex-col justify-center items-center font-semibold gap-3 my-2 px-3' id='crausel'>
                             {privateUrls?.length > 0 ? (
                                 <div className='flex flex-col gap-2 items-center justify-center'>
                                     <Carousel className='h-[26rem]' showArrows={true} emulateTouch={true} infiniteLoop={true} showStatus={true}>
@@ -214,12 +213,17 @@ export default function SocialCard({
                                             <Image alt={i.toString()} width={150} height={200} className=' object-contain' src={obj} key={uuidv4()} />
                                         ))}
                                     </Carousel>
-                                    <label
-                                        onClick={() => setIsShowScreenshots(true)}
-                                        className='w-[180px] flex items-center border border-[#cdcdcd] py-2 px-4 rounded-lg space-x-2'>
-                                        <PlusCircleIcon color='#000' size={22} />
-                                        <span className='text-sm'>Edit screenshots</span>
-                                    </label>
+                                    <div className='flex justify-between gap-4 mt-2'>
+                                        <label
+                                            onClick={() => setIsShowScreenshots(true)}
+                                            className='w-auto flex items-center border border-[#cdcdcd] py-2 px-3 rounded-lg space-x-2 text-sm'>
+                                            <span className='text-sm'>Edit screenshots</span>
+                                        </label>
+                                        <button className='w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
+                                            <span className='cursor-pointer'></span>
+                                            <span>Update Analytics</span>
+                                        </button>
+                                    </div>
                                 </div>
                             ) : (
                                 <span className='text-center'>Manual post screenshot not uploaded for private/story post or so.</span>
@@ -244,11 +248,19 @@ export default function SocialCard({
                                             <Trash2Icon color='#8b8b8b' size={22} onClick={() => deleteScreenshots(obj?.name)} />
                                         </div>
                                     ))}
-                                    <input multiple type='file' id={username + 'upload1'} accept='image/*' onChange={onImageChange} className={'hidden'} />
+                                    <input
+                                        multiple
+                                        type='file'
+                                        disabled={isUploading}
+                                        id={username + 'upload1'}
+                                        accept='image/*'
+                                        onChange={onImageChange}
+                                        className={'hidden'}
+                                    />
                                     <div className='flex justify-between'>
                                         <label
                                             htmlFor={username + 'upload1'}
-                                            className='flex items-center border border-[#cdcdcd] py-2 px-4 rounded-lg space-x-2'>
+                                            className='flex items-center border border-[#cdcdcd] py-2 px-4 rounded-lg space-x-2 disabled:opacity-50'>
                                             <PlusCircleIcon color='#000' size={22} />
                                         </label>
                                         <button

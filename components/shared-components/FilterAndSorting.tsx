@@ -14,6 +14,7 @@ import {
 import TwitterIcon from '../../icons/TwitterIcon';
 import InstagramIcon from '../../icons/InstagramIcon';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 interface FilterAndSortingProps {
     meta: any;
@@ -27,6 +28,7 @@ interface FilterAndSortingProps {
 export default function FilterAndSorting(props: FilterAndSortingProps) {
     const { meta, shouldShowSort, query, filters, selectFilter, filtersOptions } = props;
     const [isFilter, setIsFilter] = useState(false);
+    const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
 
     const setOpenFilter = (open: boolean) => {
@@ -48,7 +50,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     useEffect(() => {
         if (filters) {
             const index = Object.keys(filters)?.filter((item: any) => filters[item].length > 0);
-            if (index.length > 0) {
+            if (index.length > 0 && !isSmallDevice) {
                 setIsFilter(true);
                 document.getElementById('filterPanel')?.classList.toggle('hidden');
             }

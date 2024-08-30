@@ -110,7 +110,7 @@ export default function FilterUi(props: FilterUiProps) {
     };
 
     return (
-        <div id='filterPanel' className='hidden flex w-[222px] flex-col border-r border-[#cdcdcd]'>
+        <div id='filterPanel' className='hidden fixed bg-white h-[calc(100%_-_124px)] z-10 sm:h-auto sm:relative flex w-[222px] flex-col border-r border-[#cdcdcd]'>
             <div className='flex w-full min-w-[210px] flex-col py-4 px-3'>
                 <p className='flex justify-between text-lg font-bold'>
                     <span className='flex gap-2 items-center mb-2'>

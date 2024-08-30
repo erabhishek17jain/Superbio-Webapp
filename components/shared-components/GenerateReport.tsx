@@ -128,7 +128,8 @@ export default function GenerateReport(props: GenerateReportProps) {
     }
 
     return (
-        <div className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[${postsData.length > 4 ? '168px' : '108px'}] sm:h-[60px]`}>
+        <div
+            className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[${postsData.length > 4 ? '168px' : isPublic ? '138px' : '108px'}] sm:h-[60px]`}>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
                     {!isPublic ? (
