@@ -34,6 +34,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             updatedAt: new Date(campaign.updatedAt.$date.$numberLong),
             createdAt: new Date(campaign.createdAt.$date.$numberLong),
             sharedUsers: campaign.sharedUsers,
+            type: campaign.type,
             user: {
                 id: campaign.user?._id.$oid,
                 name: campaign.user?.name,
@@ -55,6 +56,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
                     startDate: campaign.startDate,
                     endDate: campaign.endDate,
                     status: campaign.status,
+                    type: campaign.type,
                 },
                 {
                     headers: this.get_auth_header(),
@@ -89,7 +91,8 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         limit: number,
         status: CampaignStatus,
         ownerType: string,
-        q: string
+        q: string,
+        type: "post" | "influencer"
     ): Promise<{ data: ICampaign[]; status: string; ownerType: string; meta: any; q: string }> => {
         try {
             let params: { [key: string]: any } = {
@@ -97,6 +100,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
                 limit,
                 status,
                 ownerType,
+                type,
             };
             if (q) {
                 params.q = q;

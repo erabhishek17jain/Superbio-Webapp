@@ -5,6 +5,7 @@ import reporting from '@/public/dashboard/reporting.png';
 import influencer from '@/public/dashboard/influencer.png';
 import { setCampaignType } from '@/context/user';
 import { ArrowRightIcon } from 'lucide-react';
+import Link from 'next/link';
 
 const HomePage = (props: any) => {
     const dispatch = useAppDispatch();
@@ -34,16 +35,16 @@ const HomePage = (props: any) => {
                 onClick={() => setSelectType('influncer')}>
                 <Image src={influencer} alt='Influencer' className='w-16 h-[90px] p-4 pr-0' />
                 <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
+                <div className={`flex flex-col ${selectType === 'campaign' ? 'mb-0' : 'mb-6'}`}>
                     <span className={'text-black'}>Influencer Analysis</span>
                     <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get precise profile analytics of hundreds of influencers</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
-                        {selectType === 'influncer' && (
-                            <button className='flex gap-3 uppercase font-semibold ' onClick={() => {}}>
-                                Coming soon
+                            <Link href={"/influencer"} className='flex gap-3 uppercase font-semibold '>
+                                Get Started
                                 <ArrowRightIcon color={'#000'} size={24} />
-                            </button>
-                        )}
+                            </Link>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

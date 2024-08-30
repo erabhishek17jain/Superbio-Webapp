@@ -3,7 +3,7 @@
 import SheetNetworkService from '@/services/sheet.service';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
@@ -36,6 +36,7 @@ export default function GenerateReport(props: GenerateReportProps) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [gradInx, setGradInx] = useState(0);
     const [isSheetExist] = useState('yes');
+    const url = usePathname();
 
     const openCloseConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
@@ -201,7 +202,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}>
+                        onClick={() => router.push(`${url.split('/')[0]}/${params?.campaignType}/create/${params.campaignId}`)}>
                         Add Links
                         <PlusCircleIcon color='#ffe3e2' size={24} />
                     </button>

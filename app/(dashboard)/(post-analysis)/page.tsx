@@ -43,8 +43,8 @@ export default function Home() {
     };
 
     const fetchCampaigns = () => {
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText }));
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText, type: "post" }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText, type: "post" }));
     };
 
     useEffect(() => {
@@ -157,7 +157,7 @@ export default function Home() {
                                 <div className='flex flex-col w-full mb-4 sm:mb-10'>
                                     <div className='flex w-full justify-between mb-3 sm:mb-5'>
                                         <span className='font-semibold text-xl text-opacity-80'>Active campaigns</span>
-                                        <Link href={`/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
+                                        <Link href={`/post/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                             See More
                                         </Link>
                                     </div>
@@ -171,6 +171,7 @@ export default function Home() {
                                                     status='active'
                                                     color={'#F5F8FF'}
                                                     fetchCampaigns={fetchCampaigns}
+                                                    type='post'
                                                 />
                                             ))}
                                         </div>
@@ -201,6 +202,7 @@ export default function Home() {
                                                     status='active'
                                                     color={'#F5F8FF'}
                                                     fetchCampaigns={fetchCampaigns}
+                                                    type='post'
                                                 />
                                             ))}
                                         </div>
@@ -234,6 +236,7 @@ export default function Home() {
                     openCloseModal={() => {
                         setOpenCampaingModal(false);
                     }}
+                    type="post"
                 />
             )}
         </div>

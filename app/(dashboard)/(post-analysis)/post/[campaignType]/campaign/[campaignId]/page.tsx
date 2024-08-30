@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../components/shared-components/GenerateReport';
-import FilterUi from '../../../../../components/shared-components/FilterUi';
+import GenerateReport from '@/components/shared-components/GenerateReport';
+import FilterUi from '@/components/shared-components/FilterUi';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
-import Reporting from '../../../../../components/shared-components/Reporting';
+import FilterAndSorting from '@/components/shared-components/FilterAndSorting';
+import Reporting from '@/components/shared-components/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
+import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
-import LoadingReporting from '@/components/global-components/LoadingReporting';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
@@ -225,7 +225,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         <NewCampaign
                             buttonText={'Add links'}
                             title={'Add links for reporting'}
-                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
+                            action={() => router.push(`/post/${params?.campaignType}/create/${params.campaignId}`)}
                             description={
                                 'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                             }
@@ -262,7 +262,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                     )}
                 </div>
             ) : (
-                <LoadingReporting isPublic={searchParams.isPublic ? searchParams.isPublic : false} title={campData.meta?.campaignDto?.title} />
+                <LoadingBlack />
             )}
         </div>
     );

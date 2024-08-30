@@ -30,12 +30,14 @@ export default function CampaignCard({
     setMode,
     color,
     fetchCampaigns,
+    type,
 }: {
     campaign: ICampaign;
     status: string;
     setMode: any;
     color: string;
     fetchCampaigns: any;
+    type: "post" | "influencer";
 }) {
     const router = useRouter();
     const { user } = useAppSelector((state) => state.user);
@@ -51,7 +53,7 @@ export default function CampaignCard({
     };
 
     const navigateToReporting = () => {
-        router.push(`/${status}/campaign/${campaign.id}`);
+        router.push(`${type}/${status}/campaign/${campaign.id}`);
     };
 
     const openCloseShareModal = () => {
@@ -95,7 +97,7 @@ export default function CampaignCard({
         },
         {
             title: 'Add/Edit Sheet',
-            action: () => router.push(`/${status}/create/${campaign?.id}`),
+            action: () => router.push(`/${type}/${status}/create/${campaign?.id}`),
             icon: <ListPlusIcon color={'#8b8b8b'} size={22} />,
         },
     ];

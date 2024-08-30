@@ -15,6 +15,7 @@ export interface ICampaign {
     groups: number;
     source: string;
     sharedUsers?: any[];
+    type: string;
     updatedAt: MongoDate;
     createdAt: MongoDate;
     user?: {

@@ -15,6 +15,10 @@ const nextConfig = {
         source: "/api/:path*",
         destination: "https://business.loqo.ai/:path*", // Proxy to Backend
       },
+      {
+        source: "/post",
+        destination: "/",
+      }
     ];
   },
 };

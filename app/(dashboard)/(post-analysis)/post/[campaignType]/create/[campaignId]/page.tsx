@@ -5,8 +5,8 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
-import { SheetDetails } from '../../../../../components/shared-components/SheetDetails';
-import GuidelinesUi from '../../../../../components/shared-components/GuidelinesUi';
+import { SheetDetails } from '@/components/shared-components/SheetDetails';
+import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
@@ -61,7 +61,7 @@ export default function CreateReporting() {
         } else if (mode === 'edit') {
             openCloseConfirmModal();
         } else if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+            router.push(`/post/${params?.campaignType}/campaign/${params.campaignId}`);
         }
     };
 
@@ -115,7 +115,7 @@ export default function CreateReporting() {
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+                    router.push(`/post/${params?.campaignType}/campaign/${params.campaignId}`);
                 });
         }
     };

@@ -23,7 +23,7 @@ export default function AllCampaignPage() {
 
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
+        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '', type: "post" }));
         dispatch(
             setMeta({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,
@@ -42,7 +42,7 @@ export default function AllCampaignPage() {
         if (allCampaign?.meta.page && allCampaign?.meta.page * 12 < allCampaign?.meta.total) {
             setloader(true);
             const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
-            dispatch(getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '' }));
+            dispatch(getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '', type: "post" }));
             setloader(false);
         }
     };
@@ -67,6 +67,7 @@ export default function AllCampaignPage() {
                     openCloseModal={() => {
                         setOpenCampaingModal(false);
                     }}
+                    type="post"
                 />
             )}
             {allCampaign?.data && allCampaign?.data?.length > 0 ? (

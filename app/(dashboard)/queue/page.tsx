@@ -75,7 +75,7 @@ export default function Queue() {
                                     <tr
                                         key={queue._id.$oid.toString()}
                                         className='odd:bg-white even:bg-gray-50 border-b cursor-pointer hover:bg-gray-100'
-                                        onClick={() => router.push(`/active/campaign/${queue.campaignId._id.$oid.toString()}`)}>
+                                        onClick={() => router.push(`/post/active/campaign/${queue.campaignId._id.$oid.toString()}`)}>
                                         <th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'>
                                             {queue?.campaign?.title}
                                         </th>

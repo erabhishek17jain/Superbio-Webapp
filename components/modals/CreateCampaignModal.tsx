@@ -9,7 +9,7 @@ import CampaignNetworkService from '@/services/campaign.service';
 import { XIcon } from 'lucide-react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function CreateCampaignModal({ mode, openCloseModal, campaignDetails }: any) {
+export default function CreateCampaignModal({ mode, openCloseModal, campaignDetails, type }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { newCampaign } = useAppSelector((state) => state.campaign);
@@ -24,6 +24,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         keywords: [],
         priority: 1,
         startDate: new Date(),
+        type: type,
         endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
     });
 
@@ -77,13 +78,13 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
             if (mode === 'add') {
                 CampaignNetworkService.instance.createCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign created successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${type}/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             } else {
                 CampaignNetworkService.instance.updateCampaign(campaignDetail).then((res) => {
                     enqueueSnackbar('Campaign updated successfully', { variant: 'success' });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${type}/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             }
