@@ -6,13 +6,11 @@ import { setLoading, setMeta } from '@/context/campaign';
 import { useSnackbar } from 'notistack';
 import copy from 'copy-to-clipboard';
 import { getCampaigns } from '@/context/campaign/network';
-import logo from '@/public/logo/logo-black.svg';
-import Image from 'next/image';
 import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
-import { ArrowRightIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -151,12 +149,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         </div>
                                     )}
                                     {paths.indexOf('campaign') > -1 && (
-                                        <div className='flex'>
+                                        <div className='flex gap-4'>
+                                            <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
+                                                <ChevronLeftIcon color='#000' size={16} />
+                                                Back
+                                            </button>
                                             <button
                                                 onClick={() => copyShareLink(`/${params?.campaignType}/campaign/${params.campaignId}?isPublic=true`)}
-                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-[12px] md:text-sm'>
-                                                <CopyIcon color='#ffffff' size={20} />
-                                                Copy Public Dashboard Link
+                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-sm'>
+                                                <CopyIcon color='#ffffff' size={16} />
+                                                <span className='hidden sm:flex'>Copy Public Dashboard Link</span>
+                                                <span className='sm:hidden flex'>Copy Public Link</span>
                                             </button>
                                         </div>
                                     )}

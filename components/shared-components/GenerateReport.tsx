@@ -168,7 +168,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                                 className={`flex gap-3 ${gradients[gradInx]} from-[#000] to-white items-center rounded-lg p-[2px] text-[#8b8b8b] text-sm mr-3 cursor-not-allowed`}>
                                 <button className='flex items-center px-3 gap-3 h-full rounded-lg bg-white text-[#000] text-sm cursor-not-allowed'>
                                     <AreaChartIcon color='#000' size={20} />
-                                    Generating Report ({generateStatus !== '' ? generateStatus : 'This may take a few minutes'})
+                                    Generating... ({generateStatus !== '' ? generateStatus : 'This may take a few minutes'})
                                 </button>
                             </div>
                         )}
