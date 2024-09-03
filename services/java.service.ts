@@ -27,7 +27,6 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
             const res = await axios.get<IPostsResponse>(`${this.javaUrl}/post/${campaignId}/posts${params}`);
@@ -52,6 +51,19 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
     public deleteCampaign = async (campaignId: string): Promise<any> => {
         try {
             const res = await axios.delete<ICampaign>(`/api/campaign/${campaignId}`, {
+                headers: this.get_auth_header(),
+                withCredentials: true,
+            });
+            return res;
+        } catch (err: any) {
+            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
+            throw err;
+        }
+    };
+
+    public deletePost = async (campaignId: string): Promise<any> => {
+        try {
+            const res = await axios.delete<ICampaign>(`/api/post/${campaignId}`, {
                 headers: this.get_auth_header(),
                 withCredentials: true,
             });

@@ -80,9 +80,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div className='flex flex-col w-full h-screen overflow-auto'>
                 {!isPublic && (
                     <div
-                        className={`fixed z-10 bg-white flex w-[calc(100%_-_72px)] items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-3 sm:pb-[14px] border-[#cdcdcd] border-b h-16 z-10`}>
+                        className={`fixed z-10 bg-white flex w-full sm:w-[calc(100%_-_72px)] items-center justify-between pl-4 sm:pl-8 pr-4 pt-3 pb-3 sm:pb-[14px] border-[#cdcdcd] border-b h-16 z-10`}>
                         <div className='flex flex-col w-8 items-center h-[48px]'>
-                            <Link href={'/home'} className='w-20 absolute -left-10 top-[17px]'>
+                            <Link href={'/home'} className='w-20 absolute left-6 sm:-left-10 top-[17px]'>
                                 <DynamicLogo />
                             </Link>
                         </div>

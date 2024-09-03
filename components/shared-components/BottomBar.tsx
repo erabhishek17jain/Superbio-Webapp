@@ -47,7 +47,7 @@ export default function BottomBar() {
                     dispatch(setCampaignType(''));
                     router.push('/login');
                 }}
-                className='text-[#8b8b8b] group-hover:text-black text-xs'>
+                className='text-[#8b8b8b] group-hover:text-black text-xs cursor-pointer'>
                 <LogoutIcon color={'#8b8b8b'} size={32} />
             </span>
         </ul>

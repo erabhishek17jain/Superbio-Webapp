@@ -309,9 +309,6 @@ export default function CreateReporting() {
                             ))}
 
                             <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
-                                {mode === 'edit' && (
-                                    <div className='flex text-sm'>Do you really want to update. If you update this sheet then you previous data will be deleted.</div>
-                                )}
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>

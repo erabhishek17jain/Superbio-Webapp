@@ -9,8 +9,9 @@ import { enqueueSnackbar } from 'notistack';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import UpdateAnalyticsModal from '../modals/UpdateAnalyticsModal';
-import { PlusCircleIcon, SquareArrowOutDownRightIcon, SquareArrowOutUpRightIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import { PlusCircleIcon, SquareArrowOutUpRightIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import { calculateSummary } from '@/lib/utils';
+import DeletePostModal from '../modals/DeletePostModal';
 
 export function fileToBase64(file: any) {
     return new Promise((resolve, reject) => {
@@ -74,9 +75,14 @@ export default function SocialCard({
     const [isUploading, setIsUploading] = useState(false);
     const [isShowScreenshots, setIsShowScreenshots] = useState(false);
     const [showAnalyticsModal, setshowAnalyticsModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const openCloseAnalyticsModal = () => {
         setshowAnalyticsModal(!showAnalyticsModal);
+    };
+
+    const openCloseDeleteModal = () => {
+        setShowDeleteModal(!showDeleteModal);
     };
 
     const onImageChange = async (e: any) => {
@@ -162,6 +168,11 @@ export default function SocialCard({
                             <a target='_blank' href={link} className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
                                 <SquareArrowOutUpRightIcon color='#8b8b8b' size={22} />
                             </a>
+                            <button
+                                onClick={openCloseDeleteModal}
+                                className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
+                                <Trash2Icon color='#8b8b8b' size={22} />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -316,6 +327,7 @@ export default function SocialCard({
                     </div>
                 )}
             </div>
+            {showDeleteModal && <DeletePostModal postId={item.id} openCloseModal={openCloseDeleteModal} />}
             {showAnalyticsModal && (
                 <UpdateAnalyticsModal
                     postId={item.id}

@@ -122,7 +122,7 @@ export default function Register() {
                     value={user.email}
                     name='email'
                     onChange={setKeyAndValue}
-                    className={`bg-[#F7F7F7] outline-none text-sm p-3 px-4 mt-1 rounded-md ${errors.email !== '' && user.email !== '' && 'border border-[#d00a0a]'}`}
+                    className={`bg-[#F7F7F7] outline-none text-sm p-3 px-4 mt-1 rounded-md ${errors.email !== '' && 'border border-[#d00a0a]'}`}
                 />
                 {errors.email !== '' && <p className='text-[12px] text-[#d00a0a]'>{errors.email}</p>}
             </div>
