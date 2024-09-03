@@ -8,13 +8,13 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
     const [error, setError] = useState(false);
     const [analytics, setAnalytics] = useState({ ...currentAnalytics });
 
-    const updateEstimatedReach = () => {
+    const updatePostAnalytics = () => {
         const params = { ...analytics };
         if (JSON.stringify(params) !== JSON.stringify(currentAnalytics)) {
             JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
                 enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
                 openCloseModal();
-                const cols = [...columns]
+                const cols = [...columns];
                 cols[index] = res;
                 setColumns([...cols]);
             });
@@ -33,7 +33,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                         </button>
                     </div>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row lg:flex-row'>
-                        <div className={`grid grid-cols-3 gap-5 w-full overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
+                        <div className={`grid grid-cols-2 gap-5 w-full overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
                             <div className='flex flex-col'>
                                 <label htmlFor='' className='text-sm'>
                                     Views
@@ -79,23 +79,21 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct comments count</p>}
                             </div>
-                            {platform === 'twitter' && (
-                                <div className='flex flex-col'>
-                                    <label htmlFor='' className='text-sm'>
-                                        Reposts
-                                    </label>
-                                    <input
-                                        min='0'
-                                        type='number'
-                                        className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
-                                        placeholder='Enter reposts count'
-                                        name='reposts'
-                                        value={analytics.reposts}
-                                        onChange={(e) => setAnalytics({ ...analytics, reposts: parseInt(e.target.value) })}
-                                    />
-                                    {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
-                                </div>
-                            )}
+                            <div className='flex flex-col'>
+                                <label htmlFor='' className='text-sm'>
+                                    {platform === 'twitter' ? 'Reposts' : 'Video share'}
+                                </label>
+                                <input
+                                    min='0'
+                                    type='number'
+                                    className='flex bg-[#F7F7F7] outline-none mt-2 p-2 px-4 rounded-lg text-sm'
+                                    placeholder='Enter reposts count'
+                                    name='reposts'
+                                    value={analytics.reposts}
+                                    onChange={(e) => setAnalytics({ ...analytics, reposts: parseInt(e.target.value) })}
+                                />
+                                {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
+                            </div>
                             {platform === 'twitter' && (
                                 <div className='flex flex-col'>
                                     <label htmlFor='' className='text-sm'>
@@ -139,7 +137,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        <button onClick={updateEstimatedReach} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
+                        <button onClick={updatePostAnalytics} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
                             <ReportIcon color='#fff' size={24} />
                             Update
                         </button>

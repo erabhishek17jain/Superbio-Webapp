@@ -1,12 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
 import SocialCard from './SocialCard';
 import JavaNetworkService from '@/services/java.service';
-import { ArrowUpFromDotIcon } from 'lucide-react';
+import { ScrollToTop } from '../global-components/ScrollToTop';
 
 interface IReportingProps {
     meta: any;
@@ -154,7 +153,7 @@ export default function Reporting(props: IReportingProps) {
                 <div className='flex items-center justify-center w-full h-[200px] my-6 mx-auto text-xl font-semibold'>Links not available.</div>
             )}
             {loader && (
-                <Link className='fixed left-1/2 bottom-[72px] sm:bottom-5' href='#camp-top'>
+                <div className='fixed left-1/2 bottom-[72px] sm:bottom-5'>
                     <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-2 text-white shadow-sm'}>
                         <div className='flex items-center justify-center w-8 h-8 mx-auto'>
                             <div className='flex items-center justify-center w-6 h-6'>
@@ -162,14 +161,10 @@ export default function Reporting(props: IReportingProps) {
                             </div>
                         </div>
                     </div>
-                </Link>
+                </div>
             )}
             {!loader && <InView as='div' onChange={(inView, entry) => inView && loadMore()} className='flex items-center justify-center h-8'></InView>}
-            <Link className='fixed right-5 bottom-[72px] sm:bottom-5' href='#camp-top'>
-                <div className={'opacity-100 bg-[#000] inline-flex items-center rounded-full p-3 text-white shadow-sm'}>
-                    <ArrowUpFromDotIcon size={24} color='#fff' />
-                </div>
-            </Link>
+            <ScrollToTop />
         </div>
     );
 }

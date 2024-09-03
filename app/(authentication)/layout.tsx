@@ -112,7 +112,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         <div className='flex w-full flex-col overflow-y-auto'>
                             <div className='flex flex-col w-full items-center'>
                                 <div className='flex w-full justify-center font-bold text-lg mt-4'>LOQO Campaign Tracker</div>
-                                <div className='flex w-full justify-center font-light text-base'>Post Links Analysis and Sharable Dashboards</div>
+                                <div className='flex w-full justify-center font-light text-base'>Post Links Analysis and Shareable Dashboards</div>
                             </div>
                             <div className='flex w-full'>
                                 <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>

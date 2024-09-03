@@ -36,7 +36,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
 
     useEffect(() => {
         if (searchText !== '') {
-            setUsers(members.filter((item: any) => item?.name.includes(searchText)));
+            setUsers(members.filter((item: any) => item?.name.toLowerCase().includes(searchText)));
         } else {
             setUsers(members);
         }
@@ -85,7 +85,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
                             name={`input_name}`}
                             placeholder={'Search for teammates'}
                             value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
+                            onChange={(e) => setSearchText(e.target.value.toLowerCase())}
                             className='flex outline-none bg-[#F7F7F7] py-6 px-3 h-10 text-sm w-full'
                         />
                         <ArrowRightIcon color='#8b8b8b' size={24} />

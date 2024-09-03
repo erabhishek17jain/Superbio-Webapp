@@ -32,9 +32,11 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
         });
     };
 
+    const isInstagram = filters && filters['platform']?.includes('instagram');
+
     const analytics: ISummary[] = summary?.filter((el) => {
-        if (filters && filters['platform']?.includes('instagram')) {
-            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'Estimated Reach');
+        if (isInstagram) {
+            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'reposts' && el.title !== 'Estimated Reach');
         } else {
             return el;
         }
@@ -63,7 +65,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                     <p className='text-xs text-black-500'>
                                         {item.title.includes('Estimated Reach') || item.title === 'Total Posts'
                                             ? item.title
-                                            : `${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title}`}
+                                            : `${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title === 'reposts' && isInstagram ? 'video shares' : item.title}`}
                                     </p>
                                     {item.title.includes('Estimated Reach') && !isPublic && (
                                         <div className='flex gap-1'>

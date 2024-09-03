@@ -22,7 +22,8 @@ export default function DeleteCampaignModal({ campaign, openCloseModal, fetchCam
                     </div>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row lg:flex-row'>
                         <div className={`flex flex-col flex-1 pr-0 sm:pr-5 'overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
-                            Are you sure want to delete this campaign? This action cannot be undone. Confirm deletion to bid farewell to your campaign journey.
+                            Are you sure want to delete this campaign? This action cannot be undone. Confirm deletion to bid farewell to this campaign
+                            report.
                         </div>
                     </div>
                     <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>

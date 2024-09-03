@@ -59,7 +59,7 @@ export default class UserNetworkService extends BaseNetworkFramework {
         const res = await axios.post<ILoginResponse>(`${this.url}/user/verify`, { otp, email });
         setCookie('token', res.data.token);
         setCookie('user', JSON.stringify(res.data.user));
-        enqueueSnackbar('Email Verified Successfully', { variant: 'success' });
+        enqueueSnackbar('Email verified successfully', { variant: 'success' });
         window.location.reload();
         return {
             user: res.data.user,
@@ -70,7 +70,7 @@ export default class UserNetworkService extends BaseNetworkFramework {
     public forgotPassword = async (email: string): Promise<string> => {
         try {
             const res = await axios.post<string>(`${this.url}/user/forgot-password`, { email, password: '' });
-            enqueueSnackbar('OTP Sent To Your Email', { variant: 'success' });
+            enqueueSnackbar('Reset passowrd link sent to your email', { variant: 'success' });
             return res.data;
         } catch (err: any) {
             throw err;

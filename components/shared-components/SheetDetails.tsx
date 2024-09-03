@@ -2,7 +2,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
     const isDisabled = sheetInfo?.index <= selSheetData.length ? true : false;
     return (
         <>
-            <div className="flex flex-col items-center">
+            <div className='flex flex-col items-center'>
                 <div className='w-full'>
                     <div className='flex mt-2 mb-3 gap-3'>
                         <input
@@ -34,7 +34,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                     <button
                         onClick={() => fetchSheets(sheetInfo)}
                         className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white my-2 ${sheetLoading && 'opacity-40'}`}>
-                        {mode === 'add' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Sheets Info') : ''}
+                        {mode === 'add' || mode === 'edit' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Sheets Info') : ''}
                     </button>
                 )}
             </div>
@@ -64,7 +64,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                     {sheetInfo?.selectedSheet?.columns?.length > 0 && (
                         <div className='flex flex-col w-[67%]' key={'column' + sheetInfo?.selectedSheet.sheetId}>
                             <div className='flex flex-col w-full mt-2'>
-                                <span className='font-medium text-sm mb-3'>Select column which contains social medias links</span>
+                                <span className='font-medium text-sm mb-3'>Select column which contains social media links</span>
                                 <div className='flex gap-2 flex-wrap'>
                                     {sheetInfo?.selectedSheet?.columns?.map((item: any, index: number) => (
                                         <div

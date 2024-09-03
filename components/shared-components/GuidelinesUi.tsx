@@ -25,7 +25,7 @@ export default function GuidelinesUi({ openCloseModal }: any) {
                                 The sheet should be in the exact same format as shown in the example. Do not use colours, labels or make any extra modification
                                 apart from adding your data.
                             </li>
-                            <li>The sheet should always be Public with at least View Access enabled.</li>
+                            <li>The sheet should always be Public with atleast View Access enabled.</li>
                             <li>Do not put duplicate links in the sheet and do not put duplicate links across multiple sheets for the same campaign</li>
                             <li>Do not leave any blank row between the links</li>
                             <li>Campaign Phase, Category and Subcategory columns are optional.</li>

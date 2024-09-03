@@ -60,6 +60,7 @@ export default function AllCampaignPage() {
 
     return (
         <div className='flex px-4 sm:px-8 py-4 flex-col sm:mb-6 mb-12'>
+            <div className='w-full h-16'></div>
             {openCampaingModal && (
                 <CreateCampaignModal
                     mode={mode}

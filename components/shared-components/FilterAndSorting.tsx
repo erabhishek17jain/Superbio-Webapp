@@ -9,6 +9,7 @@ import {
     HeartIcon,
     Instagram,
     MessageCircleIcon,
+    Repeat2Icon,
     SlidersHorizontalIcon,
 } from 'lucide-react';
 import TwitterIcon from '../../icons/TwitterIcon';
@@ -57,6 +58,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         }
     }, []);
 
+    const isInstagram = filters && filters['platform']?.includes('instagram');
     const sortByOptions = [
         {
             id: 'likes',
@@ -75,6 +77,12 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             title: 'Comments',
             action: () => setCampFilters({ sortBy: 'comments', sortDirection: query.sortDirection }),
             icon: <MessageCircleIcon color={'#8b8b8b'} size={20} />,
+        },
+        {
+            id: 'reposts',
+            title: isInstagram ? 'Video Shares' : 'Reposts',
+            action: () => setCampFilters({ sortBy: 'postedAt', sortDirection: query.sortDirection }),
+            icon: <Repeat2Icon color={'#8b8b8b'} size={20} />,
         },
         {
             id: 'postedAt',

@@ -56,12 +56,23 @@ export default function CreateReporting() {
     };
 
     const addUpdateSheet = () => {
-        if (mode === 'add') {
-            handleSheetSelect();
-        } else if (mode === 'edit') {
-            openCloseConfirmModal();
-        } else if (mode === 'view') {
+        if (mode === 'view') {
             router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+            return;
+        }
+        let error = false;
+        const emptyUrl = sheetData.filter((item: any) => item.url === '');
+        const emptyTitle = sheetData.filter((item: any) => item.title === '');
+        if (emptyUrl.length > 0 || emptyTitle.length > 0) {
+            error = true;
+            setIsError(true);
+        }
+        if (!error) {
+            if (mode === 'add') {
+                handleSheetSelect();
+            } else if (mode === 'edit') {
+                openCloseConfirmModal();
+            }
         }
     };
 
@@ -82,42 +93,33 @@ export default function CreateReporting() {
     };
 
     const handleSheetSelect = () => {
-        let error = false;
-        const emptyUrl = sheetData.filter((item: any) => item.url === '');
-        const emptyTitle = sheetData.filter((item: any) => item.title === '');
-        if (emptyUrl.length > 0 || emptyTitle.length > 0) {
-            error = true;
-            setIsError(true);
-        }
-        if (!error) {
-            const promises: any = [];
-            dispatch(setSheetLoading(true));
-            sheetData.forEach((item: any) => {
-                const ind = initialSheetData.findIndex((sh: any) => item.index === sh?.index);
-                if (ind === -1) {
-                    promises.push(
-                        SheetNetworkService.instance.addSheetToCampaign({
-                            title: item?.title,
-                            sheetId: item?.selectedSheet!.sheetId!,
-                            name: item?.selectedSheet!.sheetName!,
-                            linkColumn: item?.columnName,
-                            campaignId: params.campaignId,
-                            range: 'A1:Z',
-                            id: item?.id ? item?.id : null,
-                        })
-                    );
-                }
+        const promises: any = [];
+        dispatch(setSheetLoading(true));
+        sheetData.forEach((item: any) => {
+            const ind = initialSheetData.findIndex((sh: any) => item.index === sh?.index);
+            if (ind === -1) {
+                promises.push(
+                    SheetNetworkService.instance.addSheetToCampaign({
+                        title: item?.title,
+                        sheetId: item?.selectedSheet!.sheetId!,
+                        name: item?.selectedSheet!.sheetName!,
+                        linkColumn: item?.columnName,
+                        campaignId: params.campaignId,
+                        range: 'A1:Z',
+                        id: item?.id ? item?.id : null,
+                    })
+                );
+            }
+        });
+        Promise.all(promises)
+            .then((res) => {
+                dispatch(setSheet(res));
+                enqueueSnackbar('Sheet added successfully', { variant: 'success' });
+            })
+            .finally(() => {
+                dispatch(setSheetLoading(false));
+                router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
             });
-            Promise.all(promises)
-                .then((res) => {
-                    dispatch(setSheet(res));
-                    enqueueSnackbar('Sheet added successfully', { variant: 'success' });
-                })
-                .finally(() => {
-                    dispatch(setSheetLoading(false));
-                    router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
-                });
-        }
     };
 
     const addSheet = () => {
@@ -231,7 +233,7 @@ export default function CreateReporting() {
     }, []);
 
     return (
-        <div className='flex w-full h-full flex-col px-4 sm:px-8 py-4 lg:items-start'>
+        <div className='flex w-full h-full flex-col px-4 sm:px-8 py-4 lg:items-start mt-16'>
             <div className='flex w-full flex-col'>
                 <div className='flex items-center'>
                     <div className='flex flex-col'>
@@ -306,7 +308,10 @@ export default function CreateReporting() {
                                 </div>
                             ))}
 
-                            <div className='flex flex-col mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
+                            <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
+                                {mode === 'edit' && (
+                                    <div className='flex text-sm'>Do you really want to update. If you update this sheet then you previous data will be deleted.</div>
+                                )}
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>

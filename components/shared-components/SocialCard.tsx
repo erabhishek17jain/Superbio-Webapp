@@ -151,7 +151,6 @@ export default function SocialCard({
     }
 
     const posted = new Date(postedAt);
-
     return (
         <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
@@ -167,23 +166,45 @@ export default function SocialCard({
                     </div>
                 </div>
                 <div className='flex w-full mb-1'>
-                    <div className='grid grid-cols-3 rounded-2xl w-full'>
-                        {Object.keys(item.analytics)
-                            ?.filter(
-                                (item) =>
-                                    !item.toLowerCase().includes('plays') &&
-                                    !item.toLowerCase().includes('deletedlink') &&
-                                    !item.toLowerCase().includes('islinkdeleted')
-                            )
-                            .map((data: any, index) => (
-                                <div
-                                    key={uuidv4()}
-                                    className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[3, 4, 5].includes(index) ? 'border-t' : ''} ${[1, 2, 4, 5].includes(index) ? 'border-l' : ''}`}>
-                                    <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
-                                    <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{data}</span>
-                                </div>
-                            ))}
-                    </div>
+                    {type === 'twitter' ? (
+                        <div className='grid grid-cols-3 rounded-2xl w-full'>
+                            {Object.keys(item.analytics)
+                                ?.filter(
+                                    (item) =>
+                                        !item.toLowerCase().includes('plays') &&
+                                        !item.toLowerCase().includes('deletedlink') &&
+                                        !item.toLowerCase().includes('islinkdeleted')
+                                )
+                                .map((data: any, index) => (
+                                    <div
+                                        key={uuidv4()}
+                                        className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[3, 4, 5].includes(index) ? 'border-t' : ''} ${[1, 2, 4, 5].includes(index) ? 'border-l' : ''}`}>
+                                        <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
+                                        <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{data}</span>
+                                    </div>
+                                ))}
+                        </div>
+                    ) : (
+                        <div className='grid grid-cols-4 rounded-2xl w-full'>
+                            {Object.keys(item.analytics)
+                                ?.filter(
+                                    (item) =>
+                                        !item.toLowerCase().includes('plays') &&
+                                        !item.toLowerCase().includes('quotes') &&
+                                        !item.toLowerCase().includes('bookmarks') &&
+                                        !item.toLowerCase().includes('deletedlink') &&
+                                        !item.toLowerCase().includes('islinkdeleted')
+                                )
+                                .map((data: any, index) => (
+                                    <div
+                                        key={uuidv4()}
+                                        className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[1, 2, 3].includes(index) ? 'border-l' : ''}`}>
+                                        <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
+                                        <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{data}</span>
+                                    </div>
+                                ))}
+                        </div>
+                    )}
                 </div>
                 {type === 'instagram' && postType !== 'public' ? (
                     !privateUrls && !isShowScreenshots && !isPublic ? (

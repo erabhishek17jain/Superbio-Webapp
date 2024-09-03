@@ -71,15 +71,10 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     }
 
     const calculateAnalytics = (campData: any) => {
-        const isTwitter = campData?.meta.filterValueResp?.platform.includes('twitter');
         if (campData?.meta.analytics) {
-            let keys: string[] = ['Estimated Reach', 'views', 'likes', 'comments'];
+            let keys: string[] = ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
             if (searchParams.isPublic) {
                 keys = ['Posts', 'Estimated Reach'];
-            } else {
-                if (isTwitter) {
-                    keys = ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
-                }
             }
             const estimatedReach = campData?.meta.analytics.customEstimatedReach
                 ? campData?.meta.analytics.customEstimatedReach
@@ -171,8 +166,11 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const refreshCampaign = (query: any) => {
         JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
-            campData.meta = { ...campData.meta, ...setAnalytics(resp) };
-            dispatch(setCampData({ ...campData }));
+            const tempMeta = { ...campData.meta };
+            const meta = setAnalytics(resp);
+            tempMeta['analytics'] = meta.analytics;
+            tempMeta['basedOnPosts'] = meta.basedOnPosts;
+            dispatch(setCampData({ ...campData, meta: tempMeta }));
             setIsSheetLoading(false);
         });
     };
@@ -180,7 +178,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const initialLoadCampData = (query: any) => {
         JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structureData(resp);
-            dispatch(setCampData(data))
+            dispatch(setCampData(data));
             setIsSheetLoading(false);
         });
     };
@@ -215,7 +213,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     }, []);
 
     return (
-        <div className='flex'>
+        <div className='flex flex-col w-full' id='camp-top'>
+            <div className='w-full h-[60px]'></div>
             {campData?.meta.filterValueResp && (
                 <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
             )}
