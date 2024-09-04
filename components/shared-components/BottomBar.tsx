@@ -5,11 +5,13 @@ import { deleteCookie } from 'cookies-next';
 import { setCampaignType } from '@/context/user';
 import { HouseIcon, LogsIcon, UserRoundCogIcon, UsersIcon } from 'lucide-react';
 import LogoutIcon from '@/icons/LogoutIcon';
+import { useSnackbar } from 'notistack';
 
 export default function BottomBar() {
     const router = useRouter();
     const path = usePathname();
     const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const { user } = useAppSelector((state) => state.user);
     return (
         <ul className='fixed bottom-0 left-0 flex h-fit min-h-[8%] w-full items-center sm:items-end justify-around border-t border-sky-600/15 bg-white sm:hidden z-50'>
@@ -46,6 +48,13 @@ export default function BottomBar() {
                     deleteCookie('user');
                     dispatch(setCampaignType(''));
                     router.push('/login');
+                    enqueueSnackbar('Logout sucessfully', {
+                        variant: 'success',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
                 }}
                 className='text-[#8b8b8b] group-hover:text-black text-xs cursor-pointer'>
                 <LogoutIcon color={'#8b8b8b'} size={32} />

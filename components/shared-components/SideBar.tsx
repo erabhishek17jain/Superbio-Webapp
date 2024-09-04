@@ -6,11 +6,13 @@ import { logout } from '@/lib/utils';
 import { LayoutPanelLeftIcon, LogsIcon, UserCogIcon, UsersIcon } from 'lucide-react';
 import ContactIcon from '../../icons/ContactIcon';
 import LogoutIcon from '@/icons/LogoutIcon';
+import { useSnackbar } from 'notistack';
 
 export default function SideBar() {
     const router = useRouter();
     const path = usePathname();
     const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const { user } = useAppSelector((state) => state.user);
 
     return (
@@ -42,6 +44,13 @@ export default function SideBar() {
                         dispatch(setCampaignType(''));
                         logout();
                         router.push('/login');
+                        enqueueSnackbar('Logout sucessfully', {
+                            variant: 'success',
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            },
+                        });
                     }}
                     className='text-[#8b8b8b] group-hover:text-black text-xs cursor-pointer'>
                     <LogoutIcon size={32} color={path === '/logout' ? '#000000' : '#8b8b8b'} />

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { getCampaigns } from '@/context/campaign/network';
-import { enqueueSnackbar } from 'notistack';
+import { enqueueSnackbar, useSnackbar } from 'notistack';
 import { logout } from '@/lib/utils';
 import HomePage from '@/components/shared-components/HomePage';
 import CampaignCard from '@/components/shared-components/CampaignCard';
@@ -20,6 +20,7 @@ import { ArrowRightIcon, CrossIcon, PlusCircleIcon, PlusIcon, SearchCheckIcon, S
 export default function Home() {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const { user, campaignType } = useAppSelector((state) => state.user);
     const { activeCampaign, sharedCampaign, loading } = useAppSelector((state) => state.campaign);
     const [mode, setMode] = useState('add');
