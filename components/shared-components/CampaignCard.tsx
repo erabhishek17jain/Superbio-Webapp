@@ -47,7 +47,13 @@ export default function CampaignCard({
     const copyFormLink = (url: string) => {
         let base_url = window.location.origin;
         copy(base_url + url);
-        enqueueSnackbar('Creators Form link copied!', { variant: 'success' });
+        enqueueSnackbar('Creators Form link copied!', {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+            },
+        });
     };
 
     const navigateToReporting = () => {

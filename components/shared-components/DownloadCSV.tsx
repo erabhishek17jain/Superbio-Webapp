@@ -36,6 +36,10 @@ export default function DownloadCSV(props: GenerateReportProps) {
         setIsDownloading(true);
         enqueueSnackbar('Please wait, we are preparing your csv file.', {
             variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
         });
         let data: any = [];
         let columns: any = [];

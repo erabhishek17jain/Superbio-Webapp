@@ -32,8 +32,6 @@ export default function Register() {
 
     const checkValidation = (user: any) => {
         let isError = false;
-        const leng = user.password.length;
-        console.log(leng);
         if (!user.name || user.name === '') {
             errors['name'] = 'This field is required';
             isError = true;
@@ -85,12 +83,24 @@ export default function Register() {
                             err.response.data === 'User already exists'
                                 ? 'This email is already registered on LOQO Business. Please Sign in or sign up with a different email.'
                                 : err.response.data;
-                        enqueueSnackbar(error, { variant: 'error' });
+                        enqueueSnackbar(error, {
+                            variant: 'error',
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            },
+                        });
                         setIsSending(false);
                     });
             } catch (error) {
                 console.error('Registration error:', error);
-                enqueueSnackbar('Registration failed', { variant: 'error' });
+                enqueueSnackbar('Registration failed', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             }
         }
     };

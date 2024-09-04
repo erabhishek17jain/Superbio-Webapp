@@ -215,54 +215,56 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     return (
         <div className='flex flex-col w-full' id='camp-top'>
             <div className='w-full h-[60px]'></div>
-            {campData?.meta.filterValueResp && (
-                <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
-            )}
-            {!isSheetLoading ? (
-                <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
-                    {campData?.data.length === 0 && campData?.meta?.total === 0 && (
-                        <NewCampaign
-                            buttonText={'Add links'}
-                            title={'Add links for reporting'}
-                            action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
-                            description={
-                                'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
-                            }
-                        />
-                    )}
-                    {campData?.data && campData?.data.length > 0 && (
-                        <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
-                    )}
-                    {campData?.data && campData?.data.length > 0 && (
-                        <>
-                            <FilterAndSorting
-                                meta={campData?.meta}
-                                shouldShowSort={true}
-                                query={{ ...query, ...filters }}
-                                filters={filters}
-                                selectFilter={selectFilter}
-                                filtersOptions={campData?.meta.filterValueResp}
+            <div className='flex'>
+                {campData?.meta.filterValueResp && (
+                    <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+                )}
+                {!isSheetLoading ? (
+                    <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
+                        {campData?.data.length === 0 && campData?.meta?.total === 0 && (
+                            <NewCampaign
+                                buttonText={'Add links'}
+                                title={'Add links for reporting'}
+                                action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
+                                description={
+                                    'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
+                                }
                             />
-                            <AnalyticsSummary
-                                summary={summary}
-                                filters={filters}
-                                isPublic={searchParams.isPublic ? searchParams.isPublic : false}
-                                campaign={campData?.meta.campaignDto}
-                                refreshCampData={() => refreshCampaign(query)}
-                            />
-                            <Reporting
-                                query={{ ...query, ...filters }}
-                                meta={campData?.meta}
-                                campaignId={params.campaignId}
-                                initialColumns={campData?.data}
-                                isPublic={searchParams.isPublic ? searchParams.isPublic : false}
-                            />
-                        </>
-                    )}
-                </div>
-            ) : (
-                <LoadingReporting isPublic={searchParams.isPublic ? searchParams.isPublic : false} title={campData.meta?.campaignDto?.title} />
-            )}
+                        )}
+                        {campData?.data && campData?.data.length > 0 && (
+                            <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
+                        )}
+                        {campData?.data && campData?.data.length > 0 && (
+                            <>
+                                <FilterAndSorting
+                                    meta={campData?.meta}
+                                    shouldShowSort={true}
+                                    query={{ ...query, ...filters }}
+                                    filters={filters}
+                                    selectFilter={selectFilter}
+                                    filtersOptions={campData?.meta.filterValueResp}
+                                />
+                                <AnalyticsSummary
+                                    summary={summary}
+                                    filters={filters}
+                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                    campaign={campData?.meta.campaignDto}
+                                    refreshCampData={() => refreshCampaign(query)}
+                                />
+                                <Reporting
+                                    query={{ ...query, ...filters }}
+                                    meta={campData?.meta}
+                                    campaignId={params.campaignId}
+                                    initialColumns={campData?.data}
+                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                />
+                            </>
+                        )}
+                    </div>
+                ) : (
+                    <LoadingReporting isPublic={searchParams.isPublic ? searchParams.isPublic : false} title={campData.meta?.campaignDto?.title} />
+                )}
+            </div>
         </div>
     );
 }

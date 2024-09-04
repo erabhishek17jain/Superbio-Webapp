@@ -57,12 +57,24 @@ export default function CreatorsFormModal() {
         });
         if (!isError) {
             CampaignNetworkService.instance.createCampaignForm(fieldPayload).then((res) => {
-                enqueueSnackbar('Campaign form created successfully', { variant: 'success' });
+                enqueueSnackbar('Campaign form created successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
                 router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
             });
         } else {
-            return enqueueSnackbar('Please fill all the fields', { variant: 'error' });
+            return enqueueSnackbar('Please fill all the fields', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
         }
     };
 

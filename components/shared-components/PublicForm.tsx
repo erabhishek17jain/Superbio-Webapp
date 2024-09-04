@@ -40,7 +40,13 @@ export default function PublicForm(props: { data: IPublicForm; campaignId: strin
 
             PublicNetworkService.instance.submitPublicForm(data).then((res) => {
                 setInputs({});
-                enqueueSnackbar('Form submitted successfully', { variant: 'success' });
+                enqueueSnackbar('Form submitted successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             });
         }
     };

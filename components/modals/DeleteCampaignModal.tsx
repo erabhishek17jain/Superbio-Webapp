@@ -5,7 +5,13 @@ import { enqueueSnackbar } from 'notistack';
 export default function DeleteCampaignModal({ campaign, openCloseModal, fetchCampaigns }: any) {
     const archiveCampaign = () => {
         JavaNetworkService.instance.deleteCampaign(campaign.id).then(() => {
-            enqueueSnackbar('Campaign deleted successfully', { variant: 'success' });
+            enqueueSnackbar('Campaign deleted successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             openCloseModal();
             fetchCampaigns();
         });

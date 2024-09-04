@@ -25,7 +25,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         <LoaderIcon className='animate-spin' />
                                     </div>
                                 }>
-                                <SnackbarProvider>{children}</SnackbarProvider>
+                                <SnackbarProvider
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}>
+                                    {children}
+                                </SnackbarProvider>
                             </Suspense>
                         </body>
                     </GoogleOAuthProvider>

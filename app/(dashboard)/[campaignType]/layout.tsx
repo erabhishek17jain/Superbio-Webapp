@@ -30,7 +30,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const copyShareLink = (url: string) => {
         let base_url = window.location.origin;
         copy(base_url + url);
-        enqueueSnackbar('Campaign Report link copied!', { variant: 'success' });
+        enqueueSnackbar('Campaign Report link copied!', {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+            },
+        });
     };
 
     const resetSearch = () => {

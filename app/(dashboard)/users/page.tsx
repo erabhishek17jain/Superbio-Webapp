@@ -30,7 +30,13 @@ export default function Users() {
             })
             .catch((err) => {
                 logout();
-                enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                enqueueSnackbar('You are not authorized to view this page', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             });
     }, []);
 

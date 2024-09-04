@@ -1,11 +1,20 @@
 import JavaNetworkService from '@/services/java.service';
 import { Trash2Icon, XIcon } from 'lucide-react';
 import { enqueueSnackbar } from 'notistack';
+import { useState } from 'react';
 
 export default function DeletePostModal({ postId, openCloseModal }: any) {
+    const [isSending, setIsSending] = useState(false);
     const archiveCampaign = () => {
+        setIsSending(true)
         JavaNetworkService.instance.deletePost(postId).then(() => {
-            enqueueSnackbar('Campaign deleted successfully', { variant: 'success' });
+            enqueueSnackbar('Post deleted successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             const url = new URL(window.location.href);
             window.location.href = url.href;
         });
@@ -15,7 +24,7 @@ export default function DeletePostModal({ postId, openCloseModal }: any) {
             <div className='flex h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <div className='flex justify-between'>
-                        <span className='text-2xl font-semibold'>Delete Campaign</span>
+                        <span className='text-2xl font-semibold'>Delete Post</span>
                         <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
@@ -32,7 +41,10 @@ export default function DeletePostModal({ postId, openCloseModal }: any) {
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        <button onClick={archiveCampaign} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
+                        <button
+                            disabled={isSending}
+                            onClick={archiveCampaign}
+                            className={`bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white cursor-pointer disabled:opacity-50`}>
                             <Trash2Icon color='#fff' size={24} />
                             Delete
                         </button>

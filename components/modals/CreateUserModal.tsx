@@ -46,21 +46,51 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
 
         if (mode === 'edit') {
             try {
-                enqueueSnackbar('User updated successfully', { variant: 'success' });
+                enqueueSnackbar('User updated successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 openCloseModal();
             } catch (error) {
-                enqueueSnackbar('Something went wrong', { variant: 'error' });
+                enqueueSnackbar('Something went wrong', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             }
         } else {
             try {
                 await UserNetworkService.instance.addMember(user);
                 const data = await UserNetworkService.instance.getAllUsers({ page: meta.page, limit: meta.limit });
                 dispatch(setMembers(data.data));
-                enqueueSnackbar('User created successfully', { variant: 'success' });
+                enqueueSnackbar('User created successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 openCloseModal();
             } catch (error: any) {
-                if (error?.response?.data === 'Error creating user') enqueueSnackbar('User already exists.', { variant: 'error' });
-                else enqueueSnackbar('Something went wrong', { variant: 'error' });
+                if (error?.response?.data === 'Error creating user') enqueueSnackbar('User already exists.', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                else enqueueSnackbar('Something went wrong', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             }
         }
     };

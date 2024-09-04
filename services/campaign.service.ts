@@ -62,7 +62,13 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             );
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
-            enqueueSnackbar('Failed to create campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to create campaign', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -79,7 +85,13 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             });
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
-            enqueueSnackbar('Failed to update campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to update campaign', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -149,7 +161,13 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             });
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
-            enqueueSnackbar('Failed to create campaign form', { variant: 'error' });
+            enqueueSnackbar('Failed to create campaign form', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };

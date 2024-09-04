@@ -56,7 +56,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             });
             return res;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to delete campaign', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -69,7 +75,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             });
             return res;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete campaign', { variant: 'error' });
+            enqueueSnackbar('Failed to delete post', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -82,7 +94,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             });
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to update estimated reach', { variant: 'error' });
+            enqueueSnackbar('Failed to update estimated reach', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -95,7 +113,13 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             });
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to update post analytics', { variant: 'error' });
+            enqueueSnackbar('Failed to update post analytics', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };

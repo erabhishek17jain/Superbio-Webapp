@@ -17,21 +17,45 @@ export default function InitialSetup() {
 
     const submit = async () => {
         if (number.length !== 10) {
-            enqueueSnackbar('Invalid number', { variant: 'error' });
+            enqueueSnackbar('Invalid number', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return;
         }
         if (!company.name) {
-            enqueueSnackbar('Company name required', { variant: 'error' });
+            enqueueSnackbar('Company name required', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return;
         }
         if (!company.description) {
-            enqueueSnackbar('Company address required', { variant: 'error' });
+            enqueueSnackbar('Company address required', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return;
         }
         setIsSending(true);
         await UserNetworkService.instance.addOrgs(company).then(async () => {
             await UserNetworkService.instance.addPhoneToUser(number).then(() => {
-                enqueueSnackbar('Account setup successfull', { variant: 'success' });
+                enqueueSnackbar('Account setup successfull', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 setIsSending(false);
                 router.push('/');
             });

@@ -26,7 +26,13 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
 
     const updateEstimatedReach = (params: any) => {
         JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
-            enqueueSnackbar('Estimated Reach upadated successfully', { variant: 'success' });
+            enqueueSnackbar('Estimated Reach upadated successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             params.estimatedReach && openCloseEstimatedModal();
             refreshCampData();
         });

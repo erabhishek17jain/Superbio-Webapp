@@ -63,7 +63,13 @@ export default function Home() {
                         dispatch(setMembers(res.data));
                     })
                     .catch((err) => {
-                        enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                        enqueueSnackbar('You are not authorized to view this page', {
+                            variant: 'error',
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            },
+                        });
                         logout();
                         router.push('/login');
                     });

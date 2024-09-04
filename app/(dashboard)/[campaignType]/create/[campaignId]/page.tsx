@@ -36,7 +36,13 @@ export default function CreateReporting() {
 
     const handleSheet = (item: any, sheetInfo: any) => {
         if (item.columns.length === 0) {
-            enqueueSnackbar('No columns available', { variant: 'error' });
+            enqueueSnackbar('No columns available', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return;
         }
         if (mode !== 'add') {
@@ -88,7 +94,13 @@ export default function CreateReporting() {
                 id: item?.id ? item?.id : null,
             })
             .then((res) => {
-                enqueueSnackbar('Sheet refeshed successfully', { variant: 'success' });
+                enqueueSnackbar('Sheet refeshed successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             });
     };
 
@@ -114,7 +126,13 @@ export default function CreateReporting() {
         Promise.all(promises)
             .then((res) => {
                 dispatch(setSheet(res));
-                enqueueSnackbar('Sheet added successfully', { variant: 'success' });
+                enqueueSnackbar('Sheet added successfully', {
+                    variant: 'success',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             })
             .finally(() => {
                 dispatch(setSheetLoading(false));
@@ -164,7 +182,13 @@ export default function CreateReporting() {
                     dispatch(setSheetLoading(false));
                 });
         } else {
-            enqueueSnackbar('Please enter google sheet link', { variant: 'error' });
+            enqueueSnackbar('Please enter google sheet link', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
         }
     };
 

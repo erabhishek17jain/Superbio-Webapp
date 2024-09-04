@@ -24,13 +24,25 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
         };
         try {
             await CampaignNetworkService.instance.shareCampaign(payload);
-            enqueueSnackbar('Campaign shared sucessfully.', { variant: 'success' });
+            enqueueSnackbar('Campaign shared sucessfully.', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             const res = await UserNetworkService.instance.getAllUsers({ page: 1, limit: 100 });
             setUsers([...res.data]);
             dispatch(setMembers(res.data));
             fetchCampaigns()
         } catch (error) {
-            enqueueSnackbar('Something went wrong', { variant: 'error' });
+            enqueueSnackbar('Something went wrong', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
         }
     };
 
@@ -55,7 +67,13 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
                 dispatch(setMembers(data));
             })
             .catch((err) => {
-                enqueueSnackbar('You are not authorized to view this page', { variant: 'error' });
+                enqueueSnackbar('You are not authorized to view this page', {
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
                 logout();
                 router.push('/login');
             });

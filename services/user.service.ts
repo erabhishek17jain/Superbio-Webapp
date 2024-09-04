@@ -16,14 +16,26 @@ export default class UserNetworkService extends BaseNetworkFramework {
             const res = await axios.post<ILoginResponse>(`${this.url}/user/login`, { email, password });
             setCookie('token', res.data.token);
             setCookie('user', JSON.stringify(res.data.user));
-            enqueueSnackbar('Logged In Successfully', { variant: 'success' });
+            enqueueSnackbar('Logged In Successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             window.location.reload();
             return {
                 token: res.data.token,
                 user: res.data.user,
             };
         } catch (err: any) {
-            enqueueSnackbar(err.response.data, { variant: 'error' });
+            enqueueSnackbar(err.response.data, {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             throw err;
         }
     };
@@ -31,7 +43,13 @@ export default class UserNetworkService extends BaseNetworkFramework {
     public register = async (props: IRegisterPayload): Promise<string> => {
         try {
             const res = await axios.post<string>(`${this.url}/user/register`, props);
-            enqueueSnackbar('Registered Successfully Please Verify Your Email', { variant: 'success' });
+            enqueueSnackbar('Registered Successfully Please Verify Your Email', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return res.data;
         } catch (err: any) {
             throw err;
@@ -47,7 +65,13 @@ export default class UserNetworkService extends BaseNetworkFramework {
         const res = await axios.post<ILoginResponse>(`${this.url}/user/google/login`, { token, token_type: tokenType });
         setCookie('token', res.data.token);
         setCookie('user', JSON.stringify(res.data.user));
-        enqueueSnackbar('Logged In Successfully', { variant: 'success' });
+        enqueueSnackbar('Logged In Successfully', {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+            },
+        });
         window.location.reload();
         return {
             user: res.data.user,
@@ -59,7 +83,13 @@ export default class UserNetworkService extends BaseNetworkFramework {
         const res = await axios.post<ILoginResponse>(`${this.url}/user/verify`, { otp, email });
         setCookie('token', res.data.token);
         setCookie('user', JSON.stringify(res.data.user));
-        enqueueSnackbar('Email verified successfully', { variant: 'success' });
+        enqueueSnackbar('Email verified successfully', {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+            },
+        });
         window.location.reload();
         return {
             user: res.data.user,
@@ -70,7 +100,13 @@ export default class UserNetworkService extends BaseNetworkFramework {
     public forgotPassword = async (email: string): Promise<string> => {
         try {
             const res = await axios.post<string>(`${this.url}/user/forgot-password`, { email, password: '' });
-            enqueueSnackbar('Reset passowrd link sent to your email', { variant: 'success' });
+            enqueueSnackbar('Reset passowrd link sent to your email', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
             return res.data;
         } catch (err: any) {
             throw err;

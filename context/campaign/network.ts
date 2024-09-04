@@ -18,7 +18,15 @@ export const getCampaigns = createAsyncThunk(
 
 export const createCampaign = createAsyncThunk('compaign/createCampaign', async (payload: ICampaign, ThunkRejectAPI) => {
     try {
-        return await CampaignNetworkService.instance.createCampaign(payload).then((r) => enqueueSnackbar('Campaign created', { variant: 'success' }));
+        return await CampaignNetworkService.instance.createCampaign(payload).then((r) =>
+            enqueueSnackbar('Campaign created', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+        );
     } catch (err) {
         throw ThunkRejectAPI.rejectWithValue(err);
     }
