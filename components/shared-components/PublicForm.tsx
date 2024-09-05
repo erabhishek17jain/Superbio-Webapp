@@ -71,7 +71,7 @@ export default function PublicForm(props: { data: IPublicForm; campaignId: strin
             ))}
 
             <div className='flex flex-col mt-6 sm:w-60' key={uuidv4()}>
-                <button onClick={handleSubmit} className=' bg-black  p-3 text-white rounded-lg'>
+                <button onClick={handleSubmit} className='cursor-pointer bg-black p-3 text-white rounded-lg'>
                     Submit
                 </button>
             </div>

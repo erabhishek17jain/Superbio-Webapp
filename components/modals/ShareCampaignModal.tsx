@@ -85,7 +85,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
                 <div className='flex flex-col justify-between bg-white rounded-xl p-6 w-[90%] sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[40%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold'>Share Campaign</span>
-                        <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
+                        <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
                     </div>
@@ -136,7 +136,9 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
                                                         Shared
                                                     </div>
                                                 ) : (
-                                                    <button onClick={() => shareCampaign(user?.email)} className='bg-white flex items-center text-black'>
+                                                    <button
+                                                        onClick={() => shareCampaign(user?.email)}
+                                                        className='cursor-pointer bg-white flex items-center text-black'>
                                                         Share
                                                     </button>
                                                 )}

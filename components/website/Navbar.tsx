@@ -122,19 +122,23 @@ const MobileView = () => {
                         key={item.id}
                         className='bg-white text-[#121212] transition-all duration-100 hover:invert'
                         onClick={() => handleClick(item.id)}>
-                        <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
+                        <button className='cursor-pointer flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                             <ArrowRightIcon size={16} />
                             {item.name}
                         </button>
                     </DropdownMenuItem>
                 ))}
-                <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/login')}>
+                <DropdownMenuItem
+                    className='cursor-pointer bg-white text-[#121212] transition-all duration-100 hover:invert'
+                    onClick={() => router.push('/login')}>
                     <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                         <ArrowRightIcon size={16} />
                         Sign In
                     </button>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='bg-white text-[#121212] transition-all duration-100 hover:invert' onClick={() => router.push('/register')}>
+                <DropdownMenuItem
+                    className='cursor-pointer bg-white text-[#121212] transition-all duration-100 hover:invert'
+                    onClick={() => router.push('/register')}>
                     <button className='flex w-full items-center gap-x-2 whitespace-nowrap rounded-none p-2 py-[0.75] text-sm font-medium'>
                         <ArrowRightIcon size={16} />
                         TRY IT FREE

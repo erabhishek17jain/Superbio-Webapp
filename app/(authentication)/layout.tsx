@@ -154,7 +154,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 {isGoogleLogin && (
                                     <div className='flex justify-center w-full pb-6 sm:pb-8'>
                                         <button
-                                            className='border p-2 rounded-lg border-[#cdcdcd] flex justify-center items-center gap-2 text-sm w-3/4'
+                                            className='cursor-pointer border p-2 rounded-lg border-[#cdcdcd] flex justify-center items-center gap-2 text-sm w-3/4'
                                             onClick={() => {
                                                 googleLogin();
                                             }}>

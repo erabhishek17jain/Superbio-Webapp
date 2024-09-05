@@ -201,7 +201,7 @@ export default function SocialCard({
                                 .map((data: any, index) => (
                                     <div
                                         key={uuidv4()}
-                                        className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[3, 4, 5].includes(index) ? 'border-t' : ''} ${[1, 2, 4, 5].includes(index) ? 'border-l' : ''}`}>
+                                        className={`cursor-pointer flex flex-col justify-center items-center border-gray-300 p-2 ${[3, 4, 5].includes(index) ? 'border-t' : ''} ${[1, 2, 4, 5].includes(index) ? 'border-l' : ''}`}>
                                         <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
                                         <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{data}</span>
                                     </div>
@@ -221,9 +221,13 @@ export default function SocialCard({
                                 .map((data: any, index) => (
                                     <div
                                         key={uuidv4()}
-                                        className={`flex flex-col justify-center items-center border-gray-300 p-2 ${[1, 2, 3].includes(index) ? 'border-l' : ''}`}>
+                                        className={`cursor-pointer flex flex-col justify-center items-center border-gray-300 p-2 ${[1, 2, 3].includes(index) ? 'border-l' : ''}`}>
                                         <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.analytics[data])}</span>
-                                        <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{data}</span>
+                                        <span
+                                            className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'
+                                            title={data === 'reposts' ? 'Only reel posts have shares' : ''}>
+                                            {data === 'reposts' ? 'shares' : data}
+                                        </span>
                                     </div>
                                 ))}
                         </div>
@@ -242,7 +246,9 @@ export default function SocialCard({
                                     className='w-auto flex items-center border border-[#cdcdcd] py-2 px-3 rounded-lg space-x-2 text-sm'>
                                     <span className='text-sm'>Add screenshots</span>
                                 </label>
-                                <button className='w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
+                                <button
+                                    className='cursor-pointer w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm'
+                                    onClick={openCloseAnalyticsModal}>
                                     <span className='cursor-pointer'></span>
                                     <span>Update Analytics</span>
                                 </button>
@@ -263,7 +269,9 @@ export default function SocialCard({
                                             className='w-auto flex items-center border border-[#cdcdcd] py-2 px-3 rounded-lg space-x-2 text-sm'>
                                             <span className='text-sm'>Edit screenshots</span>
                                         </label>
-                                        <button className='w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm' onClick={openCloseAnalyticsModal}>
+                                        <button
+                                            className='cursor-pointer w-auto border py-2 px-3 rounded-lg border-[#cdcdcd] text-sm'
+                                            onClick={openCloseAnalyticsModal}>
                                             <span className='cursor-pointer'></span>
                                             <span>Update Analytics</span>
                                         </button>

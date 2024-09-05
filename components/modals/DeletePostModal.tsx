@@ -25,7 +25,7 @@ export default function DeletePostModal({ postId, openCloseModal }: any) {
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold'>Delete Post</span>
-                        <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
+                        <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
                     </div>

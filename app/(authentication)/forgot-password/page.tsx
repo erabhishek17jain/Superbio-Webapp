@@ -79,7 +79,7 @@ export default function ForgotPassword() {
                 <button
                     disabled={isSending}
                     onClick={forgotPassword}
-                    className='flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-4 border bg-black rounded-lg cursor-pointer disabled:opacity-50'>
+                    className='cursor-pointer flex gap-2 capitalize items-center font-semibold justify-center text-white text-base p-3 px-4 border bg-black rounded-lg disabled:opacity-50'>
                     {isSending ? (
                         'Sending...'
                     ) : (

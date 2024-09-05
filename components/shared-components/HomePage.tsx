@@ -21,7 +21,7 @@ const HomePage = (props: any) => {
                     <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get detailed post metrics & dashboard for you and your brands</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
                         {selectType === 'campaign' && (
-                            <button className='flex gap-3 uppercase font-semibold ' onClick={() => dispatch(setCampaignType('campaign'))}>
+                            <button className='cursor-pointer flex gap-3 uppercase font-semibold ' onClick={() => dispatch(setCampaignType('campaign'))}>
                                 Get Started
                                 <ArrowRightIcon color={'#000'} size={24} />
                             </button>
@@ -38,7 +38,7 @@ const HomePage = (props: any) => {
                     <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get precise profile analytics of hundreds of influencers</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
                         {selectType === 'influncer' && (
-                            <button className='flex gap-3 uppercase font-semibold ' onClick={() => {}}>
+                            <button className='cursor-pointer flex gap-3 uppercase font-semibold ' onClick={() => {}}>
                                 Coming soon
                                 <ArrowRightIcon color={'#000'} size={24} />
                             </button>

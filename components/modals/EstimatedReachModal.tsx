@@ -22,7 +22,7 @@ export default function EstimatedReachModal({ openCloseModal, updateEstimatedRea
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[50%] sm:w-[60%] lg:w-[50%] xl:w-[40%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold'>Update Estimated Reach</span>
-                        <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
+                        <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
                     </div>
@@ -52,7 +52,9 @@ export default function EstimatedReachModal({ openCloseModal, updateEstimatedRea
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        <button onClick={updateCustomEstimatedReach} className='bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
+                        <button
+                            onClick={updateCustomEstimatedReach}
+                            className='cursor-pointer bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white'>
                             <ReportIcon color='#fff' size={24} />
                             Update
                         </button>

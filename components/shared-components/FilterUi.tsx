@@ -110,7 +110,9 @@ export default function FilterUi(props: FilterUiProps) {
     };
 
     return (
-        <div id='filterPanel' className='mt-1 hidden fixed bg-white h-[calc(100%_-_124px)] z-10 sm:h-auto sm:relative flex w-[222px] flex-col border-r border-[#cdcdcd]'>
+        <div
+            id='filterPanel'
+            className='mt-1 hidden fixed bg-white h-[calc(100%_-_124px)] z-10 sm:h-auto sm:relative flex w-[222px] flex-col border-r border-[#cdcdcd]'>
             <div className='flex w-full min-w-[210px] flex-col py-4 px-3'>
                 <p className='flex justify-between text-lg font-bold'>
                     <span className='flex gap-2 items-center mb-2'>
@@ -122,7 +124,7 @@ export default function FilterUi(props: FilterUiProps) {
                     </span>
                 </p>
                 {filters && Object.keys(filters)?.filter((item) => filters[item]?.length > 0).length > 0 && (
-                    <button className='flex w-full justify-end text-black font-semibold' onClick={resetFilters}>
+                    <button className='cursor-pointer flex w-full justify-end text-black font-semibold' onClick={resetFilters}>
                         Reset all
                     </button>
                 )}
