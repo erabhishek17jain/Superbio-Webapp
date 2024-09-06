@@ -43,7 +43,7 @@ export default function Reporting(props: IReportingProps) {
 
     return (
         <>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-3'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-3 mt-4'>
                 {columns.map((item, index) => (
                     <SocialCard key={'social-s-card-' + index} item={item} isPublic={isPublic} index={index} columns={columns} setColumns={setColumns} />
                 ))}

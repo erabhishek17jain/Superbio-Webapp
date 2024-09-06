@@ -104,7 +104,6 @@ export const setProfilesAnalytics = (profileAnalyticsResp: any) => {
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
 
-
 export const structureProfilesData = (data: IProfilesReportingResponse) => {
     return {
         data: data.profilePaginatedResponse.items,
@@ -143,9 +142,9 @@ export const calculateSummary = (count: number) => {
         calSum = (count / 1000000).toFixed(1) + 'M';
         if (count > 999 && count < 1000000) {
             calSum = (count / 1000).toFixed(1) + 'K';
-        } else if (count < 1000 && count >= 1) {
-            calSum = count;
-        } else if (count < 1) {
+        } else if (count < 1000 && count > 9) {
+            calSum = count.toFixed(0);
+        } else if (count < 10) {
             calSum = count.toFixed(2);
         }
     }

@@ -68,7 +68,7 @@ export default function SocialCard({
 
     const posted = new Date(postedAt);
     return (
-        <div className='w-full mt-4'>
+        <div className='w-full'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
