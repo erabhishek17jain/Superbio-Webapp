@@ -19,6 +19,25 @@ export const ANALYTICS_FILTERS = [
     }
 ];
 
+export const ANALYTICS_PROFILES_FILTERS = [
+    {
+        name: 'Followers',
+        key: 'profileTypeByFollowers',
+    },
+    {
+        name: 'Frequency Per Day',
+        key: 'postFrequencyPerDay',
+    },
+    {
+        name: 'Niche',
+        key: 'niche',
+    },
+    {
+        name: 'Engagement Rate',
+        key: 'engagementRate',
+    },
+];
+
 export const ANALYTICS_FILTERS_FROM_SHEETS = [
     {
         name: 'Phases',
@@ -61,29 +80,12 @@ export const SUMMARY_ICONS: { [key: string]: JSX.Element } = {
     medias: <TvMinimalPlayIcon color='#fff' size={20} />,
     quotes: <QuoteIcon color='#fff' size={20} />,
     bookmarks: <BookMarkedIcon color='#fff' size={20} />,
-    frequency: <Clock4Icon color='#fff' size={20} />,
+    frequency_per_day: <Clock4Icon color='#fff' size={20} />,
     shares: <Share2Icon color='#fff' size={20} />,
     following: <UserRoundCheckIcon color='#fff' size={20} />,
     saves: <BookMarkedIcon color='#fff' size={20} />,
     estimatedReach: <ChartNoAxesColumnIncreasingIcon color='#fff' size={20} />,
     engagements: <BookHeartIcon color='#fff' size={20} />,
-    Posts: <StickyNoteIcon color='#fff' size={20} />,
-};
-
-export const SUMMARY_COLORS: { [key: string]: string } = {
-    views: 'bg-posts',
-    comments: 'bg-views',
-    likes: 'bg-likes',
-    reposts: 'bg-reposts',
-    quotes: 'bg-quotes',
-    bookmarks: 'bg-bookmarks',
-    shares: 'bg-quotes',
-    saves: 'bg-bookmarks',
-    estimatedReach: 'bg-views',
-    Posts: 'bg-posts',
-    followers: 'bg-posts',
-    medias: 'bg-views',
-    engagements: 'bg-reposts',
-    frequency: 'bg-quotes',
-    following: 'bg-bookmarks',
+    posts: <StickyNoteIcon color='#fff' size={20} />,
+    profiles: <StickyNoteIcon color='#fff' size={20} />,
 };

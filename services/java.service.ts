@@ -3,7 +3,7 @@ import BaseNetworkFramework from './base.service';
 import { IPostsReportingResponse, IPostsResponse, IProfilesReportingResponse } from '@/interfaces/sheet';
 import { enqueueSnackbar } from 'notistack';
 import { ICampaign } from '@/interfaces/campaign';
-
+import profilesData from '../lib/profileResp.json';
 interface IJavaNetworkService {
     getPostsData: (campaignId: string, params: any) => Promise<IPostsResponse>;
     deleteCampaign: (campaignId: string) => Promise<ICampaign>;
@@ -29,7 +29,7 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getProfileData = async (campaignId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/${'66bf7c237e85f77ab1ac258c'}/reporting${params}`);
+            const res: any = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/${campaignId}/reporting${params}`);
             return res.data;
         } catch (err: any) {
             throw err;

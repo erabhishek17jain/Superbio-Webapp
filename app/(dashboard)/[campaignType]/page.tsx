@@ -31,7 +31,7 @@ export default function AllCampaignPage() {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType,
+                type: campaignType === 'profile' ? 'influncer' : 'post',
             })
         );
         dispatch(

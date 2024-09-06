@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
-import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
+import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
 import { calculateStatus, clearFilters, structurePostsData } from '@/lib/utils';
-import DownloadCSV from './DownloadCSV';
+import DownloadCSV from '../DownloadCSV';
 import { setCampData } from '@/context/reporting';
 
 dayjs.extend(relativeTime);
@@ -104,46 +104,18 @@ export default function GenerateReport(props: GenerateReportProps) {
         lastUpdate = dayjs(new Date()).subtract(diffInMin, 'minutes').fromNow();
     }
 
-    let postsData: any = [];
-    if (!isPublic) {
-        postsData = Object.keys(campData.meta?.postSummaryResp)
-            .filter(
-                (item) =>
-                    !(
-                        campData.meta?.postSummaryResp[item] === null ||
-                        campData.meta?.postSummaryResp[item] === 0 ||
-                        campData.meta?.postSummaryResp[item] === false
-                    )
-            )
-            .map((key) => {
-                return (
-                    !(reportText === 'Generate Report' && key === 'otherPosts') && (
-                        <div className='flex flex-col text-sm w-20' key={key}>
-                            <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}</span>
-                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
-                        </div>
-                    )
-                );
-            });
-    }
-
     return (
-        <div
-            className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[${postsData.length > 4 ? '168px' : isPublic ? '138px' : '108px'}] sm:h-[60px]`}>
+        <div className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[138px] h-[108px] sm:h-[60px]`}>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
-                    {!isPublic ? (
-                        postsData
-                    ) : (
-                        <div className='flex flex-col sm:flex-row text-xl sm:text-2xl gap-2'>
-                            <div className='font-semibold'>
-                                Brand: <span className='font-light mr-5'>{campData.meta?.campaignDto?.brand}</span>
-                            </div>
-                            <div className='font-semibold'>
-                                Campaign: <span className='font-light'>{campData.meta?.campaignDto?.title}</span>
-                            </div>
+                    <div className='flex flex-col sm:flex-row text-xl sm:text-2xl gap-2'>
+                        <div className='font-semibold'>
+                            Brand: <span className='font-light mr-5'>{campData.meta?.campaignDto?.brand}</span>
                         </div>
-                    )}
+                        <div className='font-semibold'>
+                            Campaign: <span className='font-light'>{campData.meta?.campaignDto?.title}</span>
+                        </div>
+                    </div>
                 </span>
             </div>
             {!valuesLoading && isSheetExist === 'yes' && campData.meta && campData.meta?.total > 0 && (

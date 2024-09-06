@@ -12,7 +12,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
         const params = { ...analytics };
         if (JSON.stringify(params) !== JSON.stringify(currentAnalytics)) {
             JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
-                enqueueSnackbar('Estimated Reach upadated successfully', {
+                enqueueSnackbar('Estimated reach upadated successfully', {
                     variant: 'success',
                     anchorOrigin: {
                         vertical: 'top',

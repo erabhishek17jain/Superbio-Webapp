@@ -24,8 +24,8 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         status: 'active',
         keywords: [],
         priority: 1,
-        type: campaignType,
         startDate: new Date(),
+        type: campaignType === 'profile' ? 'influncer' : 'post',
         endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
     });
 

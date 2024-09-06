@@ -44,8 +44,8 @@ export default function Home() {
     };
 
     const fetchCampaigns = () => {
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText, type:campaignType }));
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText, type: campaignType }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText, type:campaignType === 'profile' ? 'influncer' : 'post' }));
+        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText, type:campaignType === 'profile' ? 'influncer' : 'post' }));
     };
 
     useEffect(() => {

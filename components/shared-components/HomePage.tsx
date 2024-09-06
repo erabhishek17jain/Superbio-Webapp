@@ -30,15 +30,15 @@ const HomePage = (props: any) => {
                 </div>
             </div>
             <div
-                className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#fafafa] ${selectType === 'influncer' ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
-                onClick={() => setSelectType('influncer')}>
+                className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#fafafa] ${selectType === 'profile' ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
+                onClick={() => setSelectType('profile')}>
                 <Image src={influencer} alt='Influencer' className='w-16 h-[90px] p-4 pr-0' />
-                <div className={`flex flex-col ${selectType === 'influncer' ? 'mb-0' : 'mb-6'}`}>
+                <div className={`flex flex-col ${selectType === 'profile' ? 'mb-0' : 'mb-6'}`}>
                     <span className={'text-black'}>Influencer Analysis</span>
                     <span className='text-[#8b8b8b] text-sm line-clamp-gray line-clamp-2'>Get precise profile analytics of hundreds of influencers</span>
                     <div className={`w-full flex justify-end text-black px-3 mt-6 mb-2`}>
-                        {selectType === 'influncer' && (
-                            <button className='cursor-pointer flex gap-3 uppercase font-semibold' onClick={() => dispatch(setCampaignType('influncer'))}>
+                        {selectType === 'profile' && (
+                            <button className='cursor-pointer flex gap-3 uppercase font-semibold' onClick={() => dispatch(setCampaignType('profile'))}>
                                 Get Started
                                 <ArrowRightIcon color={'#000'} size={24} />
                             </button>

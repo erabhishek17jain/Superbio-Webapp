@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const dispatch = useAppDispatch();
     const paths = usePathname();
     const params: any = useParams();
-    const urlComponents = paths.split('/');
+    const [urlComponents] = useState(paths.split('/'));
     const { enqueueSnackbar } = useSnackbar();
     const { campData } = useAppSelector((state) => state.reporting);
     const { campaignType } = useAppSelector((state) => state.user);
@@ -43,13 +43,31 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const resetSearch = () => {
         setIsSearch(false);
         setSearchText('');
-        dispatch(getCampaigns({ page: 1, limit: 12, status: CampaignStatus.active, ownerType: ownerType, q: '', type: campaignType }));
+        dispatch(
+            getCampaigns({
+                page: 1,
+                limit: 12,
+                status: CampaignStatus.active,
+                ownerType: ownerType,
+                q: '',
+                type: campaignType === 'profile' ? 'influncer' : 'post',
+            })
+        );
     };
 
     const searhFilter = () => {
         if (searchText !== '') {
             setIsSearch(true);
-            dispatch(getCampaigns({ page: 1, limit: 12, status: CampaignStatus.active, ownerType: ownerType, q: searchText, type: campaignType }));
+            dispatch(
+                getCampaigns({
+                    page: 1,
+                    limit: 12,
+                    status: CampaignStatus.active,
+                    ownerType: ownerType,
+                    q: searchText,
+                    type: campaignType === 'profile' ? 'influncer' : 'post',
+                })
+            );
         } else if (searchText === '') {
             resetSearch();
         }
@@ -70,7 +88,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType,
+                type: campaignType === 'profile' ? 'influncer' : 'post',
             })
         );
         dispatch(
@@ -81,6 +99,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         );
     };
 
+    const isNotCampType = paths.indexOf('create') > -1 || paths.indexOf('post') > -1 || paths.indexOf('profile') > -1;
     useEffect(() => {
         if (!isNotCampType) {
             fetchMore();
@@ -88,8 +107,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             dispatch(setLoading(false));
         }
     }, []);
-
-    const isNotCampType = paths.indexOf('create') > -1 || paths.indexOf('campaign') > -1;
 
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
@@ -115,8 +132,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <span>Home</span>
                                             <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
-                                        {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 1 : 0)).map((component, index) => {
-                                            const active = index !== urlComponents.slice(1).length - (isNotCampType ? 2 : 1);
+                                        {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 2 : 0)).map((component, index) => {
+                                            const active = index !== urlComponents.slice(1).length - 1;
                                             return (
                                                 <div
                                                     key={component}
@@ -126,20 +143,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                             fetchMore();
                                                         }
                                                     }}
-                                                    className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black'} items-center space-x-3 ml-3 mt-1`}>
-                                                    <span className='capitalize'>
-                                                        {isNotCampType && active ? (
-                                                            component.replaceAll('-', ' ')
-                                                        ) : (
-                                                            <span className='font-[500] text-[21px]'>
-                                                                {campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}
-                                                            </span>
-                                                        )}
-                                                    </span>
+                                                    className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
+                                                    <span className={`capitalize`}>{component}</span>
                                                     {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
                                                 </div>
                                             );
                                         })}
+                                        {isNotCampType && (
+                                            <div className={`hidden sm:flex text-black items-center space-x-3 ml-3 mt-[2px]`}>
+                                                <span className='capitalize font-[500] text-[21px]'>
+                                                    {campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>

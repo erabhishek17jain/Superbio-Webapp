@@ -96,58 +96,42 @@ export const setProfilesAnalytics = (profileAnalyticsResp: any) => {
         frequency_per_day: profileAnalyticsResp.avgPostFrequencyPerDay,
     };
     const basedOnPosts = {
-        views: profileAnalyticsResp.basedOnProfileCount.avgViews,
-        followers: profileAnalyticsResp.basedOnProfileCount.totalFollowers,
-        engagements: profileAnalyticsResp.basedOnProfileCount.avgEngagementRate,
-        frequency_per_day: profileAnalyticsResp.basedOnProfileCount.avgPostFrequencyPerDay,
+        views: profileAnalyticsResp.basedOnProfileCount?.avgViewsPosts,
+        followers: profileAnalyticsResp.basedOnProfileCount?.totalFollowersPosts,
+        engagements: profileAnalyticsResp.basedOnProfileCount?.avgEngagementRatePosts,
+        frequency_per_day: profileAnalyticsResp.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
     };
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
 
 
 export const structureProfilesData = (data: IProfilesReportingResponse) => {
-    let sheets =
-        data.instagramFilterValueResp.lastAppliedFilterField === 'internalSheetId'
-            ? data.instagramFilterValueResp.allSheets
-            : data.instagramFilterValueResp.sheets;
-    sheets = sheets.map((item: any) => {
-        return { id: item.id, name: item.name };
-    });
     return {
         data: data.profilePaginatedResponse.items,
         meta: {
-            ...setPostsAnalytics(data.profileAnalyticsResp),
+            ...setProfilesAnalytics(data.profileAnalyticsResp),
             limit: 6,
             page: data.profilePaginatedResponse.currentPage,
             total: data.profilePaginatedResponse.totalItems,
             campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
             filterValueResp: {
-                postedAt:
-                    data.profilePaginatedResponse.lastAppliedFilterField === 'postedAt'
-                        ? data.instagramFilterValueResp.allPostedAtDates
-                        : data.instagramFilterValueResp.postedAtDates,
-                internalSheetId: sheets,
-                platform:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'platform'
-                        ? data.instagramFilterValueResp.allPlatforms
-                        : data.instagramFilterValueResp.platforms,
-                postType:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'postType'
-                        ? data.instagramFilterValueResp.allPostTypes
-                        : data.instagramFilterValueResp.postTypes,
-                phase:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'phase'
-                        ? data.instagramFilterValueResp.allCampaignPhases
-                        : data.instagramFilterValueResp.campaignPhases,
-                category:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'category'
-                        ? data.instagramFilterValueResp.allCategories
-                        : data.instagramFilterValueResp.categories,
-                subCategory:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'subCategory'
-                        ? data.instagramFilterValueResp.allSubCategories
-                        : data.instagramFilterValueResp.subCategories,
+                profileTypeByFollowers:
+                    data.profilePaginatedResponse.lastAppliedFilterField === 'profileTypeByFollowers'
+                        ? data.instagramFilterValueResp.allProfileTypeByFollowers
+                        : data.instagramFilterValueResp.profileTypeByFollowers,
+                postFrequencyPerDay:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'postFrequencyPerDay'
+                        ? data.instagramFilterValueResp.allPostFrequencyPerDay
+                        : data.instagramFilterValueResp.postFrequencyPerDay,
+                niche:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'niche'
+                        ? data.instagramFilterValueResp.allNiche
+                        : data.instagramFilterValueResp.niche,
+                engagementRate:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'engagementRate'
+                        ? data.instagramFilterValueResp.allEngagementRate
+                        : data.instagramFilterValueResp.engagementRate,
             },
         },
     };
@@ -159,8 +143,10 @@ export const calculateSummary = (count: number) => {
         calSum = (count / 1000000).toFixed(1) + 'M';
         if (count > 999 && count < 1000000) {
             calSum = (count / 1000).toFixed(1) + 'K';
-        } else if (count < 1000) {
+        } else if (count < 1000 && count >= 1) {
             calSum = count;
+        } else if (count < 1) {
+            calSum = count.toFixed(2);
         }
     }
     return calSum;
