@@ -3,6 +3,7 @@ import { getCampaigns, createCampaign, fetchSheetByCampaignId } from './network'
 import dayjs from 'dayjs';
 import { ICampaign } from '@/interfaces/campaign';
 import { IColumn, IColumnDetails, ISheet, ISheetDetails } from '@/interfaces/sheet';
+import { FilterKeys } from '@/interfaces/filter';
 
 let initialCampaign: ICampaign = {
     id: '',
@@ -16,6 +17,7 @@ let initialCampaign: ICampaign = {
     status: '',
     groups: 0,
     source: '',
+    type: '',
     user: {
         id: '',
         name: '',

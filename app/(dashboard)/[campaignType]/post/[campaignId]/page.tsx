@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../components/shared-components/GenerateReport';
-import FilterUi from '../../../../../components/shared-components/FilterUi';
+import GenerateReport from '../../../../../components/shared-components/posts/GenerateReport';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
-import Reporting from '../../../../../components/shared-components/Reporting';
+import FilterAndSorting from '../../../../../components/shared-components/posts/FilterAndSorting';
+import Reporting from '../../../../../components/shared-components/posts/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/lib/utils';
-import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
+import { calculateSummary, clearFilters, setPostsAnalytics, structurePostsData } from '@/lib/utils';
+import AnalyticsSummary from '@/components/shared-components/posts/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
+import FilterUi from '../../../../../components/shared-components/posts/FilterUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
@@ -25,7 +25,7 @@ const SUMMARY_COLORS: { [key: string]: string } = {
     shares: 'bg-quotes',
     saves: 'bg-bookmarks',
     estimatedReach: 'bg-views',
-    Posts: 'bg-posts',
+    posts: 'bg-posts',
     followers: 'bg-posts',
     medias: 'bg-views',
     engagements: 'bg-reposts',
@@ -72,14 +72,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let keys: string[] = ['Estimated Reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
+            let keys: string[] = ['Estimated reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
             if (searchParams.isPublic) {
-                keys = ['Posts', 'Estimated Reach'];
+                keys = ['Posts', 'Estimated reach'];
             }
             const estimatedReach = campData?.meta.analytics.customEstimatedReach
                 ? campData?.meta.analytics.customEstimatedReach
                 : campData?.meta.analytics.estimatedReach;
-            const estimatedReachText = campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated Reach (Custom)' : 'Estimated Reach';
+            const estimatedReachText = campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated reach (Custom)' : 'Estimated reach';
             const extimateReach = {
                 totCount: estimatedReach,
                 count: calculateSummary(estimatedReach),
@@ -93,9 +93,9 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                 result.push({
                     totCount: campData?.meta?.total,
                     count: campData?.meta?.total,
-                    icon: SUMMARY_ICONS['Posts'],
-                    color: SUMMARY_COLORS['Posts'],
-                    title: 'Total Posts',
+                    icon: SUMMARY_ICONS['posts'],
+                    color: SUMMARY_COLORS['posts'],
+                    title: 'Total posts',
                     basedOn: <></>,
                 });
             } else {
@@ -167,7 +167,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const refreshCampaign = (query: any) => {
         JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
             const tempMeta = { ...campData.meta };
-            const meta = setAnalytics(resp);
+            const meta = setPostsAnalytics(resp);
             tempMeta['analytics'] = meta.analytics;
             tempMeta['basedOnPosts'] = meta.basedOnPosts;
             dispatch(setCampData({ ...campData, meta: tempMeta }));
@@ -177,7 +177,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const initialLoadCampData = (query: any) => {
         JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            const data = structureData(resp);
+            const data = structurePostsData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);
         });

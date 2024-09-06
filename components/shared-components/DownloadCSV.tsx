@@ -14,7 +14,6 @@ import { IColumn } from '@/interfaces/sheet';
 import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
-import { calculateStatus, clearFilters, structureData } from '@/lib/utils';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];

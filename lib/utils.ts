@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { deleteCookie } from 'cookies-next';
-import { IReportingResponse } from '@/interfaces/sheet';
+import { IPostsReportingResponse, IProfilesReportingResponse } from '@/interfaces/sheet';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -34,7 +34,7 @@ export const calculateStatus = (status: string, processed: number, totalPost: nu
     }
 };
 
-export const setAnalytics = (campaignAnalyticsResp: any) => {
+export const setPostsAnalytics = (campaignAnalyticsResp: any) => {
     const analytics = {
         likes: campaignAnalyticsResp.likes,
         comments: campaignAnalyticsResp.comments,
@@ -58,7 +58,7 @@ export const setAnalytics = (campaignAnalyticsResp: any) => {
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
 
-export const structureData = (data: IReportingResponse) => {
+export const structurePostsData = (data: IPostsReportingResponse) => {
     let sheets = data.filterValueResp.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
     sheets = sheets.map((item: any) => {
         return { id: item.id, name: item.name };
@@ -66,7 +66,7 @@ export const structureData = (data: IReportingResponse) => {
     return {
         data: data.postDtoPaginatedResponse.items,
         meta: {
-            ...setAnalytics(data.campaignAnalyticsResp),
+            ...setPostsAnalytics(data.campaignAnalyticsResp),
             limit: 6,
             page: data.postDtoPaginatedResponse.currentPage,
             total: data.postDtoPaginatedResponse.totalItems,
@@ -88,14 +88,64 @@ export const structureData = (data: IReportingResponse) => {
     };
 };
 
+export const setProfilesAnalytics = (profileAnalyticsResp: any) => {
+    const analytics = {
+        views: profileAnalyticsResp.avgViews,
+        followers: profileAnalyticsResp.totalFollowers,
+        engagements: profileAnalyticsResp.avgEngagementRate,
+        frequency_per_day: profileAnalyticsResp.avgPostFrequencyPerDay,
+    };
+    const basedOnPosts = {
+        views: profileAnalyticsResp.basedOnProfileCount?.avgViewsPosts,
+        followers: profileAnalyticsResp.basedOnProfileCount?.totalFollowersPosts,
+        engagements: profileAnalyticsResp.basedOnProfileCount?.avgEngagementRatePosts,
+        frequency_per_day: profileAnalyticsResp.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
+    };
+    return { analytics: analytics, basedOnPosts: basedOnPosts };
+};
+
+export const structureProfilesData = (data: IProfilesReportingResponse) => {
+    return {
+        data: data.profilePaginatedResponse.items,
+        meta: {
+            ...setProfilesAnalytics(data.profileAnalyticsResp),
+            limit: 6,
+            page: data.profilePaginatedResponse.currentPage,
+            total: data.profilePaginatedResponse.totalItems,
+            campaignDto: data.campaignDto,
+            postSummaryResp: data.postSummaryResp,
+            filterValueResp: {
+                profileTypeByFollowers:
+                    data.profilePaginatedResponse.lastAppliedFilterField === 'profileTypeByFollowers'
+                        ? data.instagramFilterValueResp.allProfileTypeByFollowers
+                        : data.instagramFilterValueResp.profileTypeByFollowers,
+                postFrequencyPerDay:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'postFrequencyPerDay'
+                        ? data.instagramFilterValueResp.allPostFrequencyPerDay
+                        : data.instagramFilterValueResp.postFrequencyPerDay,
+                niche:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'niche'
+                        ? data.instagramFilterValueResp.allNiche
+                        : data.instagramFilterValueResp.niche,
+                engagementRate:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'engagementRate'
+                        ? data.instagramFilterValueResp.allEngagementRate
+                        : data.instagramFilterValueResp.engagementRate,
+            },
+        },
+    };
+};
+
 export const calculateSummary = (count: number) => {
     let calSum = 0 as any;
     if (count !== undefined && count !== null && !isNaN(count)) {
         calSum = (count / 1000000).toFixed(1) + 'M';
         if (count > 999 && count < 1000000) {
             calSum = (count / 1000).toFixed(1) + 'K';
-        } else if (count < 1000) {
-            calSum = count;
+        } else if (count < 1000 && count > 9) {
+            calSum = count.toFixed(0);
+        } else if (count < 10) {
+            calSum = count.toFixed(2);
         }
     }
     return calSum;

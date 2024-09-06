@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import YoungunLogo from '@/public/logo/youngun-logo.svg';
 import SocheersLogo from '@/public/logo/socheers-logo.png';
-import LoqoaiLogo from '@/public/logo/logo-black.svg';
+import LoqoLogo from '@/public/logo/logo-black.svg';
 import Image from 'next/image';
 
 const LogoAI = ({ login = false }: any) => {
     return login ? (
-        <Image src={LoqoaiLogo} alt='Logo' className='h-[40px] w-[160px] mix-blend-multiply' />
+        <Image src={LoqoLogo} alt='Logo' className='h-[40px] w-[160px] mix-blend-multiply' />
     ) : (
-        <Image src={LoqoaiLogo} alt='Logo' className='h-[30px] mix-blend-multiply' />
+        <Image src={LoqoLogo} alt='Logo' className='h-[30px] mix-blend-multiply' />
     );
 };
 
@@ -27,7 +27,7 @@ const Socheers = ({ login = false }: any) => {
             <Image src={SocheersLogo} alt='Logo' className='h-[80px] mix-blend-multiply' />
             <span className='flex items-center h-3 -mt-4 text-[12px] ml-2'>
                 <span className='flex w-[90px] text-[#7a7a7a]'>Powered by </span>
-                <Image src={LoqoaiLogo} alt='Logo' className='-ml-[2.25rem] h-[16px]' />
+                <Image src={LoqoLogo} alt='Logo' className='-ml-[2.25rem] h-[16px]' />
             </span>
         </div>
     ) : (
@@ -35,7 +35,7 @@ const Socheers = ({ login = false }: any) => {
             <Image src={SocheersLogo} alt='Logo' className='h-[38px] mix-blend-multiply' />
             <span className='flex items-center h-2 text-[6px] ml-1 -mt-[6px]'>
                 <span className='flex w-[82px] text-[#7a7a7a]'>Powered by </span>
-                <Image src={LoqoaiLogo} alt='Logo' className='h-[8px]' />
+                <Image src={LoqoLogo} alt='Logo' className='h-[8px]' />
             </span>
         </div>
     );

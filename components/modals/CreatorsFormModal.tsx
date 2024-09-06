@@ -5,13 +5,15 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import ComingSoon from '../global-components/ComingSoon';
 import { XIcon } from 'lucide-react';
+import { useAppSelector } from '@/context';
 
 export default function CreatorsFormModal() {
     const params:any = useParams();
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
     const [fields, setFields] = useState([] as any);
-
+    const { campaignType } = useAppSelector((state) => state.user);
+    
     const options = [
         { value: 'http', label: 'Http' },
         { value: 'text', label: 'Text' },
@@ -65,7 +67,7 @@ export default function CreatorsFormModal() {
                     },
                 });
                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
-                router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+                router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
             });
         } else {
             return enqueueSnackbar('Please fill all the fields', {

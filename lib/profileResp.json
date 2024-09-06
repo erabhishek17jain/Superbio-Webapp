@@ -1,1459 +1,325 @@
 {
-    "data": [
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f2"
+    "data": {
+        "campaignDto": {
+            "id": "66bf7c237e85f77ab1ac258c",
+            "title": "Tech Influencers",
+            "description": "Tech Influencers",
+            "startDate": "2024-08-16T16:18:46.512Z",
+            "endDate": "2024-08-21T16:18:46.512Z",
+            "status": "active",
+            "brand": "Netflix",
+            "orgsId": "666f306c1beece409cdcb970",
+            "keywords": ["tech-influencers", "netflix"],
+            "sharedWith": [],
+            "priority": 1,
+            "createdBy": {
+                "timestamp": 1716636302,
+                "date": "2024-05-25T11:25:02.000+00:00"
             },
-            "socialLink": "https://www.instagram.com/pcmbmemes/",
-            "analytics": {
-                "followers": 196604,
-                "medias": 4398,
-                "following": 4398,
-                "views": 923004,
-                "engagements": 1.43,
-                "frequency": 0.81
-            },
-            "otherData": [
+            "startedAt": "2024-08-23T22:11:54.191+00:00",
+            "createdAt": "2024-08-16T16:19:47.741+00:00",
+            "updatedAt": "2024-08-23T22:11:54.192+00:00",
+            "lastActionAt": null,
+            "lastSyncedAt": "2024-08-23T22:11:53.465+00:00"
+        },
+        "queueDto": null,
+        "profileAnalyticsResp": {
+            "totalFollowers": 1461163,
+            "avgEngagementRate": 0.6458333333333334,
+            "avgPostFrequencyPerDay": 0.5933333333333334,
+            "avgViews": 116080.75,
+            "basedOnProfileCount": {
+                "totalFollowersPosts": 12,
+                "avgEngagementRatePosts": 12,
+                "avgPostFrequencyPerDayPosts": 12,
+                "avgViewsPosts": 12
+            }
+        },
+        "instagramFilterValueResp": {
+            "profileTypeByFollowers": ["10000-99999", "100000-999999"],
+            "engagementRate": ["0-0.99%", "2-4.99%"],
+            "niche": ["Education", "Digital creator", "Community"],
+            "postFrequencyPerDay": ["0.1-0.49", "1-4.99", "0-0.09"],
+            "appliedProfileTypeByFollowers": null,
+            "appliedEngagementRate": null,
+            "appliedNiche": null,
+            "appliedPostFrequencyPerDay": null,
+            "allProfileTypeByFollowers": ["10000-99999", "100000-999999"],
+            "allEngagementRate": ["0-0.99%", "2-4.99%"],
+            "allNiche": ["Education", "Community", "Digital creator"],
+            "allPostFrequencyPerDay": ["0.1-0.49", "1-4.99", "0-0.09"],
+            "lastAppliedFilterField": null
+        },
+        "profilePaginatedResponse": {
+            "items": [
                 {
-                    "columnName": "Usernames",
-                    "value": "pcmbmemes"
+                    "id": "66c90bfd09a7b3675da51d7f",
+                    "username": "BeingCommerce",
+                    "socialMediaId": "31016814583",
+                    "fullName": "COMMERCE STUDENTS",
+                    "mediaCount": 1713,
+                    "followerCount": 172112,
+                    "followingCount": 38,
+                    "biography": "\uD83D\uDCB0Perfect place for Commercian\uD83D\uDCB8 \uD83C\uDFC6| Careers Tips | Career Guideline \uD83E\uDD35 MEMER by PASSION",
+                    "externalUrl": "https://linktr.ee/being_commerce",
+                    "accountType": 3,
+                    "publicEmail": "bizenquiry279@gmail.com",
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Education",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 875770,
+                    "videoCount": 8,
+                    "totalLikes": 85857,
+                    "totalComments": 291,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:13:31.840+00:00",
+                    "recentPostDate": "2024-08-21T05:25:38.000+00:00",
+                    "oldestPostDate": "2024-08-06T07:12:15.000+00:00",
+                    "avgViews": 109471,
+                    "engRate": 0.5,
+                    "daysSinceOldestPost": 17,
+                    "frequencyPerDay": 1.0,
+                    "createdAt": "2024-08-23T22:23:57.877+00:00",
+                    "updatedAt": "2024-08-25T07:52:00.967+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:00.967+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
                 },
                 {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
+                    "id": "66c90bfd09a7b3675da51d7f",
+                    "username": "BeingCommerce",
+                    "socialMediaId": "31016814583",
+                    "fullName": "COMMERCE STUDENTS",
+                    "mediaCount": 1713,
+                    "followerCount": 172112,
+                    "followingCount": 38,
+                    "biography": "\uD83D\uDCB0Perfect place for Commercian\uD83D\uDCB8 \uD83C\uDFC6| Careers Tips | Career Guideline \uD83E\uDD35 MEMER by PASSION",
+                    "externalUrl": "https://linktr.ee/being_commerce",
+                    "accountType": 3,
+                    "publicEmail": "bizenquiry279@gmail.com",
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Education",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 875770,
+                    "videoCount": 8,
+                    "totalLikes": 85857,
+                    "totalComments": 291,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:13:31.840+00:00",
+                    "recentPostDate": "2024-08-21T05:25:38.000+00:00",
+                    "oldestPostDate": "2024-08-06T07:12:15.000+00:00",
+                    "avgViews": 109471,
+                    "engRate": 0.5,
+                    "daysSinceOldestPost": 17,
+                    "frequencyPerDay": 1.0,
+                    "createdAt": "2024-08-23T22:23:57.877+00:00",
+                    "updatedAt": "2024-08-25T07:52:00.967+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:00.967+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
                 },
                 {
-                    "columnName": "Category",
-                    "value": "Contest"
+                    "id": "66c90bfd09a7b3675da51d7f",
+                    "username": "BeingCommerce",
+                    "socialMediaId": "31016814583",
+                    "fullName": "COMMERCE STUDENTS",
+                    "mediaCount": 1713,
+                    "followerCount": 172112,
+                    "followingCount": 38,
+                    "biography": "\uD83D\uDCB0Perfect place for Commercian\uD83D\uDCB8 \uD83C\uDFC6| Careers Tips | Career Guideline \uD83E\uDD35 MEMER by PASSION",
+                    "externalUrl": "https://linktr.ee/being_commerce",
+                    "accountType": 3,
+                    "publicEmail": "bizenquiry279@gmail.com",
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Education",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 875770,
+                    "videoCount": 8,
+                    "totalLikes": 85857,
+                    "totalComments": 291,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:13:31.840+00:00",
+                    "recentPostDate": "2024-08-21T05:25:38.000+00:00",
+                    "oldestPostDate": "2024-08-06T07:12:15.000+00:00",
+                    "avgViews": 109471,
+                    "engRate": 0.5,
+                    "daysSinceOldestPost": 17,
+                    "frequencyPerDay": 1.0,
+                    "createdAt": "2024-08-23T22:23:57.877+00:00",
+                    "updatedAt": "2024-08-25T07:52:00.967+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:00.967+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
                 },
                 {
-                    "columnName": "Subcategory",
-                    "value": "Story Share"
+                    "id": "66c90bfe09a7b3675da51d83",
+                    "username": "coding_home",
+                    "socialMediaId": "38100398401",
+                    "fullName": "NIKHIL | HTML CSS JS",
+                    "mediaCount": 297,
+                    "followerCount": 142868,
+                    "followingCount": 197,
+                    "biography": "\uD83D\uDCBB Front-End Web Developer \uD83D\uDCDA HTML, CSS & JS Mastery \uD83D\uDC68\uD83C\uDFFB‍\uD83D\uDCBB Start Your Journey!  Free Notes\uD83D\uDC47\uD83C\uDFFB",
+                    "externalUrl": "http://bit.ly/codinghubs",
+                    "accountType": 3,
+                    "publicEmail": "codinghomeofficial@gmail.com",
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Education",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 208877,
+                    "videoCount": 17,
+                    "totalLikes": 3069,
+                    "totalComments": 531,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:15:07.080+00:00",
+                    "recentPostDate": "2024-05-29T10:36:37.000+00:00",
+                    "oldestPostDate": "2024-01-23T12:02:58.000+00:00",
+                    "avgViews": 12287,
+                    "engRate": 0.03,
+                    "daysSinceOldestPost": 213,
+                    "frequencyPerDay": 0.08,
+                    "createdAt": "2024-08-23T22:23:58.804+00:00",
+                    "updatedAt": "2024-08-25T07:52:39.473+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:39.473+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
+                },
+                {
+                    "id": "66c90bfe09a7b3675da51d83",
+                    "username": "coding_home",
+                    "socialMediaId": "38100398401",
+                    "fullName": "NIKHIL | HTML CSS JS",
+                    "mediaCount": 297,
+                    "followerCount": 142868,
+                    "followingCount": 197,
+                    "biography": "\uD83D\uDCBB Front-End Web Developer \uD83D\uDCDA HTML, CSS & JS Mastery \uD83D\uDC68\uD83C\uDFFB‍\uD83D\uDCBB Start Your Journey!  Free Notes\uD83D\uDC47\uD83C\uDFFB",
+                    "externalUrl": "http://bit.ly/codinghubs",
+                    "accountType": 3,
+                    "publicEmail": "codinghomeofficial@gmail.com",
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Education",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 208877,
+                    "videoCount": 17,
+                    "totalLikes": 3069,
+                    "totalComments": 531,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:15:07.080+00:00",
+                    "recentPostDate": "2024-05-29T10:36:37.000+00:00",
+                    "oldestPostDate": "2024-01-23T12:02:58.000+00:00",
+                    "avgViews": 12287,
+                    "engRate": 0.03,
+                    "daysSinceOldestPost": 213,
+                    "frequencyPerDay": 0.08,
+                    "createdAt": "2024-08-23T22:23:58.804+00:00",
+                    "updatedAt": "2024-08-25T07:52:39.473+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:39.473+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
+                },
+                {
+                    "id": "66c90bfe09a7b3675da51d81",
+                    "username": "memecitis",
+                    "socialMediaId": "8456864764",
+                    "fullName": "Medical Memecitis",
+                    "mediaCount": 7484,
+                    "followerCount": 131705,
+                    "followingCount": 2,
+                    "biography": "For the proud Doctors and to be Doctors \uD83D\uDC68‍⚕️ Not just a meme page \uD83C\uDF38 Sharing everyday thoughts & issues",
+                    "externalUrl": "https://forms.gle/vAyWRPoWmXzyDkzA7",
+                    "accountType": 3,
+                    "publicEmail": null,
+                    "contactPhoneNumber": null,
+                    "publicPhoneCountryCode": null,
+                    "publicPhoneNumber": null,
+                    "businessContactMethod": "UNKNOWN",
+                    "businessCategoryName": null,
+                    "categoryName": null,
+                    "category": "Community",
+                    "addressStreet": null,
+                    "cityId": "0",
+                    "cityName": null,
+                    "latitude": 0.0,
+                    "longitude": 0.0,
+                    "zip": null,
+                    "totalViews": 3672778,
+                    "videoCount": 8,
+                    "totalLikes": 318176,
+                    "totalComments": 3179,
+                    "analyzedPostCount": 17,
+                    "analyzedDate": "2024-08-23T22:14:43.659+00:00",
+                    "recentPostDate": "2024-08-22T19:16:58.000+00:00",
+                    "oldestPostDate": "2024-08-13T18:06:55.000+00:00",
+                    "avgViews": 459097,
+                    "engRate": 2.44,
+                    "daysSinceOldestPost": 10,
+                    "frequencyPerDay": 1.7,
+                    "createdAt": "2024-08-23T22:29:55.756+00:00",
+                    "updatedAt": "2024-08-25T07:52:19.470+00:00",
+                    "lastRefreshedAt": "2024-08-25T07:52:19.470+00:00",
+                    "private": false,
+                    "verified": false,
+                    "business": false
                 }
             ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 0,
-            "postType": "public",
-            "slug": "pcmbmemes-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f3"
-            },
-            "socialLink": "https://www.instagram.com/commercewalo/",
-            "analytics": {
-                "followers": 133949,
-                "medias": 1820,
-                "views": 102603,
-                "engagements": 0.34,
-                "frequency": 0.26
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "commercewalo"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 1,
-            "postType": "public",
-            "slug": "commercewalo-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f4"
-            },
-            "socialLink": "https://www.instagram.com/icse_toughest_of_all_existing/",
-            "analytics": {
-                "followers": 154141,
-                "medias": 7980,
-                "views": 130363,
-                "engagements": 0.47,
-                "frequency": 1.7
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "icse_toughest_of_all_existing"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 2,
-            "postType": "private",
-            "slug": "icse_toughest_of_all_existing-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f5"
-            },
-            "socialLink": "https://www.instagram.com/cistheta.page/",
-            "analytics": {
-                "followers": 152986,
-                "medias": 7890,
-                "views": 49228,
-                "engagements": 0.25,
-                "frequency": 1.31
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "cistheta.page"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Story Share"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 3,
-            "postType": "public",
-            "slug": "cistheta.page-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f6"
-            },
-            "socialLink": "https://www.instagram.com/memes_for_science_students/",
-            "analytics": {
-                "followers": 88922,
-                "medias": 2697,
-                "views": 18676,
-                "engagements": 0.27,
-                "frequency": 0.19
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "memes_for_science_students"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 4,
-            "postType": "private",
-            "slug": "memes_for_science_students-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289758"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f7"
-            },
-            "socialLink": "https://www.instagram.com/iota.hub/",
-            "analytics": {
-                "followers": 97694,
-                "medias": 1618,
-                "views": 1219933,
-                "engagements": 16.68,
-                "frequency": 0.3
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "iota.hub"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Interactive Story"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 5,
-            "postType": "public",
-            "slug": "iota.hub-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f8"
-            },
-            "socialLink": "https://www.instagram.com/thatsengineering/",
-            "analytics": {
-                "followers": 1559946,
-                "medias": 10988,
-                "views": 105894,
-                "engagements": 0.08,
-                "frequency": 4.25
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "thatsengineering"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Pre Buzz"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Contest"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 6,
-            "postType": "private",
-            "slug": "thatsengineering-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6f9"
-            },
-            "socialLink": "https://www.instagram.com/science.wale/",
-            "analytics": {
-                "followers": 57318,
-                "medias": 2028,
-                "views": 74698,
-                "engagements": 1.05,
-                "frequency": 0.24
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "science.wale"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 7,
-            "postType": "public",
-            "slug": "science.wale-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6fa"
-            },
-            "socialLink": "https://www.instagram.com/BeingCommerce.official/",
-            "analytics": {
-                "followers": 110265,
-                "medias": 1696,
-                "views": 650656,
-                "engagements": 2.27,
-                "frequency": 0.22
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "BeingCommerce.official"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 8,
-            "postType": "private",
-            "slug": "BeingCommerce.official-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6fb"
-            },
-            "socialLink": "https://www.instagram.com/BeingCommerce/",
-            "analytics": {
-                "followers": 160918,
-                "medias": 1544,
-                "views": 115086,
-                "engagements": 0.39,
-                "frequency": 2.83
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "BeingCommerce"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 9,
-            "postType": "public",
-            "slug": "BeingCommerce-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6fc"
-            },
-            "socialLink": "https://www.instagram.com/commerce.study/",
-            "analytics": {
-                "followers": 114716,
-                "medias": 4697,
-                "views": 41172,
-                "engagements": 0.39,
-                "frequency": 1.7
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "commerce.study"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 10,
-            "postType": "public",
-            "slug": "commerce.study-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6fd"
-            },
-            "socialLink": "https://www.instagram.com/kotastudentslife/",
-            "analytics": {
-                "followers": 104405,
-                "medias": 4190,
-                "views": 342638,
-                "engagements": 2.19,
-                "frequency": 1.55
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "kotastudentslife"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 11,
-            "postType": "private",
-            "slug": "kotastudentslife-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6fe"
-            },
-            "socialLink": "https://www.instagram.com/pcmbhumour/",
-            "analytics": {
-                "followers": 14645,
-                "medias": 1754,
-                "views": 9065,
-                "engagements": 1.1,
-                "frequency": 0.02
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "pcmbhumour"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Story Share"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 12,
-            "postType": "public",
-            "slug": "pcmbhumour-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba6ff"
-            },
-            "socialLink": "https://www.instagram.com/commercememes1.0/",
-            "analytics": {
-                "followers": 127390,
-                "medias": 2675,
-                "views": 57497,
-                "engagements": 0.31,
-                "frequency": 4.25
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "commercememes1.0"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 13,
-            "postType": "private",
-            "slug": "commercememes1.0-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba700"
-            },
-            "socialLink": "https://www.instagram.com/du_says/",
-            "analytics": {
-                "followers": 70760,
-                "medias": 2429,
-                "views": 235876,
-                "engagements": 1.29,
-                "frequency": 1.21
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "du_says"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Post Launch"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Culture Seeding"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 14,
-            "postType": "public",
-            "slug": "du_says-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba701"
-            },
-            "socialLink": "https://www.instagram.com/education_memes.in/",
-            "analytics": {
-                "followers": 80775,
-                "medias": 3825,
-                "views": 13139,
-                "engagements": 0.1,
-                "frequency": 0.19
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "education_memes.in"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Augstan Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 15,
-            "postType": "private",
-            "slug": "education_memes.in-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba702"
-            },
-            "socialLink": "https://www.instagram.com/memecitis/",
-            "analytics": {
-                "followers": 130747,
-                "medias": 7423,
-                "views": 160374,
-                "engagements": 0.34,
-                "frequency": 1.06
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "memecitis"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Augstan Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Interactive Story"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 16,
-            "postType": "public",
-            "slug": "memecitis-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba703"
-            },
-            "socialLink": "https://www.instagram.com/we.are.the.kvians/",
-            "analytics": {
-                "followers": 65521,
-                "medias": 3550,
-                "views": 54981,
-                "engagements": 0.76,
-                "frequency": 0.18
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "we.are.the.kvians"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Augstan Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Story Share"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 17,
-            "postType": "private",
-            "slug": "we.are.the.kvians-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba704"
-            },
-            "socialLink": "https://www.instagram.com/commercian.life/",
-            "analytics": {
-                "followers": 120325,
-                "medias": 1123,
-                "views": 61176,
-                "engagements": 0.19,
-                "frequency": 1.89
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "commercian.life"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 18,
-            "postType": "private",
-            "slug": "commercian.life-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba705"
-            },
-            "socialLink": "https://www.instagram.com/cbsevale/",
-            "analytics": {
-                "followers": 50461,
-                "medias": 1081,
-                "views": 14979,
-                "engagements": 0.42,
-                "frequency": 0.57
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "cbsevale"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 19,
-            "postType": "public",
-            "slug": "cbsevale-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba706"
-            },
-            "socialLink": "https://www.instagram.com/theengineerjokes/",
-            "analytics": {
-                "followers": 57308,
-                "medias": 2050,
-                "views": 12915,
-                "engagements": 0.06,
-                "frequency": 0.05
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "theengineerjokes"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Interactive Story"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 20,
-            "postType": "private",
-            "slug": "theengineerjokes-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba707"
-            },
-            "socialLink": "https://www.instagram.com/commerce_duniyaa/",
-            "analytics": {
-                "followers": 53480,
-                "medias": 1331,
-                "views": 25056,
-                "engagements": 0.02,
-                "frequency": 0.53
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "commerce_duniyaa"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 21,
-            "postType": "private",
-            "slug": "commerce_duniyaa-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba708"
-            },
-            "socialLink": "https://www.instagram.com/sparshcodes/",
-            "analytics": {
-                "followers": 101146,
-                "medias": 891,
-                "views": 61789,
-                "engagements": 0.03,
-                "frequency": 0.11
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "sparshcodes"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Publisher Collab"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 22,
-            "postType": "public",
-            "slug": "sparshcodes-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba709"
-            },
-            "socialLink": "https://www.instagram.com/coding_home/",
-            "analytics": {
-                "followers": 149103,
-                "medias": 292,
-                "views": 9218,
-                "engagements": 0.02,
-                "frequency": 0.15
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "coding_home"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Publisher Collab"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 23,
-            "postType": "public",
-            "slug": "coding_home-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba70a"
-            },
-            "socialLink": "https://www.instagram.com/python___developers/",
-            "analytics": {
-                "followers": 114439,
-                "medias": 403,
-                "views": 0,
-                "engagements": 0.02,
-                "frequency": 0.03
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "python___developers"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": "Interactive Story"
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 24,
-            "postType": "private",
-            "slug": "python___developers-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba70b"
-            },
-            "socialLink": "https://www.instagram.com/python.coder_/",
-            "analytics": {
-                "followers": 1160065,
-                "medias": 1339,
-                "views": 160974,
-                "engagements": 0.16,
-                "frequency": 0.12
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "python.coder_"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": "Sustenance"
-                },
-                {
-                    "columnName": "Category",
-                    "value": "Khali Video"
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 25,
-            "postType": "public",
-            "slug": "python.coder_-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba70c"
-            },
-            "socialLink": "https://www.instagram.com/pythoncommunity_/",
-            "analytics": {
-                "followers": 546824,
-                "medias": 1490,
-                "views": 194627,
-                "engagements": 0.15,
-                "frequency": 0.1
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "pythoncommunity_"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": ""
-                },
-                {
-                    "columnName": "Category",
-                    "value": ""
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 26,
-            "postType": "private",
-            "slug": "pythoncommunity_-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        },
-        {
-            "_id": {
-                "$oid": "66ae4a318615b064e45ba70d"
-            },
-            "socialLink": "https://www.instagram.com/wecodeinpython/",
-            "analytics": {
-                "followers": 132179,
-                "medias": 971,
-                "views": 19046,
-                "engagements": 0.08,
-                "frequency": 0.05
-            },
-            "otherData": [
-                {
-                    "columnName": "Usernames",
-                    "value": "wecodeinpython"
-                },
-                {
-                    "columnName": "Campaign phase",
-                    "value": ""
-                },
-                {
-                    "columnName": "Category",
-                    "value": ""
-                },
-                {
-                    "columnName": "Subcategory",
-                    "value": ""
-                }
-            ],
-            "internalSheetId": {
-                "$oid": "66ae4a308615b064e45ba6f1"
-            },
-            "campaignId": {
-                "$oid": "66ae48698615b064e45ba6f0"
-            },
-            "platform": "instagram",
-            "sNo": 27,
-            "postType": "public",
-            "slug": "wecodeinpython-66ae48698615b064e45ba6f0",
-            "createdAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            },
-            "updatedAt": {
-                "$date": {
-                    "$numberLong": "1722698289759"
-                }
-            }
-        }
-    ],
-    "meta": {
-        "page": 1,
-        "limit": 2000,
-        "total": 28,
-        "analytics": {
-            "views": 92300400,
-            "medias": 439800,
-            "followers": 19660400,
-            "following": 3600,
-            "engagements": 143.5,
-            "frequency": 810
-        },
-        "updatedAt": {
-            "$date": {
-                "$numberLong": "1722698960961"
-            }
-        },
-        "basedOnPosts": {
-            "views": 0.0,
-            "medias": 0.0,
-            "followers": 0.0,
-            "following": 0.0,
-            "engagements": 0.0,
-            "frequency": 0.0
+            "currentPage": 1,
+            "totalPages": 2,
+            "totalItems": 12
         }
     }
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
 import { getCookie } from 'cookies-next';
-import { ISheetDetails, IColumnDetails, ISheetPayload, ISheet, IColumnDataResponse, IReportingResponse } from '@/interfaces/sheet';
+import { ISheetDetails, IColumnDetails, ISheetPayload, ISheet, IColumnDataResponse, IPostsReportingResponse } from '@/interfaces/sheet';
 
 interface ISheetNetworkService {
     getSheet: (url: string) => Promise<ISheetDetails[]>;

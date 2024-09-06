@@ -16,7 +16,7 @@ declare interface FilterKeys {
     others?: OtherData[];
 }
 
-declare interface AvailableFilters {
+export interface AvailableFilters {
     platform: string[];
     internalSheetId: SheetFilter[];
     postType: string[];
@@ -24,6 +24,14 @@ declare interface AvailableFilters {
     phase: string[];
     category: string[];
     subCategory: string[];
+    [key: string]: string[] | SheetFilter[];
+    lastAppliedFilterField: string;
+}
+export interface AvailableProfilesFilters {
+    profileTypeByFollowers: string[];
+    postFrequencyPerDay: string[];
+    niche: string[];
+    engagementRate: string[];
     [key: string]: string[] | SheetFilter[];
     lastAppliedFilterField: string;
 }

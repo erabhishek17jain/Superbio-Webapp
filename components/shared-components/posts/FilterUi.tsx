@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ANALYTICS_FILTERS, ANALYTICS_FILTERS_FROM_SHEETS } from '@/constants';
 import { SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { ArrowUpDownIcon } from '@/icons/ArrowUpDownIcon';
+import { AvailableFilters } from '@/interfaces/filter';
 
 const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filterValue }: any) => {
     const radioEligible = ['platform'].includes(any_filter.key);
@@ -156,7 +157,7 @@ export default function FilterUi(props: FilterUiProps) {
                                     ? filtersOptions[lastKey]
                                     : filtersOptions[any_filter.key];
                             return (
-                                filterValue.length > 0 && (
+                                filterValue?.length > 0 && (
                                     <Accordion
                                         open={open === 5 + index + 4}
                                         key={uuidv4()}

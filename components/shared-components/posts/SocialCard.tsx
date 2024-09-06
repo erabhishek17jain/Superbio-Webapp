@@ -8,10 +8,10 @@ import SheetNetworkService from '@/services/sheet.service';
 import { enqueueSnackbar } from 'notistack';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import UpdateAnalyticsModal from '../modals/UpdateAnalyticsModal';
+import UpdateAnalyticsModal from '../../modals/UpdateAnalyticsModal';
 import { PlusCircleIcon, SquareArrowOutUpRightIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import { calculateSummary } from '@/lib/utils';
-import DeletePostModal from '../modals/DeletePostModal';
+import DeletePostModal from '../../modals/DeletePostModal';
 
 export function fileToBase64(file: any) {
     return new Promise((resolve, reject) => {

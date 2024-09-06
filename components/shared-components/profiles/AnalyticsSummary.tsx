@@ -2,7 +2,7 @@
 import { ISummary } from '@/interfaces/reporting';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import EstimatedReachModal from '../modals/EstimatedReachModal';
+import EstimatedReachModal from '../../modals/EstimatedReachModal';
 import { ICampaign } from '@/interfaces/campaign';
 import { FilePenLineIcon, ListRestartIcon, RefreshCwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
@@ -26,7 +26,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
 
     const updateEstimatedReach = (params: any) => {
         JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
-            enqueueSnackbar('Estimated Reach upadated successfully', {
+            enqueueSnackbar('Estimated reach upadated successfully', {
                 variant: 'success',
                 anchorOrigin: {
                     vertical: 'top',
@@ -42,7 +42,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
 
     const analytics: ISummary[] = summary?.filter((el) => {
         if (isInstagram) {
-            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'reposts' && el.title !== 'Estimated Reach');
+            return !(el.title !== 'likes' && el.title !== 'views' && el.title !== 'comments' && el.title !== 'reposts' && el.title !== 'Estimated reach');
         } else {
             return el;
         }
@@ -69,11 +69,11 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                 </div>
                                 <div className='flex h-9 items-end justify-between w-full'>
                                     <p className='text-xs text-black-500'>
-                                        {item.title.includes('Estimated Reach') || item.title === 'Total Posts'
+                                        {item.title.includes('Estimated reach') || item.title === 'Total profiles'
                                             ? item.title
-                                            : `${item.basedOn} ${item.title === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.title === 'reposts' && isInstagram ? 'video shares' : item.title}`}
+                                            : `${item.basedOn} profiles have ${item.title.replaceAll('_', ' ')}`}
                                     </p>
-                                    {item.title.includes('Estimated Reach') && !isPublic && (
+                                    {item.title.includes('Estimated reach') && !isPublic && (
                                         <div className='flex gap-1'>
                                             {item.basedOn > 0 && (
                                                 <div

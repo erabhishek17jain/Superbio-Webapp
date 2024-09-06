@@ -12,10 +12,11 @@ import {
     Repeat2Icon,
     SlidersHorizontalIcon,
 } from 'lucide-react';
-import TwitterIcon from '../../icons/TwitterIcon';
-import InstagramIcon from '../../icons/InstagramIcon';
+import TwitterIcon from '../../../icons/TwitterIcon';
+import InstagramIcon from '../../../icons/InstagramIcon';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
+import { AvailableFilters } from '@/interfaces/filter';
 
 interface FilterAndSortingProps {
     meta: any;
@@ -96,7 +97,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
 
     return (
         <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
-            <div className='flex gap-3'>
+            <div className='sm:flex gap-3 hidden'>
                 <div className='flex gap-5'>
                     <div
                         onClick={() => changePlatform('all')}

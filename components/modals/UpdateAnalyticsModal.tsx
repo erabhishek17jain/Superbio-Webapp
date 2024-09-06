@@ -6,13 +6,13 @@ import ReportIcon from '../../icons/ReportIcon';
 
 export default function UpdateAnalyticsModal({ postId, platform, currentAnalytics, openCloseModal, index, columns, setColumns }: any) {
     const [error, setError] = useState(false);
-    const [analytics, setAnalytics] = useState({ ...currentAnalytics });
+    const [analytics, setPostsAnalytics] = useState({ ...currentAnalytics });
 
     const updatePostAnalytics = () => {
         const params = { ...analytics };
         if (JSON.stringify(params) !== JSON.stringify(currentAnalytics)) {
             JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
-                enqueueSnackbar('Estimated Reach upadated successfully', {
+                enqueueSnackbar('Estimated reach upadated successfully', {
                     variant: 'success',
                     anchorOrigin: {
                         vertical: 'top',
@@ -51,7 +51,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     placeholder='Enter Views count'
                                     name='views'
                                     value={analytics.views}
-                                    onChange={(e) => setAnalytics({ ...analytics, views: parseInt(e.target.value) })}
+                                    onChange={(e) => setPostsAnalytics({ ...analytics, views: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct views count</p>}
                             </div>
@@ -66,7 +66,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     placeholder='Enter likes count'
                                     name='likes'
                                     value={analytics.likes}
-                                    onChange={(e) => setAnalytics({ ...analytics, likes: parseInt(e.target.value) })}
+                                    onChange={(e) => setPostsAnalytics({ ...analytics, likes: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct likes count</p>}
                             </div>
@@ -81,7 +81,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     placeholder='Enter comments count'
                                     name='comment'
                                     value={analytics.comments}
-                                    onChange={(e) => setAnalytics({ ...analytics, comments: parseInt(e.target.value) })}
+                                    onChange={(e) => setPostsAnalytics({ ...analytics, comments: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct comments count</p>}
                             </div>
@@ -96,7 +96,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                     placeholder='Enter reposts count'
                                     name='reposts'
                                     value={analytics.reposts}
-                                    onChange={(e) => setAnalytics({ ...analytics, reposts: parseInt(e.target.value) })}
+                                    onChange={(e) => setPostsAnalytics({ ...analytics, reposts: parseInt(e.target.value) })}
                                 />
                                 {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct reposts count</p>}
                             </div>
@@ -112,7 +112,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                         placeholder='Enter quotes count'
                                         name='quotes'
                                         value={analytics.quotes}
-                                        onChange={(e) => setAnalytics({ ...analytics, quotes: parseInt(e.target.value) })}
+                                        onChange={(e) => setPostsAnalytics({ ...analytics, quotes: parseInt(e.target.value) })}
                                     />
                                     {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct quotes count</p>}
                                 </div>
@@ -129,7 +129,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
                                         placeholder='Enter bookmarks count'
                                         name='bookmarks'
                                         value={analytics.bookmarks}
-                                        onChange={(e) => setAnalytics({ ...analytics, bookmarks: parseInt(e.target.value) })}
+                                        onChange={(e) => setPostsAnalytics({ ...analytics, bookmarks: parseInt(e.target.value) })}
                                     />
                                     {error && <p className='mt-1 text-[12px] text-[#d00a0a] ml-2'>Please enter correct estimated reach count</p>}
                                 </div>

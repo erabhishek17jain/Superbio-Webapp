@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
-import SocialCard from './SocialCard';
+import SocialCard from '../posts/SocialCard';
 import JavaNetworkService from '@/services/java.service';
-import { ScrollToTop } from '../global-components/ScrollToTop';
+import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
     meta: any;
