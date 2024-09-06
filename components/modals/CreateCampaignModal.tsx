@@ -12,6 +12,7 @@ import ReportIcon from '../../icons/ReportIcon';
 export default function CreateCampaignModal({ mode, openCloseModal, campaignDetails }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const { campaignType } = useAppSelector((state) => state.user);
     const { newCampaign } = useAppSelector((state) => state.campaign);
     const { enqueueSnackbar } = useSnackbar();
     const [isError, setIsError] = useState(false);
@@ -23,6 +24,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         status: 'active',
         keywords: [],
         priority: 1,
+        type: campaignType,
         startDate: new Date(),
         endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
     });
@@ -62,6 +64,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
     };
 
     const submitCampaign = () => {
+        console.log(campaignDetail)
         let error = false;
         if (
             !campaignDetail?.title ||

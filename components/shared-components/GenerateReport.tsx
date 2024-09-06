@@ -10,7 +10,7 @@ import { Params } from '@/interfaces/reporting';
 import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
-import { calculateStatus, clearFilters, structureData } from '@/lib/utils';
+import { calculateStatus, clearFilters, structurePostsData } from '@/lib/utils';
 import DownloadCSV from './DownloadCSV';
 import { setCampData } from '@/context/reporting';
 
@@ -90,7 +90,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const campData = await JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query));
-                dispatch(setCampData(structureData(campData)));
+                dispatch(setCampData(structurePostsData(campData)));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
                 }

@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { deleteCookie } from 'cookies-next';
-import { IReportingResponse } from '@/interfaces/sheet';
+import { IPostsReportingResponse, IProfilesReportingResponse } from '@/interfaces/sheet';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -34,7 +34,7 @@ export const calculateStatus = (status: string, processed: number, totalPost: nu
     }
 };
 
-export const setAnalytics = (campaignAnalyticsResp: any) => {
+export const setPostsAnalytics = (campaignAnalyticsResp: any) => {
     const analytics = {
         likes: campaignAnalyticsResp.likes,
         comments: campaignAnalyticsResp.comments,
@@ -58,7 +58,7 @@ export const setAnalytics = (campaignAnalyticsResp: any) => {
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
 
-export const structureData = (data: IReportingResponse) => {
+export const structurePostsData = (data: IPostsReportingResponse) => {
     let sheets = data.filterValueResp.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
     sheets = sheets.map((item: any) => {
         return { id: item.id, name: item.name };
@@ -66,7 +66,7 @@ export const structureData = (data: IReportingResponse) => {
     return {
         data: data.postDtoPaginatedResponse.items,
         meta: {
-            ...setAnalytics(data.campaignAnalyticsResp),
+            ...setPostsAnalytics(data.campaignAnalyticsResp),
             limit: 6,
             page: data.postDtoPaginatedResponse.currentPage,
             total: data.postDtoPaginatedResponse.totalItems,
@@ -83,6 +83,71 @@ export const structureData = (data: IReportingResponse) => {
                 category: data.filterValueResp.lastAppliedFilterField === 'category' ? data.filterValueResp.allCategories : data.filterValueResp.categories,
                 subCategory:
                     data.filterValueResp.lastAppliedFilterField === 'subCategory' ? data.filterValueResp.allSubCategories : data.filterValueResp.subCategories,
+            },
+        },
+    };
+};
+
+export const setProfilesAnalytics = (profileAnalyticsResp: any) => {
+    const analytics = {
+        views: profileAnalyticsResp.avgViews,
+        followers: profileAnalyticsResp.totalFollowers,
+        engagements: profileAnalyticsResp.avgEngagementRate,
+        frequency_per_day: profileAnalyticsResp.avgPostFrequencyPerDay,
+    };
+    const basedOnPosts = {
+        views: profileAnalyticsResp.basedOnProfileCount.avgViews,
+        followers: profileAnalyticsResp.basedOnProfileCount.totalFollowers,
+        engagements: profileAnalyticsResp.basedOnProfileCount.avgEngagementRate,
+        frequency_per_day: profileAnalyticsResp.basedOnProfileCount.avgPostFrequencyPerDay,
+    };
+    return { analytics: analytics, basedOnPosts: basedOnPosts };
+};
+
+
+export const structureProfilesData = (data: IProfilesReportingResponse) => {
+    let sheets =
+        data.instagramFilterValueResp.lastAppliedFilterField === 'internalSheetId'
+            ? data.instagramFilterValueResp.allSheets
+            : data.instagramFilterValueResp.sheets;
+    sheets = sheets.map((item: any) => {
+        return { id: item.id, name: item.name };
+    });
+    return {
+        data: data.profilePaginatedResponse.items,
+        meta: {
+            ...setPostsAnalytics(data.profileAnalyticsResp),
+            limit: 6,
+            page: data.profilePaginatedResponse.currentPage,
+            total: data.profilePaginatedResponse.totalItems,
+            campaignDto: data.campaignDto,
+            postSummaryResp: data.postSummaryResp,
+            filterValueResp: {
+                postedAt:
+                    data.profilePaginatedResponse.lastAppliedFilterField === 'postedAt'
+                        ? data.instagramFilterValueResp.allPostedAtDates
+                        : data.instagramFilterValueResp.postedAtDates,
+                internalSheetId: sheets,
+                platform:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'platform'
+                        ? data.instagramFilterValueResp.allPlatforms
+                        : data.instagramFilterValueResp.platforms,
+                postType:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'postType'
+                        ? data.instagramFilterValueResp.allPostTypes
+                        : data.instagramFilterValueResp.postTypes,
+                phase:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'phase'
+                        ? data.instagramFilterValueResp.allCampaignPhases
+                        : data.instagramFilterValueResp.campaignPhases,
+                category:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'category'
+                        ? data.instagramFilterValueResp.allCategories
+                        : data.instagramFilterValueResp.categories,
+                subCategory:
+                    data.instagramFilterValueResp.lastAppliedFilterField === 'subCategory'
+                        ? data.instagramFilterValueResp.allSubCategories
+                        : data.instagramFilterValueResp.subCategories,
             },
         },
     };

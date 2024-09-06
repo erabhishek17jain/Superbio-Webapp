@@ -38,8 +38,8 @@ export default function CampaignCard({
     fetchCampaigns: any;
 }) {
     const router = useRouter();
-    const { user } = useAppSelector((state) => state.user);
     const { enqueueSnackbar } = useSnackbar();
+    const { user, campaignType } = useAppSelector((state) => state.user);
     const [diffInMin, setDiffInMin] = useState(0);
     const [showShareModal, setShowShareModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -57,7 +57,7 @@ export default function CampaignCard({
     };
 
     const navigateToReporting = () => {
-        router.push(`/${status}/campaign/${campaign.id}`);
+        router.push(`/${status}/${campaignType}/${campaign.id}`);
     };
 
     const openCloseShareModal = () => {

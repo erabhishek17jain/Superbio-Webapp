@@ -1,5 +1,6 @@
 'use client';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
+import { useAppSelector } from '@/context';
 import { logout } from '@/lib/utils';
 import SheetNetworkService from '@/services/sheet.service';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 export default function Queue() {
     const router = useRouter();
     const [queues, setQueues] = useState<IQueue[]>([]);
+    const { campaignType } = useAppSelector((state) => state.user);
 
     useEffect(() => {
         SheetNetworkService.instance
@@ -87,7 +89,7 @@ export default function Queue() {
                                     <tr
                                         key={queue._id.$oid.toString()}
                                         className='odd:bg-white even:bg-gray-50 border-b cursor-pointer hover:bg-gray-100'
-                                        onClick={() => router.push(`/active/campaign/${queue.campaignId._id.$oid.toString()}`)}>
+                                        onClick={() => router.push(`/active/${campaignType}/${queue.campaignId._id.$oid.toString()}`)}>
                                         <th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'>
                                             {queue?.campaign?.title}
                                         </th>

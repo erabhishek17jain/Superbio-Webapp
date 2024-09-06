@@ -17,11 +17,12 @@ const getSheetInfo = () => {
 };
 
 export default function CreateReporting() {
+    const router = useRouter();
     const params: any = useParams();
     const dispatch = useAppDispatch();
-    const state = useAppSelector((state) => state?.campaign);
-    const router = useRouter();
     const [mode, setMode] = useState('view');
+    const state = useAppSelector((state) => state?.campaign);
+    const { campaignType } = useAppSelector((state) => state.user);
     const [selSheetData, setSelSheetData] = useState<ISheet[]>([]);
     const [sheetData, setSheetData] = useState<any>([]);
     const [initialSheetData, setInitialSheetData] = useState<any>([]);
@@ -63,7 +64,7 @@ export default function CreateReporting() {
 
     const addUpdateSheet = () => {
         if (mode === 'view') {
-            router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+            router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
             return;
         }
         let error = false;
@@ -136,7 +137,7 @@ export default function CreateReporting() {
             })
             .finally(() => {
                 dispatch(setSheetLoading(false));
-                router.push(`/${params?.campaignType}/campaign/${params.campaignId}`);
+                router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
             });
     };
 

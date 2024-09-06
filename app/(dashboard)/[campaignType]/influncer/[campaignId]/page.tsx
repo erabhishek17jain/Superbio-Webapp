@@ -1,39 +1,30 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../components/shared-components/GenerateReport';
-import FilterUi from '../../../../../components/shared-components/FilterUi';
+import GenerateReport from '@/components/shared-components/GenerateReport';
+import FilterUi from '@/components/shared-components/FilterUi';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../components/shared-components/FilterAndSorting';
-import Reporting from '../../../../../components/shared-components/Reporting';
+import FilterAndSorting from '@/components/shared-components/FilterAndSorting';
+import Reporting from '@/components/shared-components/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, setAnalytics, structureData } from '@/lib/utils';
+import { calculateSummary, clearFilters, setPostsAnalytics, structureProfilesData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
+import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
-import LoadingReporting from '@/components/global-components/LoadingReporting';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
-    comments: 'bg-views',
-    likes: 'bg-likes',
-    reposts: 'bg-reposts',
-    quotes: 'bg-quotes',
-    bookmarks: 'bg-bookmarks',
-    shares: 'bg-quotes',
-    saves: 'bg-bookmarks',
-    estimatedReach: 'bg-views',
-    Posts: 'bg-posts',
+    Profiles: 'bg-posts',
     followers: 'bg-posts',
-    medias: 'bg-views',
     engagements: 'bg-reposts',
-    frequency: 'bg-quotes',
-    following: 'bg-bookmarks',
+    estimatedReach: 'bg-views',
+    frequency_per_day: 'bg-quotes',
 };
 
-export default function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
+export default function ProfileReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
@@ -41,16 +32,13 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState<any>({
-        postedAt: [],
-        internalSheetId: [],
-        platform: [],
-        postType: [],
-        phase: [],
-        category: [],
-        subCategory: [],
+        niche: [],
+        engagementRate: [],
+        postFrequencyPerDay: [],
+        profileTypeByFollowers: [],
     });
 
-    const sortBy = searchParams.sortBy ? searchParams.sortBy : 'likes';
+    const sortBy = searchParams.sortBy ? searchParams.sortBy : 'followerCount';
     const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
     const filter = searchParams.filter ? searchParams.filter : '';
     const value = searchParams.value ? searchParams.value : '';
@@ -58,7 +46,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     let query: { [key: string]: string | number } = {
         page: 1,
         size: 6,
-        sortBy: sortBy || 'likes',
+        sortBy: sortBy || 'followerCount',
         sortDirection: sortDirection || 'DESC',
     };
     if (filter && value) {
@@ -166,18 +154,15 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const refreshCampaign = (query: any) => {
         JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
-            const tempMeta = { ...campData.meta };
-            const meta = setAnalytics(resp);
-            tempMeta['analytics'] = meta.analytics;
-            tempMeta['basedOnPosts'] = meta.basedOnPosts;
-            dispatch(setCampData({ ...campData, meta: tempMeta }));
+            campData.meta = { ...campData.meta, ...setPostsAnalytics(resp) };
+            dispatch(setCampData({ ...campData }));
             setIsSheetLoading(false);
         });
     };
 
     const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            const data = structureData(resp);
+        JavaNetworkService.instance.getProfileData(params.campaignId, clearFilters(query)).then((resp) => {
+            const data = structureProfilesData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);
         });
@@ -213,58 +198,55 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     }, []);
 
     return (
-        <div className='flex flex-col w-full' id='camp-top'>
-            <div className='w-full h-[60px]'></div>
-            <div className='flex'>
-                {campData?.meta.filterValueResp && (
-                    <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
-                )}
-                {!isSheetLoading ? (
-                    <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
-                        {campData?.data.length === 0 && campData?.meta?.total === 0 && (
-                            <NewCampaign
-                                buttonText={'Add links'}
-                                title={'Add links for reporting'}
-                                action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
-                                description={
-                                    'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
-                                }
+        <div className='flex'>
+            {campData?.meta.filterValueResp && (
+                <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+            )}
+            {!isSheetLoading ? (
+                <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
+                    {campData?.data.length === 0 && campData?.meta?.total === 0 && (
+                        <NewCampaign
+                            buttonText={'Add links'}
+                            title={'Add links for reporting'}
+                            action={() => router.push(`/influencer/${params?.campaignType}/create/${params.campaignId}`)}
+                            description={
+                                'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
+                            }
+                        />
+                    )}
+                    {campData?.data && campData?.data.length > 0 && (
+                        <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
+                    )}
+                    {campData?.data && campData?.data.length > 0 && (
+                        <>
+                            <FilterAndSorting
+                                meta={campData?.meta}
+                                shouldShowSort={true}
+                                query={{ ...query, ...filters }}
+                                filters={filters}
+                                selectFilter={selectFilter}
+                                filtersOptions={campData?.meta.filterValueResp}
                             />
-                        )}
-                        {campData?.data && campData?.data.length > 0 && (
-                            <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
-                        )}
-                        {campData?.data && campData?.data.length > 0 && (
-                            <>
-                                <FilterAndSorting
-                                    meta={campData?.meta}
-                                    shouldShowSort={true}
-                                    query={{ ...query, ...filters }}
-                                    filters={filters}
-                                    selectFilter={selectFilter}
-                                    filtersOptions={campData?.meta.filterValueResp}
-                                />
-                                <AnalyticsSummary
-                                    summary={summary}
-                                    filters={filters}
-                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
-                                    campaign={campData?.meta.campaignDto}
-                                    refreshCampData={() => refreshCampaign(query)}
-                                />
-                                <Reporting
-                                    query={{ ...query, ...filters }}
-                                    meta={campData?.meta}
-                                    campaignId={params.campaignId}
-                                    initialColumns={campData?.data}
-                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
-                                />
-                            </>
-                        )}
-                    </div>
-                ) : (
-                    <LoadingReporting isPublic={searchParams.isPublic ? searchParams.isPublic : false} title={campData.meta?.campaignDto?.title} />
-                )}
-            </div>
+                            <AnalyticsSummary
+                                summary={summary}
+                                filters={filters}
+                                isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                campaign={campData?.meta.campaignDto}
+                                refreshCampData={() => refreshCampaign(query)}
+                            />
+                            <Reporting
+                                query={{ ...query, ...filters }}
+                                meta={campData?.meta}
+                                campaignId={params.campaignId}
+                                initialColumns={campData?.data}
+                                isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                            />
+                        </>
+                    )}
+                </div>
+            ) : (
+                <LoadingBlack />
+            )}
         </div>
     );
 }

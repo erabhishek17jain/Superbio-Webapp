@@ -16,6 +16,7 @@ let initialCampaign: ICampaign = {
     status: '',
     groups: 0,
     source: '',
+    type: '',
     user: {
         id: '',
         name: '',

@@ -77,11 +77,18 @@ export interface IPostsResponse {
     postDtoPaginatedResponse: any;
 }
 
-export interface IReportingResponse {
+export interface IPostsReportingResponse {
     queueDto: any;
     campaignDto: any;
     postSummaryResp: any;
     filterValueResp: any;
     campaignAnalyticsResp: any;
     postDtoPaginatedResponse: any;
+}
+export interface IProfilesReportingResponse {
+    campaignDto: any;
+    postSummaryResp: any;
+    instagramFilterValueResp: any;
+    profileAnalyticsResp: any;
+    profilePaginatedResponse: any;
 }

@@ -15,6 +15,7 @@ export default function AllCampaignPage() {
     const params: any = useParams();
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('add');
+    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign } = useAppSelector((state) => state.campaign);
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
@@ -23,7 +24,16 @@ export default function AllCampaignPage() {
 
     const fetchMore = () => {
         const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        dispatch(getCampaigns({ page: allCampaign?.meta?.arg?.page || 0 + 1, limit: 12, status: CampaignStatus.active, ownerType: ownedType, q: '' }));
+        dispatch(
+            getCampaigns({
+                page: allCampaign?.meta?.arg?.page || 0 + 1,
+                limit: 12,
+                status: CampaignStatus.active,
+                ownerType: ownedType,
+                q: '',
+                type: campaignType,
+            })
+        );
         dispatch(
             setMeta({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,
@@ -42,7 +52,9 @@ export default function AllCampaignPage() {
         if (allCampaign?.meta.page && allCampaign?.meta.page * 12 < allCampaign?.meta.total) {
             setloader(true);
             const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
-            dispatch(getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '' }));
+            dispatch(
+                getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '', type: campaignType })
+            );
             setloader(false);
         }
     };

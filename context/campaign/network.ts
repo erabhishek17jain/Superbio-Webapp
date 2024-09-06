@@ -6,10 +6,10 @@ import { ICampaign } from '@/interfaces/campaign';
 
 export const getCampaigns = createAsyncThunk(
     'campaign/getCampaigns',
-    async (payload: { page: number; limit: number; status: CampaignStatus; ownerType: string; q: string }) => {
+    async (payload: { page: number; limit: number; status: CampaignStatus; ownerType: string; q: string; type: string }) => {
         try {
-            const { page, limit, status, ownerType, q } = payload;
-            return await CampaignNetworkService.instance.getCampaigns(page, limit, status, ownerType, q);
+            const { page, limit, status, ownerType, q, type } = payload;
+            return await CampaignNetworkService.instance.getCampaigns(page, limit, status, ownerType, q, type);
         } catch (err: any) {
             throw err;
         }
