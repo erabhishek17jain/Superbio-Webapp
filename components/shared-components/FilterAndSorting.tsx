@@ -81,7 +81,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         {
             id: 'reposts',
             title: isInstagram ? 'Video Shares' : 'Reposts',
-            action: () => setCampFilters({ sortBy: 'postedAt', sortDirection: query.sortDirection }),
+            action: () => setCampFilters({ sortBy: 'reposts', sortDirection: query.sortDirection }),
             icon: <Repeat2Icon color={'#8b8b8b'} size={20} />,
         },
         {
