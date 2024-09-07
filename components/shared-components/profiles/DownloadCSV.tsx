@@ -48,32 +48,20 @@ export default function DownloadCSV(props: GenerateReportProps) {
                           label: 'Username',
                       },
                       {
-                          key: 'postedAt',
-                          label: 'Posted Date',
+                          key: 'followerCount',
+                          label: 'Followers',
                       },
                       {
-                          key: 'views',
-                          label: 'Views',
+                          key: 'avgViews',
+                          label: 'Avg Views',
                       },
                       {
-                          key: 'likes',
-                          label: 'Likes',
+                          key: 'engRate',
+                          label: 'Engagement Rate',
                       },
                       {
-                          key: 'reposts',
-                          label: 'Reposts',
-                      },
-                      {
-                          key: 'quotes',
-                          label: 'Quotes',
-                      },
-                      {
-                          key: 'bookmarks',
-                          label: 'Bookmarks',
-                      },
-                      {
-                          key: 'comments',
-                          label: 'Comments',
+                          key: 'Frequency Per Day',
+                          label: 'frequencyPerDay',
                       },
                   ]
                 : [
@@ -82,16 +70,12 @@ export default function DownloadCSV(props: GenerateReportProps) {
                           label: 'Sr.No',
                       },
                       {
-                          key: 'socialLink',
-                          label: 'Social Link',
+                          key: 'username',
+                          label: 'Username',
                       },
                       {
-                          key: 'postedAt',
-                          label: 'Posted Date',
-                      },
-                      {
-                          key: 'reach',
-                          label: 'Estimated Impression',
+                          key: 'followerCount',
+                          label: 'Followers',
                       },
                   ];
             if (res?.items.length > 0) {
@@ -100,20 +84,16 @@ export default function DownloadCSV(props: GenerateReportProps) {
                     const dataObj = !isPublic
                         ? {
                               id: index + 1,
-                              socialLink: item.socialLink,
-                              postedAt: item?.postedAt ? dayjs(new Date(item?.postedAt)).format('D MMM, YYYY') : '',
-                              views: item.analytics.views,
-                              likes: item.analytics.likes,
-                              reposts: item.analytics.reposts,
-                              quotes: item.analytics.quotes,
-                              bookmarks: item.analytics.bookmarks,
-                              comments: item.analytics.comments,
+                              username: item.username,
+                              followerCount: item.followerCount,
+                              avgViews: item.avgViews,
+                              frequencyPerDay: item.frequencyPerDay,
+                              engRate: item.engRate,
                           }
                         : {
                               id: index + 1,
-                              socialLink: item.socialLink,
-                              postedAt: item?.postedAt ? dayjs(new Date(item?.postedAt)).format('D MMM, YYYY') : '',
-                              reach: item.analytics.views ? item.analytics.views : item.analytics.likes * 10,
+                              username: item.username,
+                              followerCount: item.followerCount,
                           };
 
                     const extraCol: any = {};

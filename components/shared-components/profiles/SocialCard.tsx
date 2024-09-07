@@ -61,7 +61,7 @@ export default function SocialCard({ item, index, campaignId }: { item: any; ind
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
-                        {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Post Summary</span>}
+                        {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Profile Summary</span>}
                         <div className='flex gap-3'>
                             <button
                                 onClick={openCloseDeleteModal}
