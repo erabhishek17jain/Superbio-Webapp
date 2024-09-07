@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (req.nextUrl.pathname.includes('post')) {
+    if (req.nextUrl.pathname.includes('post') || req.nextUrl.pathname.includes('profile')) {
         if (!user) {
             let url = new URL(req.nextUrl.href);
             if (url.searchParams.has('isPublic')) {

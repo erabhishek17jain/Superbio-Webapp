@@ -11,7 +11,7 @@ import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
 import { calculateStatus, clearFilters, structurePostsData } from '@/lib/utils';
-import DownloadCSV from '../DownloadCSV';
+import DownloadCSV from '../posts/DownloadCSV';
 import { setCampData } from '@/context/reporting';
 
 dayjs.extend(relativeTime);
@@ -89,7 +89,7 @@ export default function GenerateReport(props: GenerateReportProps) {
     useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
-                const campData = await JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query));
+                const campData = await JavaNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query));
                 dispatch(setCampData(structurePostsData(campData)));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));

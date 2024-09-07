@@ -57,6 +57,20 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         };
     }
 
+    const getBasedOn = (type: string, count: number) => {
+        if (type === 'views') {
+            return `Avg view of ${count} profiles`;
+        } else if (type === 'followers') {
+            return `Total follower base across ${count} profiles`;
+        } else if (type === 'engagements') {
+            return `Avg engagements of ${count} profiles`;
+        } else if (type === 'frequency_per_day') {
+            return `Avg post frequency per day of ${count} profile`;
+        } else {
+            return 'Total profiles';
+        }
+    };
+
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
             let keys: string[] = ['views', 'followers', 'engagements', 'frequency_per_day'];
@@ -70,7 +84,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 icon: SUMMARY_ICONS['profiles'],
                 color: SUMMARY_COLORS['profiles'],
                 title: 'Total profiles',
-                basedOn: <></>,
+                basedOn: getBasedOn('profile', 0),
             };
             if (!searchParams.isPublic) {
                 result = keys.map((key) => {
@@ -82,7 +96,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                         icon: SUMMARY_ICONS[key],
                         color: SUMMARY_COLORS[key],
                         title: key,
-                        basedOn: (basedOnPosts as any)[key],
+                        basedOn: getBasedOn(key, (basedOnPosts as any)[key]),
                     };
                 });
             }
@@ -150,7 +164,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     };
 
     const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getProfileData(params.campaignId, clearFilters(query)).then((resp) => {
+        JavaNetworkService.instance.getProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structureProfilesData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);
@@ -188,7 +202,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     return (
         <div className='flex flex-col w-full' id='camp-top'>
-            <div className='w-full h-[60px]'></div>
+            {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
                 {campData?.meta.filterValueResp && (
                     <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />

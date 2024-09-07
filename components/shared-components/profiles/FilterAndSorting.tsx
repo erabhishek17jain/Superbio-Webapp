@@ -4,13 +4,10 @@ import {
     ArrowDownAZIcon,
     ArrowDownZAIcon,
     ArrowUpDownIcon,
-    CalendarCheck2Icon,
-    EyeIcon,
-    HeartIcon,
-    Instagram,
-    MessageCircleIcon,
-    Repeat2Icon,
+    BookHeartIcon,
+    Clock4Icon,
     SlidersHorizontalIcon,
+    UserRoundPlusIcon,
 } from 'lucide-react';
 import TwitterIcon from '../../../icons/TwitterIcon';
 import InstagramIcon from '../../../icons/InstagramIcon';
@@ -45,10 +42,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         window.location.href = url.href;
     };
 
-    const changePlatform = (platform: string) => {
-        selectFilter(true, 'platform', platform);
-    };
-
     useEffect(() => {
         if (filters) {
             const index = Object.keys(filters)?.filter((item: any) => filters[item].length > 0);
@@ -64,7 +57,19 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             id: 'followerCount',
             title: 'Followers',
             action: () => setCampFilters({ sortBy: 'followerCount', sortDirection: query.sortDirection }),
-            icon: <HeartIcon color={'#8b8b8b'} size={20} />,
+            icon: <UserRoundPlusIcon color={'#8b8b8b'} size={20} />,
+        },
+        {
+            id: 'engRate',
+            title: 'Engagement Rate',
+            action: () => setCampFilters({ sortBy: 'engRate', sortDirection: query.sortDirection }),
+            icon: <BookHeartIcon color={'#8b8b8b'} size={20} />,
+        },
+        {
+            id: 'frequencyPerDay',
+            title: 'Frequency Per Day',
+            action: () => setCampFilters({ sortBy: 'frequencyPerDay', sortDirection: query.sortDirection }),
+            icon: <Clock4Icon color={'#8b8b8b'} size={20} />,
         },
     ];
 
@@ -96,7 +101,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                     {shouldShowSort && (
                         <>
                             <Dropdown
-                                width={'w-40'}
+                                width={'w-48'}
                                 position='down'
                                 options={sortByOptions}
                                 header={

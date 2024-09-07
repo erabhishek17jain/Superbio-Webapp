@@ -25,7 +25,7 @@ export default function Reporting(props: IReportingProps) {
         if (meta?.total === columns.length) return;
         setloader(true);
         query.page = query.page + 1;
-        const resp: any = await JavaNetworkService.instance.getPostsData(campaignId, clearFilters(query));
+        const resp: any = await JavaNetworkService.instance.getProfilesData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };
@@ -43,11 +43,53 @@ export default function Reporting(props: IReportingProps) {
 
     return (
         <>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-3 mt-4'>
-                {columns.map((item, index) => (
-                    <SocialCard key={'social-s-card-' + index} item={item} isPublic={isPublic} index={index} columns={columns} setColumns={setColumns} />
-                ))}
-            </div>
+            {screenWidth > 1280 && (
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                    <div className='w-full md:w-[calc(33.3%-15px)] flex flex-col'>
+                        {columns.map(
+                            (item, index) =>
+                                (index + 1) % 3 === 1 && <SocialCard key={'social-1280-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        )}
+                    </div>
+                    <div className='w-full md:w-[calc(33.3%-8px)] flex flex-col'>
+                        {columns.map(
+                            (item, index) =>
+                                (index + 1) % 3 === 2 && <SocialCard key={'social-1280s-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        )}
+                    </div>
+                    <div className='w-full md:w-[calc(33.3%-8px)] flex flex-col'>
+                        {columns.map(
+                            (item, index) =>
+                                (index + 1) % 3 === 0 && <SocialCard key={'social-1280ss-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        )}
+                    </div>
+                </div>
+            )}
+            {screenWidth <= 1280 && screenWidth > 640 && (
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                    <div className='w-full md:w-[calc(50%-8px)] flex flex-col'>
+                        {columns.map(
+                            (item, index) =>
+                                (index + 1) % 3 === 1 && <SocialCard key={'social-640-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        )}
+                    </div>
+                    <div className='w-full md:w-[calc(50%-8px)] flex flex-col'>
+                        {columns.map(
+                            (item, index) =>
+                                (index + 1) % 3 === 2 && <SocialCard key={'social-640s-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        )}
+                    </div>
+                </div>
+            )}
+            {screenWidth <= 640 && (
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                    <div className='w-full flex flex-col'>
+                        {columns.map((item, index) => (
+                            <SocialCard key={'social-s-card-' + index} item={item} index={index} campaignId={campaignId} />
+                        ))}
+                    </div>
+                </div>
+            )}
             {columns.length === 0 && screenWidth > 0 && (
                 <div className='flex items-center justify-center w-full h-[200px] my-6 mx-auto text-xl font-semibold'>Links not available.</div>
             )}

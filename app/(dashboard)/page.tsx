@@ -15,7 +15,7 @@ import { CampaignStatus } from '@/services/campaign.service';
 import { useRouter } from 'next/navigation';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import NewCampaign from '@/components/shared-components/NewCampaign';
-import { ArrowRightIcon, CrossIcon, PlusCircleIcon, PlusIcon, SearchCheckIcon, ShieldCloseIcon, XIcon } from 'lucide-react';
+import { ArrowRightIcon, ChevronRightIcon, CrossIcon, PlusCircleIcon, PlusIcon, SearchCheckIcon, ShieldCloseIcon, XIcon } from 'lucide-react';
 
 export default function Home() {
     const router = useRouter();
@@ -44,8 +44,26 @@ export default function Home() {
     };
 
     const fetchCampaigns = () => {
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'own', q: searchText, type:campaignType === 'profile' ? 'influncer' : 'post' }));
-        dispatch(getCampaigns({ page: 1, limit: 4, status: CampaignStatus.active, ownerType: 'shared', q: searchText, type:campaignType === 'profile' ? 'influncer' : 'post' }));
+        dispatch(
+            getCampaigns({
+                page: 1,
+                limit: 4,
+                status: CampaignStatus.active,
+                ownerType: 'own',
+                q: searchText,
+                type: campaignType === 'profile' ? 'influncer' : 'post',
+            })
+        );
+        dispatch(
+            getCampaigns({
+                page: 1,
+                limit: 4,
+                status: CampaignStatus.active,
+                ownerType: 'shared',
+                q: searchText,
+                type: campaignType === 'profile' ? 'influncer' : 'post',
+            })
+        );
     };
 
     useEffect(() => {
@@ -91,14 +109,17 @@ export default function Home() {
                 {campaignType !== '' ? (
                     <div className='flex text-base w-full justify-between items-center h-12 ml-2 sm:ml-0'>
                         <span className='hidden sm:flex'>
-                            <span className='cursor-pointer text-[#8b8b8b]' onClick={() => dispatch(setCampaignType(''))}>
-                                All Products<span className='px-3'>/</span>
+                            <span className='cursor-pointer text-[#8b8b8b] mr-3' onClick={() => dispatch(setCampaignType(''))}>
+                                All Products
                             </span>
-                            <span>LOQO Campaign Tracker</span>
+                            <ChevronRightIcon color='#8b8b8b' size={22} />
+                            <span className='ml-3 capitalize font-[500] text-[21px]'>
+                                {campaignType === 'profile' ? 'LOQO Influencer Analysis' : 'LOQO Campaign Tracker'}
+                            </span>
                         </span>
                         <div className='flex gap-3 ml-16 sm:ml-0'>
                             <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex'/>
+                                <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex' />
                                 <input
                                     type='text'
                                     name={`input_name}`}

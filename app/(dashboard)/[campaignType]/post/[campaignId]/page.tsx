@@ -176,7 +176,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     };
 
     const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+        JavaNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structurePostsData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);
@@ -214,7 +214,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     return (
         <div className='flex flex-col w-full' id='camp-top'>
-            <div className='w-full h-[60px]'></div>
+            {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
                 {campData?.meta.filterValueResp && (
                     <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />

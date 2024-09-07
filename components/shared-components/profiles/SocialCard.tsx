@@ -46,19 +46,7 @@ export function Tweet({ tweetID }: TweetProps) {
     );
 }
 
-export default function SocialCard({
-    item,
-    isPublic,
-    index,
-    columns,
-    setColumns,
-}: {
-    item: any;
-    isPublic: boolean;
-    index: number;
-    columns: any;
-    setColumns: any;
-}) {
+export default function SocialCard({ item, index, campaignId }: { item: any; index: number; campaignId: string }) {
     const postedAt = item?.postedAt;
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -68,7 +56,7 @@ export default function SocialCard({
 
     const posted = new Date(postedAt);
     return (
-        <div className='w-full'>
+        <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
@@ -122,7 +110,7 @@ export default function SocialCard({
                     <script async src='//www.instagram.com/embed.js'></script>
                 </div>
             </div>
-            {showDeleteModal && <DeletePostModal postId={item.id} openCloseModal={openCloseDeleteModal} />}
+            {showDeleteModal && <DeletePostModal campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
         </div>
     );
 }

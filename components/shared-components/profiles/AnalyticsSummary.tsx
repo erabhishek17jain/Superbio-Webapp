@@ -69,9 +69,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                 </div>
                                 <div className='flex h-9 items-end justify-between w-full'>
                                     <p className='text-xs text-black-500'>
-                                        {item.title.includes('Estimated reach') || item.title === 'Total profiles'
-                                            ? item.title
-                                            : `${item.basedOn} profiles have ${item.title.replaceAll('_', ' ')}`}
+                                        {item.basedOn}
                                     </p>
                                     {item.title.includes('Estimated reach') && !isPublic && (
                                         <div className='flex gap-1'>

@@ -11,6 +11,7 @@ import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
+import { setCampaignType } from '@/context/user';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -28,9 +29,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const searchParam: any = useSearchParams();
     const isPublic = searchParam.get('isPublic') === 'true';
 
-    const copyShareLink = (url: string) => {
-        let base_url = window.location.origin;
-        copy(base_url + url);
+    const copyShareLink = () => {
+        const url2 = new URL(window.location.href).href;
+        copy(url2);
         enqueueSnackbar('Campaign Report link copied!', {
             variant: 'success',
             anchorOrigin: {
@@ -108,6 +109,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         }
     }, []);
 
+    if (!isNotCampType && urlComponents.length ===4) {
+        urlComponents.splice(-2)
+    }
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-auto'>
@@ -126,10 +130,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         <div
                                             onClick={() => {
                                                 router.push('/');
-                                                dispatch(setLoading(true));
+                                                dispatch(setCampaignType(''));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span>Home</span>
+                                            <ChevronRightIcon color='#8b8b8b' size={22} />
+                                        </div>
+                                        <div
+                                            onClick={() => {
+                                                router.push('/');
+                                                dispatch(setLoading(true));
+                                                dispatch(setCampaignType(campaignType));
+                                            }}
+                                            className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
+                                            <span className='ml-3 capitalize'>
+                                                {campaignType === 'profile' ? 'LOQO Influencer Analysis' : 'LOQO Campaign Tracker'}
+                                            </span>
                                             <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
                                         {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 2 : 0)).map((component, index) => {
@@ -181,21 +197,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <XIcon color='#8b8b8b' size={24} />
                                         </div>
                                     )}
-                                    {paths.indexOf('campaign') > -1 && (
-                                        <div className='flex gap-4'>
-                                            <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
-                                                <ChevronLeftIcon color='#000' size={16} />
-                                                Back
-                                            </button>
-                                            <button
-                                                onClick={() => copyShareLink(`/${params?.campaignType}/${campaignType}/${params.campaignId}?isPublic=true`)}
-                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-sm'>
-                                                <CopyIcon color='#ffffff' size={16} />
-                                                <span className='hidden sm:flex'>Copy Public Dashboard Link</span>
-                                                <span className='sm:hidden flex'>Copy Public Link</span>
-                                            </button>
-                                        </div>
-                                    )}
+                                    {(paths.indexOf('post') > -1 || paths.indexOf('profile') > -1) && (
+                                            <div className='flex gap-4'>
+                                                <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
+                                                    <ChevronLeftIcon color='#000' size={16} />
+                                                    Back
+                                                </button>
+                                                <button
+                                                    onClick={() => copyShareLink()}
+                                                    className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-sm'>
+                                                    <CopyIcon color='#ffffff' size={16} />
+                                                    <span className='hidden sm:flex'>Copy Public Dashboard Link</span>
+                                                    <span className='sm:hidden flex'>Copy Public Link</span>
+                                                </button>
+                                            </div>
+                                        )}
                                 </div>
                             </div>
                         </div>

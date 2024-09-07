@@ -1,22 +1,14 @@
 'use client';
 
-import SheetNetworkService from '@/services/sheet.service';
 import dayjs from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
-import PublicNetworkService from '@/services/public.service';
 import { CSVLink } from 'react-csv';
-import { useRouter } from 'next/navigation';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useAppSelector } from '@/context';
-import { Params } from '@/interfaces/reporting';
-import { IColumn } from '@/interfaces/sheet';
-import ConfirmLastRefreshModal from '../modals/ConfirmLastRefreshModal';
-import { AreaChartIcon, DownloadIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
+import { DownloadIcon } from 'lucide-react';
 import JavaNetworkService from '@/services/java.service';
 
 dayjs.extend(relativeTime);
-const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
 interface GenerateReportProps {
     total: number;
@@ -43,7 +35,7 @@ export default function DownloadCSV(props: GenerateReportProps) {
         let data: any = [];
         let columns: any = [];
         const params = `?page=1&size=${total}&sortBy=sNo&sortDirection=ASC`;
-        JavaNetworkService.instance.getPostsData(campaignId, params).then((res: any) => {
+        JavaNetworkService.instance.getProfilesData(campaignId, params).then((res: any) => {
             data = [];
             columns = !isPublic
                 ? [
@@ -52,8 +44,8 @@ export default function DownloadCSV(props: GenerateReportProps) {
                           label: 'Sr.No',
                       },
                       {
-                          key: 'socialLink',
-                          label: 'Social Link',
+                          key: 'username',
+                          label: 'Username',
                       },
                       {
                           key: 'postedAt',
