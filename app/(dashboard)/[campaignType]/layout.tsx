@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownerType,
                 q: '',
-                type: campaignType === 'profile' ? 'influncer' : 'post',
+                type: campaignType === 'profile' ? 'influencer' : 'post',
             })
         );
     };
@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     status: CampaignStatus.active,
                     ownerType: ownerType,
                     q: searchText,
-                    type: campaignType === 'profile' ? 'influncer' : 'post',
+                    type: campaignType === 'profile' ? 'influencer' : 'post',
                 })
             );
         } else if (searchText === '') {
@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType === 'profile' ? 'influncer' : 'post',
+                type: campaignType === 'profile' ? 'influencer' : 'post',
             })
         );
         dispatch(

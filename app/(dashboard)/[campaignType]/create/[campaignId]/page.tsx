@@ -11,6 +11,7 @@ import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon, TrashIcon } from 'lucide-react';
+import JavaNetworkService from '@/services/java.service';
 
 const getSheetInfo = () => {
     return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: '', sheets: [], selectedSheet: {} };
@@ -125,7 +126,7 @@ export default function CreateReporting() {
             }
         });
         Promise.all(promises)
-            .then((res) => {
+            .then(async (res) => {
                 dispatch(setSheet(res));
                 enqueueSnackbar('Sheet added successfully', {
                     variant: 'success',
@@ -134,6 +135,10 @@ export default function CreateReporting() {
                         horizontal: 'right',
                     },
                 });
+
+                if (campaignType === 'profile') {
+                    await JavaNetworkService.instance.syncInfluencers(params.campaignId);
+                }
             })
             .finally(() => {
                 dispatch(setSheetLoading(false));

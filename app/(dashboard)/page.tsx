@@ -51,7 +51,7 @@ export default function Home() {
                 status: CampaignStatus.active,
                 ownerType: 'own',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influncer' : 'post',
+                type: campaignType === 'profile' ? 'influencer' : 'post',
             })
         );
         dispatch(
@@ -61,7 +61,7 @@ export default function Home() {
                 status: CampaignStatus.active,
                 ownerType: 'shared',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influncer' : 'post',
+                type: campaignType === 'profile' ? 'influencer' : 'post',
             })
         );
     };

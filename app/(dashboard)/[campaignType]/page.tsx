@@ -31,7 +31,7 @@ export default function AllCampaignPage() {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType === 'profile' ? 'influncer' : 'post',
+                type: campaignType === 'profile' ? 'influencer' : 'post',
             })
         );
         dispatch(

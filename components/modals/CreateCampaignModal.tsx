@@ -25,7 +25,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
         keywords: [],
         priority: 1,
         startDate: new Date(),
-        type: campaignType === 'profile' ? 'influncer' : 'post',
+        type: campaignType === 'profile' ? 'influencer' : 'post',
         endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
     });
 
