@@ -9,6 +9,7 @@ interface IJavaNetworkService {
     deleteCampaign: (campaignId: string) => Promise<ICampaign>;
     getReportingData: (campaignId: string, params: any) => Promise<IReportingResponse>;
     updateEstimatedReach: (campaignId: string, params: any) => Promise<ICampaign>;
+    syncInfluencers: (campaignId: string) => Promise<void>;
 }
 
 export default class JavaNetworkService extends BaseNetworkFramework implements IJavaNetworkService {
@@ -48,6 +49,19 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
             throw err;
         }
     };
+
+    public syncInfluencers = async (campaignId: string): Promise<void> => {
+        try {
+            await axios.post(`/api/profile/campaign/trigger-report`, {
+                campaignId
+            }, {
+                headers: this.get_auth_header(),
+                withCredentials: true,
+            });
+        } catch (err: any) {
+            throw err;
+        }
+    }
 
     public deleteCampaign = async (campaignId: string): Promise<any> => {
         try {
