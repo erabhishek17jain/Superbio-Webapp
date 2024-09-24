@@ -170,21 +170,39 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         const twitterResp: any =
             !platforms.isInstagram && (await JavaNetworkService.instance.getTwitterProfileReportingData(params.campaignId, clearFilters(query)));
 
-        JavaNetworkService.instance.getInstaProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            const data = structureProfilesData(resp, 'instagram');
-            if (data.meta.total > 0) {
-                setSelectedPlatform(data.meta.total > 0 ? 'instagram' : 'twitter');
-                if (selectedPlatform == '') {
-                    setPlatforms({
-                        ...platforms,
-                        isInstagram: data.meta.total > 0 ? true : false,
-                        isTwitter: twitterResp.profilePaginatedResponse.totalItems > 0 ? true : false,
-                    });
+        JavaNetworkService.instance
+            .getInstaProfileReportingData(params.campaignId, clearFilters(query))
+            .then((resp) => {
+                const data = structureProfilesData(resp, 'instagram');
+                if (data.meta.total > 0) {
+                    setSelectedPlatform(data.meta.total > 0 ? 'instagram' : 'twitter');
+                    if (selectedPlatform == '') {
+                        setPlatforms({
+                            ...platforms,
+                            isInstagram: data.meta.total > 0 ? true : false,
+                            isTwitter: twitterResp.profilePaginatedResponse.totalItems > 0 ? true : false,
+                        });
+                    }
+                    dispatch(setCampData(data));
+                } else {
+                    const data = structureProfilesData(resp, 'twitter');
+                    if (data.meta.total > 0) {
+                        setSelectedPlatform(data.meta.total > 0 ? 'twitter' : 'instagram');
+                        setPlatforms({ ...platforms, isTwitter: data.meta.total > 0 ? true : false });
+                        dispatch(setCampData(data));
+                    }
                 }
-                dispatch(setCampData(data));
-            }
-            setIsSheetLoading(false);
-        });
+                setIsSheetLoading(false);
+            })
+            .catch(() => {
+                const data = structureProfilesData(twitterResp, 'twitter');
+                if (data.meta.total > 0) {
+                    setSelectedPlatform(data.meta.total > 0 ? 'twitter' : 'instagram');
+                    setPlatforms({ ...platforms, isTwitter: data.meta.total > 0 ? true : false });
+                    dispatch(setCampData(data));
+                }
+                setIsSheetLoading(false);
+            });
     };
 
     const initialLoadTwitterCampData = (query: any, platforms: any) => {

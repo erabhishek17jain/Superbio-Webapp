@@ -151,8 +151,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         onClick={() => {
                                                             if (active) {
                                                                 fetchMore();
-                                                                router.push(`/post/${component}`);
-                                                                setPathUrls(`/post/${component}`.split('/'));
+                                                                router.push(`/profile/${component}`);
+                                                                setPathUrls(`/profile/${component}`.split('/'));
                                                             }
                                                         }}
                                                         className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
@@ -169,7 +169,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         key={component}
                                                         onClick={() => {
                                                             if (active) {
-                                                                router.push('/post/' + component);
+                                                                router.push('/profile/' + component);
                                                                 fetchMore();
                                                             }
                                                         }}
