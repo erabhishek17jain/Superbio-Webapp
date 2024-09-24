@@ -88,50 +88,44 @@ export const structurePostsData = (data: IPostsReportingResponse) => {
     };
 };
 
-export const setProfilesAnalytics = (igProfileAnalyticsResp: any) => {
+export const setProfilesAnalytics = (profileAnalytics: any) => {
     const analytics = {
-        views: igProfileAnalyticsResp.avgViews,
-        followers: igProfileAnalyticsResp.totalFollowers,
-        engagements: igProfileAnalyticsResp.avgEngagementRate,
-        frequency_per_day: igProfileAnalyticsResp.avgPostFrequencyPerDay,
+        views: profileAnalytics.avgViews,
+        followers: profileAnalytics.totalFollowers,
+        engagements: profileAnalytics.avgEngagementRate,
+        frequency_per_day: profileAnalytics.avgPostFrequencyPerDay,
     };
     const basedOnPosts = {
-        views: igProfileAnalyticsResp.basedOnProfileCount?.avgViewsPosts,
-        followers: igProfileAnalyticsResp.basedOnProfileCount?.totalFollowersPosts,
-        engagements: igProfileAnalyticsResp.basedOnProfileCount?.avgEngagementRatePosts,
-        frequency_per_day: igProfileAnalyticsResp.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
+        views: profileAnalytics.basedOnProfileCount?.avgViewsPosts,
+        followers: profileAnalytics.basedOnProfileCount?.totalFollowersPosts,
+        engagements: profileAnalytics.basedOnProfileCount?.avgEngagementRatePosts,
+        frequency_per_day: profileAnalytics.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
     };
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
 
-export const structureProfilesData = (data: IProfilesReportingResponse) => {
+export const setProfilesFilters = (filters: any) => {
+    const filterValueResp = {
+        profileTypeByFollowers:
+            filters.lastAppliedFilterField === 'profileTypeByFollowers' ? filters.allProfileTypeByFollowers : filters.profileTypeByFollowers,
+        postFrequencyPerDay: filters.lastAppliedFilterField === 'postFrequencyPerDay' ? filters.allPostFrequencyPerDay : filters.postFrequencyPerDay,
+        niche: filters.lastAppliedFilterField === 'niche' ? filters.allNiche : filters.niche,
+        engagementRate: filters.lastAppliedFilterField === 'engagementRate' ? filters.allEngagementRate : filters.engagementRate,
+    };
+    return { filterValueResp: filterValueResp };
+};
+
+export const structureProfilesData = (data: IProfilesReportingResponse, platform: string) => {
     return {
         data: data.profilePaginatedResponse.items,
         meta: {
-            ...setProfilesAnalytics(data.igProfileAnalyticsResp),
+            ...setProfilesAnalytics(platform === 'twitter' ? data.profileAnalyticsResp : data.igProfileAnalyticsResp),
             limit: 6,
             page: data.profilePaginatedResponse.currentPage,
             total: data.profilePaginatedResponse.totalItems,
             campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
-            filterValueResp: {
-                profileTypeByFollowers:
-                    data.profilePaginatedResponse.lastAppliedFilterField === 'profileTypeByFollowers'
-                        ? data.instagramFilterValueResp.allProfileTypeByFollowers
-                        : data.instagramFilterValueResp.profileTypeByFollowers,
-                postFrequencyPerDay:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'postFrequencyPerDay'
-                        ? data.instagramFilterValueResp.allPostFrequencyPerDay
-                        : data.instagramFilterValueResp.postFrequencyPerDay,
-                niche:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'niche'
-                        ? data.instagramFilterValueResp.allNiche
-                        : data.instagramFilterValueResp.niche,
-                engagementRate:
-                    data.instagramFilterValueResp.lastAppliedFilterField === 'engagementRate'
-                        ? data.instagramFilterValueResp.allEngagementRate
-                        : data.instagramFilterValueResp.engagementRate,
-            },
+            ...setProfilesAnalytics(platform === 'twitter' ? data.twitterFilterValueResp : data.instagramFilterValueResp),
         },
     };
 };

@@ -6,6 +6,7 @@ import {
     ArrowUpDownIcon,
     BookHeartIcon,
     Clock4Icon,
+    Instagram,
     SlidersHorizontalIcon,
     UserRoundPlusIcon,
 } from 'lucide-react';
@@ -20,12 +21,14 @@ interface FilterAndSortingProps {
     shouldShowSort: boolean;
     query: any;
     filters: any;
-    selectFilter: any;
+    platforms: any;
+    selectedPlatform: string;
+    setSelectedPlatform: any;
     filtersOptions: AvailableFilters;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, selectFilter, filtersOptions } = props;
+    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, setSelectedPlatform } = props;
     const [isFilter, setIsFilter] = useState(false);
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
@@ -40,6 +43,10 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         url.searchParams.set('sortBy', filters.sortBy);
         url.searchParams.set('sortDirection', filters.sortDirection);
         window.location.href = url.href;
+    };
+
+    const changePlatform = (platform: string) => {
+        setSelectedPlatform(platform);
     };
 
     useEffect(() => {
@@ -79,11 +86,26 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
             <div className='flex gap-3'>
                 <div className='flex gap-5'>
-                    <div
-                        className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 text-white instagram`}>
-                        <InstagramIcon color={'#fff'} size={20} />
-                        <span>Instagram</span>
-                    </div>
+                    {platforms.isInstagram && (
+                        <div
+                            onClick={() => changePlatform('instagram')}
+                            className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
+                                selectedPlatform === 'instagram' ? 'text-white instagram' : 'text-black'
+                            }`}>
+                            {selectedPlatform === 'instagram' ? <Instagram color={'#fff'} size={20} /> : <InstagramIcon color={'#fff'} size={20} />}
+                            <span>Instagram</span>
+                        </div>
+                    )}
+                    {platforms.isTwitter && (
+                        <div
+                            onClick={() => changePlatform('twitter')}
+                            className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
+                                selectedPlatform === 'twitter' ? 'text-white bg-[#1257a0]' : 'text-black'
+                            }`}>
+                            <TwitterIcon color={selectedPlatform === 'twitter' ? '#ffffff' : '#1257a0'} size={20} />
+                            <span>Twitter</span>
+                        </div>
+                    )}
                 </div>
             </div>
             {meta?.total > 0 && (

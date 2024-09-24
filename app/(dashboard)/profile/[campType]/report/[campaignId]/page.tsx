@@ -30,6 +30,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const [summary, setSummary] = useState<any>(null);
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
+    const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
+    const [selectedPlatform, setSelectedPlatform] = useState<string>('instagram');
     const [filters, setFilters] = useState<any>({
         niche: [],
         engagementRate: [],
@@ -158,19 +160,20 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         });
     };
 
-    const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            const data = structureProfilesData(resp);
-            dispatch(setCampData(data));
-            setIsSheetLoading(false);
-        });
-    };
-
     useEffect(() => {
         if (campData?.data?.length > 0) {
             setSummary(calculateAnalytics(campData));
         }
     }, [campData]);
+
+    const initialLoadInstagramCampData = (query: any) => {
+        JavaNetworkService.instance.getInstaProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+            const data = structureProfilesData(resp);
+            setPlatforms({ ...platforms, isInstagram: data.data.length > 0 ? true : false});
+            dispatch(setCampData(data));
+            setIsSheetLoading(false);
+        });
+    };
 
     useEffect(() => {
         setIsSheetLoading(true);
@@ -189,9 +192,41 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             }
             query['lastAppliedFilterField'] = filteNames[filteNames.length - 1];
             setFilters(filterObj);
-            initialLoadCampData({ ...query, ...filterObj });
+            initialLoadInstagramCampData({ ...query, ...filterObj });
         } else {
-            initialLoadCampData(query);
+            initialLoadInstagramCampData(query);
+        }
+    }, []);
+
+    const initialLoadTwitterCampData = (query: any) => {
+        JavaNetworkService.instance.getTwitterProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+            const data = structureProfilesData(resp, 'twitter');
+            setPlatforms({ ...platforms, isTwitter: data.data.length > 0 ? true : true });
+            dispatch(setCampData(data));
+            setIsSheetLoading(false);
+        });
+    };
+
+    useEffect(() => {
+        setIsSheetLoading(true);
+        const filter = sParams.get('filter');
+        const value = sParams.get('value');
+        if (filter && value) {
+            let filteNames = filter.split('|');
+            let filteValues = value.split('|');
+            let filterObj: any = { ...filters };
+            for (let i = 0; i < filteNames.length; i++) {
+                if (filteNames[i] === 'platform' || filteNames[i] === 'postType') {
+                    filterObj[filteNames[i]] = [filteValues[i]];
+                } else {
+                    filterObj[filteNames[i]] = filteValues[i].split('_');
+                }
+            }
+            query['lastAppliedFilterField'] = filteNames[filteNames.length - 1];
+            setFilters(filterObj);
+            initialLoadTwitterCampData({ ...query, ...filterObj });
+        } else {
+            initialLoadTwitterCampData(query);
         }
     }, []);
 
@@ -220,11 +255,13 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                         {campData?.data && campData?.data.length > 0 && (
                             <>
                                 <FilterAndSorting
+                                    filters={filters}
+                                    platforms={platforms}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
                                     query={{ ...query, ...filters }}
-                                    filters={filters}
-                                    selectFilter={selectFilter}
+                                    selectedPlatform={selectedPlatform}
+                                    setSelectedPlatform={setSelectedPlatform}
                                     filtersOptions={campData?.meta.filterValueResp}
                                 />
                                 <AnalyticsSummary

@@ -28,9 +28,18 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    public getProfileReportingData = async (campaignId: string, params: string): Promise<IProfilesReportingResponse> => {
+    public getInstaProfileReportingData = async (campaignId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
             const res: any = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/${campaignId}/reporting${params}`);
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public getTwitterProfileReportingData = async (campaignId: string, params: string): Promise<IProfilesReportingResponse> => {
+        try {
+            const res: any = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/x/reporting/${campaignId}${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
@@ -48,16 +57,20 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public syncInfluencers = async (campaignId: string): Promise<void> => {
         try {
-            await axios.post(`/api/profile/campaign/trigger-report`, {
-                campaignId
-            }, {
-                headers: this.get_auth_header(),
-                withCredentials: true,
-            });
+            await axios.post(
+                `/api/profile/campaign/trigger-report`,
+                {
+                    campaignId,
+                },
+                {
+                    headers: this.get_auth_header(),
+                    withCredentials: true,
+                }
+            );
         } catch (err: any) {
             throw err;
         }
-    }
+    };
 
     public getProfilesData = async (campaignId: string, params: string): Promise<IProfilesResponse> => {
         try {
