@@ -15,7 +15,6 @@ export default function AllCampaignPage() {
     const params: any = useParams();
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('add');
-    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign } = useAppSelector((state) => state.campaign);
     const [campaignDetails, setCampaignDetails] = useState({});
     const [openCampaingModal, setOpenCampaingModal] = useState(false);
@@ -23,7 +22,7 @@ export default function AllCampaignPage() {
     const [, setScreenWidth] = useState(0);
 
     const fetchMore = () => {
-        const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
+        const ownedType = params?.campType?.split('-')[0] === 'active' ? 'own' : 'shared';
         dispatch(
             getCampaigns({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,
@@ -31,7 +30,7 @@ export default function AllCampaignPage() {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'post',
             })
         );
         dispatch(
@@ -51,9 +50,9 @@ export default function AllCampaignPage() {
     const loadMore = async () => {
         if (allCampaign?.meta.page && allCampaign?.meta.page * 12 < allCampaign?.meta.total) {
             setloader(true);
-            const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
+            const ownerType = params?.campType === 'active' ? 'own' : 'shared';
             dispatch(
-                getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '', type: campaignType })
+                getCampaigns({ page: allCampaign?.meta.page + 1, limit: 12, status: allCampaign?.meta.status, ownerType: ownerType, q: '', type: 'post' })
             );
             setloader(false);
         }
@@ -88,7 +87,7 @@ export default function AllCampaignPage() {
                         <CampaignCard
                             key={item.title}
                             campaign={item}
-                            status={params?.campaignType}
+                            status={params?.campType}
                             setMode={editCampaign}
                             color={'#F5F8FF'}
                             fetchCampaigns={fetchMore}

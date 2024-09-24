@@ -86,7 +86,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                             horizontal: 'right',
                         },
                     });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${campaignType}/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             } else {
@@ -98,7 +98,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                             horizontal: 'right',
                         },
                     });
-                    router.push(`/${res.status}/create/${res.id}`);
+                    router.push(`/${campaignType}/${res.status}/create/${res.id}`);
                     openCloseModal();
                 });
             }

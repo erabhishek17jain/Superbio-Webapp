@@ -173,7 +173,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}>
+                        onClick={() => router.push(`/profile/${params?.campType}/create/${params.campaignId}`)}>
                         Add Links
                         <PlusCircleIcon color='#ffe3e2' size={24} />
                     </button>

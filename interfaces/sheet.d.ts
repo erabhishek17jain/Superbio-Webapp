@@ -93,7 +93,7 @@ export interface IProfilesReportingResponse {
     queueDto: any;
     campaignDto: any;
     postSummaryResp: any;
+    igProfileAnalyticsResp: any;
     instagramFilterValueResp: any;
-    profileAnalyticsResp: any;
     profilePaginatedResponse: any;
 }

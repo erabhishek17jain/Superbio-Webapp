@@ -67,7 +67,7 @@ export default function CreatorsFormModal() {
                     },
                 });
                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
-                router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
+                router.push(`/${campaignType}/${params?.campType}/report/${params.campaignId}`);
             });
         } else {
             return enqueueSnackbar('Please fill all the fields', {

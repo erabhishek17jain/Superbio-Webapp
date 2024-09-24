@@ -23,7 +23,7 @@
             "lastSyncedAt": "2024-08-23T22:11:53.465+00:00"
         },
         "queueDto": null,
-        "profileAnalyticsResp": {
+        "igProfileAnalyticsResp": {
             "totalFollowers": 1461163,
             "avgEngagementRate": 0.6458333333333334,
             "avgPostFrequencyPerDay": 0.5933333333333334,

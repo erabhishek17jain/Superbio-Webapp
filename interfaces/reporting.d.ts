@@ -9,9 +9,9 @@ export interface SearchParams {
 }
 
 export interface Params {
-    campaignType: string;
-    campaignId: string;
     title: string;
+    campType: string;
+    campaignId: string;
 }
 
 export interface ISummary {

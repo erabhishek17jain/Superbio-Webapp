@@ -20,7 +20,7 @@ export default function PostHomePage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { user, campaignType } = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
     const { activeCampaign, sharedCampaign, loading } = useAppSelector((state) => state.campaign);
     const [mode, setMode] = useState('add');
     const [campaignDetails, setCampaignDetails] = useState({});
@@ -42,7 +42,7 @@ export default function PostHomePage() {
         setCurrentSearchText('');
     };
 
-    const fetchCampaigns = (searchText) => {
+    const fetchCampaigns = (searchText: string) => {
         dispatch(
             getCampaigns({
                 page: 1,
@@ -50,7 +50,7 @@ export default function PostHomePage() {
                 status: CampaignStatus.active,
                 ownerType: 'own',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'post',
             })
         );
         dispatch(
@@ -60,7 +60,7 @@ export default function PostHomePage() {
                 status: CampaignStatus.active,
                 ownerType: 'shared',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'post',
             })
         );
     };
@@ -114,9 +114,7 @@ export default function PostHomePage() {
                             All Products
                         </span>
                         <ChevronRightIcon color='#8b8b8b' size={22} />
-                        <span className='ml-3 capitalize font-[500] text-[21px]'>
-                            {campaignType === 'profile' ? 'LOQO Influencer Analysis' : 'LOQO Campaign Tracker'}
-                        </span>
+                        <span className='ml-3 capitalize font-[500] text-[21px]'>LOQO Campaign</span>
                     </span>
                     <div className='flex gap-3 ml-16 sm:ml-0'>
                         <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>

@@ -88,18 +88,18 @@ export const structurePostsData = (data: IPostsReportingResponse) => {
     };
 };
 
-export const setProfilesAnalytics = (profileAnalyticsResp: any) => {
+export const setProfilesAnalytics = (igProfileAnalyticsResp: any) => {
     const analytics = {
-        views: profileAnalyticsResp.avgViews,
-        followers: profileAnalyticsResp.totalFollowers,
-        engagements: profileAnalyticsResp.avgEngagementRate,
-        frequency_per_day: profileAnalyticsResp.avgPostFrequencyPerDay,
+        views: igProfileAnalyticsResp.avgViews,
+        followers: igProfileAnalyticsResp.totalFollowers,
+        engagements: igProfileAnalyticsResp.avgEngagementRate,
+        frequency_per_day: igProfileAnalyticsResp.avgPostFrequencyPerDay,
     };
     const basedOnPosts = {
-        views: profileAnalyticsResp.basedOnProfileCount?.avgViewsPosts,
-        followers: profileAnalyticsResp.basedOnProfileCount?.totalFollowersPosts,
-        engagements: profileAnalyticsResp.basedOnProfileCount?.avgEngagementRatePosts,
-        frequency_per_day: profileAnalyticsResp.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
+        views: igProfileAnalyticsResp.basedOnProfileCount?.avgViewsPosts,
+        followers: igProfileAnalyticsResp.basedOnProfileCount?.totalFollowersPosts,
+        engagements: igProfileAnalyticsResp.basedOnProfileCount?.avgEngagementRatePosts,
+        frequency_per_day: igProfileAnalyticsResp.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
     };
     return { analytics: analytics, basedOnPosts: basedOnPosts };
 };
@@ -108,7 +108,7 @@ export const structureProfilesData = (data: IProfilesReportingResponse) => {
     return {
         data: data.profilePaginatedResponse.items,
         meta: {
-            ...setProfilesAnalytics(data.profileAnalyticsResp),
+            ...setProfilesAnalytics(data.igProfileAnalyticsResp),
             limit: 6,
             page: data.profilePaginatedResponse.currentPage,
             total: data.profilePaginatedResponse.totalItems,

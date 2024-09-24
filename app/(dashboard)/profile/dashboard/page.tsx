@@ -20,7 +20,7 @@ export default function ProfileHomePage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { user, campaignType } = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
     const { activeCampaign, sharedCampaign, loading } = useAppSelector((state) => state.campaign);
     const [mode, setMode] = useState('add');
     const [campaignDetails, setCampaignDetails] = useState({});
@@ -38,10 +38,11 @@ export default function ProfileHomePage() {
     const resetSearch = () => {
         setIsSearch(false);
         setSearchText('');
+        fetchCampaigns('');
         setCurrentSearchText('');
     };
 
-    const fetchCampaigns = () => {
+    const fetchCampaigns = (searchText: string) => {
         dispatch(
             getCampaigns({
                 page: 1,
@@ -49,7 +50,7 @@ export default function ProfileHomePage() {
                 status: CampaignStatus.active,
                 ownerType: 'own',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'influencer',
             })
         );
         dispatch(
@@ -59,40 +60,38 @@ export default function ProfileHomePage() {
                 status: CampaignStatus.active,
                 ownerType: 'shared',
                 q: searchText,
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'influencer',
             })
         );
     };
 
     useEffect(() => {
-        if (campaignType !== '') {
-            fetchCampaigns();
+        if (searchText !== '') {
+            fetchCampaigns(searchText);
         }
     }, [searchText]);
 
     useEffect(() => {
-        if (campaignType !== '') {
-            fetchCampaigns();
-            if (user && campaignType !== '') {
-                UserNetworkService.instance
-                    .getAllUsers({ page: 1, limit: 100 })
-                    .then((res) => {
-                        dispatch(setMembers(res.data));
-                    })
-                    .catch((err) => {
-                        enqueueSnackbar('You are not authorized to view this page', {
-                            variant: 'error',
-                            anchorOrigin: {
-                                vertical: 'top',
-                                horizontal: 'right',
-                            },
-                        });
-                        logout();
-                        router.push('/login');
+        fetchCampaigns('');
+        if (user) {
+            UserNetworkService.instance
+                .getAllUsers({ page: 1, limit: 100 })
+                .then((res) => {
+                    dispatch(setMembers(res.data));
+                })
+                .catch((err) => {
+                    enqueueSnackbar('You are not authorized to view this page', {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
                     });
-            }
+                    logout();
+                    router.push('/login');
+                });
         }
-    }, [user, campaignType]);
+    }, []);
 
     const shouldShowNoCampaign = (activeCampaign && activeCampaign.data.length > 0) || (sharedCampaign && sharedCampaign.data.length > 0);
 
@@ -115,9 +114,7 @@ export default function ProfileHomePage() {
                             All Products
                         </span>
                         <ChevronRightIcon color='#8b8b8b' size={22} />
-                        <span className='ml-3 capitalize font-[500] text-[21px]'>
-                            {campaignType === 'profile' ? 'LOQO Influencer Analysis' : 'LOQO Campaign Tracker'}
-                        </span>
+                        <span className='ml-3 capitalize font-[500] text-[21px]'>LOQO Influencer Analysis</span>
                     </span>
                     <div className='flex gap-3 ml-16 sm:ml-0'>
                         <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>

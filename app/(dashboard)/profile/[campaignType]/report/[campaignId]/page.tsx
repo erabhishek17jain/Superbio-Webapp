@@ -1,39 +1,29 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../../components/shared-components/posts/GenerateReport';
+import GenerateReport from '../../../../../../components/shared-components/profiles/GenerateReport';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../../components/shared-components/posts/FilterAndSorting';
-import Reporting from '../../../../../../components/shared-components/posts/Reporting';
+import FilterAndSorting from '../../../../../../components/shared-components/profiles/FilterAndSorting';
+import Reporting from '../../../../../../components/shared-components/profiles/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, setPostsAnalytics, structurePostsData } from '@/lib/utils';
-import AnalyticsSummary from '@/components/shared-components/posts/AnalyticsSummary';
+import { calculateSummary, clearFilters, setProfilesAnalytics, structureProfilesData } from '@/lib/utils';
+import AnalyticsSummary from '@/components/shared-components/profiles/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import JavaNetworkService from '@/services/java.service';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
-import FilterUi from '../../../../../../components/shared-components/posts/FilterUi';
+import FilterUi from '../../../../../../components/shared-components/profiles/FilterUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
-    views: 'bg-posts',
-    comments: 'bg-views',
-    likes: 'bg-likes',
-    reposts: 'bg-reposts',
-    quotes: 'bg-quotes',
-    bookmarks: 'bg-bookmarks',
-    shares: 'bg-quotes',
-    saves: 'bg-bookmarks',
-    estimatedReach: 'bg-views',
-    posts: 'bg-posts',
-    followers: 'bg-posts',
-    medias: 'bg-views',
+    profiles: 'bg-posts',
+    views: 'bg-views',
+    followers: 'bg-likes',
     engagements: 'bg-reposts',
-    frequency: 'bg-quotes',
-    following: 'bg-bookmarks',
+    frequency_per_day: 'bg-quotes',
 };
 
-export default function CampaignReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
+export default function ProfileReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
@@ -41,16 +31,13 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState<any>({
-        postedAt: [],
-        internalSheetId: [],
-        platform: [],
-        postType: [],
-        phase: [],
-        category: [],
-        subCategory: [],
+        niche: [],
+        engagementRate: [],
+        postFrequencyPerDay: [],
+        profileTypeByFollowers: [],
     });
 
-    const sortBy = searchParams.sortBy ? searchParams.sortBy : 'likes';
+    const sortBy = searchParams.sortBy ? searchParams.sortBy : 'followerCount';
     const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
     const filter = searchParams.filter ? searchParams.filter : '';
     const value = searchParams.value ? searchParams.value : '';
@@ -58,7 +45,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     let query: { [key: string]: string | number } = {
         page: 1,
         size: 6,
-        sortBy: sortBy || 'likes',
+        sortBy: sortBy || 'followerCount',
         sortDirection: sortDirection || 'DESC',
     };
     if (filter && value) {
@@ -70,35 +57,36 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
         };
     }
 
+    const getBasedOn = (type: string, count: number) => {
+        if (type === 'views') {
+            return `Avg view of ${count} profiles`;
+        } else if (type === 'followers') {
+            return `Total follower base across ${count} profiles`;
+        } else if (type === 'engagements') {
+            return `Avg engagements of ${count} profiles`;
+        } else if (type === 'frequency_per_day') {
+            return `Avg post frequency per day of ${count} profile`;
+        } else {
+            return 'Total profiles';
+        }
+    };
+
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let keys: string[] = ['Estimated reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
+            let keys: string[] = ['views', 'followers', 'engagements', 'frequency_per_day'];
             if (searchParams.isPublic) {
-                keys = ['Posts', 'Estimated reach'];
+                keys = ['Profiles', 'followers'];
             }
-            const estimatedReach = campData?.meta.analytics.customEstimatedReach
-                ? campData?.meta.analytics.customEstimatedReach
-                : campData?.meta.analytics.estimatedReach;
-            const estimatedReachText = campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated reach (Custom)' : 'Estimated reach';
-            const extimateReach = {
-                totCount: estimatedReach,
-                count: calculateSummary(estimatedReach),
-                icon: SUMMARY_ICONS['estimatedReach'],
-                color: SUMMARY_COLORS['estimatedReach'],
-                title: estimatedReachText,
-                basedOn: campData?.meta.analytics.customEstimatedReach,
-            };
             let result: (ISummary | null)[] = [];
-            if (searchParams.isPublic) {
-                result.push({
-                    totCount: campData?.meta?.total,
-                    count: campData?.meta?.total,
-                    icon: SUMMARY_ICONS['posts'],
-                    color: SUMMARY_COLORS['posts'],
-                    title: 'Total posts',
-                    basedOn: <></>,
-                });
-            } else {
+            const totalProfiles = {
+                totCount: campData?.meta?.total,
+                count: campData?.meta?.total,
+                icon: SUMMARY_ICONS['profiles'],
+                color: SUMMARY_COLORS['profiles'],
+                title: 'Total profiles',
+                basedOn: getBasedOn('profile', 0),
+            };
+            if (!searchParams.isPublic) {
                 result = keys.map((key) => {
                     const { analytics, basedOnPosts } = campData?.meta;
                     if (!(analytics as any)[key] && (analytics as any)[key] !== 0) return null;
@@ -108,12 +96,12 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         icon: SUMMARY_ICONS[key],
                         color: SUMMARY_COLORS[key],
                         title: key,
-                        basedOn: (basedOnPosts as any)[key],
+                        basedOn: getBasedOn(key, (basedOnPosts as any)[key]),
                     };
                 });
             }
 
-            return [extimateReach, ...(result.filter((item) => item !== null) as ISummary[])];
+            return [totalProfiles, ...(result.filter((item) => item !== null) as ISummary[])];
         }
     };
 
@@ -166,8 +154,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const refreshCampaign = (query: any) => {
         JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
-            const tempMeta = { ...campData.meta };
-            const meta = setPostsAnalytics(resp);
+            const tempMeta: any = { ...campData.meta };
+            const meta = setProfilesAnalytics(resp);
             tempMeta['analytics'] = meta.analytics;
             tempMeta['basedOnPosts'] = meta.basedOnPosts;
             dispatch(setCampData({ ...campData, meta: tempMeta }));
@@ -176,8 +164,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     };
 
     const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query)).then((resp) => {
-            const data = structurePostsData(resp);
+        JavaNetworkService.instance.getProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+            const data = structureProfilesData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);
         });
@@ -225,7 +213,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                             <NewCampaign
                                 buttonText={'Add links'}
                                 title={'Add links for reporting'}
-                                action={() => router.push(`/${params?.campaignType}/create/${params.campaignId}`)}
+                                action={() => router.push(`/profile/${params?.campType}/create/${params.campaignId}`)}
                                 description={
                                     'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                                 }

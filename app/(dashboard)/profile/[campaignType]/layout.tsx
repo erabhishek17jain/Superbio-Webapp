@@ -18,14 +18,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const dispatch = useAppDispatch();
     const paths = usePathname();
     const params: any = useParams();
-    const [urlComponents] = useState(paths.split('/'));
+    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'profile')));
     const { enqueueSnackbar } = useSnackbar();
     const { campData } = useAppSelector((state) => state.reporting);
-    const { campaignType } = useAppSelector((state) => state.user);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
-    const ownerType = params?.campaignType === 'active' ? 'own' : 'shared';
+    const ownerType = params?.campType === 'active' ? 'own' : 'shared';
     const searchParam: any = useSearchParams();
     const isPublic = searchParam.get('isPublic') === 'true';
 
@@ -51,7 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownerType,
                 q: '',
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'influencer'
             })
         );
     };
@@ -66,7 +65,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     status: CampaignStatus.active,
                     ownerType: ownerType,
                     q: searchText,
-                    type: campaignType === 'profile' ? 'influencer' : 'post',
+                    type: 'influencer',
                 })
             );
         } else if (searchText === '') {
@@ -81,7 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     };
 
     const fetchMore = () => {
-        const ownedType = params?.campaignType?.split('-')[0] === 'active' ? 'own' : 'shared';
+        const ownedType = params?.campType?.split('-')[0] === 'active' ? 'own' : 'shared';
         dispatch(
             getCampaigns({
                 page: allCampaign?.meta?.arg?.page || 0 + 1,
@@ -89,7 +88,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: campaignType === 'profile' ? 'influencer' : 'post',
+                type: 'influencer',
             })
         );
         dispatch(
@@ -100,18 +99,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         );
     };
 
-    const isNotCampType = paths.indexOf('create') > -1 || paths.indexOf('post') > -1 || paths.indexOf('profile') > -1;
+    const isCreateReport = paths.indexOf('create') > -1 || paths.indexOf('post') > -1 || paths.indexOf('profile') > -1;
     useEffect(() => {
-        if (!isNotCampType) {
+        if (!isCreateReport) {
             fetchMore();
         } else {
             dispatch(setLoading(false));
         }
     }, []);
 
-    if (!isNotCampType && urlComponents.length ===4) {
-        urlComponents.splice(-2)
-    }
     return (
         <main className='flex w-full overflow-hidden bg-contain bg-fixed bg-repeat'>
             <div className='flex flex-col w-full h-screen overflow-auto'>
@@ -129,7 +125,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     <div className='flex'>
                                         <div
                                             onClick={() => {
-                                                router.push('/');
+                                                router.push('/profile/dashboard');
                                                 dispatch(setCampaignType(''));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
@@ -140,32 +136,50 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             onClick={() => {
                                                 router.push('/');
                                                 dispatch(setLoading(true));
-                                                dispatch(setCampaignType(campaignType));
+                                                dispatch(setCampaignType('profile'));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
-                                            <span className='ml-3 capitalize'>
-                                                {campaignType === 'profile' ? 'LOQO Influencer Analysis' : 'LOQO Campaign Tracker'}
-                                            </span>
+                                            <span className='ml-3 capitalize'>LOQO Influencer Analysis</span>
                                             <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
-                                        {urlComponents.slice(1, urlComponents.length - (isNotCampType ? 2 : 0)).map((component, index) => {
-                                            const active = index !== urlComponents.slice(1).length - 1;
-                                            return (
-                                                <div
-                                                    key={component}
-                                                    onClick={() => {
-                                                        if (active) {
-                                                            router.push('/' + component);
-                                                            fetchMore();
-                                                        }
-                                                    }}
-                                                    className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
-                                                    <span className={`capitalize`}>{component}</span>
-                                                    {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
-                                                </div>
-                                            );
-                                        })}
-                                        {isNotCampType && (
+                                        {!isCreateReport &&
+                                            pathUrls.map((component, index) => {
+                                                const active = index !== pathUrls.length - 1;
+                                                return (
+                                                    <div
+                                                        key={component}
+                                                        onClick={() => {
+                                                            if (active) {
+                                                                fetchMore();
+                                                                router.push(`/post/${component}`);
+                                                                setPathUrls(`/post/${component}`.split('/'));
+                                                            }
+                                                        }}
+                                                        className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
+                                                        <span className={`capitalize`}>{component}</span>
+                                                        {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
+                                                    </div>
+                                                );
+                                            })}
+                                        {isCreateReport &&
+                                            pathUrls.slice(0, -2).map((component, index) => {
+                                                const active = index !== pathUrls.length - 1;
+                                                return (
+                                                    <div
+                                                        key={component}
+                                                        onClick={() => {
+                                                            if (active) {
+                                                                router.push('/post/' + component);
+                                                                fetchMore();
+                                                            }
+                                                        }}
+                                                        className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
+                                                        <span className={`capitalize`}>{component}</span>
+                                                        {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
+                                                    </div>
+                                                );
+                                            })}
+                                        {isCreateReport && (
                                             <div className={`hidden sm:flex text-black items-center space-x-3 ml-3 mt-[2px]`}>
                                                 <span className='capitalize font-[500] text-[21px]'>
                                                     {campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}
@@ -175,7 +189,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     </div>
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
-                                    {!isNotCampType && (
+                                    {!isCreateReport && (
                                         <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>
                                             <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex' />
                                             <input
@@ -198,27 +212,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         </div>
                                     )}
                                     {(paths.indexOf('post') > -1 || paths.indexOf('profile') > -1) && (
-                                            <div className='flex gap-4'>
-                                                <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
-                                                    <ChevronLeftIcon color='#000' size={16} />
-                                                    Back
-                                                </button>
-                                                <button
-                                                    onClick={() => copyShareLink()}
-                                                    className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-sm'>
-                                                    <CopyIcon color='#ffffff' size={16} />
-                                                    <span className='hidden sm:flex'>Copy Public Dashboard Link</span>
-                                                    <span className='sm:hidden flex'>Copy Public Link</span>
-                                                </button>
-                                            </div>
-                                        )}
+                                        <div className='flex gap-4'>
+                                            <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
+                                                <ChevronLeftIcon color='#000' size={16} />
+                                                Back
+                                            </button>
+                                            <button
+                                                onClick={() => copyShareLink()}
+                                                className='bg-black flex gap-2 items-center py-2 rounded-lg px-4 h-10 text-white text-sm'>
+                                                <CopyIcon color='#ffffff' size={16} />
+                                                <span className='hidden sm:flex'>Copy Public Dashboard Link</span>
+                                                <span className='sm:hidden flex'>Copy Public Link</span>
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
                 <div className='flex flex-col w-full h-full lg:overflow-y-auto md:overflow-y-auto relative'>
-                    {isNotCampType && isPublic && (
+                    {isCreateReport && isPublic && (
                         <div className='bg-white border-b border-[#cdcdcd] flex w-full items-center justify-between px-6 py-2 text-black sm:px-6'>
                             <div className='flex gap-x-8 w-20'>
                                 <DynamicLogo />
@@ -228,7 +242,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             </Link>
                         </div>
                     )}
-                    {!isNotCampType && searchText !== '' && isSearch && (
+                    {!isCreateReport && searchText !== '' && isSearch && (
                         <div className='flex pt-4 px-8 flex-col md:flex-row justify-between gap-4 items-center'>
                             <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>
                         </div>

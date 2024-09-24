@@ -5,8 +5,8 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
-import { SheetDetails } from '../../../../../components/shared-components/SheetDetails';
-import GuidelinesUi from '../../../../../components/shared-components/GuidelinesUi';
+import { SheetDetails } from '../../../../../../components/shared-components/SheetDetails';
+import GuidelinesUi from '../../../../../../components/shared-components/GuidelinesUi';
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
@@ -23,7 +23,6 @@ export default function CreateReporting() {
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('view');
     const state = useAppSelector((state) => state?.campaign);
-    const { campaignType } = useAppSelector((state) => state.user);
     const [selSheetData, setSelSheetData] = useState<ISheet[]>([]);
     const [sheetData, setSheetData] = useState<any>([]);
     const [initialSheetData, setInitialSheetData] = useState<any>([]);
@@ -65,7 +64,7 @@ export default function CreateReporting() {
 
     const addUpdateSheet = () => {
         if (mode === 'view') {
-            router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
+            router.push(`/post/${params?.campType}/report/${params.campaignId}`);
             return;
         }
         let error = false;
@@ -135,14 +134,10 @@ export default function CreateReporting() {
                         horizontal: 'right',
                     },
                 });
-
-                if (campaignType === 'profile') {
-                    await JavaNetworkService.instance.syncInfluencers(params.campaignId);
-                }
             })
             .finally(() => {
                 dispatch(setSheetLoading(false));
-                router.push(`/${params?.campaignType}/${campaignType}/${params.campaignId}`);
+                router.push(`/post/${params?.campType}/report/${params.campaignId}`);
             });
     };
 
