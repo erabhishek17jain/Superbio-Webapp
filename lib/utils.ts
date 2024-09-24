@@ -125,7 +125,7 @@ export const structureProfilesData = (data: IProfilesReportingResponse, platform
             total: data.profilePaginatedResponse.totalItems,
             campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
-            ...setProfilesAnalytics(platform === 'twitter' ? data.twitterFilterValueResp : data.instagramFilterValueResp),
+            ...setProfilesFilters(platform === 'twitter' ? data.twitterFilterValueResp : data.instagramFilterValueResp),
         },
     };
 };

@@ -22,13 +22,13 @@ interface FilterAndSortingProps {
     query: any;
     filters: any;
     platforms: any;
+    changePlatform: any;
     selectedPlatform: string;
-    setSelectedPlatform: any;
     filtersOptions: AvailableFilters;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, setSelectedPlatform } = props;
+    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform } = props;
     const [isFilter, setIsFilter] = useState(false);
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
@@ -43,10 +43,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
         url.searchParams.set('sortBy', filters.sortBy);
         url.searchParams.set('sortDirection', filters.sortDirection);
         window.location.href = url.href;
-    };
-
-    const changePlatform = (platform: string) => {
-        setSelectedPlatform(platform);
     };
 
     useEffect(() => {

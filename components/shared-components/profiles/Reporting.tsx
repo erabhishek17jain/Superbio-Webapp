@@ -9,14 +9,14 @@ import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
     meta: any;
-    isPublic: boolean;
+    platform: string;
     campaignId: string;
     initialColumns: IColumn[];
     query: { [key: string]: any };
 }
 
 export default function Reporting(props: IReportingProps) {
-    const { query, meta, campaignId, isPublic, initialColumns } = props;
+    const { query, meta, campaignId, initialColumns, platform } = props;
     const [screenWidth, setScreenWidth] = useState(0);
     const [columns, setColumns] = useState<IColumn[]>(initialColumns);
     const [loader, setloader] = useState(false);
@@ -25,7 +25,7 @@ export default function Reporting(props: IReportingProps) {
         if (meta?.total === columns.length) return;
         setloader(true);
         query.page = query.page + 1;
-        const resp: any = await JavaNetworkService.instance.getProfilesData(campaignId, clearFilters(query));
+        const resp: any = await JavaNetworkService.instance.getProfilesData(campaignId, clearFilters(query), platform);
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };

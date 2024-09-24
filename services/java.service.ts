@@ -39,7 +39,7 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
 
     public getTwitterProfileReportingData = async (campaignId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res: any = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/x/reporting/${campaignId}${params}`);
+            const res: any = await axios.get<IProfilesReportingResponse>(`${this.javaUrl}/profile/x/${campaignId}/reporting${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
@@ -72,9 +72,9 @@ export default class JavaNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    public getProfilesData = async (campaignId: string, params: string): Promise<IProfilesResponse> => {
+    public getProfilesData = async (campaignId: string, params: string, platform: string): Promise<IProfilesResponse> => {
         try {
-            const res = await axios.get<IProfilesResponse>(`${this.javaUrl}/profile/${campaignId}/profiles${params}`);
+            const res = await axios.get<IProfilesResponse>(`${this.javaUrl}/profile/${platform === 'twitter' ? 'x/' : ''}${campaignId}/profiles${params}`);
             return res.data;
         } catch (err: any) {
             throw err;

@@ -106,16 +106,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                         }`}>
                         All
                     </div>
-                    {filtersOptions && filtersOptions['platform']?.includes('twitter') && (
-                        <div
-                            onClick={() => changePlatform('twitter')}
-                            className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
-                                filters && filters['platform']?.includes('twitter') ? 'text-white bg-[#1257a0]' : 'text-black'
-                            }`}>
-                            <TwitterIcon color={filters && filters['platform']?.includes('twitter') ? '#ffffff' : '#1257a0'} size={20} />
-                            <span>Twitter</span>
-                        </div>
-                    )}
                     {filtersOptions && filtersOptions['platform']?.includes('instagram') && (
                         <div
                             onClick={() => changePlatform('instagram')}
@@ -128,6 +118,16 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                                 <InstagramIcon color={'#fff'} size={20} />
                             )}
                             <span>Instagram</span>
+                        </div>
+                    )}
+                    {filtersOptions && filtersOptions['platform']?.includes('twitter') && (
+                        <div
+                            onClick={() => changePlatform('twitter')}
+                            className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
+                                filters && filters['platform']?.includes('twitter') ? 'text-white bg-[#1257a0]' : 'text-black'
+                            }`}>
+                            <TwitterIcon color={filters && filters['platform']?.includes('twitter') ? '#ffffff' : '#1257a0'} size={20} />
+                            <span>Twitter</span>
                         </div>
                     )}
                 </div>
