@@ -1,7 +1,7 @@
 import { Footer } from '@/components/website/Footer';
-import type { Metadata } from 'next';
 import '../globals.css';
 import { ReactNode } from 'react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'LOQO Business',

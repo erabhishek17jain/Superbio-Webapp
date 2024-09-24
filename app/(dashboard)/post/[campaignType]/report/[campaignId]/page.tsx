@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../components/shared-components/posts/GenerateReport';
+import GenerateReport from '../../../../../../components/shared-components/posts/GenerateReport';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../components/shared-components/posts/FilterAndSorting';
-import Reporting from '../../../../../components/shared-components/posts/Reporting';
+import FilterAndSorting from '../../../../../../components/shared-components/posts/FilterAndSorting';
+import Reporting from '../../../../../../components/shared-components/posts/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, setPostsAnalytics, structurePostsData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/posts/AnalyticsSummary';
@@ -13,7 +13,7 @@ import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
-import FilterUi from '../../../../../components/shared-components/posts/FilterUi';
+import FilterUi from '../../../../../../components/shared-components/posts/FilterUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-posts',
