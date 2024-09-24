@@ -79,7 +79,7 @@ export default function LoadingReporting({ isPublic, title }: any) {
                 <div className='flex'>
                     <div className='flex w-full flex-col mx-2 sm:mx-0'>
                         <div className='mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4'>
-                            {Array(isPublic ? 2 : isSmallDevice ? 4 : 6)
+                            {Array(isSmallDevice ? 4 : 6)
                                 .fill('')
                                 ?.map(() => (
                                     <div className='flex relative' key={uuidv4()}>

@@ -74,9 +74,6 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
             let keys: string[] = ['views', 'followers', 'engagements', 'frequency_per_day'];
-            if (searchParams.isPublic) {
-                keys = ['Profiles', 'followers'];
-            }
             let result: (ISummary | null)[] = [];
             const totalProfiles = {
                 totCount: campData?.meta?.total,
@@ -86,20 +83,18 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 title: 'Total profiles',
                 basedOn: getBasedOn('profile', 0),
             };
-            if (!searchParams.isPublic) {
-                result = keys.map((key) => {
-                    const { analytics, basedOnPosts } = campData?.meta;
-                    if (!(analytics as any)[key] && (analytics as any)[key] !== 0) return null;
-                    return {
-                        totCount: (analytics as any)[key],
-                        count: calculateSummary((analytics as any)[key]),
-                        icon: SUMMARY_ICONS[key],
-                        color: SUMMARY_COLORS[key],
-                        title: key,
-                        basedOn: getBasedOn(key, (basedOnPosts as any)[key]),
-                    };
-                });
-            }
+            result = keys.map((key) => {
+                const { analytics, basedOnPosts } = campData?.meta;
+                if (!(analytics as any)[key] && (analytics as any)[key] !== 0) return null;
+                return {
+                    totCount: (analytics as any)[key],
+                    count: calculateSummary((analytics as any)[key]),
+                    icon: SUMMARY_ICONS[key],
+                    color: SUMMARY_COLORS[key],
+                    title: key,
+                    basedOn: getBasedOn(key, (basedOnPosts as any)[key]),
+                };
+            });
 
             return [totalProfiles, ...(result.filter((item) => item !== null) as ISummary[])];
         }

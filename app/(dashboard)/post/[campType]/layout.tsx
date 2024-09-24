@@ -126,8 +126,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     <div className='flex'>
                                         <div
                                             onClick={() => {
-                                                router.push('/');
-                                                dispatch(setCampaignType(''));
+                                                router.push('/post/dashboard');
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span>Home</span>
@@ -211,7 +210,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <XIcon color='#8b8b8b' size={24} />
                                         </div>
                                     )}
-                                    {(paths.indexOf('post') > -1 || paths.indexOf('profile') > -1) && (
+                                    {(paths.indexOf('report') > -1) && (
                                         <div className='flex gap-4'>
                                             <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
                                                 <ChevronLeftIcon color='#000' size={16} />
