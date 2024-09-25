@@ -123,6 +123,7 @@ export const structureProfilesData = (data: IProfilesReportingResponse, platform
             limit: 6,
             page: data.profilePaginatedResponse.currentPage,
             total: data.profilePaginatedResponse.totalItems,
+            queueDto: data.queueDto,
             campaignDto: data.campaignDto,
             postSummaryResp: data.postSummaryResp,
             ...setProfilesFilters(platform === 'twitter' ? data.twitterFilterValueResp : data.instagramFilterValueResp),

@@ -337,7 +337,8 @@ export default function CreateReporting() {
                             <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
                                 <button
                                     onClick={() => addUpdateSheet()}
-                                    className='bg-black flex gap-2 justify-center items-center py-3 rounded-xl px-6 text-white text-sm'>
+                                    disabled={state?.sheetLoading}
+                                    className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-xl px-6 text-white text-sm'>
                                     <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}

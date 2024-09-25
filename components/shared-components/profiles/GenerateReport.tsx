@@ -90,7 +90,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const campData = await JavaNetworkService.instance.getInstaProfileReportingData(params.campaignId, clearFilters(query));
-                dispatch(setCampData(structureProfilesData(campData)));
+                dispatch(setCampData(structureProfilesData(campData, 'instagram')));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
                 }
