@@ -179,6 +179,14 @@ export default function CreateReporting() {
                         sheetData[ind] = data;
                     }
                     setSheetData([...sheetData]);
+                }).catch(()=>{
+                    enqueueSnackbar('Sheet is private or URL is invalid, please check and retry', {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
                 })
                 .finally(() => {
                     dispatch(setSheetLoading(false));

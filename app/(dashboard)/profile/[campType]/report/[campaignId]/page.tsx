@@ -185,11 +185,13 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                     }
                     dispatch(setCampData(data));
                 } else {
-                    const data = structureProfilesData(resp, 'twitter');
+                    const data = structureProfilesData(twitterResp, 'twitter');
                     if (data.meta.total > 0) {
                         setSelectedPlatform(data.meta.total > 0 ? 'twitter' : 'instagram');
                         setPlatforms({ ...platforms, isTwitter: data.meta.total > 0 ? true : false });
                         dispatch(setCampData(data));
+                    } else {
+                        dispatch(setCampData({ data: [], meta: { total: 0 } as any }));
                     }
                 }
                 setIsSheetLoading(false);
@@ -212,6 +214,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 setSelectedPlatform(data.meta.total > 0 ? 'twitter' : 'instagram');
                 setPlatforms({ ...platforms, isTwitter: data.meta.total > 0 ? true : true });
                 dispatch(setCampData(data));
+            } else {
+                dispatch(setCampData({ data: [], meta: { total: 0 } as any }));
             }
             setIsSheetLoading(false);
         });
@@ -265,7 +269,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         }
     }, []);
 
-    const changePlatform = (platform:string) => {
+    const changePlatform = (platform: string) => {
         if (platform === 'twitter') {
             setIsSheetLoading(true);
             initialLoadTwitterCampData(query, platforms);
