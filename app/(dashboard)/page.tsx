@@ -1,12 +1,6 @@
 'use client';
-import { useAppDispatch, useAppSelector } from '@/context';
-import { setCampaignType } from '@/context/user';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import DynamicLogo from '@/components/global-components/DynamicLogo';
+import React from 'react';
 import HomePage from '@/components/shared-components/HomePage';
-import ProfileHomePage from '@/components/shared-components/profiles/ProfileHomePage';
-import PostHomePage from '@/components/shared-components/posts/PostHomePage';
 
 export default function Home() {
     

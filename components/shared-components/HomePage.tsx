@@ -55,7 +55,7 @@ const HomePage = () => {
             </div>
             <div className='flex flex-col sm:flex-row gap-10 justify-start items-start p-2 sm:p-6 sm:w-full mg:w-10/12 lg:w-8/12 xl:1/2 overflow-y-auto my-4 sm:my-6 mx-4 sm:mx-8'>
                 {products.map((item: any) => (
-                    <div
+                    <div key={item.type}
                         className={`flex gap-4 w-full sm:w-96 rounded-sm p-4 bg-[#F7F7F7] ${selectType === item.type ? 'shadow-[-12px_20px_0px_0px_rgba(0,0,0,1)]' : ''}`}
                         onClick={() => setSelectType(item.type)}>
                         <Image src={item.img} alt='Campaign' className='w-16 h-[90px] p-4 pr-0' />

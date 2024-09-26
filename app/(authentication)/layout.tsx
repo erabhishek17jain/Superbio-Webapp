@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <main className='flex w-full h-screen overflow-hidden bg-contain bg-fixed bg-repeat'>
-            <Authentication children={children} />
+            <Authentication subComponent={children} />
         </main>
     );
 }

@@ -265,7 +265,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         }
     }, []);
 
-    const changePlatform = (platform) => {
+    const changePlatform = (platform:string) => {
         if (platform === 'twitter') {
             setIsSheetLoading(true);
             initialLoadTwitterCampData(query, platforms);
@@ -295,7 +295,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                             />
                         )}
                         {campData?.data && campData?.data.length > 0 && (
-                            <GenerateReport query={query} params={params} isPublic={searchParams.isPublic ? true : false} />
+                            <GenerateReport query={query} params={params} platform={selectedPlatform} isPublic={searchParams.isPublic ? true : false} />
                         )}
                         {campData?.data && campData?.data.length > 0 && (
                             <>

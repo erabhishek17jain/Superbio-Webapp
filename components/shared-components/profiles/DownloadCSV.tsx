@@ -12,13 +12,14 @@ dayjs.extend(relativeTime);
 
 interface GenerateReportProps {
     total: number;
+    platform: string;
     fileName: string;
     campaignId: string;
     isPublic: boolean | undefined;
 }
 
 export default function DownloadCSV(props: GenerateReportProps) {
-    const { campaignId, isPublic, total, fileName } = props;
+    const { campaignId, isPublic, total, fileName, platform } = props;
     const [isDownloading, setIsDownloading] = useState(false);
     const [csvData, setCsvData] = useState({ columns: [], data: [] });
     const csvLink = useRef<any>(null);
@@ -27,15 +28,15 @@ export default function DownloadCSV(props: GenerateReportProps) {
         setIsDownloading(true);
         enqueueSnackbar('Please wait, we are preparing your csv file.', {
             variant: 'success',
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+            },
         });
         let data: any = [];
         let columns: any = [];
         const params = `?page=1&size=${total}&sortBy=sNo&sortDirection=ASC`;
-        JavaNetworkService.instance.getProfilesData(campaignId, params).then((res: any) => {
+        JavaNetworkService.instance.getProfilesData(campaignId, params, platform).then((res: any) => {
             data = [];
             columns = !isPublic
                 ? [

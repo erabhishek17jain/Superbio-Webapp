@@ -67,7 +67,7 @@ export default function PostHomePage() {
 
     useEffect(() => {
         if (searchText !== '') {
-            fetchCampaigns(fetchCampaigns);
+            fetchCampaigns(searchText);
         }
     }, [searchText]);
 

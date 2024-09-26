@@ -13,20 +13,22 @@ import JavaNetworkService from '@/services/java.service';
 import { calculateStatus, clearFilters, structurePostsData, structureProfilesData } from '@/lib/utils';
 import DownloadCSV from '../profiles/DownloadCSV';
 import { setCampData } from '@/context/reporting';
+import { platform } from 'os';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
 interface GenerateReportProps {
     params: Params;
-    isPublic: boolean | undefined;
+    platform: string;
     query: { [key: string]: any };
+    isPublic: boolean | undefined;
 }
 
 export default function GenerateReport(props: GenerateReportProps) {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { isPublic, params, query } = props;
+    const { isPublic, params, query, platform } = props;
     const { user } = useAppSelector((state) => state.user);
     const { campData } = useAppSelector((state) => state.reporting);
     const [valuesLoading] = useState(false);
@@ -157,8 +159,9 @@ export default function GenerateReport(props: GenerateReportProps) {
                             </div>
                         )}
                         <DownloadCSV
-                            total={campData.meta?.total}
+                            platform={platform}
                             isPublic={isPublic}
+                            total={campData.meta?.total}
                             campaignId={params.campaignId}
                             fileName={campData.meta?.campaignDto?.title}
                         />

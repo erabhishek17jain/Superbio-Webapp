@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-    return <Dashboard children={children} />;
+    return <Dashboard subComponent={children} />;
 }
