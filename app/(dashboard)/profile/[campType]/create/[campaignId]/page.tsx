@@ -123,7 +123,7 @@ export default function CreateReporting() {
             const ind = initialSheetData.findIndex((sh: any) => sheetData[i].index === sh?.index);
             if (ind === -1) {
                 const res = await addSingleSheet(sheetData[i]);
-                if (sheetData[i].index === sheetData.length - 1) {
+                if (i === sheetData.length - 1) {
                     enqueueSnackbar('Sheet added successfully', {
                         variant: 'success',
                         anchorOrigin: {
@@ -133,6 +133,7 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
+                    await JavaNetworkService.instance.syncInfluencers(params.campaignId);
                     router.push(`/post/${params?.campType}/report/${params.campaignId}`);
                 }
             }
@@ -176,7 +177,8 @@ export default function CreateReporting() {
                         sheetData[ind] = data;
                     }
                     setSheetData([...sheetData]);
-                }).catch(()=>{
+                })
+                .catch(() => {
                     enqueueSnackbar('Sheet is private or URL is invalid, please check and retry', {
                         variant: 'error',
                         anchorOrigin: {
@@ -347,7 +349,7 @@ export default function CreateReporting() {
                                     <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}
-                                    {mode === 'add' && 'Create Campaign using google sheet'}
+                                    {mode === 'add' && (state?.sheetLoading ? 'Create Campaign using google sheet' : 'Processing...')}
                                 </button>
                             </div>
                         </div>
