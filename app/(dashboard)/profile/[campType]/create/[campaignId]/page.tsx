@@ -104,42 +104,39 @@ export default function CreateReporting() {
                 });
             });
     };
-
-    const handleSheetSelect = () => {
-        const promises: any = [];
-        dispatch(setSheetLoading(true));
-        sheetData.forEach((item: any) => {
-            const ind = initialSheetData.findIndex((sh: any) => item.index === sh?.index);
-            if (ind === -1) {
-                promises.push(
-                    SheetNetworkService.instance.addSheetToCampaign({
-                        title: item?.title,
-                        sheetId: item?.selectedSheet!.sheetId!,
-                        name: item?.selectedSheet!.sheetName!,
-                        linkColumn: item?.columnName,
-                        campaignId: params.campaignId,
-                        range: 'A1:Z',
-                        id: item?.id ? item?.id : null,
-                    })
-                );
-            }
+    const addSingleSheet = async (item: any) => {
+        const response = await SheetNetworkService.instance.addSheetToCampaign({
+            title: item?.title,
+            sheetId: item?.selectedSheet!.sheetId!,
+            name: item?.selectedSheet!.sheetName!,
+            linkColumn: item?.columnName,
+            campaignId: params.campaignId,
+            range: 'A1:Z',
+            id: item?.id ? item?.id : null,
         });
-        Promise.all(promises)
-            .then(async (res) => {
-                dispatch(setSheet(res));
-                enqueueSnackbar('Sheet added successfully', {
-                    variant: 'success',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-                await JavaNetworkService.instance.syncInfluencers(params.campaignId);
-            })
-            .finally(() => {
-                dispatch(setSheetLoading(false));
-                router.push(`/profile/${params?.campType}/report/${params.campaignId}`);
-            });
+        return await response;
+    };
+
+    const handleSheetSelect = async () => {
+        dispatch(setSheetLoading(true));
+        for (let i = 0; i < sheetData.length; i++) {
+            const ind = initialSheetData.findIndex((sh: any) => sheetData[i].index === sh?.index);
+            if (ind === -1) {
+                const res = await addSingleSheet(sheetData[i]);
+                if (sheetData[i].index === sheetData.length - 1) {
+                    enqueueSnackbar('Sheet added successfully', {
+                        variant: 'success',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    dispatch(setSheet(res));
+                    dispatch(setSheetLoading(false));
+                    router.push(`/post/${params?.campType}/report/${params.campaignId}`);
+                }
+            }
+        }
     };
 
     const addSheet = () => {
