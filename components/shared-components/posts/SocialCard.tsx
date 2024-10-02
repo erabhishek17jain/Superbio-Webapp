@@ -121,8 +121,8 @@ export default function SocialCard({
                 })
                 .then((res) => {
                     setIsUploading(false);
-                    const url = new URL(window.location.href);
-                    window.location.href = url.href;
+                    setIsShowScreenshots(false);
+                    setPrivateUrls(screenshots);
                     enqueueSnackbar('Screenshots uploaded successfully', {
                         variant: 'success',
                         anchorOrigin: {
@@ -260,7 +260,14 @@ export default function SocialCard({
                                 <div className='flex flex-col gap-2 items-center justify-center'>
                                     <Carousel className='h-[26rem]' showArrows={true} emulateTouch={true} infiniteLoop={true} showStatus={true}>
                                         {privateUrls?.map((obj: any, i: number) => (
-                                            <Image alt={i.toString()} width={150} height={200} className=' object-contain' src={obj} key={uuidv4()} />
+                                            <Image
+                                                width={150}
+                                                height={200}
+                                                key={uuidv4()}
+                                                alt={i.toString()}
+                                                className=' object-contain'
+                                                src={typeof obj === 'string' ? obj : URL.createObjectURL(obj)}
+                                            />
                                         ))}
                                     </Carousel>
                                     <div className='flex justify-between gap-4 mt-2'>

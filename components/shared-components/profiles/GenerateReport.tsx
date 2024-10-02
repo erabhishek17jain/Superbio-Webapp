@@ -65,7 +65,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generate Report' || diffInMin > 0) {
             setDiffInMin(0);
             setReportText('Generating...');
-            SheetNetworkService.instance.syncSheet(params.campaignId);
+            JavaNetworkService.instance.syncInfluencers(params.campaignId);
         } else {
             openCloseConfirmModal();
         }

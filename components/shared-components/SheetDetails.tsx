@@ -64,7 +64,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                     {sheetInfo?.selectedSheet?.columns?.length > 0 && (
                         <div className='flex flex-col w-[67%]' key={'column' + sheetInfo?.selectedSheet.sheetId}>
                             <div className='flex flex-col w-full mt-2'>
-                                <span className='font-medium text-sm mb-3'>Select column which contains social media links</span>
+                                <span className='font-medium text-sm mb-3'>Select column which contains profile links</span>
                                 <div className='flex gap-2 flex-wrap'>
                                     {sheetInfo?.selectedSheet?.columns?.map((item: any, index: number) => (
                                         <div

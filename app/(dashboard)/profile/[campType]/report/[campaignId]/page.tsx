@@ -41,8 +41,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     const sortBy = searchParams.sortBy ? searchParams.sortBy : 'followerCount';
     const sortDirection = searchParams.sortDirection ? searchParams.sortDirection : 'DESC';
-    const filter = searchParams.filter ? searchParams.filter : '';
-    const value = searchParams.value ? searchParams.value : '';
+    let filter = searchParams.filter ? searchParams.filter : '';
+    let value = searchParams.value ? searchParams.value : '';
 
     let query: { [key: string]: string | number } = {
         page: 1,
@@ -167,8 +167,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     }, [campData]);
 
     const initialLoadInstagramCampData = async (query: any, platforms: any) => {
+        const queryInitial: { [key: string]: string | number } = {
+            page: 1,
+            size: 6,
+            sortBy: sortBy || 'followerCount',
+            sortDirection: sortDirection || 'DESC',
+        };
         const twitterResp: any =
-            !platforms.isInstagram && (await JavaNetworkService.instance.getTwitterProfileReportingData(params.campaignId, clearFilters(query)));
+            !platforms.isInstagram && (await JavaNetworkService.instance.getTwitterProfileReportingData(params.campaignId, clearFilters(queryInitial)));
 
         JavaNetworkService.instance
             .getInstaProfileReportingData(params.campaignId, clearFilters(query))
@@ -230,11 +236,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             let filteValues = value.split('|');
             let filterObj: any = { ...filters };
             for (let i = 0; i < filteNames.length; i++) {
-                if (filteNames[i] === 'platform' || filteNames[i] === 'postType') {
-                    filterObj[filteNames[i]] = [filteValues[i]];
-                } else {
-                    filterObj[filteNames[i]] = filteValues[i].split('_');
-                }
+                filterObj[filteNames[i]] = filteValues[i].split('_');
             }
             query['lastAppliedFilterField'] = filteNames[filteNames.length - 1];
             setFilters(filterObj);
@@ -270,6 +272,18 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     }, []);
 
     const changePlatform = (platform: string) => {
+        setFilters({
+            niche: [],
+            engagementRate: [],
+            postFrequencyPerDay: [],
+            profileTypeByFollowers: [],
+        });
+        const url = new URL(window.location.href);
+        url.searchParams.delete('filter');
+        url.searchParams.delete('value');
+        delete query.filterKeys;
+        delete query.filterValues;
+        delete query.lastAppliedFilterField;
         if (platform === 'twitter') {
             setIsSheetLoading(true);
             initialLoadTwitterCampData(query, platforms);
@@ -277,6 +291,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             setIsSheetLoading(true);
             initialLoadInstagramCampData(query, platforms);
         }
+        document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
     return (

@@ -2,13 +2,12 @@
 import { useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
-import { ANALYTICS_FILTERS, ANALYTICS_FILTERS_FROM_SHEETS, ANALYTICS_PROFILES_FILTERS } from '@/constants';
+import { ANALYTICS_FILTERS_FROM_SHEETS, ANALYTICS_PROFILES_FILTERS } from '@/constants';
 import { SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { ArrowUpDownIcon } from '@/icons/ArrowUpDownIcon';
 import { AvailableProfilesFilters } from '@/interfaces/filter';
 
 const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filterValue }: any) => {
-    const radioEligible = ['platform'].includes(any_filter.key);
     return (
         <>
             <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
@@ -76,13 +75,10 @@ export default function FilterUi(props: FilterUiProps) {
 
     const resetFilters = () => {
         setFilters({
-            postedAt: [],
-            internalSheetId: [],
-            platform: [],
-            postType: [],
-            phase: [],
-            category: [],
-            subCategory: [],
+            niche: [],
+            engagementRate: [],
+            postFrequencyPerDay: [],
+            profileTypeByFollowers: [],
         });
         const url = new URL(window.location.href);
         url.searchParams.delete('filter');

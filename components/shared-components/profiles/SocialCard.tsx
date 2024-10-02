@@ -22,7 +22,7 @@ export function fileToBase64(file: any) {
 
 const TwitterProfile = ({ item }: any) => {
     return (
-        <div className='bg-black text-white font-sans rounded-xl w-full'>
+        <div className='bg-white text-black font-sans rounded-xl w-full'>
             <div className='relative'>
                 <div className='h-48'>{item.profileBannerUrl && <img src={item.profileBannerUrl} alt='Banner' className='w-full h-48 object-cover' />}</div>
                 <div className='absolute -bottom-16 left-4 rounded-full overflow-hidden border-4 border-black'>
@@ -49,7 +49,7 @@ const TwitterProfile = ({ item }: any) => {
                             )}
                         </h1>
                         <p className='text-gray-500 text-sm'>@{item.username}</p>
-                        {item.rawDescription && <p className='text-white text-sm mt-2'>{item.rawDescription}</p>}
+                        {item.rawDescription && <p className='text-black text-sm mt-2'>{item.rawDescription}</p>}
                     </div>
                 </div>
 
@@ -66,8 +66,8 @@ const TwitterProfile = ({ item }: any) => {
                     </div>
                 )}
                 <div className='my-4 text-sm flex space-x-6 text-gray-500'>
-                    <span className='font-bold text-white pr-1'>{calculateSummary(item.friendCount)}</span> Following
-                    <span className='font-bold text-white pr-1'>{calculateSummary(item.followerCount)}</span> Followers
+                    <span className='font-bold text-black pr-1'>{calculateSummary(item.friendCount)}</span> Following
+                    <span className='font-bold text-black pr-1'>{calculateSummary(item.followerCount)}</span> Followers
                 </div>
             </div>
         </div>

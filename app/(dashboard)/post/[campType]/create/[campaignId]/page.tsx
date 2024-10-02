@@ -292,7 +292,7 @@ export default function CreateReporting() {
                 {!isSheetLoading ? (
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-2 sm:gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
-                            {sheetData.map((item: any, index: number) => (
+                            {sheetData.reverse().map((item: any, index: number) => (
                                 <div key={index} className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
