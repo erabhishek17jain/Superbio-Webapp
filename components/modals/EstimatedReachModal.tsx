@@ -1,6 +1,4 @@
-import JavaNetworkService from '@/services/java.service';
 import { XIcon } from 'lucide-react';
-import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 

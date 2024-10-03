@@ -6,7 +6,7 @@ import { enqueueSnackbar } from 'notistack';
 import { CSVLink } from 'react-csv';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { DownloadIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
+import PorofileNetworkService from '@/services/profile.service';
 
 dayjs.extend(relativeTime);
 
@@ -36,7 +36,10 @@ export default function DownloadCSV(props: GenerateReportProps) {
         let data: any = [];
         let columns: any = [];
         const params = `?page=1&size=${total}&sortBy=sNo&sortDirection=ASC`;
-        JavaNetworkService.instance.getProfilesData(campaignId, params, platform).then((res: any) => {
+        (platform === 'twitter'
+            ? PorofileNetworkService.instance.getTwProfilesData(campaignId, params)
+            : PorofileNetworkService.instance.getIgProfilesData(campaignId, params)
+        ).then((res: any) => {
             data = [];
             columns = !isPublic
                 ? [

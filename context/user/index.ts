@@ -1,11 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-    login,
-    register,
-    getUser,
-    loginUsingGoogle,
-} from "./network"
-import { IUserState } from "@/interfaces/user";
+import { createSlice } from '@reduxjs/toolkit';
+import { login, register, getUser, loginUsingGoogle } from './network';
+import { IUserState } from '@/interfaces/user';
 
 let initialState: IUserState = {
     user: {
@@ -15,6 +10,7 @@ let initialState: IUserState = {
         role: '',
         mobileNo: '',
         profilePic: '',
+        orgsId: { $oid: '' },
     },
     token: null,
     loading: false,
@@ -24,7 +20,7 @@ let initialState: IUserState = {
         page: 0,
         limit: 0,
     },
-    campaignType: ''
+    campaignType: '',
 };
 
 export const userSlice = createSlice({

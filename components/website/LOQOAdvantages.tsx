@@ -11,7 +11,7 @@ const adavtages = [
     // {
     //     title: 'Scalability',
     //     withOutLoqo: 'Has limited scalability and can become overwhelming with increased campaign volume.',
-    //     withLoqo: 'Analyzes 1000s of campaign posts at once. Scales with your agency needs.',
+    //     withLoqo: 'Analyzes 1000s of campaign posts at once. Scales with your orgs needs.',
     // },
     {
         title: 'Analytics',

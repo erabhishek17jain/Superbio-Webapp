@@ -19,23 +19,23 @@ export default class PaymentService extends BaseNetworkFramework implements IPay
     }
 
     public createOrder = async (data: CreateOrderPayload): Promise<OrderResponse> => {
-        const response = await axios.post<OrderResponse>(`${this.url}/payment/create-order`, data, {
-            headers: this.get_auth_header()
+        const response = await axios.post<OrderResponse>(`${this.rustUrl}/payment/create-order`, data, {
+            headers: this.get_auth_header_rust()
         });
 
         return response.data;
     }
 
     public getCrditTransaction = async (page: number, limit: number): Promise<CreditLedger[]> => {
-        const response = await axios.get<{data: CreditLedger[]}>(`${this.url}/payment/get-credit-ledgers?page=${page}&limit=${limit}`, {
-            headers: this.get_auth_header()
+        const response = await axios.get<{data: CreditLedger[]}>(`${this.rustUrl}/payment/get-credit-ledgers?page=${page}&limit=${limit}`, {
+            headers: this.get_auth_header_rust()
         });
         return response.data.data;
     }
 
     public getDebitTransaction = async (page: number, limit: number): Promise<DebitLedger[]> => {
-        const response = await axios.get<{data: DebitLedger[]}>(`${this.url}/payment/get-debit-ledgers?page=${page}&limit=${limit}`, {
-            headers: this.get_auth_header()
+        const response = await axios.get<{data: DebitLedger[]}>(`${this.rustUrl}/payment/get-debit-ledgers?page=${page}&limit=${limit}`, {
+            headers: this.get_auth_header_rust()
         });
         return response.data.data;
     }

@@ -1,4 +1,5 @@
-import { IColumnResponse } from "@/services/public.service";
+
+import { IColumnResponse } from "@/services/form.service";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface IReportingState {

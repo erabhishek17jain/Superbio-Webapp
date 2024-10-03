@@ -12,9 +12,9 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { getCampaigns } from '@/context/campaign/network';
 import { setMembers, setCampaignType } from '@/context/user';
 import { logout } from '@/lib/utils';
-import { CampaignStatus } from '@/services/campaign.service';
 import UserNetworkService from '@/services/user.service';
 import { useState, useEffect } from 'react';
+import { CampaignStatus } from '@/services/campaign.service';
 
 export default function ProfileHomePage() {
     const router = useRouter();

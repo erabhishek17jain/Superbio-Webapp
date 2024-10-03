@@ -58,12 +58,14 @@ export default function SocialCard({
     index,
     columns,
     setColumns,
+    campaignId,
 }: {
     item: any;
     isPublic: boolean;
     index: number;
     columns: any;
     setColumns: any;
+    campaignId: string;
 }) {
     const postedAt = item?.postedAt;
     const link = item.socialLink;
@@ -354,7 +356,7 @@ export default function SocialCard({
                     </div>
                 )}
             </div>
-            {showDeleteModal && <DeletePostModal campaignId={''} postId={item.id} openCloseModal={openCloseDeleteModal} />}
+            {showDeleteModal && <DeletePostModal campaignId={campaignId} type={type} postId={item.id} openCloseModal={openCloseDeleteModal} />}
             {showAnalyticsModal && (
                 <UpdateAnalyticsModal
                     postId={item.id}

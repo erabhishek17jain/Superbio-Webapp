@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
 import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 import { calculateStatus, clearFilters, structurePostsData } from '@/lib/utils';
 import DownloadCSV from '../posts/DownloadCSV';
 import { setCampData } from '@/context/reporting';
@@ -63,7 +63,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generate Report' || diffInMin > 0) {
             setDiffInMin(0);
             setReportText('Generating...');
-            SheetNetworkService.instance.syncSheet(params.campaignId);
+            SheetNetworkService.instance.syncSheetNode(params.campaignId);
         } else {
             openCloseConfirmModal();
         }
@@ -89,7 +89,7 @@ export default function GenerateReport(props: GenerateReportProps) {
     useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
-                const campData = await JavaNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query));
+                const campData = await PostNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query));
                 dispatch(setCampData(structurePostsData(campData)));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
@@ -106,25 +106,27 @@ export default function GenerateReport(props: GenerateReportProps) {
 
     let postsData: any = [];
     if (!isPublic) {
-        postsData = Object.keys(campData.meta?.postSummaryResp)
-            .filter(
-                (item) =>
-                    !(
-                        campData.meta?.postSummaryResp[item] === null ||
-                        campData.meta?.postSummaryResp[item] === 0 ||
-                        campData.meta?.postSummaryResp[item] === false
-                    )
-            )
-            .map((key) => {
-                return (
-                    !(reportText === 'Generate Report' && key === 'otherPosts') && (
-                        <div className='flex flex-col text-sm w-20' key={key}>
-                            <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key.slice(0, -5)}</span>
-                            <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
-                        </div>
-                    )
-                );
-            });
+        postsData = campData.meta?.postSummaryResp
+            ? Object.keys(campData.meta?.postSummaryResp)
+            : []
+                  .filter(
+                      (item) =>
+                          !(
+                              campData.meta?.postSummaryResp[item] === null ||
+                              campData.meta?.postSummaryResp[item] === 0 ||
+                              campData.meta?.postSummaryResp[item] === false
+                          )
+                  )
+                  .map((key:string) => {
+                      return (
+                          !(reportText === 'Generate Report' && key === 'otherPosts') && (
+                              <div className='flex flex-col text-sm w-20' key={key}>
+                                  <span className='text-black font-semibold capitalize'>{key === 'isLinkDeletedPosts' ? 'Deleted' : key?.slice(0, -5)}</span>
+                                  <span className='text-[#8b8b8b]'>{campData.meta?.postSummaryResp[key]} posts</span>
+                              </div>
+                          )
+                      );
+                  });
     }
 
     return (

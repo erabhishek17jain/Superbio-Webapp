@@ -4,7 +4,7 @@ import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
 import SocialCard from '../posts/SocialCard';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
@@ -25,7 +25,7 @@ export default function Reporting(props: IReportingProps) {
         if (meta?.total === columns.length) return;
         setloader(true);
         query.page = query.page + 1;
-        const resp: any = await JavaNetworkService.instance.getPostsData(campaignId, clearFilters(query));
+        const resp: any = await PostNetworkService.instance.getPostsData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };
@@ -56,6 +56,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
+                                campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -71,6 +72,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
+                                campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -86,6 +88,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
+                                campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -105,6 +108,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
+                                campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -120,6 +124,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
+                                campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -137,6 +142,7 @@ export default function Reporting(props: IReportingProps) {
                                 index={index}
                                 columns={columns}
                                 setColumns={setColumns}
+                                campaignId={campaignId}
                             />
                         ))}
                     </div>

@@ -1,19 +1,20 @@
 'use client';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import SheetNetworkService from '@/services/sheet.service';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
 import { enqueueSnackbar } from 'notistack';
-import { SheetDetails } from '../../../../../../components/shared-components/SheetDetails';
-import GuidelinesUi from '../../../../../../components/shared-components/GuidelinesUi';
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
-import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon, TrashIcon } from 'lucide-react';
+import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon } from 'lucide-react';
+import OrgsNetworkService from '@/services/orgs.service';
+import { SheetDetails } from '@/components/shared-components/SheetDetails';
+import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
 
 const getSheetInfo = () => {
-    return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: '', sheets: [], selectedSheet: {} };
+    return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: {}, sheets: [], selectedSheet: {} };
 };
 
 export default function CreateReporting() {
@@ -22,6 +23,7 @@ export default function CreateReporting() {
     const dispatch = useAppDispatch();
     const [mode, setMode] = useState('view');
     const state = useAppSelector((state) => state?.campaign);
+    const { user } = useAppSelector((state) => state?.user);
     const [selSheetData, setSelSheetData] = useState<ISheet[]>([]);
     const [sheetData, setSheetData] = useState<any>([]);
     const [initialSheetData, setInitialSheetData] = useState<any>([]);
@@ -53,17 +55,17 @@ export default function CreateReporting() {
         setSheetData([...sheetData]);
     };
 
-    const handleColumn = (column: string, sheetInfo: any) => {
+    const handleColumn = (column: string, sheetInfo: any, colType) => {
         if (mode !== 'add') {
-            setMode(sheetInfo.columnName !== column ? 'edit' : 'view');
+            setMode(sheetInfo.columnName[colType] !== column ? 'edit' : 'view');
         }
-        sheetData[sheetInfo?.index - 1].columnName = column;
+        sheetData[sheetInfo?.index - 1].columnName[colType] = column;
         setSheetData([...sheetData]);
     };
 
-    const addUpdateSheet = () => {
+    const mapColumns = () => {
         if (mode === 'view') {
-            router.push(`/post/${params?.campType}/report/${params.campaignId}`);
+            router.push(`/orgs/${params?.campType}/report/${params.campaignId}`);
             return;
         }
         let error = false;
@@ -104,16 +106,13 @@ export default function CreateReporting() {
             });
     };
 
-    const addSingleSheet = async (item: any) => {
-        const response = await SheetNetworkService.instance.addSheetToCampaign({
-            title: item?.title,
-            sheetId: item?.selectedSheet!.sheetId!,
-            name: item?.selectedSheet!.sheetName!,
-            linkColumn: item?.columnName,
-            campaignId: params.campaignId,
-            range: 'A1:Z',
-            id: item?.id ? item?.id : null,
-        });
+    const mapSingleSheet = async (item: any) => {
+        const flippedObj = Object.fromEntries(Object.entries(item.columnName).map(([key, value]) => [value, key]));
+        const mapParams = {
+            internalSheetId: params?.campaignId,
+            columnMappings: flippedObj,
+        };
+        const response = await OrgsNetworkService.instance.mappingColumns(mapParams);
         return await response;
     };
 
@@ -122,9 +121,9 @@ export default function CreateReporting() {
         for (let i = 0; i < sheetData.length; i++) {
             const ind = initialSheetData.findIndex((sh: any) => sheetData[i].index === sh?.index);
             if (ind === -1) {
-                const res = await addSingleSheet(sheetData[i]);
+                const res = await mapSingleSheet(sheetData[i]);
                 if (i === sheetData.length - 1) {
-                    enqueueSnackbar('Sheet added successfully', {
+                    enqueueSnackbar('Sheet mapped successfully', {
                         variant: 'success',
                         anchorOrigin: {
                             vertical: 'top',
@@ -133,6 +132,7 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
+                    await OrgsNetworkService.instance.syncInfluencers(params.campaignId);
                     router.push(`/post/${params?.campType}/report/${params.campaignId}`);
                 }
             }
@@ -163,19 +163,45 @@ export default function CreateReporting() {
     const fetchSheets = async (data: any) => {
         if (data?.url !== '') {
             dispatch(setSheetLoading(true));
-            SheetNetworkService.instance
-                .getSheet(data?.url)
+            const params = {
+                googleSheetUrl: data?.url,
+                orgId: user.orgsId.$oid,
+                sheetName: data?.title,
+            };
+            OrgsNetworkService.instance
+                .addSheet(params)
                 .then((res: any) => {
-                    const sheet = res.find((item: any) => item.sheetName === data?.sheetName);
-                    data['sheets'] = res;
-                    data['selectedSheet'] = sheet;
-                    const ind = sheetData.findIndex((item: any) => item.index === data?.index);
-                    if (ind === -1) {
-                        sheetData.push(data);
-                    } else {
-                        sheetData[ind] = data;
-                    }
-                    setSheetData([...sheetData]);
+                    OrgsNetworkService.instance
+                        .previewSheet(res.internalSheetId)
+                        .then((res: any) => {
+                            const sheet = res?.subSheetInfos.find((item: any) => item.sheetName === data?.sheetName);
+                            const columnName = {};
+                            for (let i = 0; i < res.mappingFields.length; i++) {
+                                columnName[res.mappingFields[i]] = '';
+                            }
+                            data['selectedSheet'] = sheet;
+                            data['columnName'] = columnName;
+                            data['sheets'] = res?.subSheetInfos;
+                            const ind = sheetData.findIndex((item: any) => item.index === data?.index);
+                            if (ind === -1) {
+                                sheetData.push(data);
+                            } else {
+                                sheetData[ind] = data;
+                            }
+                            setSheetData([...sheetData]);
+                        })
+                        .catch(() => {
+                            enqueueSnackbar('Sheet is private or URL is invalid, please check and retry', {
+                                variant: 'error',
+                                anchorOrigin: {
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                },
+                            });
+                        })
+                        .finally(() => {
+                            dispatch(setSheetLoading(false));
+                        });
                 })
                 .catch(() => {
                     enqueueSnackbar('Sheet is private or URL is invalid, please check and retry', {
@@ -185,8 +211,6 @@ export default function CreateReporting() {
                             horizontal: 'right',
                         },
                     });
-                })
-                .finally(() => {
                     dispatch(setSheetLoading(false));
                 });
         } else {
@@ -245,11 +269,11 @@ export default function CreateReporting() {
     useLayoutEffect(() => {
         setSheetData([]);
         setIsSheetLoading(true);
-        SheetNetworkService.instance
-            .checkSheetExists(params.campaignId)
+        OrgsNetworkService.instance
+            .getSheets(params.campaignId)
             .then((res) => {
                 if (res.length > 0) {
-                    setSelSheetData(res);
+                    setSelSheetData(res?.sheets);
                 } else {
                     setMode('add');
                     setSheetData([{ ...getSheetInfo(), open: true }]);
@@ -291,7 +315,7 @@ export default function CreateReporting() {
                 {!isSheetLoading ? (
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-2 sm:gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
-                            {sheetData.reverse().map((item: any, index: number) => (
+                            {sheetData.map((item: any, index: number) => (
                                 <div key={index} className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
                                     <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
                                         <span
@@ -342,13 +366,13 @@ export default function CreateReporting() {
 
                             <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
                                 <button
-                                    onClick={() => addUpdateSheet()}
+                                    onClick={() => mapColumns()}
                                     disabled={state?.sheetLoading}
                                     className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-xl px-6 text-white'>
                                     <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}
-                                    {mode === 'add' && (!state?.sheetLoading ? 'Create Campaign using google sheet' : 'Processing...')}
+                                    {mode === 'add' && (!state?.sheetLoading ? 'Map Columns' : 'Processing...')}
                                 </button>
                             </div>
                         </div>

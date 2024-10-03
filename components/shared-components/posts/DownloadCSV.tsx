@@ -6,7 +6,7 @@ import { enqueueSnackbar } from 'notistack';
 import { CSVLink } from 'react-csv';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { DownloadIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 
 dayjs.extend(relativeTime);
 
@@ -35,7 +35,7 @@ export default function DownloadCSV(props: GenerateReportProps) {
         let data: any = [];
         let columns: any = [];
         const params = `?page=1&size=${total}&sortBy=sNo&sortDirection=ASC`;
-        JavaNetworkService.instance.getPostsData(campaignId, params).then((res: any) => {
+        PostNetworkService.instance.getPostsData(campaignId, params).then((res: any) => {
             data = [];
             columns = !isPublic
                 ? [

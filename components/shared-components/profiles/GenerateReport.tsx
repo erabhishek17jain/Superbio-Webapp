@@ -9,11 +9,10 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
 import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
-import { calculateStatus, clearFilters, structurePostsData, structureProfilesData } from '@/lib/utils';
+import PorofileNetworkService from '@/services/profile.service';
+import { calculateStatus, clearFilters, structureProfilesData } from '@/lib/utils';
 import DownloadCSV from '../profiles/DownloadCSV';
 import { setCampData } from '@/context/reporting';
-import { platform } from 'os';
 
 dayjs.extend(relativeTime);
 const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
@@ -65,7 +64,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generate Report' || diffInMin > 0) {
             setDiffInMin(0);
             setReportText('Generating...');
-            JavaNetworkService.instance.syncInfluencers(params.campaignId);
+            PorofileNetworkService.instance.syncInfluencers(params.campaignId);
         } else {
             openCloseConfirmModal();
         }
@@ -91,7 +90,7 @@ export default function GenerateReport(props: GenerateReportProps) {
     useEffect(() => {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
-                const campData = await JavaNetworkService.instance.getInstaProfileReportingData(params.campaignId, clearFilters(query));
+                const campData = await PorofileNetworkService.instance.getIgProfileReportingData(params.campaignId, clearFilters(query));
                 dispatch(setCampData(structureProfilesData(campData, 'instagram')));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));

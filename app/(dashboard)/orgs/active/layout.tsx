@@ -8,16 +8,17 @@ import copy from 'copy-to-clipboard';
 import { getCampaigns } from '@/context/campaign/network';
 import Link from 'next/link';
 import DynamicLogo from '@/components/global-components/DynamicLogo';
+import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
-import { CampaignStatus } from '@/services/campaign.service';
+import { setCampaignType } from '@/context/user';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const paths = usePathname();
     const params: any = useParams();
-    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'post')));
+    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs')));
     const { enqueueSnackbar } = useSnackbar();
     const { campData } = useAppSelector((state) => state.reporting);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
@@ -49,7 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownerType,
                 q: '',
-                type: 'post',
+                type: 'influencer'
             })
         );
     };
@@ -64,7 +65,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     status: CampaignStatus.active,
                     ownerType: ownerType,
                     q: searchText,
-                    type: 'post',
+                    type: 'influencer',
                 })
             );
         } else if (searchText === '') {
@@ -87,7 +88,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 status: CampaignStatus.active,
                 ownerType: ownedType,
                 q: '',
-                type: 'post',
+                type: 'influencer',
             })
         );
         dispatch(
@@ -125,7 +126,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     <div className='flex'>
                                         <div
                                             onClick={() => {
-                                                router.push('/post/dashboard');
+                                                router.push('/orgs/dashboard');
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span>Home</span>
@@ -134,10 +135,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         <div
                                             onClick={() => {
                                                 dispatch(setLoading(true));
-                                                router.push('/post/dashboard');
+                                                router.push('/orgs/dashboard');
+                                                dispatch(setCampaignType('orgs'));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
-                                            <span className='ml-3 capitalize'>LOQO Campaign Tracker</span>
+                                            <span className='ml-3 capitalize'>Agency Managed Influencer</span>
                                             <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
                                         {!isCreateReport &&
@@ -149,8 +151,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         onClick={() => {
                                                             if (active) {
                                                                 fetchMore();
-                                                                router.push(`/post/${component}`);
-                                                                setPathUrls(`/post/${component}`.split('/'));
+                                                                router.push(`/orgs/${component}`);
+                                                                setPathUrls(`/orgs/${component}`.split('/'));
                                                             }
                                                         }}
                                                         className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
@@ -167,7 +169,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         key={component}
                                                         onClick={() => {
                                                             if (active) {
-                                                                router.push('/post/' + component);
+                                                                router.push('/orgs/' + component);
                                                                 fetchMore();
                                                             }
                                                         }}
@@ -209,7 +211,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <XIcon color='#8b8b8b' size={24} />
                                         </div>
                                     )}
-                                    {(paths.indexOf('report') > -1) && (
+                                    {paths.indexOf('report') > -1 && (
                                         <div className='flex gap-4'>
                                             <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
                                                 <ChevronLeftIcon color='#000' size={16} />

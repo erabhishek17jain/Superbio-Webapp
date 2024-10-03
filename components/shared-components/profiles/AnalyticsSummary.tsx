@@ -1,43 +1,16 @@
 'use client';
 import { ISummary } from '@/interfaces/reporting';
-import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import EstimatedReachModal from '../../modals/EstimatedReachModal';
 import { ICampaign } from '@/interfaces/campaign';
-import { FilePenLineIcon, ListRestartIcon, RefreshCwIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
-import { enqueueSnackbar } from 'notistack';
 
 interface AnalyticsSummaryProps {
     filters: any;
-    isPublic: boolean;
     summary: ISummary[];
-    campaign: ICampaign;
-    refreshCampData: any;
 }
 
 export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
-    const { filters, summary, campaign, refreshCampData, isPublic } = props;
-    const [showEstimatedModal, setshowEstimatedModal] = useState(false);
-
-    const openCloseEstimatedModal = () => {
-        setshowEstimatedModal(!showEstimatedModal);
-    };
-
-    const updateEstimatedReach = (params: any) => {
-        JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
-            enqueueSnackbar('Estimated reach upadated successfully', {
-                variant: 'success',
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
-            });
-            params.estimatedReach && openCloseEstimatedModal();
-            refreshCampData();
-        });
-    };
-
+    const { filters, summary} = props;
+  
     const isInstagram = filters && filters['platform']?.includes('instagram');
 
     const analytics: ISummary[] = summary?.filter((el) => {
@@ -71,28 +44,12 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                     <p className='text-xs text-black-500'>
                                         {item.basedOn}
                                     </p>
-                                    {item.title.includes('Estimated reach') && !isPublic && (
-                                        <div className='flex gap-1'>
-                                            {item.basedOn > 0 && (
-                                                <div
-                                                    className='cursor-pointer'
-                                                    onClick={() => updateEstimatedReach({ estimatedReach: null })}
-                                                    title='Reset estimated reach'>
-                                                    <RefreshCwIcon color='#8b8b8b' size={18} />
-                                                </div>
-                                            )}
-                                            <div className='cursor-pointer' onClick={openCloseEstimatedModal} title='Add custom estimated reach'>
-                                                <FilePenLineIcon color='#8b8b8b' size={18} />
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            {showEstimatedModal && <EstimatedReachModal openCloseModal={openCloseEstimatedModal} updateEstimatedReach={updateEstimatedReach} />}
         </div>
     );
 }

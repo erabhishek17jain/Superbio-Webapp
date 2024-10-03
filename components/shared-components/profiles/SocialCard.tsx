@@ -173,7 +173,7 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                     )}
                 </div>
             </div>
-            {showDeleteModal && <DeletePostModal campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
+            {showDeleteModal && <DeletePostModal type={platform} campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
         </div>
     );
 }

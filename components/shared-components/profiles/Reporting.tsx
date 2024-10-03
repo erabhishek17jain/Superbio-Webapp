@@ -4,7 +4,7 @@ import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
 import SocialCard from '../profiles/SocialCard';
-import JavaNetworkService from '@/services/java.service';
+import PorofileNetworkService from '@/services/profile.service';
 import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
@@ -25,7 +25,10 @@ export default function Reporting(props: IReportingProps) {
         if (meta?.total === columns.length) return;
         setloader(true);
         query.page = query.page + 1;
-        const resp: any = await JavaNetworkService.instance.getProfilesData(campaignId, clearFilters(query), platform);
+        const resp: any =
+            platform === 'twitter'
+                ? await PorofileNetworkService.instance.getTwProfilesData(campaignId, clearFilters(query))
+                : await PorofileNetworkService.instance.getIgProfilesData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };

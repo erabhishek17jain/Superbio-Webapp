@@ -6,7 +6,8 @@ export declare type User = {
     password?: string;
     mobileNo?: string;
     profilePic?: string;
-}
+    orgsId: { $oid: string };
+};
 
 export declare type IUserListResponse = {
     data: User[];

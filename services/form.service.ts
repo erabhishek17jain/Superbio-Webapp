@@ -44,22 +44,11 @@ export default class PublicNetworkService extends BaseNetworkFramework implement
 
     public getPublicForm = async (campaignId: string): Promise<IPublicForm> => {
         try {
-            const res = await axios.get<IPublicForm>(`${this.url}/public/form/${campaignId}`);
+            const res = await axios.get<IPublicForm>(`${this.rustUrl}/public/form/${campaignId}`);
             return res.data;
         } catch (err: any) {
             console.log(err);
             return {} as IPublicForm;
-        }
-    };
-
-    public getCampaignReportData = async (campaignId: string, params: { [key: string]: number | string }): Promise<IColumnResponse> => {
-        try {
-            const res = await axios.get<IColumnResponse>(`${this.url}/public/public-reporting/${campaignId}`, {
-                params,
-            });
-            return res.data;
-        } catch (err: any) {
-            throw err;
         }
     };
 

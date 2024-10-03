@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import EstimatedReachModal from '../../modals/EstimatedReachModal';
 import { ICampaign } from '@/interfaces/campaign';
 import { FilePenLineIcon, ListRestartIcon, RefreshCwIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 import { enqueueSnackbar } from 'notistack';
 
 interface AnalyticsSummaryProps {
@@ -25,7 +25,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
     };
 
     const updateEstimatedReach = (params: any) => {
-        JavaNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
+        PostNetworkService.instance.updateEstimatedReach(campaign.id, params).then((res) => {
             enqueueSnackbar('Estimated reach upadated successfully', {
                 variant: 'success',
                 anchorOrigin: {

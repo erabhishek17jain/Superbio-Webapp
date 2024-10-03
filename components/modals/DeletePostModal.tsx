@@ -1,16 +1,22 @@
 import { useAppSelector } from '@/context';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
+import ProfileNetworkService from '@/services/profile.service';
 import { Trash2Icon, XIcon } from 'lucide-react';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 
-export default function DeletePostModal({ campaignId, postId, openCloseModal }: any) {
+export default function DeletePostModal({ type, campaignId, postId, openCloseModal }: any) {
     const [isSending, setIsSending] = useState(false);
     const { campaignType } = useAppSelector((state) => state.user);
 
     const deletePostProfiles = () => {
         setIsSending(true);
-        const api = campaignType === 'profile' ? JavaNetworkService.instance.deleteProfile(campaignId, postId) : JavaNetworkService.instance.deletePost(postId);
+        const api =
+            campaignType === 'profile'
+                ? type === 'twitter'
+                    ? ProfileNetworkService.instance.deleteTwProfile(campaignId, postId)
+                    : ProfileNetworkService.instance.deleteIgProfile(campaignId, postId)
+                : PostNetworkService.instance.deletePost(postId);
         api.then(() => {
             const msg = `${campaignType === 'profile' ? 'Profile' : 'Post'} deleted successfully`;
             enqueueSnackbar(msg, {

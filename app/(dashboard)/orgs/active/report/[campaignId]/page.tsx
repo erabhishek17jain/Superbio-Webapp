@@ -8,7 +8,7 @@ import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, setProfilesAnalytics, structureProfilesData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/profiles/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
-import ProfileNetworkService from '@/services/profile.service';
+import OrgsNetworkService from '@/services/orgs.service';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
@@ -136,7 +136,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             if (filter[key].length === 0) delete filter[key];
         }
         const filterKeys = Object.keys(filter).join('|');
-        const filterValues = Object.values(filter).join('|').replaceAll(',', '_');
+        const filterValues = Object.values(filter).join('|')
 
         const url = new URL(window.location.href);
         if (filterKeys && filterValues) {
@@ -147,6 +147,17 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             url.searchParams.delete('value');
         }
         window.location.href = url.href;
+    };
+
+    const refreshCampaign = (query: any) => {
+        OrgsNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
+            const tempMeta: any = { ...campData.meta };
+            const meta = setProfilesAnalytics(resp);
+            tempMeta['analytics'] = meta.analytics;
+            tempMeta['basedOnPosts'] = meta.basedOnPosts;
+            dispatch(setCampData({ ...campData, meta: tempMeta }));
+            setIsSheetLoading(false);
+        });
     };
 
     useEffect(() => {
@@ -163,9 +174,9 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             sortDirection: sortDirection || 'DESC',
         };
         const twitterResp: any =
-            !platforms.isInstagram && (await ProfileNetworkService.instance.getTwProfileReportingData(params.campaignId, clearFilters(queryInitial)));
+            !platforms.isInstagram && (await OrgsNetworkService.instance.getTwProfileReportingData(params.campaignId, clearFilters(queryInitial)));
 
-        ProfileNetworkService.instance
+        OrgsNetworkService.instance
             .getIgProfileReportingData(params.campaignId, clearFilters(query))
             .then((resp) => {
                 const data = structureProfilesData(resp, 'instagram');
@@ -203,7 +214,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     };
 
     const initialLoadTwitterCampData = (query: any, platforms: any) => {
-        ProfileNetworkService.instance.getTwProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+        OrgsNetworkService.instance.getTwProfileReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structureProfilesData(resp, 'twitter');
             if (data.meta.total > 0) {
                 setSelectedPlatform(data.meta.total > 0 ? 'twitter' : 'instagram');
@@ -317,7 +328,13 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     selectedPlatform={selectedPlatform}
                                     filtersOptions={campData?.meta.filterValueResp}
                                 />
-                                <AnalyticsSummary summary={summary} filters={filters} />
+                                <AnalyticsSummary
+                                    summary={summary}
+                                    filters={filters}
+                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                    campaign={campData?.meta.campaignDto}
+                                    refreshCampData={() => refreshCampaign(query)}
+                                />
                                 <Reporting
                                     meta={campData?.meta}
                                     platform={selectedPlatform}

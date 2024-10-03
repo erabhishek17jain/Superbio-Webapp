@@ -28,7 +28,7 @@ export const HeroSectionFeatures = [
         icon: hero_logo_2,
     },
     {
-        name: 'Agency Automation',
+        name: 'orgs Automation',
         icon: hero_logo_3,
     },
     {
@@ -42,7 +42,7 @@ export const SocialLinks = [
         title: 'Our Services',
         links: [
             { title: 'Tech-First Solutions', id: '', href: '#', isValid: false },
-            { title: 'Agency Automation', id: '', href: '#', isValid: false },
+            { title: 'orgs Automation', id: '', href: '#', isValid: false },
             { title: 'AI-Powered Insights', id: '', href: '#', isValid: false },
             { title: 'Custom Tools', id: '', href: '#', isValid: false },
         ],
@@ -86,7 +86,7 @@ export const WhySuperbioList: WhySuperbioListProps[] = [
         title: 'Custom Tech Solutions',
         icon: icon_3,
         text: 'If you can dream it, LOQO can do it.',
-        text2: 'Custom AI powered solutions tailored for your agency processes',
+        text2: 'Custom AI powered solutions tailored for your orgs processes',
         button1: 'Get in Touch ',
         button2: '',
         actionUrl1: 'https://calendly.com/deepak-jain-loqo',

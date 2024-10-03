@@ -1,4 +1,4 @@
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 import { XIcon } from 'lucide-react';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ export default function UpdateAnalyticsModal({ postId, platform, currentAnalytic
     const updatePostAnalytics = () => {
         const params = { ...analytics };
         if (JSON.stringify(params) !== JSON.stringify(currentAnalytics)) {
-            JavaNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
+            PostNetworkService.instance.updatePostAnalytics(postId, params).then((res) => {
                 enqueueSnackbar('Estimated reach upadated successfully', {
                     variant: 'success',
                     anchorOrigin: {

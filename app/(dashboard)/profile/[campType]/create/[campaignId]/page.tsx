@@ -9,7 +9,7 @@ import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon, TrashIcon } from 'lucide-react';
-import JavaNetworkService from '@/services/java.service';
+import ProfileNetworkService from '@/services/profile.service';
 import { SheetDetails } from '@/components/shared-components/SheetDetails';
 import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
 
@@ -133,7 +133,7 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
-                    await JavaNetworkService.instance.syncInfluencers(params.campaignId);
+                    await ProfileNetworkService.instance.syncInfluencers(params.campaignId);
                     router.push(`/post/${params?.campType}/report/${params.campaignId}`);
                 }
             }
@@ -345,11 +345,11 @@ export default function CreateReporting() {
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     disabled={state?.sheetLoading}
-                                    className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-xl px-6 text-white text-sm'>
+                                    className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-xl px-6 text-white'>
                                     <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}
-                                    {mode === 'add' && (state?.sheetLoading ? 'Create Campaign using google sheet' : 'Processing...')}
+                                    {mode === 'add' && (!state?.sheetLoading ? 'Create Campaign using google sheet' : 'Processing...')}
                                 </button>
                             </div>
                         </div>

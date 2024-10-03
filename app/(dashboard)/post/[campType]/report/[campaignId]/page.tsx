@@ -8,7 +8,7 @@ import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
 import { calculateSummary, clearFilters, setPostsAnalytics, structurePostsData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/posts/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
-import JavaNetworkService from '@/services/java.service';
+import PostNetworkService from '@/services/post.service';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
@@ -165,7 +165,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     };
 
     const refreshCampaign = (query: any) => {
-        JavaNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
+        PostNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
             const tempMeta = { ...campData.meta };
             const meta = setPostsAnalytics(resp);
             tempMeta['analytics'] = meta.analytics;
@@ -176,7 +176,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     };
 
     const initialLoadCampData = (query: any) => {
-        JavaNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query)).then((resp) => {
+        PostNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query)).then((resp) => {
             const data = structurePostsData(resp);
             dispatch(setCampData(data));
             setIsSheetLoading(false);

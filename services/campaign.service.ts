@@ -44,7 +44,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
     public createCampaign = async (campaign: ICampaign): Promise<ICampaign> => {
         try {
             const res = await axios.post<ICampaign>(
-                `${this.url}/campaign/create`,
+                `${this.rustUrl}/campaign/create`,
                 {
                     title: campaign.title,
                     description: campaign.description,
@@ -57,7 +57,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
                     type: campaign.type,
                 },
                 {
-                    headers: this.get_auth_header(),
+                    headers: this.get_auth_header_rust(),
                 }
             );
             return this.covertAPICampaignToCampaign(res.data);
@@ -80,8 +80,8 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
                 ...campaign,
                 id: undefined,
             };
-            const res = await axios.put<ICampaign>(`${this.url}/campaign/update/${id}`, campaignPayload, {
-                headers: this.get_auth_header(),
+            const res = await axios.put<ICampaign>(`${this.rustUrl}/campaign/update/${id}`, campaignPayload, {
+                headers: this.get_auth_header_rust(),
             });
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
@@ -115,9 +115,9 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             if (q) {
                 params.q = q;
             }
-            const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get`, {
+            const res = await axios.get<ICampaignAPIResponse>(`${this.rustUrl}/campaign/get`, {
                 params,
-                headers: this.get_auth_header(),
+                headers: this.get_auth_header_rust(),
             });
             return {
                 data: res.data.data.map(this.covertAPICampaignToCampaign),
@@ -132,35 +132,10 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
         }
     };
 
-    public fetcher = async (url: string): Promise<ICampaign[]> => {
-        try {
-            const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
-                headers: this.get_auth_header(),
-            });
-            return res.data.data.map(this.covertAPICampaignToCampaign);
-        } catch (err: any) {
-            throw err;
-        }
-    };
-
-    public fetcherWithMeta = async (url: string): Promise<{ data: ICampaign[]; meta: any }> => {
-        try {
-            const res = await axios.get<ICampaignAPIResponse>(`${this.url}/campaign/get${url}`, {
-                headers: this.get_auth_header(),
-            });
-            return {
-                data: res.data.data.map(this.covertAPICampaignToCampaign),
-                meta: res.data.meta,
-            };
-        } catch (err: any) {
-            throw err;
-        }
-    };
-
     public createCampaignForm = async (campaignForm: ICampaignForm): Promise<ICampaign> => {
         try {
-            const res = await axios.post<ICampaign>(`${this.url}/campaign/create-form`, campaignForm, {
-                headers: this.get_auth_header(),
+            const res = await axios.post<ICampaign>(`${this.rustUrl}/campaign/create-form`, campaignForm, {
+                headers: this.get_auth_header_rust(),
             });
             return this.covertAPICampaignToCampaign(res.data);
         } catch (err: any) {
@@ -177,7 +152,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
 
     public shareCampaign = async (props: User): Promise<User> => {
         try {
-            const res = await axios.post<User>(`${this.url}/campaign/share`, props, { headers: this.get_auth_header() });
+            const res = await axios.post<User>(`${this.rustUrl}/campaign/share`, props, { headers: this.get_auth_header_rust() });
             return res.data;
         } catch (err: any) {
             throw err;

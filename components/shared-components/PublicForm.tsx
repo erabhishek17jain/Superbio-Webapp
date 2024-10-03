@@ -1,6 +1,6 @@
 'use client';
 import { IPublicForm } from '@/interfaces/public';
-import PublicNetworkService from '@/services/public.service';
+import FormNetworkService from '@/services/form.service';
 import { enqueueSnackbar } from 'notistack';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,7 +38,7 @@ export default function PublicForm(props: { data: IPublicForm; campaignId: strin
                 fields: fields,
             };
 
-            PublicNetworkService.instance.submitPublicForm(data).then((res) => {
+            FormNetworkService.instance.submitPublicForm(data).then((res) => {
                 setInputs({});
                 enqueueSnackbar('Form submitted successfully', {
                     variant: 'success',
