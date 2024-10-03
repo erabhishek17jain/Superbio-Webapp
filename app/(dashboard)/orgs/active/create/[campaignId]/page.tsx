@@ -238,11 +238,11 @@ export default function CreateReporting() {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
             const data: any = [];
-            selSheetData.forEach((item, index) => {
+            selSheetData.forEach((item:any, index) => {
                 const url = `https://docs.google.com/spreadsheets/d/${item?.sheetId}`;
                 const sheetDetails = {
-                    columns: [item?.linkColumn],
-                    sheetName: item?.name,
+                    columns: [item?.columnMappings],
+                    sheetName: item?.sheetName,
                     sheetId: item?.sheetId,
                 };
                 data.push({
@@ -250,9 +250,9 @@ export default function CreateReporting() {
                     index: index + 1,
                     open: false,
                     url: url,
-                    title: item?.title,
-                    sheetName: item?.name,
-                    columnName: item?.linkColumn,
+                    title: item?.sheetName,
+                    sheetName: item?.sheetName,
+                    columnName: item?.columnMappings,
                     id: item?.id,
                     sheets: [sheetDetails],
                     selectedSheet: { ...sheetDetails },
@@ -272,7 +272,7 @@ export default function CreateReporting() {
         OrgsNetworkService.instance
             .getSheets(params.campaignId)
             .then((res) => {
-                if (res.length > 0) {
+                if (res?.sheets?.length > 0) {
                     setSelSheetData(res?.sheets);
                 } else {
                     setMode('add');

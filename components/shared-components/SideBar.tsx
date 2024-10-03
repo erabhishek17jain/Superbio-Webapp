@@ -13,13 +13,13 @@ export default function SideBar() {
     const path = usePathname();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { user } = useAppSelector((state) => state.user);
+    const { user, campaignType } = useAppSelector((state) => state.user);
 
     return (
         <div className='flex flex-col items-center w-16 border-r border-t px-2 py-6 w-16 border-[#cdcdcd] h-screen'>
             <div className='flex h-full'>
                 <div className='flex flex-col space-y-6'>
-                    <Link href='/' key='home' className='flex items-center space-x-3 cursor-pointer'>
+                    <Link href={`/${campaignType}/dashboard`} key='home' className='flex items-center space-x-3 cursor-pointer'>
                         <LayoutPanelLeftIcon color={path === '/' ? '#000000' : '#8b8b8b'} size={32} />
                     </Link>
                     <Link href='/queue' key='queue' className='flex items-center space-x-3 cursor-pointer'>

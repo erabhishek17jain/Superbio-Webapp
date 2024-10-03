@@ -30,7 +30,7 @@ const products = [
         img: influencer,
         btnText: 'Get started',
         title: 'Agency Managed Influencer',
-        description: 'Get precise profile analytics of hundreds of influencers',
+        description: 'Get precise profile analytics of influencers of your agency',
     },
     // {
     //     type: 'analytics',
@@ -67,7 +67,7 @@ const HomePage = () => {
                     </span>
                 </div>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 overflow-auto mb-[4.5rem] justify-start items-start p-2 sm:p-6 sm:w-full mg:w-10/12 lg:w-3/4 xl:1/2 overflow-y-auto my-4 sm:my-6 mx-4 sm:mx-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 overflow-auto mb-[4.5rem] justify-start items-start p-2 sm:p-6 sm:w-full overflow-y-auto my-4 sm:my-6 mx-4 sm:mx-8'>
                 {products.map((item: any) => (
                     <div
                         key={item.type}

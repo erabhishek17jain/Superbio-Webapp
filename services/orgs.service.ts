@@ -3,6 +3,7 @@ import BaseNetworkFramework from './base.service';
 import { IProfilesReportingResponse, IProfilesResponse } from '@/interfaces/sheet';
 import { enqueueSnackbar } from 'notistack';
 import { ICampaign } from '@/interfaces/campaign';
+import { getSheetsByOrgId } from '@/mocks/mocks';
 
 interface IOrgsNetworkService {
     syncInfluencers: (orgId: string) => Promise<any>;
@@ -46,7 +47,8 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
             const res = await axios.get(`${baseAPI}/org/import/sheet/${orgId}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
-            throw err;
+            return getSheetsByOrgId;
+            // throw err;
         }
     };
 

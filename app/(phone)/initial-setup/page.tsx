@@ -119,7 +119,6 @@ export default function InitialSetup() {
                             Getting Started <ArrowRightIcon color='#fff' size={20} />
                         </>
                     )}
-                    Getting Started <ArrowRightIcon color='#fff' size={20} />
                 </button>
             </div>
         </div>

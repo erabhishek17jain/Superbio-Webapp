@@ -109,8 +109,8 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                                 </div>
                             </div>
                         )}
-                        {isMapping ? (
-                            Object.keys(sheetInfo?.columnName).map((key, i) => {
+                        {!isMapping ? (
+                            sheetInfo?.columnName && Object.keys(sheetInfo?.columnName).map((key) => {
                                 return (
                                     <SelectSheetColumns
                                         colType={key}
