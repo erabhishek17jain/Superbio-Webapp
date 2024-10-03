@@ -182,7 +182,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         {isCreateReport && (
                                             <div className={`hidden sm:flex text-black items-center space-x-3 ml-3 mt-[2px]`}>
                                                 <span className='capitalize font-[500] text-[21px]'>
-                                                    {campData?.meta?.campaignDto?.title ? campData?.meta?.campaignDto?.title : 'Your Campaign'}
+                                                    Your Profile
                                                 </span>
                                             </div>
                                         )}

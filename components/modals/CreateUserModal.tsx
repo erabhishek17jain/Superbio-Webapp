@@ -19,7 +19,7 @@ interface CreateUserModalProps {
 export default function CreateUserModal({ mode, openCloseModal, userDetails }: CreateUserModalProps) {
     const { enqueueSnackbar } = useSnackbar();
     const [error, setError] = useState(false);
-    const [user, setUser] = useState<User>({ name: '', email: '', mobileNo: '', role: '' });
+    const [user, setUser] = useState<User>({ name: '', email: '', mobileNo: '', role: '', orgsId: { $oid: '' } });
     const { meta } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
 
@@ -77,20 +77,22 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
                 });
                 openCloseModal();
             } catch (error: any) {
-                if (error?.response?.data === 'Error creating user') enqueueSnackbar('User already exists.', {
-                    variant: 'error',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-                else enqueueSnackbar('Something went wrong', {
-                    variant: 'error',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
+                if (error?.response?.data === 'Error creating user')
+                    enqueueSnackbar('User already exists.', {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                else
+                    enqueueSnackbar('Something went wrong', {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
             }
         }
     };

@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
-import GenerateReport from '../../../../../../components/shared-components/profiles/GenerateReport';
 import { useRouter, useSearchParams } from 'next/navigation';
-import FilterAndSorting from '../../../../../../components/shared-components/profiles/FilterAndSorting';
-import Reporting from '../../../../../../components/shared-components/profiles/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, setProfilesAnalytics, structureProfilesData } from '@/lib/utils';
-import AnalyticsSummary from '@/components/shared-components/profiles/AnalyticsSummary';
+import { calculateSummary, clearFilters, structureProfilesData } from '@/lib/utils';
 import { SUMMARY_ICONS } from '@/constants';
 import OrgsNetworkService from '@/services/orgs.service';
 import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
-import FilterUi from '../../../../../../components/shared-components/profiles/FilterUi';
+import FilterUi from '../../../../../../components/shared-components/orgs/FilterUi';
+import GenerateReport from '../../../../../../components/shared-components/orgs/GenerateReport';
+import FilterAndSorting from '../../../../../../components/shared-components/orgs/FilterAndSorting';
+import Reporting from '../../../../../../components/shared-components/orgs/Reporting';
+import AnalyticsSummary from '@/components/shared-components/orgs/AnalyticsSummary';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     profiles: 'bg-posts',
@@ -136,7 +136,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             if (filter[key].length === 0) delete filter[key];
         }
         const filterKeys = Object.keys(filter).join('|');
-        const filterValues = Object.values(filter).join('|')
+        const filterValues = Object.values(filter).join('|');
 
         const url = new URL(window.location.href);
         if (filterKeys && filterValues) {
@@ -147,17 +147,6 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             url.searchParams.delete('value');
         }
         window.location.href = url.href;
-    };
-
-    const refreshCampaign = (query: any) => {
-        OrgsNetworkService.instance.getCampaignSummary(params.campaignId, clearFilters(query)).then((resp) => {
-            const tempMeta: any = { ...campData.meta };
-            const meta = setProfilesAnalytics(resp);
-            tempMeta['analytics'] = meta.analytics;
-            tempMeta['basedOnPosts'] = meta.basedOnPosts;
-            dispatch(setCampData({ ...campData, meta: tempMeta }));
-            setIsSheetLoading(false);
-        });
     };
 
     useEffect(() => {
@@ -328,13 +317,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     selectedPlatform={selectedPlatform}
                                     filtersOptions={campData?.meta.filterValueResp}
                                 />
-                                <AnalyticsSummary
-                                    summary={summary}
-                                    filters={filters}
-                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
-                                    campaign={campData?.meta.campaignDto}
-                                    refreshCampData={() => refreshCampaign(query)}
-                                />
+                                <AnalyticsSummary summary={summary} filters={filters} />
                                 <Reporting
                                     meta={campData?.meta}
                                     platform={selectedPlatform}

@@ -55,7 +55,7 @@ export default function CreateReporting() {
         setSheetData([...sheetData]);
     };
 
-    const handleColumn = (column: string, sheetInfo: any, colType) => {
+    const handleColumn = (column: string, sheetInfo: any, colType: string) => {
         if (mode !== 'add') {
             setMode(sheetInfo.columnName[colType] !== column ? 'edit' : 'view');
         }
@@ -165,7 +165,7 @@ export default function CreateReporting() {
             dispatch(setSheetLoading(true));
             const params = {
                 googleSheetUrl: data?.url,
-                orgId: user.orgsId.$oid,
+                orgId: user?.orgsId.$oid,
                 sheetName: data?.title,
             };
             OrgsNetworkService.instance
@@ -175,7 +175,7 @@ export default function CreateReporting() {
                         .previewSheet(res.internalSheetId)
                         .then((res: any) => {
                             const sheet = res?.subSheetInfos.find((item: any) => item.sheetName === data?.sheetName);
-                            const columnName = {};
+                            const columnName = {} as any;
                             for (let i = 0; i < res.mappingFields.length; i++) {
                                 columnName[res.mappingFields[i]] = '';
                             }
