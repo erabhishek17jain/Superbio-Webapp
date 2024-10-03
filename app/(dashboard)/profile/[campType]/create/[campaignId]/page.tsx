@@ -10,7 +10,7 @@ import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon, TrashIcon } from 'lucide-react';
 import ProfileNetworkService from '@/services/profile.service';
-import { SheetDetails } from '@/components/shared-components/SheetDetails';
+import { SheetDetails } from '@/components/shared-components/profiles/SheetDetails';
 import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
 
 const getSheetInfo = () => {
@@ -292,54 +292,58 @@ export default function CreateReporting() {
                 {!isSheetLoading ? (
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-2 sm:gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
-                            {sheetData.map((item: any, index: number) => (
-                                <div key={index} className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
-                                    <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
-                                        <span
-                                            className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
-                                            onClick={() => {
-                                                document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
-                                                document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
-                                            }}>
-                                            {item?.title ? item?.title : 'Paste your Google Sheets link here'}
-                                        </span>
-                                        <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
-                                            {item?.index <= selSheetData.length && (
-                                                <div
-                                                    onClick={() => {
-                                                        refreshSheet(item);
-                                                    }}
-                                                    className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
-                                                    <RefreshCcwIcon color='#0B1571' size={14} />
-                                                    <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
-                                                </div>
-                                            )}
-                                            {sheetData.length > 1 && (
-                                                <div
-                                                    className='flex items-center justify-center w-6 h-10 rounded-t-lg'
-                                                    onClick={() => deleteSheet(item?.index)}>
-                                                    <Trash2Icon color='#0B1571' size={20} />
-                                                </div>
-                                            )}
-                                        </span>
+                            {sheetData
+                                .sort((a: any, b: any) => b.index - a.index)
+                                .map((item: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                        <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
+                                            <span
+                                                className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
+                                                onClick={() => {
+                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
+                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
+                                                }}>
+                                                {item?.title ? item?.title : 'Paste your Google Sheets link here'}
+                                            </span>
+                                            <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
+                                                {item?.index <= selSheetData.length && (
+                                                    <div
+                                                        onClick={() => {
+                                                            refreshSheet(item);
+                                                        }}
+                                                        className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
+                                                        <RefreshCcwIcon color='#0B1571' size={14} />
+                                                        <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
+                                                    </div>
+                                                )}
+                                                {sheetData.length > 1 && (
+                                                    <div
+                                                        className='flex items-center justify-center w-6 h-10 rounded-t-lg'
+                                                        onClick={() => deleteSheet(item?.index)}>
+                                                        <Trash2Icon color='#0B1571' size={20} />
+                                                    </div>
+                                                )}
+                                            </span>
+                                        </div>
+                                        <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
+                                            <SheetDetails
+                                                mode={mode}
+                                                state={state}
+                                                sheetInfo={item}
+                                                isError={isError}
+                                                setUrl={setUrl}
+                                                setTitle={setTitle}
+                                                handleSheet={handleSheet}
+                                                fetchSheets={fetchSheets}
+                                                handleColumn={handleColumn}
+                                                selSheetData={selSheetData}
+                                                sheetLoading={state?.sheetLoading}
+                                            />
+                                        </div>
                                     </div>
-                                    <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
-                                        <SheetDetails
-                                            mode={mode}
-                                            state={state}
-                                            sheetInfo={item}
-                                            isError={isError}
-                                            setUrl={setUrl}
-                                            setTitle={setTitle}
-                                            handleSheet={handleSheet}
-                                            fetchSheets={fetchSheets}
-                                            handleColumn={handleColumn}
-                                            selSheetData={selSheetData}
-                                            sheetLoading={state?.sheetLoading}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
 
                             <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
                                 <button

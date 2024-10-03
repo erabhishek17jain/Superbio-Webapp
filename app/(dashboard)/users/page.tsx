@@ -43,7 +43,7 @@ export default function Users() {
     return (
         <div className='flex flex-col w-full overflow-hidden'>
             <div className='flex w-full px-4 sm:px-6 py-2 border-b h-16 border-[#cdcdcd]'>
-                <div className='flex flex-col w-8 items-center h-[50px]'>
+                <div className='flex flex-col w-[128px] sm:w-8 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>

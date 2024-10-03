@@ -49,7 +49,7 @@ const HomePage = () => {
     return (
         <>
             <div className='flex w-full items-center justify-between pl-4 sm:pl-8 pr-4 py-3 border-[#cdcdcd] border-b h-16 z-10'>
-                <div className='flex flex-col w-8 items-center h-[50px]'>
+                <div className='flex flex-col w-[128px] sm:w-8 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>
@@ -67,7 +67,7 @@ const HomePage = () => {
                     </span>
                 </div>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 overflow-auto mb-[4.5rem] justify-start items-start p-2 sm:p-6 sm:w-full overflow-y-auto my-4 sm:my-6 mx-4 sm:mx-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 overflow-auto mb-[4.5rem] justify-start items-start p-2 sm:p-6 sm:w-[calc(100%_-_64px)] overflow-y-auto my-4 sm:my-6 mx-4 sm:mx-8'>
                 {products.map((item: any) => (
                     <div
                         key={item.type}

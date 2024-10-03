@@ -10,8 +10,9 @@ import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon } from 'lucide-react';
 import OrgsNetworkService from '@/services/orgs.service';
-import { SheetDetails } from '@/components/shared-components/SheetDetails';
+import { SheetDetails } from '@/components/shared-components/orgs/SheetDetails';
 import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
+import { flipObjects } from '@/lib/utils';
 
 const getSheetInfo = () => {
     return { index: 1, open: false, title: '', url: '', sheetName: '', columnName: {}, sheets: [], selectedSheet: {} };
@@ -107,9 +108,9 @@ export default function CreateReporting() {
     };
 
     const mapSingleSheet = async (item: any) => {
-        const flippedObj = Object.fromEntries(Object.entries(item.columnName).map(([key, value]) => [value, key]));
+        const flippedObj = flipObjects(item.columnName);
         const mapParams = {
-            internalSheetId: params?.campaignId,
+            internalSheetId: item?.id,
             columnMappings: flippedObj,
         };
         const response = await OrgsNetworkService.instance.mappingColumns(mapParams);
@@ -132,7 +133,10 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
-                    await OrgsNetworkService.instance.syncInfluencers(params.campaignId);
+                    const param = {
+                        internalSheetId: sheetData[i].id,
+                    };
+                    await OrgsNetworkService.instance.generateReport(param);
                     router.push(`/post/${params?.campType}/report/${params.campaignId}`);
                 }
             }
@@ -170,9 +174,9 @@ export default function CreateReporting() {
             };
             OrgsNetworkService.instance
                 .addSheet(params)
-                .then((res: any) => {
+                .then((resp: any) => {
                     OrgsNetworkService.instance
-                        .previewSheet(res.internalSheetId)
+                        .previewSheet(resp.internalSheetId)
                         .then((res: any) => {
                             const sheet = res?.subSheetInfos.find((item: any) => item.sheetName === data?.sheetName);
                             const columnName = {} as any;
@@ -181,6 +185,7 @@ export default function CreateReporting() {
                             }
                             data['selectedSheet'] = sheet;
                             data['columnName'] = columnName;
+                            data['id'] = resp.internalSheetId;
                             data['sheets'] = res?.subSheetInfos;
                             const ind = sheetData.findIndex((item: any) => item.index === data?.index);
                             if (ind === -1) {
@@ -238,10 +243,11 @@ export default function CreateReporting() {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
             const data: any = [];
-            selSheetData.forEach((item:any, index) => {
+            selSheetData.forEach((item: any, index) => {
                 const url = `https://docs.google.com/spreadsheets/d/${item?.sheetId}`;
+                const flippedObj = item?.columnMappings && flipObjects(item?.columnMappings);
                 const sheetDetails = {
-                    columns: [item?.columnMappings],
+                    columns: item?.columns,
                     sheetName: item?.sheetName,
                     sheetId: item?.sheetId,
                 };
@@ -250,9 +256,9 @@ export default function CreateReporting() {
                     index: index + 1,
                     open: false,
                     url: url,
-                    title: item?.sheetName,
+                    title: item?.title,
                     sheetName: item?.sheetName,
-                    columnName: item?.columnMappings,
+                    columnName: flippedObj,
                     id: item?.id,
                     sheets: [sheetDetails],
                     selectedSheet: { ...sheetDetails },
@@ -315,54 +321,58 @@ export default function CreateReporting() {
                 {!isSheetLoading ? (
                     <div className='flex justify-between mb-6 sm:flex-row flex-col-reverse mt-4 w-full items-center sm:items-start gap-2 sm:gap-4'>
                         <div className='w-full flex flex-col gap-4 mt-2'>
-                            {sheetData.map((item: any, index: number) => (
-                                <div key={index} className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
-                                    <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
-                                        <span
-                                            className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
-                                            onClick={() => {
-                                                document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
-                                                document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
-                                            }}>
-                                            {item?.title ? item?.title : 'Paste your Google Sheets link here'}
-                                        </span>
-                                        <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
-                                            {item?.index <= selSheetData.length && (
-                                                <div
-                                                    onClick={() => {
-                                                        refreshSheet(item);
-                                                    }}
-                                                    className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
-                                                    <RefreshCcwIcon color='#0B1571' size={14} />
-                                                    <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
-                                                </div>
-                                            )}
-                                            {sheetData.length > 1 && (
-                                                <div
-                                                    className='flex items-center justify-center w-6 h-10 rounded-t-lg'
-                                                    onClick={() => deleteSheet(item?.index)}>
-                                                    <Trash2Icon color='#0B1571' size={20} />
-                                                </div>
-                                            )}
-                                        </span>
+                            {sheetData
+                                .sort((a: any, b: any) => b.index - a.index)
+                                .map((item: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        className='flex flex-col justify-between items-center w-full sm:w-8/12 border-[1.5px] px-4 py-3 rounded-md'>
+                                        <div className='flex items-center justify-between w-full h-7 text-sm font-normal'>
+                                            <span
+                                                className='w-[calc(100%_-_62px)] sm:w-[calc(100%_-_172px)]'
+                                                onClick={() => {
+                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index)?.classList.toggle('hidden');
+                                                    document.getElementById(item?.title.replaceAll(' ', '_') + index + 1)?.classList.toggle('rotate-180');
+                                                }}>
+                                                {item?.title ? item?.title : 'Paste your Google Sheets link here'}
+                                            </span>
+                                            <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
+                                                {item?.index <= selSheetData.length && (
+                                                    <div
+                                                        onClick={() => {
+                                                            refreshSheet(item);
+                                                        }}
+                                                        className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
+                                                        <RefreshCcwIcon color='#0B1571' size={14} />
+                                                        <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
+                                                    </div>
+                                                )}
+                                                {sheetData.length > 1 && (
+                                                    <div
+                                                        className='flex items-center justify-center w-6 h-10 rounded-t-lg'
+                                                        onClick={() => deleteSheet(item?.index)}>
+                                                        <Trash2Icon color='#0B1571' size={20} />
+                                                    </div>
+                                                )}
+                                            </span>
+                                        </div>
+                                        <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
+                                            <SheetDetails
+                                                mode={mode}
+                                                state={state}
+                                                sheetInfo={item}
+                                                isError={isError}
+                                                setUrl={setUrl}
+                                                setTitle={setTitle}
+                                                handleSheet={handleSheet}
+                                                fetchSheets={fetchSheets}
+                                                handleColumn={handleColumn}
+                                                selSheetData={selSheetData}
+                                                sheetLoading={state?.sheetLoading}
+                                            />
+                                        </div>
                                     </div>
-                                    <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
-                                        <SheetDetails
-                                            mode={mode}
-                                            state={state}
-                                            sheetInfo={item}
-                                            isError={isError}
-                                            setUrl={setUrl}
-                                            setTitle={setTitle}
-                                            handleSheet={handleSheet}
-                                            fetchSheets={fetchSheets}
-                                            handleColumn={handleColumn}
-                                            selSheetData={selSheetData}
-                                            sheetLoading={state?.sheetLoading}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
 
                             <div className='flex flex-col gap-2 mt-0 sm:mt-2 mb-12 sm:mb-2 items-center w-full sm:w-8/12'>
                                 <button

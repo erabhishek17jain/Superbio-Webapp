@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const dispatch = useAppDispatch();
     const paths = usePathname();
     const params: any = useParams();
-    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs')));
+    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs' || item === 'active')));
     const { enqueueSnackbar } = useSnackbar();
     const { campData } = useAppSelector((state) => state.reporting);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);

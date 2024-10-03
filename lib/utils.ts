@@ -163,3 +163,7 @@ export const clearFilters = (params: any) => {
     }
     return query.replace('&', '?');
 };
+
+export const flipObjects = (obj: any) => {
+    return Object.fromEntries(Object.entries(obj).map(([key, value]) => [value, key]));
+};

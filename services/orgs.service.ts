@@ -6,7 +6,7 @@ import { ICampaign } from '@/interfaces/campaign';
 import { getSheetsByOrgId } from '@/mocks/mocks';
 
 interface IOrgsNetworkService {
-    syncInfluencers: (orgId: string) => Promise<any>;
+    generateReport: (orgId: string) => Promise<any>;
     deleteIgProfile: (orgId: string, profileId: string) => Promise<any>;
     deleteTwProfile: (orgId: string, profileId: string) => Promise<any>;
     getIgProfilesData: (orgId: string, params: any) => Promise<IProfilesResponse>;
@@ -41,14 +41,14 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
             throw err;
         }
     };
-    
+
     public getSheets = async (orgId: string): Promise<any> => {
         try {
             const res = await axios.get(`${baseAPI}/org/import/sheet/${orgId}`, this.get_auth_header_java());
+            return getSheetsByOrgId;
             return res.data;
         } catch (err: any) {
-            return getSheetsByOrgId;
-            // throw err;
+            throw err;
         }
     };
 
@@ -61,9 +61,9 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    public syncInfluencers = async (orgId: string): Promise<void> => {
+    public generateReport = async (params: any): Promise<void> => {
         try {
-            await axios.post(`${baseAPI}/profile/campaign/trigger-report`, { orgId }, this.get_auth_header_java());
+            await axios.post(`${baseAPI}/org/import/sheet/generate-report`, { ...params }, this.get_auth_header_java());
         } catch (err: any) {
             throw err;
         }

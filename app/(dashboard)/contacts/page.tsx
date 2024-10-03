@@ -7,7 +7,7 @@ export default function Contact() {
     return (
         <main className={'flex flex-col pb-20 sm:pb-8'}>
             <div className='flex w-full items-center justify-start pl-4 sm:pl-8 pr-4 py-3 border-b h-16 border-[#cdcdcd]'>
-                <div className='flex flex-col w-8 items-center h-[50px]'>
+                <div className='flex flex-col w-[128px] sm:w-8 items-center h-[50px]'>
                     <Link href={'/home'} className='w-20 absolute left-6 top-[17px]'>
                         <DynamicLogo />
                     </Link>
