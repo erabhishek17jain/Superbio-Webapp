@@ -51,8 +51,9 @@ export default function CreateReporting() {
         if (mode !== 'add') {
             setMode(sheetInfo?.sheetName !== item?.sheetName ? 'edit' : 'view');
         }
-        sheetData[sheetInfo?.index - 1].sheetName = item?.sheetName;
-        sheetData[sheetInfo?.index - 1].selectedSheet = item;
+        const index = sheetData.findIndex((item: any) => item.index === sheetInfo?.index);
+        sheetData[index].sheetName = item?.sheetName;
+        sheetData[index].selectedSheet = item;
         setSheetData([...sheetData]);
     };
 
@@ -60,13 +61,14 @@ export default function CreateReporting() {
         if (mode !== 'add') {
             setMode(sheetInfo.columnName[colType] !== column ? 'edit' : 'view');
         }
-        sheetData[sheetInfo?.index - 1].columnName[colType] = column;
+        const index = sheetData.findIndex((item: any) => item.index === sheetInfo?.index);
+        sheetData[index].columnName[colType] = column;
         setSheetData([...sheetData]);
     };
 
     const mapColumns = () => {
         if (mode === 'view') {
-            router.push(`/orgs/${params?.campType}/report/${params.campaignId}`);
+            router.push(`/orgs/active/report/${params.campaignId}`);
             return;
         }
         let error = false;
@@ -110,8 +112,11 @@ export default function CreateReporting() {
     const mapSingleSheet = async (item: any) => {
         const flippedObj = flipObjects(item.columnName);
         const mapParams = {
+            title: item?.title,
+            sheetName: item?.sheetName,
             internalSheetId: item?.id,
             columnMappings: flippedObj,
+            mappedColumnNames: item?.selectedSheet?.columns,
         };
         const response = await OrgsNetworkService.instance.mappingColumns(mapParams);
         return await response;
@@ -123,7 +128,7 @@ export default function CreateReporting() {
             const ind = initialSheetData.findIndex((sh: any) => sheetData[i].index === sh?.index);
             if (ind === -1) {
                 const res = await mapSingleSheet(sheetData[i]);
-                if (i === sheetData.length - 1) {
+                if (i === sheetData.length - initialSheetData.length - 1) {
                     enqueueSnackbar('Sheet mapped successfully', {
                         variant: 'success',
                         anchorOrigin: {
@@ -134,7 +139,7 @@ export default function CreateReporting() {
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
                     const param = {
-                        internalSheetId: sheetData[i].id,
+                        internalSheetId: res.sheetId,
                     };
                     await OrgsNetworkService.instance.generateReport(param);
                     router.push(`/post/${params?.campType}/report/${params.campaignId}`);
@@ -247,17 +252,17 @@ export default function CreateReporting() {
                 const url = `https://docs.google.com/spreadsheets/d/${item?.sheetId}`;
                 const flippedObj = item?.columnMappings && flipObjects(item?.columnMappings);
                 const sheetDetails = {
-                    columns: item?.columns,
-                    sheetName: item?.sheetName,
+                    columns: item?.mappedColumnNames,
+                    sheetName: 'Twitter Profiles',
                     sheetId: item?.sheetId,
                 };
                 data.push({
                     ...getSheetInfo(),
                     index: index + 1,
                     open: false,
-                    url: url,
-                    title: item?.title,
-                    sheetName: item?.sheetName,
+                    url: url,   
+                    title: item?.sheetName,
+                    sheetName: 'Twitter Profiles',
                     columnName: flippedObj,
                     id: item?.id,
                     sheets: [sheetDetails],
@@ -311,7 +316,10 @@ export default function CreateReporting() {
                             <span className='hidden sm:flex text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                         {viewGuidelines && (
-                            <button onClick={addSheet} className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
+                            <button
+                                onClick={addSheet}
+                                disabled={sheetData.length !== initialSheetData.length}
+                                className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
                                 <PlusCircleIcon color='#000' size={24} />
                                 <span className='flex'>Add New Sheet</span>
                             </button>
@@ -356,7 +364,7 @@ export default function CreateReporting() {
                                                 )}
                                             </span>
                                         </div>
-                                        <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>
+                                        <div id={item?.title?.replaceAll(' ', '_') + index} className='w-full'>
                                             <SheetDetails
                                                 mode={mode}
                                                 state={state}
@@ -388,7 +396,8 @@ export default function CreateReporting() {
                         </div>
                         <button
                             onClick={addSheet}
-                            className='flex w-[186px] sm:w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black'>
+                            disabled={sheetData.length !== initialSheetData.length}
+                            className='flex w-[186px] sm:w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50 cursor-pointer disabled:opacity-50 '>
                             <PlusCircleIcon color='#000' size={24} />
                             <span className='flex'>Add New Sheet</span>
                         </button>

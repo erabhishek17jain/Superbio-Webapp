@@ -15,23 +15,31 @@ import InstagramIcon from '../../../icons/InstagramIcon';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { AvailableFilters } from '@/interfaces/filter';
+import MapToCampaignModal from '@/components/modals/MapToCampaignModal';
 
 interface FilterAndSortingProps {
     meta: any;
-    shouldShowSort: boolean;
     query: any;
+    params: any;
     filters: any;
     platforms: any;
+    profileIds: any;
     changePlatform: any;
+    shouldShowSort: boolean;
     selectedPlatform: string;
     filtersOptions: AvailableFilters;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform } = props;
+    const { params, meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform, profileIds } = props;
     const [isFilter, setIsFilter] = useState(false);
+    const [showMapModal, setShowMapModal] = useState(false);
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
+
+    const openCloseMapModal = () => {
+        setShowMapModal(!showMapModal);
+    };
 
     const setOpenFilter = (open: boolean) => {
         setIsFilter(open);
@@ -106,6 +114,11 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             </div>
             {meta?.total > 0 && (
                 <span className='flex gap-3 justify-center items-center'>
+                    <button
+                        onClick={openCloseMapModal}
+                        className='flex justify-center items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
+                        Map to Campaign
+                    </button>
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                         <span className='flex items-center justify-end text-sm gap-2 h-12'>
                             <span
@@ -150,6 +163,14 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                         </>
                     )}
                 </span>
+            )}
+            {showMapModal && (
+                <MapToCampaignModal
+                    profileIds={profileIds}
+                    orgsId={params.campaignId}
+                    openCloseModal={openCloseMapModal}
+                    platform={platforms.isInstagram ? 'INSTAGRAM' : 'TWITTER'}
+                />
             )}
         </div>
     );

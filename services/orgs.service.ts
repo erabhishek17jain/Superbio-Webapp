@@ -69,6 +69,24 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
         }
     };
 
+    public getCampaignsByOrgId = async (orgId: string): Promise<any> => {
+        try {
+            const res = await axios.get(`${baseAPI}/org/import/sheet/preview/${orgId}`, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public mapProfilesToCampaigns = async (campaignId: string, params: any): Promise<any> => {
+        try {
+            const res = await axios.post(`${baseAPI}/profile/campaign/${campaignId}/map-profiles`, { ...params }, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
     public deleteIgProfile = async (orgId: string, profileId: string): Promise<any> => {
         try {
             const res = await axios.delete<any>(`${baseAPI}/ig/org/${orgId}/profile/${profileId}`, this.get_auth_header_java());

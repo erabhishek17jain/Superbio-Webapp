@@ -44,7 +44,7 @@ const products = [
 const HomePage = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const [selectType, setSelectType] = useState('campaign');
+    const [selectType, setSelectType] = useState('post');
 
     return (
         <>

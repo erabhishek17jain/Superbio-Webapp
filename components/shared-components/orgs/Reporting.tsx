@@ -3,20 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 import { clearFilters } from '@/lib/utils';
 import { IColumn } from '@/interfaces/sheet';
-import SocialCard from '../profiles/SocialCard';
-import PorofileNetworkService from '@/services/profile.service';
+import SocialCard from '../orgs/SocialCard';
+import OrgsNetworkService from '@/services/orgs.service';
 import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
     meta: any;
     platform: string;
     campaignId: string;
+    profileIds: any;
+    setProfileIds: any;
     initialColumns: IColumn[];
     query: { [key: string]: any };
 }
 
 export default function Reporting(props: IReportingProps) {
-    const { query, meta, campaignId, initialColumns, platform } = props;
+    const { query, meta, campaignId, initialColumns, platform, profileIds, setProfileIds } = props;
     const [screenWidth, setScreenWidth] = useState(0);
     const [columns, setColumns] = useState<IColumn[]>(initialColumns);
     const [loader, setloader] = useState(false);
@@ -27,8 +29,8 @@ export default function Reporting(props: IReportingProps) {
         query.page = query.page + 1;
         const resp: any =
             platform === 'twitter'
-                ? await PorofileNetworkService.instance.getTwProfilesData(campaignId, clearFilters(query))
-                : await PorofileNetworkService.instance.getIgProfilesData(campaignId, clearFilters(query));
+                ? await OrgsNetworkService.instance.getTwProfilesData(campaignId, clearFilters(query))
+                : await OrgsNetworkService.instance.getIgProfilesData(campaignId, clearFilters(query));
         setColumns((prev: any) => [...prev, ...resp?.items]);
         setloader(false);
     };
@@ -52,7 +54,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 1 && (
-                                    <SocialCard key={'social-1280-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        campaignId={campaignId}
+                                        profileIds={profileIds}
+                                        setProfileIds={setProfileIds}
+                                    />
                                 )
                         )}
                     </div>
@@ -60,7 +70,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 2 && (
-                                    <SocialCard key={'social-1280s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280s-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        campaignId={campaignId}
+                                        profileIds={profileIds}
+                                        setProfileIds={setProfileIds}
+                                    />
                                 )
                         )}
                     </div>
@@ -68,7 +86,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 0 && (
-                                    <SocialCard key={'social-1280ss-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280ss-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        campaignId={campaignId}
+                                        profileIds={profileIds}
+                                        setProfileIds={setProfileIds}
+                                    />
                                 )
                         )}
                     </div>
@@ -80,7 +106,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 1 && (
-                                    <SocialCard key={'social-640-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-640-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        campaignId={campaignId}
+                                        profileIds={profileIds}
+                                        setProfileIds={setProfileIds}
+                                    />
                                 )
                         )}
                     </div>
@@ -88,7 +122,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 2 && (
-                                    <SocialCard key={'social-640s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-640s-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        campaignId={campaignId}
+                                        profileIds={profileIds}
+                                        setProfileIds={setProfileIds}
+                                    />
                                 )
                         )}
                     </div>
@@ -98,7 +140,15 @@ export default function Reporting(props: IReportingProps) {
                 <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
                     <div className='w-full flex flex-col'>
                         {columns.map((item, index) => (
-                            <SocialCard key={'social-s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                            <SocialCard
+                                key={'social-s-card-' + index}
+                                platform={platform}
+                                item={item}
+                                index={index}
+                                campaignId={campaignId}
+                                profileIds={profileIds}
+                                setProfileIds={setProfileIds}
+                            />
                         ))}
                     </div>
                 </div>

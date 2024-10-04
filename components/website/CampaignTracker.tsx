@@ -13,6 +13,7 @@ import ct11 from '@/public/campaign-tracker/ct11.png';
 import ct12 from '@/public/campaign-tracker/ct12.png';
 import ct16 from '@/public/campaign-tracker/ct16.png';
 import ct17 from '@/public/campaign-tracker/ct17.png';
+import ct18 from '@/public/campaign-tracker/ct17.png';
 
 export const CampaignTracker = () => {
     const ref1 = useRef<HTMLElement>(null);

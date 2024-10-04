@@ -1,7 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { InstagramEmbed } from 'react-social-media-embed';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { CalendarDays, MapPin, SquareArrowOutUpRightIcon, Trash2Icon } from 'lucide-react';
 import { calculateSummary } from '@/lib/utils';
@@ -101,21 +100,25 @@ export function Tweet({ tweetID }: TweetProps) {
 }
 
 export default function SocialCard({ item, platform, index, campaignId }: { item: any; platform: string; index: number; campaignId: string }) {
-    const postedAt = item?.postedAt;
+    const lastRefreshedAt = item?.lastRefreshedAt;
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const openCloseDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     };
 
-    const posted = new Date(postedAt);
+    const posted = new Date(lastRefreshedAt);
     return (
         <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
-                        {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Profile Summary</span>}
+                        {lastRefreshedAt ? (
+                            parseInt(lastRefreshedAt) > 0 && <span>Refreshed on {dayjs(posted).format('D MMM, YYYY')}</span>
+                        ) : (
+                            <span>Profile Summary</span>
+                        )}
                         <div className='flex gap-3'>
                             <button
                                 onClick={openCloseDeleteModal}

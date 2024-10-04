@@ -27,11 +27,13 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
+    const [profileIds, setProfileIds] = useState([]);
     const [summary, setSummary] = useState<any>(null);
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
-    const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
     const [selectedPlatform, setSelectedPlatform] = useState<string>('');
+    const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
+    
     const [filters, setFilters] = useState<any>({
         niche: [],
         engagementRate: [],
@@ -308,10 +310,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                         {campData?.data && campData?.data.length > 0 && (
                             <>
                                 <FilterAndSorting
+                                    params={params}
                                     filters={filters}
                                     platforms={platforms}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
+                                    profileIds={profileIds}
                                     changePlatform={changePlatform}
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}
@@ -320,6 +324,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                 <AnalyticsSummary summary={summary} filters={filters} />
                                 <Reporting
                                     meta={campData?.meta}
+                                    profileIds={profileIds}
+                                    setProfileIds={setProfileIds}
                                     platform={selectedPlatform}
                                     campaignId={params.campaignId}
                                     initialColumns={campData?.data}
