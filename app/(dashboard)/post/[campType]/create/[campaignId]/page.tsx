@@ -283,7 +283,9 @@ export default function CreateReporting() {
                             <span className='hidden sm:flex text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                         {viewGuidelines && (
-                            <button onClick={addSheet} className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
+                            <button
+                                onClick={addSheet}
+                                className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
                                 <PlusCircleIcon color='#000' size={24} />
                                 <span className='flex'>Add New Sheet</span>
                             </button>
@@ -370,7 +372,7 @@ export default function CreateReporting() {
                 )}
             </div>
             {viewGuidelines && <GuidelinesUi openCloseModal={setOpenGuidelines} />}
-            {showConfirmModal && <ConfirmSheetUpdateModal handleConfirm={handleSheetSelect} openCloseModal={openCloseConfirmModal} />}
+            {showConfirmModal && <ConfirmSheetUpdateModal handleConfirm={refreshSheet} openCloseModal={openCloseConfirmModal} />}
         </div>
     );
 }

@@ -1,22 +1,13 @@
 'use client';
 
-import SheetNetworkService from '@/services/sheet.service';
-import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import { useAppDispatch, useAppSelector } from '@/context';
+import { useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
 import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
 import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
-import PorofileNetworkService from '@/services/profile.service';
-import { calculateStatus, clearFilters, structureProfilesData } from '@/lib/utils';
 import DownloadCSV from '../profiles/DownloadCSV';
-import { setCampData } from '@/context/reporting';
 import OrgsNetworkService from '@/services/orgs.service';
-
-dayjs.extend(relativeTime);
-const gradients = ['bg-gradient-to-b', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-r'];
 
 interface GenerateReportProps {
     params: Params;

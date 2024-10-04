@@ -12,7 +12,8 @@ export default function BottomBar() {
     const path = usePathname();
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const { user, campaignType } = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
+    const campaignType = path.split('/')[1];
     
     return (
         <ul className='fixed bottom-0 left-0 flex h-fit min-h-[8%] w-full items-center sm:items-end justify-around border-t border-sky-600/15 bg-white sm:hidden z-50'>

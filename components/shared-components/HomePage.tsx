@@ -82,8 +82,8 @@ const HomePage = () => {
                                     <button
                                         className='cursor-pointer flex gap-3 uppercase font-semibold '
                                         onClick={() => {
-                                            router.push(`/${item.type}/dashboard`);
                                             dispatch(setCampaignType(item.type));
+                                            router.push(`/${item.type}/dashboard`);
                                         }}>
                                         {item.btnText}
                                         <ArrowRightIcon color={'#000'} size={24} />

@@ -11,7 +11,6 @@ import DynamicLogo from '@/components/global-components/DynamicLogo';
 import { CampaignStatus } from '@/services/campaign.service';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
 import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, CopyIcon, SearchCheckIcon, XIcon } from 'lucide-react';
-import { setCampaignType } from '@/context/user';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -20,7 +19,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const params: any = useParams();
     const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs' || item === 'active')));
     const { enqueueSnackbar } = useSnackbar();
-    const { campData } = useAppSelector((state) => state.reporting);
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
     const [isSearch, setIsSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -136,7 +134,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             onClick={() => {
                                                 dispatch(setLoading(true));
                                                 router.push('/orgs/dashboard');
-                                                dispatch(setCampaignType('orgs'));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span className='ml-3 capitalize'>Agency Managed Influencer</span>

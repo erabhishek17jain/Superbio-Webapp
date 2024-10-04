@@ -1,18 +1,18 @@
 'use client';
 import CampaignNetworkService from '@/services/campaign.service';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import ComingSoon from '../global-components/ComingSoon';
 import { XIcon } from 'lucide-react';
-import { useAppSelector } from '@/context';
 
 export default function CreatorsFormModal() {
     const params:any = useParams();
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
     const [fields, setFields] = useState([] as any);
-    const { campaignType } = useAppSelector((state) => state.user);
+    const paths = usePathname();
+    const campaignType = paths.split('/')[1];
     
     const options = [
         { value: 'http', label: 'Http' },

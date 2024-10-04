@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 export default function ResetPassword() {
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const { user } = useAppSelector((state) => state.user);
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
     const query = useSearchParams();

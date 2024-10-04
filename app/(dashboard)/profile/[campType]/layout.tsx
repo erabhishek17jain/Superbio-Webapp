@@ -136,7 +136,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             onClick={() => {
                                                 dispatch(setLoading(true));
                                                 router.push('/profile/dashboard');
-                                                dispatch(setCampaignType('profile'));
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span className='ml-3 capitalize'>LOQO Influencer Analysis</span>

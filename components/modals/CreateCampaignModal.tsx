@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/context';
 import { setNewCampaign } from '@/context/campaign';
 import dayjs from 'dayjs';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import CampaignNetworkService from '@/services/campaign.service';
 import { XIcon } from 'lucide-react';
@@ -12,7 +12,8 @@ import ReportIcon from '../../icons/ReportIcon';
 export default function CreateCampaignModal({ mode, openCloseModal, campaignDetails }: any) {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { campaignType } = useAppSelector((state) => state.user);
+    const paths = usePathname();
+    const campaignType = paths.split('/')[1];
     const { newCampaign } = useAppSelector((state) => state.campaign);
     const { enqueueSnackbar } = useSnackbar();
     const [isError, setIsError] = useState(false);

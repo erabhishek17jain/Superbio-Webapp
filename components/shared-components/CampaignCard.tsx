@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import copy from 'copy-to-clipboard';
 import Image from 'next/image';
 import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAppSelector } from '@/context';
 import Dropdown from '../global-components/Dropdown';
 import ShareCampaignModal from '../modals/ShareCampaignModal';
@@ -39,10 +39,12 @@ export default function CampaignCard({
 }) {
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
-    const { user, campaignType } = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
     const [diffInMin, setDiffInMin] = useState(0);
     const [showShareModal, setShowShareModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const paths = usePathname();
+    const campaignType = paths.split('/')[1];
 
     const copyFormLink = (url: string) => {
         let base_url = window.location.origin;
