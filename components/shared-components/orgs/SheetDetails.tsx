@@ -110,6 +110,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                             Object.keys(sheetInfo?.columnName).map((key) => {
                                 return (
                                     <SelectSheetColumns
+                                        key={key}
                                         colType={key}
                                         sheetInfo={sheetInfo}
                                         selSheetData={selSheetData}

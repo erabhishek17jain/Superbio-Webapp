@@ -90,7 +90,8 @@ export default function GenerateReport(props: GenerateReportProps) {
         if (reportText === 'Generating...') {
             const interval = setInterval(async () => {
                 const campData = await PostNetworkService.instance.getPostReportingData(params.campaignId, clearFilters(query));
-                dispatch(setCampData(structurePostsData(campData)));
+                const tempCampData = structurePostsData(campData);
+                dispatch(setCampData(tempCampData));
                 if (campData?.queueDto) {
                     setGenerateStatus(calculateStatus(campData?.queueDto?.status, campData?.queueDto?.processed, campData?.queueDto?.totalPost));
                 }
@@ -105,10 +106,8 @@ export default function GenerateReport(props: GenerateReportProps) {
     }
 
     let postsData: any = [];
-    if (!isPublic) {
-        postsData = campData.meta?.postSummaryResp
-            ? Object.keys(campData.meta?.postSummaryResp)
-            : []
+    if (!isPublic && campData.meta?.postSummaryResp) {
+        postsData = Object.keys(campData.meta?.postSummaryResp)
                   .filter(
                       (item) =>
                           !(
@@ -117,7 +116,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                               campData.meta?.postSummaryResp[item] === false
                           )
                   )
-                  .map((key:string) => {
+                  .map((key: string) => {
                       return (
                           !(reportText === 'Generate Report' && key === 'otherPosts') && (
                               <div className='flex flex-col text-sm w-20' key={key}>

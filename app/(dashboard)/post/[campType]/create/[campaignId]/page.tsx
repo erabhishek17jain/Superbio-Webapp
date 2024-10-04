@@ -48,8 +48,9 @@ export default function CreateReporting() {
         if (mode !== 'add') {
             setMode(sheetInfo?.sheetName !== item?.sheetName ? 'edit' : 'view');
         }
-        sheetData[sheetInfo?.index - 1].sheetName = item?.sheetName;
-        sheetData[sheetInfo?.index - 1].selectedSheet = item;
+        const index = sheetData.findIndex((item: any) => item.index===sheetInfo?.index);
+        sheetData[index].sheetName = item?.sheetName;
+        sheetData[index].selectedSheet = item;
         setSheetData([...sheetData]);
     };
 
@@ -57,7 +58,8 @@ export default function CreateReporting() {
         if (mode !== 'add') {
             setMode(sheetInfo.columnName !== column ? 'edit' : 'view');
         }
-        sheetData[sheetInfo?.index - 1].columnName = column;
+        const index = sheetData.findIndex((item: any) => item.index===sheetInfo?.index);
+        sheetData[index].columnName = column;
         setSheetData([...sheetData]);
     };
 
