@@ -5,6 +5,7 @@ import { ICampaign, ICampaignForm, ICampaignAPIResponse } from '@/interfaces/cam
 import { User } from '@/interfaces/user';
 
 export enum CampaignStatus {
+    'all' = 'all',
     'active' = 'active',
     'shared' = 'shared',
     'archived' = 'archived',
@@ -99,7 +100,7 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
     public getCampaigns = async (
         page: number,
         limit: number,
-        status: CampaignStatus,
+        status: string,
         ownerType: string,
         q: string,
         type: string
