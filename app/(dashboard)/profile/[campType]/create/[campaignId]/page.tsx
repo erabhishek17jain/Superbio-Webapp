@@ -214,6 +214,17 @@ export default function CreateReporting() {
         setViewGuidelines(!viewGuidelines);
     };
 
+    const deleteButton = (index: any) => {
+        const ind = initialSheetData.findIndex((sh: any) => index === sh?.index);
+        return (
+            ind === -1 && (
+                <button className='flex items-center justify-center w-6 h-10 rounded-t-lg' onClick={() => deleteSheet(index)}>
+                    <Trash2Icon color='#0B1571' size={20} />
+                </button>
+            )
+        );
+    };
+
     useEffect(() => {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
@@ -285,7 +296,9 @@ export default function CreateReporting() {
                             <span className='hidden sm:flex text-[13px] text-[#0B1571]'>View guidelines</span>
                         </div>
                         {viewGuidelines && (
-                            <button onClick={addSheet} className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
+                            <button
+                                onClick={addSheet}
+                                className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
                                 <PlusCircleIcon color='#000' size={24} />
                                 <span className='flex'>Add New Sheet</span>
                             </button>
@@ -321,13 +334,7 @@ export default function CreateReporting() {
                                                         <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
                                                     </div>
                                                 )}
-                                                {sheetData.length > 1 && (
-                                                    <div
-                                                        className='flex items-center justify-center w-6 h-10 rounded-t-lg'
-                                                        onClick={() => deleteSheet(item?.index)}>
-                                                        <Trash2Icon color='#0B1571' size={20} />
-                                                    </div>
-                                                )}
+                                                {sheetData.length > 1 && deleteButton(item.index)}
                                             </span>
                                         </div>
                                         <div id={item?.title.replaceAll(' ', '_') + index} className='w-full'>

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowRightIcon, DownloadIcon, SearchCheckIcon, XIcon } from 'lucide-react';
 import OrgsNetworkService from '@/services/orgs.service';
 import LoadingBlack from '../global-components/LoadingBlack';
+import CampaignNetworkService, { CampaignStatus } from '@/services/campaign.service';
 
 export default function MapToCampaignModal({ orgsId, platform, profileIds, openCloseModal }: any) {
     const router = useRouter();
@@ -52,12 +53,12 @@ export default function MapToCampaignModal({ orgsId, platform, profileIds, openC
 
     useLayoutEffect(() => {
         setIsLoading(true);
-        OrgsNetworkService.instance
-            .getCampaignsByOrgId(orgsId)
+        CampaignNetworkService.instance
+            .getCampaigns(1, 100, CampaignStatus.active, 'own', '', 'influencer')
             .then((res) => {
                 setIsLoading(false);
-                setCampaigns(res);
-                setAllCampaigns(res);
+                setCampaigns(res.data);
+                setAllCampaigns(res.data);
             })
             .catch((err) => {
                 setIsLoading(false);
@@ -110,13 +111,13 @@ export default function MapToCampaignModal({ orgsId, platform, profileIds, openC
                                                 <div className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
                                                     <input
                                                         type='radio'
-                                                        id={camp._id.$oid}
-                                                        value={camp._id.$oid}
+                                                        id={camp.id}
+                                                        value={camp.id}
                                                         className='h-[18px] w-[18px]'
-                                                        checked={camp._id.$oid === selCamp}
-                                                        onChange={() => setSelCamp(camp._id.$oid)}
+                                                        checked={camp.id === selCamp}
+                                                        onChange={() => setSelCamp(camp.id)}
                                                     />
-                                                    <label className='capitalize' htmlFor={camp._id.$oid}>
+                                                    <label className='capitalize' htmlFor={camp.id}>
                                                         <div className='flex flex-col px-2'>
                                                             <span className='text-base'>{camp?.title}</span>
                                                             <span className='text-sm text-[#8b8b8b]'>{camp?.description}</span>

@@ -1,3 +1,5 @@
+import OrgsNetworkService from '@/services/orgs.service';
+
 const SelectSheetColumns = ({ colType, title, sheetInfo, selSheetData, handleColumn }: any) => {
     const columns = sheetInfo?.selectedSheet?.columns;
 
@@ -44,6 +46,15 @@ const SelectSheetColumns = ({ colType, title, sheetInfo, selSheetData, handleCol
 export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, setTitle, sheetLoading, handleColumn, fetchSheets, handleSheet }: any) {
     const isDisabled = sheetInfo?.index <= selSheetData.length ? true : false;
 
+    // testing
+    const generateReport = (sheetInfo: any) => {
+        const param = {
+            internalSheetId: sheetInfo.id,
+        };
+        OrgsNetworkService.instance.generateReport(param).then((resp) => {
+            console.log(resp);
+        });
+    };
     return (
         <>
             <div className='flex flex-col items-center'>
@@ -74,6 +85,9 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                     </div>
                     {isError && sheetInfo?.title === '' && <p className='mt-1 text-[12px] text-[#d00a0a]'>This field is required</p>}
                 </div>
+                {/* <button onClick={() => generateReport(sheetInfo)} className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white my-2`}>
+                    Generate Report
+                </button> */}
                 {!(sheetInfo?.index <= selSheetData.length) && (
                     <button
                         onClick={() => fetchSheets(sheetInfo)}

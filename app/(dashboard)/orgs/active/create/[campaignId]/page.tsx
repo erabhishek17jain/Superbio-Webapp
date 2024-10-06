@@ -244,6 +244,17 @@ export default function CreateReporting() {
         setViewGuidelines(!viewGuidelines);
     };
 
+    const deleteButton = (index: any) => {
+        const ind = initialSheetData.findIndex((sh: any) => index === sh?.index);
+        return (
+            ind === -1 && (
+                <button className='flex items-center justify-center w-6 h-10 rounded-t-lg' onClick={() => deleteSheet(index)}>
+                    <Trash2Icon color='#0B1571' size={20} />
+                </button>
+            )
+        );
+    };
+
     useEffect(() => {
         if (selSheetData.length > 0) {
             setIsSheetLoading(true);
@@ -260,9 +271,9 @@ export default function CreateReporting() {
                     ...getSheetInfo(),
                     index: index + 1,
                     open: false,
-                    url: url,   
-                    title: item?.sheetName,
-                    sheetName: 'Twitter Profiles',
+                    url: url,
+                    title: item?.title,
+                    sheetName: item?.sheetName,
                     columnName: flippedObj,
                     id: item?.id,
                     sheets: [sheetDetails],
@@ -345,23 +356,7 @@ export default function CreateReporting() {
                                                 {item?.title ? item?.title : 'Paste your Google Sheets link here'}
                                             </span>
                                             <span className='flex items-center justify-end w-[62px] sm:w-[172px] gap-2'>
-                                                {item?.index <= selSheetData.length && (
-                                                    <div
-                                                        onClick={() => {
-                                                            refreshSheet(item);
-                                                        }}
-                                                        className='flex items-center gap-1 bg-[#F5F8FF] py-1 px-2 rounded-md cursor-pointer text-sm'>
-                                                        <RefreshCcwIcon color='#0B1571' size={14} />
-                                                        <span className='hidden sm:flex text-[14px] text-[#0B1571]'>Refresh sheet</span>
-                                                    </div>
-                                                )}
-                                                {sheetData.length > 1 && (
-                                                    <div
-                                                        className='flex items-center justify-center w-6 h-10 rounded-t-lg'
-                                                        onClick={() => deleteSheet(item?.index)}>
-                                                        <Trash2Icon color='#0B1571' size={20} />
-                                                    </div>
-                                                )}
+                                                {sheetData.length > 1 && deleteButton(item.index)}
                                             </span>
                                         </div>
                                         <div id={item?.title?.replaceAll(' ', '_') + index} className='w-full'>

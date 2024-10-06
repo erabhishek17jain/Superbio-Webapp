@@ -116,7 +116,9 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                 <span className='flex gap-3 justify-center items-center'>
                     <button
                         onClick={openCloseMapModal}
-                        className='flex justify-center items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
+                        disabled={profileIds.length === 0}
+                        title={profileIds.length === 0 ? 'Please select profiles then map to campaign' : ''}
+                        className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
                         Map to Campaign
                     </button>
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (

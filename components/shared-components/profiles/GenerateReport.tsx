@@ -72,7 +72,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                             isPublic={isPublic}
                             total={campData.meta?.total}
                             campaignId={params.campaignId}
-                            fileName={campData.meta?.campaignDto?.title}
+                            fileName={campData.meta?.campaignDto ? campData.meta?.campaignDto?.title : 'Profiles'}
                         />
                     </div>
                 </div>
