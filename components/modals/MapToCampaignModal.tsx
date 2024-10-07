@@ -54,7 +54,7 @@ export default function MapToCampaignModal({ orgsId, platform, profileIds, openC
     useLayoutEffect(() => {
         setIsLoading(true);
         CampaignNetworkService.instance
-            .getCampaigns(1, 100, 'all', 'all', '', 'influencer')
+            .getCampaigns(1, 100, 'active', 'all', '', 'influencer')
             .then((res) => {
                 setIsLoading(false);
                 setCampaigns(res.data);
