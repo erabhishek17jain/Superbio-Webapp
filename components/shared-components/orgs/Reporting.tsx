@@ -9,16 +9,18 @@ import { ScrollToTop } from '../../global-components/ScrollToTop';
 
 interface IReportingProps {
     meta: any;
+    showSelect: any;
+    profileIds: any;
     platform: string;
     campaignId: string;
-    profileIds: any;
     setProfileIds: any;
+    setShowSelect: any;
     initialColumns: IColumn[];
     query: { [key: string]: any };
 }
 
 export default function Reporting(props: IReportingProps) {
-    const { query, meta, campaignId, initialColumns, platform, profileIds, setProfileIds } = props;
+    const { query, meta, campaignId, initialColumns, platform, profileIds, setProfileIds, showSelect, setShowSelect } = props;
     const [screenWidth, setScreenWidth] = useState(0);
     const [columns, setColumns] = useState<IColumn[]>(initialColumns);
     const [loader, setloader] = useState(false);
@@ -61,6 +63,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
+                                        showSelect={showSelect}
                                         setProfileIds={setProfileIds}
                                     />
                                 )
@@ -77,6 +80,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
+                                        showSelect={showSelect}
                                         setProfileIds={setProfileIds}
                                     />
                                 )
@@ -93,6 +97,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
+                                        showSelect={showSelect}
                                         setProfileIds={setProfileIds}
                                     />
                                 )
@@ -113,6 +118,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
+                                        showSelect={showSelect}
                                         setProfileIds={setProfileIds}
                                     />
                                 )
@@ -129,6 +135,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
+                                        showSelect={showSelect}
                                         setProfileIds={setProfileIds}
                                     />
                                 )
@@ -147,7 +154,8 @@ export default function Reporting(props: IReportingProps) {
                                 index={index}
                                 campaignId={campaignId}
                                 profileIds={profileIds}
-                                setProfileIds={setProfileIds}
+                                showSelect={showSelect}
+                                        setProfileIds={setProfileIds}
                             />
                         ))}
                     </div>

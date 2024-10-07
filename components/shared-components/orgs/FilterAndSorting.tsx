@@ -20,10 +20,12 @@ import MapToCampaignModal from '@/components/modals/MapToCampaignModal';
 interface FilterAndSortingProps {
     meta: any;
     query: any;
-    params: any;
     filters: any;
     platforms: any;
     profileIds: any;
+    showSelect: any;
+    setShowSelect: any;
+    setProfileIds: any;
     changePlatform: any;
     shouldShowSort: boolean;
     selectedPlatform: string;
@@ -31,7 +33,7 @@ interface FilterAndSortingProps {
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { params, meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform, profileIds } = props;
+    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform, profileIds, setProfileIds, showSelect, setShowSelect } = props;
     const [isFilter, setIsFilter] = useState(false);
     const [showMapModal, setShowMapModal] = useState(false);
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
@@ -114,13 +116,22 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             </div>
             {meta?.total > 0 && (
                 <span className='flex gap-3 justify-center items-center'>
-                    <button
-                        onClick={openCloseMapModal}
-                        disabled={profileIds.length === 0}
-                        title={profileIds.length === 0 ? 'Please select profiles then map to campaign' : ''}
-                        className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
-                        Map to Campaign
-                    </button>
+                    {profileIds.length > 0 ? (
+                        <button
+                            onClick={openCloseMapModal}
+                            disabled={profileIds.length === 0}
+                            title={profileIds.length === 0 ? 'Please select profiles then add to campaign' : ''}
+                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
+                            App to campaign
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => setShowSelect(!showSelect)}
+                            title={'Please select profiles and add to campaign'}
+                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
+                            {showSelect ? 'Unselect Profiles' : 'Select Profiles'}
+                        </button>
+                    )}
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                         <span className='flex items-center justify-end text-sm gap-2 h-12'>
                             <span
@@ -169,7 +180,8 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             {showMapModal && (
                 <MapToCampaignModal
                     profileIds={profileIds}
-                    orgsId={params.campaignId}
+                    setProfileIds={setProfileIds}
+                    setShowSelect={setShowSelect}
                     openCloseModal={openCloseMapModal}
                     platform={platforms.isInstagram ? 'INSTAGRAM' : 'TWITTER'}
                 />

@@ -106,10 +106,12 @@ export default function SocialCard({
     campaignId,
     profileIds,
     setProfileIds,
+    showSelect,
 }: {
     item: any;
     index: number;
     profileIds: any;
+    showSelect: any;
     platform: string;
     campaignId: string;
     setProfileIds: any;
@@ -124,7 +126,7 @@ export default function SocialCard({
     const selectProfileIds = (checked: any, id: string) => {
         if (checked) {
             profileIds.push(id);
-            setProfileIds([...profileIds])
+            setProfileIds([...profileIds]);
         } else {
             const tempProfileIds = profileIds.filter((item: string) => item !== id);
             setProfileIds([...tempProfileIds]);
@@ -139,16 +141,18 @@ export default function SocialCard({
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
                         <div className='flex gap-2 items-center'>
-                            <div className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
-                                <input
-                                    id={item.id}
-                                    value={item.id}
-                                    type='checkbox'
-                                    className='h-[18px] w-[18px]'
-                                    checked={profileIds.includes(item.id)}
-                                    onChange={(e: any) => selectProfileIds(e?.currentTarget?.checked, item.id)}
-                                />
-                            </div>
+                            {showSelect && (
+                                <div className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
+                                    <input
+                                        id={item.id}
+                                        value={item.id}
+                                        type='checkbox'
+                                        className='h-[18px] w-[18px]'
+                                        checked={profileIds.includes(item.id)}
+                                        onChange={(e: any) => selectProfileIds(e?.currentTarget?.checked, item.id)}
+                                    />
+                                </div>
+                            )}
                             <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>
                                 {index + 1}
                             </div>

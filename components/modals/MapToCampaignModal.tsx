@@ -8,7 +8,7 @@ import OrgsNetworkService from '@/services/orgs.service';
 import LoadingBlack from '../global-components/LoadingBlack';
 import CampaignNetworkService, { CampaignStatus } from '@/services/campaign.service';
 
-export default function MapToCampaignModal({ orgsId, platform, profileIds, openCloseModal }: any) {
+export default function MapToCampaignModal({ setShowSelect, platform, profileIds, openCloseModal, setProfileIds }: any) {
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
     const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +32,8 @@ export default function MapToCampaignModal({ orgsId, platform, profileIds, openC
                 },
             });
             openCloseModal();
+            setProfileIds([]);
+            setShowSelect(false);
         } catch (error) {
             enqueueSnackbar('Something went wrong', {
                 variant: 'error',
@@ -139,7 +141,7 @@ export default function MapToCampaignModal({ orgsId, platform, profileIds, openC
                             disabled={selCamp === ''}
                             className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11 disabled:opacity-50 disabled:cursor-not-allowed'>
                             <DownloadIcon color='#fff' size={20} />
-                            <span className='text-opacity-80'>Map to Campaign</span>
+                            <span className='text-opacity-80'>Add to campaign</span>
                         </button>
                     </div>
                 </div>

@@ -29,11 +29,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const sParams = useSearchParams();
     const [profileIds, setProfileIds] = useState([]);
     const [summary, setSummary] = useState<any>(null);
+    const [showSelect, setShowSelect] = useState(false);
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [selectedPlatform, setSelectedPlatform] = useState<string>('');
     const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
-    
+
     const [filters, setFilters] = useState<any>({
         niche: [],
         engagementRate: [],
@@ -310,12 +311,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                         {campData?.data && campData?.data.length > 0 && (
                             <>
                                 <FilterAndSorting
-                                    params={params}
                                     filters={filters}
                                     platforms={platforms}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
                                     profileIds={profileIds}
+                                    showSelect={showSelect}
+                                    setShowSelect={setShowSelect}
+                                    setProfileIds={setProfileIds}
                                     changePlatform={changePlatform}
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}
@@ -325,8 +328,10 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                 <Reporting
                                     meta={campData?.meta}
                                     profileIds={profileIds}
-                                    setProfileIds={setProfileIds}
+                                    showSelect={showSelect}
                                     platform={selectedPlatform}
+                                    setShowSelect={setShowSelect}
+                                    setProfileIds={setProfileIds}
                                     campaignId={params.campaignId}
                                     initialColumns={campData?.data}
                                     query={{ ...query, ...filters }}
