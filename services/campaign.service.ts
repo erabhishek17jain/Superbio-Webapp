@@ -116,6 +116,9 @@ export default class CampaignNetworkService extends BaseNetworkFramework {
             if (q) {
                 params.q = q;
             }
+            if (ownerType === 'all') {
+                delete params.ownerType;
+            }
             const res = await axios.get<ICampaignAPIResponse>(`${this.rustUrl}/campaign/get`, {
                 params,
                 headers: this.get_auth_header_rust(),

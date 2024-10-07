@@ -142,7 +142,7 @@ export default function CreateReporting() {
                         internalSheetId: res.sheetId,
                     };
                     await OrgsNetworkService.instance.generateReport(param);
-                    router.push(`/post/${params?.campType}/report/${params.campaignId}`);
+                    router.push(`/orgs/${params?.campType}/report/${params.campaignId}`);
                 }
             }
         }
