@@ -27,18 +27,18 @@ const products = [
     },
     {
         type: 'orgs',
-        img: influencer,
+        img: reporting,
         btnText: 'Get started',
         title: 'Agency Managed Influencer',
         description: 'Get precise profile analytics of influencers of your agency',
     },
-    // {
-    //     type: 'analytics',
-    //     img: reporting,
-    //     btnText: 'Get started',
-    //     title: 'Advance analytics',
-    //     description: 'Get precise profile analytics of hundreds of influencers',
-    // },
+    {
+        type: 'corp',
+        img: influencer,
+        btnText: 'Get started',
+        title: 'Advance analytics',
+        description: 'Get precise profile analytics of hundreds of influencers',
+    },
 ];
 
 const HomePage = () => {

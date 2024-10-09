@@ -5,7 +5,7 @@ import { enqueueSnackbar } from 'notistack';
 import { ICampaign } from '@/interfaces/campaign';
 
 interface ICorpNetworkService {
-    syncInfluencers: (orgId: string) => Promise<any>;
+    generateReport: (orgId: string) => Promise<any>;
     deleteIgProfile: (orgId: string, profileId: string) => Promise<any>;
     deleteTwProfile: (orgId: string, profileId: string) => Promise<any>;
     getIgProfilesData: (orgId: string, params: any) => Promise<IProfilesResponse>;
@@ -23,9 +23,55 @@ export default class CorpNetworkService extends BaseNetworkFramework implements 
         super();
     }
 
-    public syncInfluencers = async (orgId: string): Promise<void> => {
+    public addSheet = async (params: any): Promise<any> => {
         try {
-            await axios.post(`${baseAPI}/profile/campaign/trigger-report`, { orgId }, this.get_auth_header_java());
+            const res = await axios.post(`${baseAPI}/org/import/sheet`, { ...params }, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public previewSheet = async (internalSheetId: string): Promise<any> => {
+        try {
+            const res = await axios.get(`${baseAPI}/org/import/sheet/preview/${internalSheetId}`, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public getSheets = async (orgId: string): Promise<any> => {
+        try {
+            const res = await axios.get(`${baseAPI}/org/import/sheet/${orgId}`, this.get_auth_header_java());
+            // return getSheetsByOrgId;
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public mappingColumns = async (params: any): Promise<any> => {
+        try {
+            const res = await axios.post(`${baseAPI}/org/import/sheet/map`, { ...params }, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public generateReport = async (params: any): Promise<void> => {
+        try {
+            await axios.post(`${baseAPI}/org/import/sheet/generate-report`, { ...params }, this.get_auth_header_java());
+        } catch (err: any) {
+            throw err;
+        }
+    };
+
+    public mapProfilesToCampaigns = async (campaignId: string, params: any): Promise<any> => {
+        try {
+            const res = await axios.post(`${baseAPI}/profile/campaign/${campaignId}/map-profiles`, { ...params }, this.get_auth_header_java());
+            return res.data;
         } catch (err: any) {
             throw err;
         }
@@ -83,10 +129,7 @@ export default class CorpNetworkService extends BaseNetworkFramework implements 
 
     public getIgProfileReportingData = async (orgId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res: any = await axios.get<IProfilesReportingResponse>(
-                `${baseAPI}/ig/org/${orgId}/reporting${params}`,
-                this.get_auth_header_java()
-            );
+            const res: any = await axios.get<IProfilesReportingResponse>(`${baseAPI}/ig/org/${orgId}/reporting${params}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
             throw err;
@@ -95,10 +138,7 @@ export default class CorpNetworkService extends BaseNetworkFramework implements 
 
     public getTwProfileReportingData = async (orgId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res: any = await axios.get<IProfilesReportingResponse>(
-                `${baseAPI}/tw/org/${orgId}/reporting${params}`,
-                this.get_auth_header_java()
-            );
+            const res: any = await axios.get<IProfilesReportingResponse>(`${baseAPI}/tw/org/${orgId}/reporting${params}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
             throw err;
