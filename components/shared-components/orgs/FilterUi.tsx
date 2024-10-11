@@ -8,6 +8,7 @@ import { ArrowUpDownIcon } from '@/icons/ArrowUpDownIcon';
 import { AvailableProfilesFilters } from '@/interfaces/filter';
 
 const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filterValue }: any) => {
+    const [username, setUsername] = useState<string>('');
     return (
         <>
             <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
@@ -19,37 +20,56 @@ const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filt
                 </div>
             </AccordionHeader>
             <AccordionBody className='py-2'>
-                <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
-                    <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                {any_filter.key === 'username' ? (
+                    <div className='flex gap-2 w-full'>
                         <input
-                            type='checkbox'
-                            id={'all-phase'}
-                            value={'all'}
-                            className='h-[18px] w-[18px]'
-                            disabled={filterValue?.length === 0}
-                            checked={filterValue?.length === 0 || (filters && filters[any_filter.key]) ? filters[any_filter.key].length === 0 : true}
-                            onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, 'all')}
+                            type='text'
+                            name='username'
+                            value={username}
+                            placeholder='Username'
+                            onChange={(e) => setUsername(e.target.value)}
+                            className={`bg-[#F7F7F7] outline-none text-sm py-1 px-2 rounded-md w-[132px]`}
                         />
-                        <label className='capitalize' htmlFor={'all-phase'}>
-                            All
-                        </label>
-                    </li>
-                    {filterValue?.map((item: any) => (
-                        <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                        <button
+                            disabled={username === ''}
+                            onClick={() => selectFilter(true, any_filter.key, username)}
+                            className='cursor-pointer flex gap-2 capitalize items-center font-semibold justify-center text-white text-sm py-1 px-2 border bg-black rounded-lg disabled:opacity-50'>
+                            Apply
+                        </button>
+                    </div>
+                ) : (
+                    <ul className='flex flex-col h-auto max-h-52 overflow-y-scroll'>
+                        <li key={'all-phase'} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
                             <input
-                                id={item}
-                                value={item}
                                 type='checkbox'
+                                id={'all-phase'}
+                                value={'all'}
                                 className='h-[18px] w-[18px]'
-                                checked={filters && filters[any_filter.key] ? filters[any_filter.key].includes(item) : false}
-                                onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, item)}
+                                disabled={filterValue?.length === 0}
+                                checked={filterValue?.length === 0 || (filters && filters[any_filter.key]) ? filters[any_filter.key].length === 0 : true}
+                                onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, 'all')}
                             />
-                            <label className='capitalize' htmlFor={item}>
-                                {item.includes('1970-01-01') ? 'Others' : item}
+                            <label className='capitalize' htmlFor={'all-phase'}>
+                                All
                             </label>
                         </li>
-                    ))}
-                </ul>
+                        {filterValue?.map((item: any) => (
+                            <li key={item} className={`flex items-center gap-3 pl-2 py-2 border-stroke`}>
+                                <input
+                                    id={item}
+                                    value={item}
+                                    type='checkbox'
+                                    className='h-[18px] w-[18px]'
+                                    checked={filters && filters[any_filter.key] ? filters[any_filter.key].includes(item) : false}
+                                    onChange={(e: any) => selectFilter(e?.currentTarget?.checked, any_filter.key, item)}
+                                />
+                                <label className='capitalize' htmlFor={item}>
+                                    {item.includes('1970-01-01') ? 'Others' : item}
+                                </label>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </AccordionBody>
         </>
     );
@@ -59,16 +79,19 @@ interface FilterUiProps {
     setFilters: any;
     selectFilter: any;
     filtersOptions: AvailableProfilesFilters;
+    isFilter: any;
+    setIsFilter: any;
 }
 
 export default function FilterUi(props: FilterUiProps) {
-    const { filters, setFilters, selectFilter, filtersOptions } = props;
+    const { filters, setFilters, selectFilter, filtersOptions, isFilter, setIsFilter } = props;
     const [open, setOpen] = useState<number>(0);
 
     const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
     const toggleFilter = () => {
         const panel = document.getElementById('filterPanel');
         if (panel) {
+            setIsFilter(!isFilter);
             panel.classList.toggle('hidden');
         }
     };

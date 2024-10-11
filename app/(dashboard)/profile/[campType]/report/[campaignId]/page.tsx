@@ -28,6 +28,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
     const [summary, setSummary] = useState<any>(null);
+    const [isFilter, setIsFilter] = useState(false);
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
     const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
@@ -288,7 +289,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
                 {campData?.meta.filterValueResp && (
-                    <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+                    <FilterUi
+                        filters={filters}
+                        setFilters={setFilters}
+                        selectFilter={selectFilter}
+                        filtersOptions={campData?.meta.filterValueResp}
+                        isFilter={isFilter}
+                        setIsFilter={setIsFilter}
+                    />
                 )}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
@@ -312,6 +320,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     platforms={platforms}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
+                                    isFilter={isFilter}
+                                    setIsFilter={setIsFilter}
                                     changePlatform={changePlatform}
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}

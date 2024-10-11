@@ -30,11 +30,26 @@ interface FilterAndSortingProps {
     shouldShowSort: boolean;
     selectedPlatform: string;
     filtersOptions: AvailableFilters;
+    isFilter: any;
+    setIsFilter: any;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform, profileIds, setProfileIds, showSelect, setShowSelect } = props;
-    const [isFilter, setIsFilter] = useState(false);
+    const {
+        meta,
+        shouldShowSort,
+        query,
+        filters,
+        platforms,
+        selectedPlatform,
+        changePlatform,
+        profileIds,
+        setProfileIds,
+        showSelect,
+        setShowSelect,
+        isFilter,
+        setIsFilter,
+    } = props;
     const [showMapModal, setShowMapModal] = useState(false);
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;

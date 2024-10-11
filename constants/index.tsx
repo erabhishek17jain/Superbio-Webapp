@@ -21,6 +21,10 @@ export const ANALYTICS_FILTERS = [
 
 export const ANALYTICS_PROFILES_FILTERS = [
     {
+        name: 'Username',
+        key: 'username',
+    },
+    {
         name: 'Followers',
         key: 'profileTypeByFollowers',
     },

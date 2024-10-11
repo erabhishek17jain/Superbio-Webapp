@@ -11,7 +11,6 @@ const FilterList = ({ any_filter, index, handleOpen, selectFilter, filters, filt
     const radioEligible = ['platform'].includes(any_filter.key);
     return (
         <>
-            {' '}
             <AccordionHeader onClick={() => handleOpen(5 + index)} className='text-md py-2'>
                 <div className='flex items-center'>
                     {any_filter.name}{' '}
@@ -80,16 +79,19 @@ interface FilterUiProps {
     setFilters: any;
     selectFilter: any;
     filtersOptions: AvailableFilters;
+    isFilter: any;
+    setIsFilter: any;
 }
 
 export default function FilterUi(props: FilterUiProps) {
-    const { filters, setFilters, selectFilter, filtersOptions } = props;
+    const { filters, setFilters, selectFilter, filtersOptions, isFilter, setIsFilter } = props;
     const [open, setOpen] = useState<number>(0);
 
     const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
     const toggleFilter = () => {
         const panel = document.getElementById('filterPanel');
         if (panel) {
+            setIsFilter(!isFilter);
             panel.classList.toggle('hidden');
         }
     };

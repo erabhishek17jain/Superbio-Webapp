@@ -25,11 +25,12 @@ interface FilterAndSortingProps {
     changePlatform: any;
     selectedPlatform: string;
     filtersOptions: AvailableFilters;
+    isFilter: any;
+    setIsFilter: any;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform } = props;
-    const [isFilter, setIsFilter] = useState(false);
+    const { meta, shouldShowSort, query, filters, platforms, selectedPlatform, changePlatform, isFilter, setIsFilter } = props;
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
 
