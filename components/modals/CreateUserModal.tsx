@@ -9,6 +9,7 @@ import { User } from '@/interfaces/user';
 import { USER_ROLES } from '@/constants';
 import { AlertOctagonIcon, XIcon } from 'lucide-react';
 import ReportIcon from '../../icons/ReportIcon';
+import { getCookie } from 'cookies-next';
 
 interface CreateUserModalProps {
     mode: string;
@@ -34,6 +35,9 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
             if (userDetails) {
                 setUser(userDetails);
             }
+        } else {
+            const cookieUser = JSON.parse((getCookie('user') as string) || '{}') as User;
+            setUser({ ...user, orgsId: cookieUser.orgsId });
         }
     }, []);
 
@@ -66,8 +70,6 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
         } else {
             try {
                 await UserNetworkService.instance.addMember(user);
-                const data = await UserNetworkService.instance.getAllUsers({ page: meta.page, limit: meta.limit });
-                dispatch(setMembers(data.data));
                 enqueueSnackbar('User created successfully', {
                     variant: 'success',
                     anchorOrigin: {

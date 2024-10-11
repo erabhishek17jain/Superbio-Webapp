@@ -21,24 +21,26 @@ export default function Users() {
     const [userDetails, setUserDetails] = useState<User | null>(null);
 
     useEffect(() => {
-        setLoading(true);
-        UserNetworkService.instance
-            .getAllUsers({ page: 1, limit: 10 })
-            .then((res) => {
-                setUserData([user, ...res.data]);
-                setLoading(false);
-            })
-            .catch((err) => {
-                logout();
-                enqueueSnackbar('You are not authorized to view this page', {
-                    variant: 'error',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
+        if (!openUserModal) {
+            setLoading(true);
+            UserNetworkService.instance
+                .getAllUsers({ page: 1, limit: 10 })
+                .then((res) => {
+                    setUserData([user, ...res.data]);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    logout();
+                    enqueueSnackbar('You are not authorized to view this page', {
+                        variant: 'error',
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
                 });
-            });
-    }, []);
+        }
+    }, [openUserModal]);
 
     return (
         <div className='flex flex-col w-full overflow-hidden'>

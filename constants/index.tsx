@@ -64,11 +64,11 @@ export const USER_ROLES = [
         value: 'user',
         title: 'Would be able to see only campaigns created by himself/herself and campaigns that are shared by other users.',
     },
-    {
-        name: 'Brand',
-        value: 'brand',
-        title: 'Brand Role will be able to view only campaigns shared with brand by the user. The Brand can only view - no edit access.',
-    },
+    // {
+    //     name: 'Brand',
+    //     value: 'brand',
+    //     title: 'Brand Role will be able to view only campaigns shared with brand by the user. The Brand can only view - no edit access.',
+    // },
 ];
 
 export const SUMMARY_ICONS: { [key: string]: JSX.Element } = {
