@@ -37,6 +37,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
+    const [isFilter, setIsFilter] = useState(false);
     const [summary, setSummary] = useState<any>(null);
     const { campData } = useAppSelector((state) => state.reporting);
     const [isSheetLoading, setIsSheetLoading] = useState<boolean>(false);
@@ -217,7 +218,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
                 {campData?.meta.filterValueResp && (
-                    <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+                    <FilterUi
+                        filters={filters}
+                        setFilters={setFilters}
+                        selectFilter={selectFilter}
+                        filtersOptions={campData?.meta.filterValueResp}
+                        isFilter={isFilter}
+                        setIsFilter={setIsFilter}
+                    />
                 )}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
@@ -241,6 +249,8 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                                     shouldShowSort={true}
                                     query={{ ...query, ...filters }}
                                     filters={filters}
+                                    isFilter={isFilter}
+                                    setIsFilter={setIsFilter}
                                     selectFilter={selectFilter}
                                     filtersOptions={campData?.meta.filterValueResp}
                                 />

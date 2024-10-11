@@ -27,6 +27,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sParams = useSearchParams();
+    const [isFilter, setIsFilter] = useState(false);
     const [profileIds, setProfileIds] = useState([]);
     const [summary, setSummary] = useState<any>(null);
     const [showSelect, setShowSelect] = useState(false);
@@ -291,7 +292,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
                 {campData?.meta.filterValueResp && (
-                    <FilterUi filters={filters} setFilters={setFilters} selectFilter={selectFilter} filtersOptions={campData?.meta.filterValueResp} />
+                    <FilterUi
+                        filters={filters}
+                        setFilters={setFilters}
+                        selectFilter={selectFilter}
+                        filtersOptions={campData?.meta.filterValueResp}
+                        isFilter={isFilter}
+                        setIsFilter={setIsFilter}
+                    />
                 )}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
@@ -317,6 +325,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     shouldShowSort={true}
                                     profileIds={profileIds}
                                     showSelect={showSelect}
+                                    isFilter={isFilter}
+                                    setIsFilter={setIsFilter}
                                     setShowSelect={setShowSelect}
                                     setProfileIds={setProfileIds}
                                     changePlatform={changePlatform}
