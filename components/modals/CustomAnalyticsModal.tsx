@@ -38,7 +38,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, resetC
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row lg:flex-row'>
                         <div className={`grid grid-cols-2 gap-4 flex-1 pr-0 sm:pr-5 'overflow-y-scroll max-h-80 text-sm text-[#8b8b8b]`}>
                             {customAnalytics.map((item: any) => (
-                                <div className='flex'>
+                                <div className='flex' key={item.statsType}>
                                     <div className='flex flex-col'>
                                         <label htmlFor='' className='text-sm capitalize'>
                                             {item.statsType.toLowerCase()}

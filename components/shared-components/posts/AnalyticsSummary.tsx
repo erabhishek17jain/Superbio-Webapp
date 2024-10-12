@@ -103,7 +103,9 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
     return (
         <div className='flex'>
             <div className='flex w-full flex-col mx-2 sm:mx-0'>
-                <div className={cols}>{analytics?.map((item: any) => <AnalyticsBox item={item} filters={filters} isInstagram={isInstagram} />)}</div>
+                <div className={cols}>
+                    {analytics?.map((item: any) => <AnalyticsBox key={item.statsType} item={item} filters={filters} isInstagram={isInstagram} />)}
+                </div>
             </div>
             {showEstimatedModal && <EstimatedReachModal openCloseModal={openCloseEstimatedModal} updateEstimatedReach={updateEstimatedReach} />}
         </div>
