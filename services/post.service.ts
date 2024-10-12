@@ -127,20 +127,20 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
         }
     };
 
-    // analytics
-    public getAnalyticsData = async (campaignId: string): Promise<IPostsResponse> => {
+    // reporting
+    public getPostReportingData = async (campaignId: string, params: string): Promise<IPostsReportingResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`${baseAPI}/campaign-analytics/${campaignId}/report-data`, this.get_auth_header_java());
+            const res = await axios.get<IPostsReportingResponse>(`${this.javaUrl}/rest/v1/reporting/${campaignId}${params}`);
             return res.data;
         } catch (err: any) {
             throw err;
         }
     };
 
-    // reporting
-    public getPostReportingData = async (campaignId: string, params: string): Promise<IPostsReportingResponse> => {
+    // analytics
+    public getAnalyticsData = async (campaignId: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsReportingResponse>(`${this.javaUrl}/rest/v1/reporting/${campaignId}${params}`);
+            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/rest/v1/campaign-analytics/${campaignId}/report-data`);
             return res.data;
         } catch (err: any) {
             throw err;
