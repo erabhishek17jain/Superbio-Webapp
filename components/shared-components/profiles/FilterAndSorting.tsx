@@ -82,7 +82,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     return (
         <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
             <div className='flex gap-3'>
-                <div className='flex gap-5'>
+                <div className='flex gap-3'>
                     {platforms.isInstagram && (
                         <div
                             onClick={() => changePlatform('instagram')}

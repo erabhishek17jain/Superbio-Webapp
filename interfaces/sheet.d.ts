@@ -82,7 +82,7 @@ export interface IPostsReportingResponse {
     campaignDto: any;
     postSummaryResp: any;
     filterValueResp: any;
-    campaignAnalyticsResp: any;
+    campaignAnalyticsInfo: any;
     postDtoPaginatedResponse: any;
 }
 

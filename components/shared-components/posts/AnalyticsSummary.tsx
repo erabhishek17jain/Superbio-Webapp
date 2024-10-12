@@ -32,7 +32,7 @@ const AnalyticsBox = ({ item, filters, isInstagram }: any) => {
                     <p className='text-xs text-black-500'>
                         {item.statsType.includes('reach')
                             ? 'Estimated reach'
-                            : `${item.basedOnPosts} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
+                            : `${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
                     </p>
                     {/* {item.statsType.includes('reach') && !isPublic && (
                                         <div className='flex gap-1'>

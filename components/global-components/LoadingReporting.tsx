@@ -33,7 +33,7 @@ export default function LoadingReporting({ isPublic, title }: any) {
                 </div>
                 <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
                     <div className='flex gap-3'>
-                        <div className='flex gap-5'>
+                        <div className='flex gap-3'>
                             {isPublic && <div className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 text-white bg-[#ccc]`}>All</div>}
                             <div className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 text-white bg-[#ccc]`}>
                                 <Instagram color={'#fff'} size={20} />

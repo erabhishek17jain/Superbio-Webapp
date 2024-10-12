@@ -155,15 +155,15 @@ export default function SocialCard({
 
     let type = '',
         username = '';
-    if (link.includes('twitter') || link.includes('x.com')) {
+    if (link?.includes('twitter') || link?.includes('x.com')) {
         type = 'twitter';
         username = link.split('/')[3];
-    } else if (link.includes('youtube')) {
+    } else if (link?.includes('youtube')) {
         type = 'youtube';
         username = link.split('/')[3];
-    } else if (link.includes('instagram')) {
+    } else if (link?.includes('instagram')) {
         type = 'instagram';
-        if (link.includes('reel')) {
+        if (link?.includes('reel')) {
             username = link.split('/')[5];
         } else {
             username = link.split('/')[4];

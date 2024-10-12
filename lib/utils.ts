@@ -39,7 +39,6 @@ export const setPostsAnalytics = (campaignAnalyticsResp: any) => {
         return {
             ...item,
             statsType: item.statsType.toLowerCase(),
-            basedOnPosts: campaignAnalyticsResp.basedOnPostCountDto[`${item.statsType.toLowerCase().slice(0, -1)}Posts`],
         };
     });
     return { analytics: analytics };
@@ -53,7 +52,7 @@ export const structurePostsData = (data: IPostsReportingResponse) => {
     return {
         data: data.postDtoPaginatedResponse.items,
         meta: {
-            ...setPostsAnalytics(data.campaignAnalyticsResp),
+            ...setPostsAnalytics(data.campaignAnalyticsInfo),
             limit: 6,
             page: data.postDtoPaginatedResponse.currentPage,
             total: data.postDtoPaginatedResponse.totalItems,

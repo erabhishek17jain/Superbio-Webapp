@@ -151,7 +151,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     return (
         <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
             <div className='sm:flex gap-3 hidden'>
-                <div className='flex gap-5'>
+                <div className='flex gap-3'>
                     <div
                         onClick={() => changePlatform('all')}
                         className={`flex gap-2 items-center p-3 cursor-pointer rounded-md h-9 ${
@@ -186,7 +186,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                     {!isPublic && (
                         <span className='flex items-center justify-end text-sm gap-2'>
                             <span
-                                className={`flex rounded-lg py-1 px-3 items-center gap-2 text-sm cursor-pointer text-[#8b8b8b] underline`}
+                                className={`flex rounded-lg py-1 px-3 items-center gap-2 text-sm cursor-pointer text-[#8b8b8b] underline italic`}
                                 onClick={() => setshowCustomAnalyticsModal(true)}>
                                 Update custom analytics
                             </span>

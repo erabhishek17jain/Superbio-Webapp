@@ -71,53 +71,6 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
         };
     }
 
-    const calculateAnalytics1 = (campData: any) => {
-        if (campData?.meta.analytics) {
-            let keys: string[] = ['Estimated reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
-            if (searchParams.isPublic) {
-                keys = ['Posts', 'Estimated reach'];
-            }
-            const estimatedReach = campData?.meta.analytics.customEstimatedReach
-                ? campData?.meta.analytics.customEstimatedReach
-                : campData?.meta.analytics.estimatedReach;
-            const estimatedReachText = campData?.meta.analytics.customEstimatedReach && !searchParams.isPublic ? 'Estimated reach (Custom)' : 'Estimated reach';
-            const extimateReach = {
-                totCount: estimatedReach,
-                count: calculateSummary(estimatedReach),
-                icon: SUMMARY_ICONS['estimatedReach'],
-                color: SUMMARY_COLORS['estimatedReach'],
-                title: estimatedReachText,
-                basedOn: campData?.meta.analytics.customEstimatedReach,
-            };
-            let result: (ISummary | null)[] = [];
-            if (searchParams.isPublic) {
-                result.push({
-                    totCount: campData?.meta?.total,
-                    count: campData?.meta?.total,
-                    icon: SUMMARY_ICONS['posts'],
-                    color: SUMMARY_COLORS['posts'],
-                    title: 'Total posts',
-                    basedOn: <></>,
-                });
-            } else {
-                result = keys.map((key) => {
-                    const { analytics, basedOnPosts } = campData?.meta;
-                    if (!(analytics as any)[key] && (analytics as any)[key] !== 0) return null;
-                    return {
-                        totCount: (analytics as any)[key],
-                        count: calculateSummary((analytics as any)[key]),
-                        icon: SUMMARY_ICONS[key],
-                        color: SUMMARY_COLORS[key],
-                        title: key,
-                        basedOn: (basedOnPosts as any)[key],
-                    };
-                });
-            }
-
-            return [extimateReach, ...(result.filter((item) => item !== null) as ISummary[])];
-        }
-    };
-
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
             let result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
