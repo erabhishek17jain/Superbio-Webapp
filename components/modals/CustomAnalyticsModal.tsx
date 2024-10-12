@@ -1,14 +1,14 @@
-import { XIcon } from 'lucide-react';
+import { RefreshCwIcon, XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ReportIcon from '../../icons/ReportIcon';
 
-export default function CustomAnalyticsModal({ analytics, openCloseModal, updateCustomAnalytics }: any) {
-    const [error, setError] = useState(false);
+export default function CustomAnalyticsModal({ analytics, openCloseModal, resetCustomAnalytics, updateCustomAnalytics }: any) {
+    const [error] = useState(false);
     const [customAnalytics, setCustomAnalytics] = useState<any>([]);
 
     const updateCustomValues = (key: string, value: string) => {
         const index = customAnalytics.findIndex((item: any) => item.statsType === key);
-        customAnalytics[index].customEstimatedValue = parseInt(value);
+        customAnalytics[index].customEstimatedValue = value;
         setCustomAnalytics([...customAnalytics]);
     };
 
@@ -19,17 +19,10 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, update
     };
 
     useEffect(() => {
-        const params = Object.keys(analytics).map((key: any) => {
-            return (
-                key !== 'customEstimatedReach' && {
-                    statsType: key === 'estimatedReach' ? 'REACH' : key.toUpperCase(),
-                    calculatedValue: analytics[key],
-                    customEstimatedValue: analytics[key],
-                    hideInPublicView: false,
-                }
-            );
+        const newArray = analytics.map((item: any) => {
+            return { ...item };
         });
-        setCustomAnalytics(params.filter((item: any) => item !== false));
+        setCustomAnalytics(newArray);
     }, []);
 
     return (
@@ -37,7 +30,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, update
             <div className='flex h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[70%] sm:w-[80%] lg:w-[65%] xl:w-[55%]'>
                     <div className='flex justify-between'>
-                        <span className='text-2xl font-semibold'>Update Estimated Reach</span>
+                        <span className='text-2xl font-semibold'>Update Custom Analytics</span>
                         <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
@@ -65,6 +58,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, update
                                                 id={item.statsType}
                                                 name={item.statsType}
                                                 value={item.statsType}
+                                                checked={item.hideInPublicView}
                                                 onChange={(e: any) => updatePublicView(e.target.name, e.currentTarget.checked)}
                                                 className='flex mt-2 bg-[#F7F7F7] outline-none p-2 px-4 rounded-lg text-sm'
                                             />
@@ -82,10 +76,10 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, update
                     </div>
                     <div className='flex w-full mt-4 sm:mt-8 justify-end h-10 sm:h-auto text-sm sm:text-base '>
                         <button
-                            onClick={openCloseModal}
-                            className='bg-white border-black border mr-5 flex items-center rounded-xl py-2 pl-4 pr-3 sm:pr-5 text-black gap-1'>
-                            <XIcon color='#000' size={24} />
-                            Cancel
+                            onClick={() => resetCustomAnalytics()}
+                            className='bg-white border-black border mr-3 gap-2 flex items-center rounded-xl py-2 pl-4 pr-3 sm:pr-5 text-black gap-1'>
+                            <RefreshCwIcon color='#000' size={20} />
+                            Reset
                         </button>
                         <button
                             onClick={() => updateCustomAnalytics(customAnalytics)}

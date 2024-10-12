@@ -88,7 +88,7 @@ export const SUMMARY_ICONS: { [key: string]: JSX.Element } = {
     shares: <Share2Icon color='#fff' size={20} />,
     following: <UserRoundCheckIcon color='#fff' size={20} />,
     saves: <BookMarkedIcon color='#fff' size={20} />,
-    estimatedReach: <ChartNoAxesColumnIncreasingIcon color='#fff' size={20} />,
+    reach: <ChartNoAxesColumnIncreasingIcon color='#fff' size={20} />,
     engagements: <BookHeartIcon color='#fff' size={20} />,
     posts: <StickyNoteIcon color='#fff' size={20} />,
     profiles: <StickyNoteIcon color='#fff' size={20} />,

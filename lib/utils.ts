@@ -35,27 +35,14 @@ export const calculateStatus = (status: string, processed: number, totalPost: nu
 };
 
 export const setPostsAnalytics = (campaignAnalyticsResp: any) => {
-    const analytics = {
-        likes: campaignAnalyticsResp.likes,
-        comments: campaignAnalyticsResp.comments,
-        views: campaignAnalyticsResp.views,
-        reposts: campaignAnalyticsResp.reposts,
-        quotes: campaignAnalyticsResp.quotes,
-        bookmarks: campaignAnalyticsResp.bookmarks,
-        estimatedReach: campaignAnalyticsResp.estimatedReach,
-        customEstimatedReach: campaignAnalyticsResp.customEstimatedReach,
-    };
-    const basedOnPosts = {
-        likes: campaignAnalyticsResp.basedOnPostCountDto.likePosts,
-        comments: campaignAnalyticsResp.basedOnPostCountDto.commentPosts,
-        views: campaignAnalyticsResp.basedOnPostCountDto.viewPosts,
-        reposts: campaignAnalyticsResp.basedOnPostCountDto.repostPosts,
-        quotes: campaignAnalyticsResp.basedOnPostCountDto.quotePosts,
-        bookmarks: campaignAnalyticsResp.basedOnPostCountDto.bookmarkPosts,
-        estimatedReach: campaignAnalyticsResp.basedOnPostCountDto.estimatedReachPosts,
-        customEstimatedReach: campaignAnalyticsResp.basedOnPostCountDto.customEstimatedReachPosts,
-    };
-    return { analytics: analytics, basedOnPosts: basedOnPosts };
+    const analytics = campaignAnalyticsResp.analysisStatDtos.map((item: any) => {
+        return {
+            ...item,
+            statsType: item.statsType.toLowerCase(),
+            basedOnPosts: campaignAnalyticsResp.basedOnPostCountDto[`${item.statsType.toLowerCase().slice(0, -1)}Posts`],
+        };
+    });
+    return { analytics: analytics };
 };
 
 export const structurePostsData = (data: IPostsReportingResponse) => {

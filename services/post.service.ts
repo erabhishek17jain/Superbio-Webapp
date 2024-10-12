@@ -98,6 +98,26 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
         }
     };
 
+    public updateCustomAnalytics = async (campaignId: any, params: any): Promise<any> => {
+        try {
+            params['analysisStatDtos'] = params.analysisStatDtos.map((item: any) => {
+                delete item.basedOnPosts;
+                return { ...item };
+            });
+            const res = await axios.post<any>(`/api/campaign/${campaignId}/custom-analytics`, params, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            enqueueSnackbar('Failed to update estimated reach', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            throw err;
+        }
+    };
+
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
             const res = await axios.get<IPostsResponse>(`/api/post/${campaignId}/posts${params}`, this.get_auth_header_java());

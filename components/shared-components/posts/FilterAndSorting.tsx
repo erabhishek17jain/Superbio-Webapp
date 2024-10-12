@@ -17,6 +17,9 @@ import InstagramIcon from '../../../icons/InstagramIcon';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { AvailableFilters } from '@/interfaces/filter';
+import CustomAnalyticsModal from '@/components/modals/CustomAnalyticsModal';
+import PostNetworkService from '@/services/post.service';
+import { enqueueSnackbar } from 'notistack';
 
 interface FilterAndSortingProps {
     meta: any;
@@ -27,12 +30,61 @@ interface FilterAndSortingProps {
     filtersOptions: AvailableFilters;
     isFilter: any;
     setIsFilter: any;
+    refreshCampData: any;
+    isPublic: boolean;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const { meta, shouldShowSort, query, filters, selectFilter, filtersOptions, isFilter, setIsFilter } = props;
-    const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
+    const { meta, shouldShowSort, query, filters, selectFilter, filtersOptions, isFilter, setIsFilter, refreshCampData, isPublic } = props;
     const sortBy = query.sortBy;
+    const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
+    const [showCustomAnalyticsModal, setshowCustomAnalyticsModal] = useState(false);
+
+    const openCloseCustomAnalyticsModal = () => {
+        setshowCustomAnalyticsModal(!showCustomAnalyticsModal);
+    };
+
+    const updateCustomAnalytics = (analytics: any) => {
+        const analysisStatDtos = analytics.map((item: any) => {
+            return { ...item, statsType: item.statsType.toUpperCase() };
+        });
+        const params = {
+            campaignId: meta.campaignDto.id,
+            analysisStatDtos: analysisStatDtos,
+        };
+        PostNetworkService.instance.updateCustomAnalytics(meta.campaignDto.id, params).then((res) => {
+            enqueueSnackbar('Custom analytics upadated successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            openCloseCustomAnalyticsModal();
+            refreshCampData();
+        });
+    };
+
+    const resetCustomAnalytics = () => {
+        const analysisStatDtos = meta.analytics.map((item: any) => {
+            return { ...item, customEstimatedValue: null, hideInPublicView: true, statsType: item.statsType.toUpperCase() };
+        });
+        const params = {
+            campaignId: meta.campaignDto.id,
+            analysisStatDtos: analysisStatDtos,
+        };
+        PostNetworkService.instance.updateCustomAnalytics(meta.campaignDto.id, params).then((res) => {
+            enqueueSnackbar('Custom analytics upadated successfully', {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            openCloseCustomAnalyticsModal();
+            refreshCampData();
+        });
+    };
 
     const setOpenFilter = (open: boolean) => {
         setIsFilter(open);
@@ -131,6 +183,15 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                             <span>Twitter</span>
                         </div>
                     )}
+                    {!isPublic && (
+                        <span className='flex items-center justify-end text-sm gap-2'>
+                            <span
+                                className={`flex rounded-lg py-1 px-3 items-center gap-2 text-sm cursor-pointer text-[#8b8b8b] underline`}
+                                onClick={() => setshowCustomAnalyticsModal(true)}>
+                                Update custom analytics
+                            </span>
+                        </span>
+                    )}
                 </div>
             </div>
             {meta?.total > 0 && (
@@ -179,6 +240,14 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                         </>
                     )}
                 </span>
+            )}
+            {showCustomAnalyticsModal && (
+                <CustomAnalyticsModal
+                    analytics={meta.analytics}
+                    openCloseModal={openCloseCustomAnalyticsModal}
+                    resetCustomAnalytics={resetCustomAnalytics}
+                    updateCustomAnalytics={updateCustomAnalytics}
+                />
             )}
         </div>
     );

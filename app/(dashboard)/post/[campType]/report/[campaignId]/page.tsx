@@ -24,7 +24,7 @@ const SUMMARY_COLORS: { [key: string]: string } = {
     bookmarks: 'bg-bookmarks',
     shares: 'bg-quotes',
     saves: 'bg-bookmarks',
-    estimatedReach: 'bg-views',
+    reach: 'bg-views',
     posts: 'bg-posts',
     followers: 'bg-posts',
     medias: 'bg-views',
@@ -71,7 +71,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
         };
     }
 
-    const calculateAnalytics = (campData: any) => {
+    const calculateAnalytics1 = (campData: any) => {
         if (campData?.meta.analytics) {
             let keys: string[] = ['Estimated reach', 'views', 'likes', 'comments', 'reposts', 'quotes', 'bookmarks'];
             if (searchParams.isPublic) {
@@ -115,6 +115,21 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             }
 
             return [extimateReach, ...(result.filter((item) => item !== null) as ISummary[])];
+        }
+    };
+
+    const calculateAnalytics = (campData: any) => {
+        if (campData?.meta.analytics) {
+            let result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
+                return {
+                    ...item,
+                    icon: SUMMARY_ICONS[item.statsType],
+                    color: SUMMARY_COLORS[item.statsType],
+                    calculatedValue: calculateSummary(item.calculatedValue),
+                    customEstimatedValue: calculateSummary(item.customEstimatedValue),
+                };
+            });
+            return result;
         }
     };
 
@@ -170,7 +185,6 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
             const tempMeta = { ...campData.meta };
             const meta = setPostsAnalytics(resp);
             tempMeta['analytics'] = meta.analytics;
-            tempMeta['basedOnPosts'] = meta.basedOnPosts;
             dispatch(setCampData({ ...campData, meta: tempMeta }));
             setIsSheetLoading(false);
         });
@@ -252,7 +266,9 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                                     isFilter={isFilter}
                                     setIsFilter={setIsFilter}
                                     selectFilter={selectFilter}
+                                    refreshCampData={() => refreshCampaign(query)}
                                     filtersOptions={campData?.meta.filterValueResp}
+                                    isPublic={searchParams.isPublic ? searchParams.isPublic : false}
                                 />
                                 <AnalyticsSummary
                                     summary={summary}
