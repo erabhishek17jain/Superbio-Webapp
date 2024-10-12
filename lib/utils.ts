@@ -59,7 +59,7 @@ export const setPostsAnalytics = (campaignAnalyticsResp: any) => {
 };
 
 export const structurePostsData = (data: IPostsReportingResponse) => {
-    let sheets = data.filterValueResp.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
+    let sheets = data.filterValueResp?.lastAppliedFilterField === 'internalSheetId' ? data.filterValueResp.allSheets : data.filterValueResp.sheets;
     sheets = sheets.map((item: any) => {
         return { id: item.id, name: item.name };
     });

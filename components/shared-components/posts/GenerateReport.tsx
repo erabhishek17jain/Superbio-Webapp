@@ -100,7 +100,7 @@ export default function GenerateReport(props: GenerateReportProps) {
         }
     }, [reportText]);
 
-    let lastUpdate = dayjs(Number(campData.meta?.campaignDto.lastSyncedAt)).fromNow();
+    let lastUpdate = dayjs(Number(campData.meta?.campaignDto?.lastSyncedAt)).fromNow();
     if (diffInMin > 0) {
         lastUpdate = dayjs(new Date()).subtract(diffInMin, 'minutes').fromNow();
     }
