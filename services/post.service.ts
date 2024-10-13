@@ -88,7 +88,7 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
     // post
     public deletePost = async (postId: string): Promise<any> => {
         try {
-            const res = await axios.delete<ICampaign>(`${baseAPI}/post/${postId}`, this.get_auth_header_java());
+            const res = await axios.delete<ICampaign>(`${baseAPI}/posts/${postId}`, this.get_auth_header_java());
             return res;
         } catch (err: any) {
             enqueueSnackbar('Failed to delete post', {
@@ -104,7 +104,7 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
 
     public updatePostAnalytics = async (postId: string, params: { [key: string]: number | string }): Promise<any> => {
         try {
-            const res = await axios.put<any>(`${baseAPI}/post/${postId}`, params, this.get_auth_header_java());
+            const res = await axios.put<any>(`${baseAPI}/posts/${postId}`, params, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
             enqueueSnackbar('Failed to update post analytics', {
@@ -120,7 +120,7 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
 
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`${baseAPI}/post/${campaignId}/posts${params}`, this.get_auth_header_java());
+            const res = await axios.get<IPostsResponse>(`${baseAPI}/posts/${campaignId}/posts${params}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
             throw err;

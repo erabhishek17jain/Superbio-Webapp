@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 const products = [
     {
-        type: 'post',
+        type: 'posts',
         img: reporting,
         btnText: 'Get started',
         title: 'Campaign Reporting',
@@ -21,14 +21,14 @@ const products = [
     {
         type: 'profile',
         img: influencer,
-        btnText: 'Coming soon',
+        btnText: 'Get started',
         title: 'Influencer Analysis',
         description: 'Get precise profile analytics of hundreds of influencers',
     },
     {
         type: 'orgs',
         img: reporting,
-        btnText: 'Coming soon',
+        btnText: 'Get started',
         title: 'Agency Managed Influencer',
         description: 'Get precise profile analytics of influencers of your agency',
     },

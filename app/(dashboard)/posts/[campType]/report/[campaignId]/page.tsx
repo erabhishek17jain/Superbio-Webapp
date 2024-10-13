@@ -200,7 +200,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                             <NewCampaign
                                 buttonText={'Add links'}
                                 title={'Add links for reporting'}
-                                action={() => router.push(`/post/${params?.campType}/create/${params.campaignId}`)}
+                                action={() => router.push(`/posts/${params?.campType}/create/${params.campaignId}`)}
                                 description={
                                     'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                                 }

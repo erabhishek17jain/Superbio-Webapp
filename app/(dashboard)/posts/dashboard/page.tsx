@@ -173,7 +173,7 @@ export default function PostHomePage() {
                             <div className='flex flex-col w-full mb-4 sm:mb-10'>
                                 <div className='flex w-full justify-between mb-3 sm:mb-5'>
                                     <span className='font-semibold text-xl text-opacity-80'>Active campaigns</span>
-                                    <Link href={`/post/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
+                                    <Link href={`/posts/active`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                         See More
                                     </Link>
                                 </div>
@@ -203,7 +203,7 @@ export default function PostHomePage() {
                                     <span className='capitalize font-semibold text-xl text-opacity-80'>
                                         {user.role !== 'admin' ? 'Shared Campaigns' : 'Created by other members'}
                                     </span>
-                                    <Link href={`/post/shared`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
+                                    <Link href={`/posts/shared`} className='text-[#8b8b8b] cursor-pointer text-base font-semibold'>
                                         See More
                                     </Link>
                                 </div>

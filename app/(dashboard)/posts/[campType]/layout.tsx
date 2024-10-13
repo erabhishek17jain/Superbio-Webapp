@@ -125,7 +125,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     <div className='flex'>
                                         <div
                                             onClick={() => {
-                                                router.push('/post/dashboard');
+                                                router.push('/posts/dashboard');
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span>Home</span>
@@ -134,7 +134,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                         <div
                                             onClick={() => {
                                                 dispatch(setLoading(true));
-                                                router.push('/post/dashboard');
+                                                router.push('/posts/dashboard');
                                             }}
                                             className='hidden sm:flex text-[#8b8b8b] cursor-pointer items-center space-x-3 mt-[2px]'>
                                             <span className='ml-3 capitalize'>LOQO Campaign Tracker</span>
@@ -149,8 +149,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         onClick={() => {
                                                             if (active) {
                                                                 fetchMore();
-                                                                router.push(`/post/${component}`);
-                                                                setPathUrls(`/post/${component}`.split('/'));
+                                                                router.push(`/posts/${component}`);
+                                                                setPathUrls(`/posts/${component}`.split('/'));
                                                             }
                                                         }}
                                                         className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
@@ -167,7 +167,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         key={component}
                                                         onClick={() => {
                                                             if (active) {
-                                                                router.push('/post/' + component);
+                                                                router.push('/posts/' + component);
                                                                 fetchMore();
                                                             }
                                                         }}

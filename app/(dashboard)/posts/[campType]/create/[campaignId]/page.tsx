@@ -65,7 +65,7 @@ export default function CreateReporting() {
 
     const addUpdateSheet = () => {
         if (mode === 'view') {
-            router.push(`/post/${params?.campType}/report/${params.campaignId}`);
+            router.push(`/posts/${params?.campType}/report/${params.campaignId}`);
             return;
         }
         let error = false;
@@ -135,7 +135,7 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
-                    router.push(`/post/${params?.campType}/report/${params.campaignId}`);
+                    router.push(`/posts/${params?.campType}/report/${params.campaignId}`);
                 }
             }
         }
