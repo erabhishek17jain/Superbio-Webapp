@@ -17,7 +17,7 @@ export default function BottomBar() {
     
     return (
         <ul className='fixed bottom-0 left-0 flex h-fit min-h-[8%] w-full items-center sm:items-end justify-around border-t border-sky-600/15 bg-white sm:hidden z-50'>
-            <Link href={`/${campaignType !== '' ? campaignType : 'post'}/dashboard`} key='home' className='flex items-center space-x-3'>
+            <Link href={`/${campaignType !== '' ? campaignType : 'posts'}/dashboard`} key='home' className='flex items-center space-x-3'>
                 <HouseIcon color={path === '/' ? '#000000' : '#8b8b8b'} size={32} />
             </Link>
             <Link href='/queue' key='queue' className='flex items-center space-x-3'>
