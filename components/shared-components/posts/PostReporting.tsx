@@ -16,16 +16,16 @@ import GenerateReport from './GenerateReport';
 import Reporting from './Reporting';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
-    views: 'bg-posts',
-    comments: 'bg-views',
+    posts: 'bg-posts',
+    reach: 'bg-reach',
+    views: 'bg-views',
     likes: 'bg-likes',
+    comments: 'bg-comments',
     reposts: 'bg-reposts',
     quotes: 'bg-quotes',
     bookmarks: 'bg-bookmarks',
     shares: 'bg-quotes',
     saves: 'bg-bookmarks',
-    reach: 'bg-views',
-    posts: 'bg-posts',
     followers: 'bg-posts',
     medias: 'bg-views',
     engagements: 'bg-reposts',

@@ -25,13 +25,18 @@ const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
                 <div className='flex gap-2 justify-between sm:w-auto'>
                     <div className={`flex items-center justify-center ${item.color} bg-opacity-60 w-7 h-7 mr-3 rounded-full`}>{item.icon}</div>
                     <div className='flex gap-2'>
-                        <p className='text-2xl text-black-100'>{item?.customEstimatedValue === '0.00' ? item?.calculatedValue : item?.customEstimatedValue}</p>
+                        {isPublic && (
+                            <p className='text-2xl text-black-100'>
+                                {item?.customEstimatedValue === '0.00' ? item?.calculatedValue : item?.customEstimatedValue}
+                            </p>
+                        )}
+                        {!isPublic && <p className='text-2xl text-black-100'>{item?.calculatedValue}</p>}
                     </div>
                 </div>
                 <div className='flex flex-col h-9 justify-end w-full mt-1'>
                     <div className='flex capitalize text-sm'>{`${item.statsType}`}</div>
                     {!(item.statsType === 'Estimated Reach' || item.statsType === 'Total posts') && (
-                        <p className='text-xs text-black-500'>
+                        <p className='text-[0.7rem] text-black-500'>
                             {`${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
                         </p>
                     )}

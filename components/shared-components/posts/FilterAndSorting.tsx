@@ -7,6 +7,7 @@ import {
     CalendarCheck2Icon,
     EyeIcon,
     HeartIcon,
+    InfoIcon,
     Instagram,
     MessageCircleIcon,
     Repeat2Icon,
@@ -188,7 +189,10 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                             <span
                                 className={`flex rounded-lg py-1 px-3 items-center gap-2 text-sm cursor-pointer text-[#8b8b8b] underline italic`}
                                 onClick={() => setshowCustomAnalyticsModal(true)}>
-                                <span className='sm:flex hidden'>Update custom analytics</span>
+                                <span className='sm:flex hidden gap-1 items-center' title='Customised your public view with custom estimated stats.'>
+                                    <InfoIcon size={16} />
+                                    Update estimated analytics
+                                </span>
                                 <span className='flex sm:hidden'>Analytics</span>
                             </span>
                         </span>

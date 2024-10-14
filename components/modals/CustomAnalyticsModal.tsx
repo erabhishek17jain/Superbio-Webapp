@@ -20,7 +20,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, resetC
 
     useEffect(() => {
         const newArray = analytics.map((item: any) => {
-            return { ...item, customEstimatedValue: item.calculatedValue };
+            return { ...item, customEstimatedValue: item.customEstimatedValue === 0 ? item.calculatedValue : item.customEstimatedValue };
         });
         setCustomAnalytics(newArray);
     }, []);
@@ -30,7 +30,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, resetC
             <div className='flex h-full justify-center items-center'>
                 <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[70%] sm:w-[80%] lg:w-[65%] xl:w-[55%]'>
                     <div className='flex justify-between'>
-                        <span className='text-2xl font-semibold'>Update Custom Analytics</span>
+                        <span className='text-2xl font-semibold'>Update Estimated Analytics</span>
                         <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
