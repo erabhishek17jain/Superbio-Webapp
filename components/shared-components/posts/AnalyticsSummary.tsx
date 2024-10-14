@@ -16,7 +16,6 @@ interface AnalyticsSummaryProps {
     refreshCampData: any;
 }
 
-
 const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
     return (
         <div className='flex relative' key={item.statsType}>
@@ -29,10 +28,13 @@ const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
                         <p className='text-2xl text-black-100'>{item?.customEstimatedValue === '0.00' ? item?.calculatedValue : item?.customEstimatedValue}</p>
                     </div>
                 </div>
-                <div className='flex h-9 items-end justify-between w-full'>
-                    <p className='text-xs text-black-500'>
-                        {`${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${isPublic ? 'estimated' : ''} ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
-                    </p>
+                <div className='flex flex-col h-9 justify-end w-full mt-1'>
+                    <div className='flex capitalize text-sm'>{`${item.statsType}`}</div>
+                    {!(item.statsType === 'Estimated Reach' || item.statsType === 'Total posts') && (
+                        <p className='text-xs text-black-500'>
+                            {`${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

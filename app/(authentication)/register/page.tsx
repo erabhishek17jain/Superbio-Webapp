@@ -2,7 +2,6 @@
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setUser } from '@/context/user';
 import UserNetworkService from '@/services/user.service';
-import { ArrowRightIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState } from 'react';
@@ -106,7 +105,7 @@ export default function Register() {
 
     return (
         <div className='flex flex-col'>
-            <div className='flex flex-col gap-2'>
+            {/* <div className='flex flex-col gap-2'>
                 <label htmlFor='name'>
                     <span className='text-base font-semibold capitalize'>Name *</span>
                 </label>
@@ -181,7 +180,7 @@ export default function Register() {
                         </>
                     )}
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -92,6 +92,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                     color: SUMMARY_COLORS[item.statsType],
                     calculatedValue: calculateSummary(item.calculatedValue),
                     customEstimatedValue: calculateSummary(item.customEstimatedValue),
+                    statsType: item.statsType === 'reach' ? 'Estimated Reach' : item.statsType,
                 };
             });
             return [...total, ...result];
