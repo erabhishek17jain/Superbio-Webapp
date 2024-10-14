@@ -16,7 +16,8 @@ interface AnalyticsSummaryProps {
     refreshCampData: any;
 }
 
-const AnalyticsBox = ({ item, filters, isInstagram }: any) => {
+
+const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
     return (
         <div className='flex relative' key={item.statsType}>
             <div
@@ -30,25 +31,8 @@ const AnalyticsBox = ({ item, filters, isInstagram }: any) => {
                 </div>
                 <div className='flex h-9 items-end justify-between w-full'>
                     <p className='text-xs text-black-500'>
-                        {item.statsType.includes('reach')
-                            ? 'Estimated reach'
-                            : `${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
+                        {`${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${isPublic ? 'estimated' : ''} ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
                     </p>
-                    {/* {item.statsType.includes('reach') && !isPublic && (
-                                        <div className='flex gap-1'>
-                                            {item.basedOnPosts > 0 && (
-                                                <div
-                                                    className='cursor-pointer'
-                                                    onClick={() => updateEstimatedReach({ estimatedReach: null })}
-                                                    title='Reset estimated reach'>
-                                                    <RefreshCwIcon color='#8b8b8b' size={18} />
-                                                </div>
-                                            )}
-                                            <div className='cursor-pointer' onClick={openCloseEstimatedModal} title='Add custom estimated reach'>
-                                                <FilePenLineIcon color='#8b8b8b' size={18} />
-                                            </div>
-                                        </div>
-                                    )} */}
                 </div>
             </div>
         </div>
@@ -104,7 +88,9 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
         <div className='flex'>
             <div className='flex w-full flex-col mx-2 sm:mx-0'>
                 <div className={cols}>
-                    {analytics?.map((item: any) => <AnalyticsBox key={item.statsType} item={item} filters={filters} isInstagram={isInstagram} />)}
+                    {analytics?.map((item: any) => (
+                        <AnalyticsBox key={item.statsType} item={item} filters={filters} isInstagram={isInstagram} isPublic={isPublic} />
+                    ))}
                 </div>
             </div>
             {showEstimatedModal && <EstimatedReachModal openCloseModal={openCloseEstimatedModal} updateEstimatedReach={updateEstimatedReach} />}

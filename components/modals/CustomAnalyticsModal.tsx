@@ -20,7 +20,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, resetC
 
     useEffect(() => {
         const newArray = analytics.map((item: any) => {
-            return { ...item };
+            return { ...item, customEstimatedValue: item.calculatedValue };
         });
         setCustomAnalytics(newArray);
     }, []);
@@ -41,7 +41,7 @@ export default function CustomAnalyticsModal({ analytics, openCloseModal, resetC
                                 <div className='flex' key={item.statsType}>
                                     <div className='flex flex-col'>
                                         <label htmlFor='' className='text-sm capitalize'>
-                                            {item.statsType.toLowerCase()}
+                                            Estimated {item.statsType.toLowerCase()}
                                         </label>
                                         <div className='flex gap-2 items-center'>
                                             <input

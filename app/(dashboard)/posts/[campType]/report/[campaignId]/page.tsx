@@ -73,7 +73,19 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
 
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
+            const total: (any)[] = [];
+            if (searchParams.isPublic) {
+                total.push({
+                    basedOnPostCount: campData?.meta?.total,
+                    calculatedValue: campData?.meta?.total,
+                    color: SUMMARY_COLORS['posts'],
+                    customEstimatedValue: campData?.meta?.total,
+                    hideInPublicView: true,
+                    icon: SUMMARY_ICONS['posts'],
+                    statsType: 'Total posts',
+                });
+            }
+            const result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
                 return {
                     ...item,
                     icon: SUMMARY_ICONS[item.statsType],
@@ -82,7 +94,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                     customEstimatedValue: calculateSummary(item.customEstimatedValue),
                 };
             });
-            return result;
+            return [...total, ...result];
         }
     };
 

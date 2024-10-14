@@ -21,14 +21,14 @@ const products = [
     {
         type: 'profile',
         img: influencer,
-        btnText: 'Get started',
+        btnText: 'Coming soon',
         title: 'Influencer Analysis',
         description: 'Get precise profile analytics of hundreds of influencers',
     },
     {
         type: 'orgs',
         img: reporting,
-        btnText: 'Get started',
+        btnText: 'Coming soon',
         title: 'Agency Managed Influencer',
         description: 'Get precise profile analytics of influencers of your agency',
     },

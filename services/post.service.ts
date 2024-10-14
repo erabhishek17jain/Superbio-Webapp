@@ -120,7 +120,7 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
 
     public getPostsData = async (campaignId: string, params: string): Promise<IPostsResponse> => {
         try {
-            const res = await axios.get<IPostsResponse>(`${baseAPI}/posts/${campaignId}/posts${params}`, this.get_auth_header_java());
+            const res = await axios.get<IPostsResponse>(`${this.javaUrl}/rest/v1/post/${campaignId}/posts${params}`);
             return res.data;
         } catch (err: any) {
             throw err;

@@ -2,8 +2,6 @@
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setUser } from '@/context/user';
 import UserNetworkService from '@/services/user.service';
-import { error } from 'console';
-import { ArrowRightIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState } from 'react';

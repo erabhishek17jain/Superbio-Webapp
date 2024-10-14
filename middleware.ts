@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (req.nextUrl.pathname.includes('post') || req.nextUrl.pathname.includes('profile')) {
+    if (req.nextUrl.pathname.includes('report')) {
         if (!user) {
             let url = new URL(req.nextUrl.href);
             if (url.searchParams.has('isPublic')) {
@@ -37,6 +37,10 @@ export function middleware(req: NextRequest) {
     }
 
     const hostname = req.nextUrl.hostname;
+
+    if (req.nextUrl.pathname.startsWith('/active/campaign')) {
+        return NextResponse.redirect(req.nextUrl.origin + req.nextUrl.pathname.replace('active/campaign', 'posts/active/report'));
+    }
 
     if (!user && !authRoutes.includes(req.nextUrl.pathname)) {
         const page = hostname.includes('youngun') ? '/login' : '/home';
