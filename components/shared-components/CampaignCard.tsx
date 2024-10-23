@@ -197,7 +197,9 @@ export default function CampaignCard({
                                 </div>
                             )}
                         </div>
-                        <span className='bg-[#FFDADA] text-[#D00303] text-sm px-3 py-1 rounded-2xl'>{campaign.groups} Posts</span>
+                        <span className='bg-[#FFDADA] text-[#D00303] text-sm px-3 py-1 rounded-2xl'>
+                            {campaign.groups} {campaignType === 'profile' ? 'Profiles' : 'Posts'}
+                        </span>
                     </div>
                     <div onClick={navigateToReporting} className='cursor-pointer flex flex-wrap gap-1'>
                         {campaign.keywords.map((text, index) => (

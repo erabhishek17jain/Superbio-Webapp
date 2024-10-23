@@ -3,10 +3,10 @@ import { useSnackbar } from 'notistack';
 import { v4 as uuidv4 } from 'uuid';
 import { logout } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
-import { ArrowRightIcon, DownloadIcon, SearchCheckIcon, XIcon } from 'lucide-react';
+import { ArrowRightIcon, PlusIcon, SearchCheckIcon, XIcon } from 'lucide-react';
 import OrgsNetworkService from '@/services/orgs.service';
 import LoadingBlack from '../global-components/LoadingBlack';
-import CampaignNetworkService, { CampaignStatus } from '@/services/campaign.service';
+import CampaignNetworkService from '@/services/campaign.service';
 
 export default function MapToCampaignModal({ setShowSelect, platform, profileIds, openCloseModal, setProfileIds }: any) {
     const router = useRouter();
@@ -139,8 +139,8 @@ export default function MapToCampaignModal({ setShowSelect, platform, profileIds
                         <button
                             onClick={mapToCampaign}
                             disabled={selCamp === ''}
-                            className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11 disabled:opacity-50 disabled:cursor-not-allowed'>
-                            <DownloadIcon color='#fff' size={20} />
+                            className='flex items-center bg-black py-2 px-4 rounded-lg gap-1 cursor-pointer text-sm text-white h-11 disabled:opacity-50 disabled:cursor-not-allowed'>
+                            <PlusIcon color='#fff' size={20} />
                             <span className='text-opacity-80'>Add to campaign</span>
                         </button>
                     </div>

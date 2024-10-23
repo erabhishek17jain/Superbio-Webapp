@@ -141,7 +141,7 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                     </div>
                 </div>
                 <div className='flex flex-col w-full mb-1'>
-                    <div className='grid grid-cols-3 w-full divide-x'>
+                    {/* <div className='grid grid-cols-3 w-full divide-x'>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
                             <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.customAveragePostCost)}</span>
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>Avg post cost</span>
@@ -156,8 +156,8 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                                 {item.customTags.length > 0 ? 'Custom Tags' : 'Total Comments'}
                             </span>
                         </div>
-                    </div>
-                    <div className='grid grid-cols-4 w-full divide-x border-t'>
+                    </div> */}
+                    <div className='grid grid-cols-4 w-full divide-x'>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
                             <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.followerCount)}</span>
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>Followers</span>
