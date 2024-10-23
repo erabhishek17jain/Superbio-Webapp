@@ -16,13 +16,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const paths = usePathname();
-    const params: any = useParams();
-    const [pathUrls, setPathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs' || item === 'active')));
+    const [pathUrls] = useState(paths.split('/').filter((item: string) => !(item === '' || item === 'orgs' || item === 'active')));
     const { enqueueSnackbar } = useSnackbar();
     const { allCampaign, loading } = useAppSelector((state) => state.campaign);
-    const [isSearch, setIsSearch] = useState(false);
-    const [searchText, setSearchText] = useState('');
-    const ownerType = params?.campType === 'active' ? 'own' : 'shared';
     const searchParam: any = useSearchParams();
     const isPublic = searchParam.get('isPublic') === 'true';
 
@@ -38,71 +34,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         });
     };
 
-    const resetSearch = () => {
-        setIsSearch(false);
-        setSearchText('');
-        dispatch(
-            getCampaigns({
-                page: 1,
-                limit: 12,
-                status: CampaignStatus.active,
-                ownerType: ownerType,
-                q: '',
-                type: 'influencer'
-            })
-        );
-    };
-
-    const searhFilter = () => {
-        if (searchText !== '') {
-            setIsSearch(true);
-            dispatch(
-                getCampaigns({
-                    page: 1,
-                    limit: 12,
-                    status: CampaignStatus.active,
-                    ownerType: ownerType,
-                    q: searchText,
-                    type: 'influencer',
-                })
-            );
-        } else if (searchText === '') {
-            resetSearch();
-        }
-    };
-
-    const searchByFilter = (e: any) => {
-        if (e.code === 'Enter') {
-            searhFilter();
-        }
-    };
-
-    const fetchMore = () => {
-        const ownedType = params?.campType?.split('-')[0] === 'active' ? 'own' : 'shared';
-        dispatch(
-            getCampaigns({
-                page: allCampaign?.meta?.arg?.page || 0 + 1,
-                limit: 12,
-                status: CampaignStatus.active,
-                ownerType: ownedType,
-                q: '',
-                type: 'influencer',
-            })
-        );
-        dispatch(
-            setMeta({
-                page: allCampaign?.meta?.arg?.page || 0 + 1,
-                limit: 12,
-            })
-        );
-    };
-
     const isCreateReport = paths.indexOf('create') > -1 || paths.indexOf('report') > -1;
 
     useEffect(() => {
-        if (!isCreateReport) {
-            fetchMore();
-        } else {
+        if (isCreateReport) {
             dispatch(setLoading(false));
         }
     }, []);
@@ -139,25 +74,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <span className='ml-3 capitalize'>Agency Managed Influencer</span>
                                             <ChevronRightIcon color='#8b8b8b' size={22} />
                                         </div>
-                                        {!isCreateReport &&
-                                            pathUrls.map((component, index) => {
-                                                const active = index !== pathUrls.length - 1;
-                                                return (
-                                                    <div
-                                                        key={component}
-                                                        onClick={() => {
-                                                            if (active) {
-                                                                fetchMore();
-                                                                router.push(`/orgs/${component}`);
-                                                                setPathUrls(`/orgs/${component}`.split('/'));
-                                                            }
-                                                        }}
-                                                        className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
-                                                        <span className={`capitalize`}>{component}</span>
-                                                        {active && <ChevronRightIcon color='#8b8b8b' size={22} />}
-                                                    </div>
-                                                );
-                                            })}
                                         {isCreateReport &&
                                             pathUrls.slice(0, -2).map((component, index) => {
                                                 const active = index !== pathUrls.length - 1;
@@ -167,7 +83,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                         onClick={() => {
                                                             if (active) {
                                                                 router.push('/orgs/' + component);
-                                                                fetchMore();
                                                             }
                                                         }}
                                                         className={`hidden sm:flex ${active ? 'text-[#8b8b8b] cursor-pointer' : 'text-black font-[500] text-[21px]'} items-center space-x-3 ml-3 mt-[2px]`}>
@@ -178,36 +93,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             })}
                                         {isCreateReport && (
                                             <div className={`hidden sm:flex text-black items-center space-x-3 ml-3 mt-[2px]`}>
-                                                <span className='capitalize font-[500] text-[21px]'>
-                                                    Your Profile
-                                                </span>
+                                                <span className='capitalize font-[500] text-[21px]'>Your Profile</span>
                                             </div>
                                         )}
                                     </div>
                                 </div>
                                 <div className='flex gap-3 justify-center items-center ml-16 sm:ml-0'>
-                                    {!isCreateReport && (
-                                        <div className='flex justify-between pl-0 sm:pl-4 items-center bg-[#F7F7F7] rounded-lg'>
-                                            <SearchCheckIcon color='#8b8b8b' size={28} className='hidden sm:flex' />
-                                            <input
-                                                type='text'
-                                                name={`input_name}`}
-                                                placeholder={'Search for campaigns'}
-                                                value={searchText}
-                                                onChange={(e: any) => setSearchText(e.target.value)}
-                                                onKeyUp={(e: any) => searchByFilter(e)}
-                                                className='flex outline-none bg-[#F7F7F7] p-3 h-10 text-sm w-full'
-                                            />
-                                            <div className='cursor-pointer pr-3 h-10 py-2' onClick={searhFilter}>
-                                                <ArrowRightIcon color='#8b8b8b' size={24} />
-                                            </div>
-                                        </div>
-                                    )}
-                                    {searchText !== '' && isSearch && (
-                                        <div className='flex justify-between px-1 items-center bg-[#F7F7F7] rounded-lg' onClick={resetSearch}>
-                                            <XIcon color='#8b8b8b' size={24} />
-                                        </div>
-                                    )}
                                     {paths.indexOf('report') > -1 && (
                                         <div className='flex gap-4'>
                                             <button onClick={() => router.back()} className='flex sm:hidden items-center h-10 text-black text-sm'>
@@ -239,12 +130,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             </Link>
                         </div>
                     )}
-                    {!isCreateReport && searchText !== '' && isSearch && (
-                        <div className='flex pt-4 px-8 flex-col md:flex-row justify-between gap-4 items-center'>
-                            <div className='flex py-3 uppercase text-[#8b8b8b] text-sm'>Showing results for {searchText}</div>
-                        </div>
-                    )}
-                    {allCampaign?.meta?.arg?.page === 1 && loading ? <LoadingBlack /> : children}
+                    {loading ? <LoadingBlack /> : children}
                 </div>
             </div>
         </main>

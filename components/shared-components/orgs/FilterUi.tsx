@@ -98,9 +98,12 @@ export default function FilterUi(props: FilterUiProps) {
 
     const resetFilters = () => {
         setFilters({
+            tags: [],
             niche: [],
+            categories: [],
             engagementRate: [],
             postFrequencyPerDay: [],
+            averagePostCostRange: [],
             profileTypeByFollowers: [],
         });
         const url = new URL(window.location.href);

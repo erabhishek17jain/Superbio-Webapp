@@ -9,15 +9,19 @@ export default function DeletePostModal({ type, campaignId, postId, openCloseMod
     const [isSending, setIsSending] = useState(false);
     const { campaignType } = useAppSelector((state) => state.user);
 
-    const deletePostProfiles = () => {
+    const deletePostProfiles = async (campaignType: string) => {
         setIsSending(true);
-        const api =
-            campaignType === 'profile'
-                ? type === 'twitter'
-                    ? ProfileNetworkService.instance.deleteTwProfile(campaignId, postId)
-                    : ProfileNetworkService.instance.deleteIgProfile(campaignId, postId)
-                : PostNetworkService.instance.deletePost(postId);
-        api.then(() => {
+        let result: any;
+        if (campaignType === 'profile') {
+            result =
+                type === 'twitter'
+                    ? await ProfileNetworkService.instance.deleteTwProfile(campaignId, postId)
+                    : await ProfileNetworkService.instance.deleteIgProfile(campaignId, postId);
+        } else {
+            result = await PostNetworkService.instance.deletePost(postId);
+        }
+
+        if (result) {
             const msg = `${campaignType === 'profile' ? 'Profile' : 'Post'} deleted successfully`;
             enqueueSnackbar(msg, {
                 variant: 'success',
@@ -28,7 +32,7 @@ export default function DeletePostModal({ type, campaignId, postId, openCloseMod
             });
             const url = new URL(window.location.href);
             window.location.href = url.href;
-        });
+        }
     };
     return (
         <div id='delete' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
@@ -54,7 +58,7 @@ export default function DeletePostModal({ type, campaignId, postId, openCloseMod
                         </button>
                         <button
                             disabled={isSending}
-                            onClick={deletePostProfiles}
+                            onClick={() => deletePostProfiles(campaignType)}
                             className={`bg-black flex gap-2 items-center rounded-xl py-2 pl-4 pr-5 text-white cursor-pointer disabled:opacity-50`}>
                             <Trash2Icon color='#fff' size={24} />
                             Delete

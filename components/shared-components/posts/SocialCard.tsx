@@ -179,11 +179,13 @@ export default function SocialCard({
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
                         {postedAt ? parseInt(postedAt) > 0 && <span>Posted on {dayjs(posted).format('D MMM, YYYY')}</span> : <span>Post Summary</span>}
                         <div className='flex gap-3'>
-                            <button
-                                onClick={openCloseDeleteModal}
-                                className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
-                                <Trash2Icon color='#8b8b8b' size={18} />
-                            </button>
+                            {!isPublic && (
+                                <button
+                                    onClick={openCloseDeleteModal}
+                                    className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
+                                    <Trash2Icon color='#8b8b8b' size={18} />
+                                </button>
+                            )}
                             <a target='_blank' href={link} className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
                                 <SquareArrowOutUpRightIcon color='#8b8b8b' size={18} />
                             </a>

@@ -1,4 +1,19 @@
-import { BookHeart, BookHeartIcon, BookMarkedIcon, ChartNoAxesColumnIncreasingIcon, Clock4Icon, EyeIcon, HeartIcon, MessageCircleIcon, QuoteIcon, Repeat2Icon, Share2Icon, StickyNoteIcon, TvMinimalPlayIcon, UserRoundCheckIcon, UserRoundPlusIcon } from 'lucide-react';
+import {
+    BookHeartIcon,
+    BookMarkedIcon,
+    ChartNoAxesColumnIncreasingIcon,
+    Clock4Icon,
+    EyeIcon,
+    HeartIcon,
+    MessageCircleIcon,
+    QuoteIcon,
+    Repeat2Icon,
+    Share2Icon,
+    StickyNoteIcon,
+    TvMinimalPlayIcon,
+    UserRoundCheckIcon,
+    UserRoundPlusIcon,
+} from 'lucide-react';
 
 export const ANALYTICS_FILTERS = [
     {
@@ -16,29 +31,52 @@ export const ANALYTICS_FILTERS = [
     {
         name: 'Types',
         key: 'postType',
-    }
+    },
 ];
 
 export const ANALYTICS_PROFILES_FILTERS = [
     {
         name: 'Username',
         key: 'username',
-    },
-    {
-        name: 'Followers',
-        key: 'profileTypeByFollowers',
-    },
-    {
-        name: 'Frequency Per Day',
-        key: 'postFrequencyPerDay',
+        isCustom: false,
     },
     {
         name: 'Niche',
         key: 'niche',
+        isCustom: false,
+    },
+    {
+        name: 'Followers',
+        key: 'profileTypeByFollowers',
+        isCustom: true,
+    },
+    {
+        name: 'Frequency Per Day',
+        key: 'postFrequencyPerDay',
+        isCustom: false,
     },
     {
         name: 'Engagement Rate',
         key: 'engagementRate',
+        isCustom: false,
+    },
+];
+
+export const ANALYTICS_PRIVATE_PROFILES_FILTERS = [
+    {
+        name: 'Agency Tags',
+        key: 'tags',
+        isCustom: false,
+    },
+    {
+        name: 'Agency Budget',
+        key: 'averagePostCostRange',
+        isCustom: true,
+    },
+    {
+        name: 'Agency Category',
+        key: 'categories',
+        isCustom: false,
     },
 ];
 

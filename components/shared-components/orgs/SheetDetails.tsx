@@ -85,9 +85,6 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                     </div>
                     {isError && sheetInfo?.title === '' && <p className='mt-1 text-[12px] text-[#d00a0a]'>This field is required</p>}
                 </div>
-                <button onClick={() => generateReport(sheetInfo)} className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white my-2`}>
-                    Generate Report
-                </button>
                 {!(sheetInfo?.index <= selSheetData.length) && (
                     <button
                         onClick={() => fetchSheets(sheetInfo)}

@@ -37,9 +37,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
 
     const [filters, setFilters] = useState<any>({
+        tags: [],
         niche: [],
+        categories: [],
         engagementRate: [],
         postFrequencyPerDay: [],
+        averagePostCostRange: [],
         profileTypeByFollowers: [],
     });
 
@@ -266,9 +269,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     const changePlatform = (platform: string) => {
         setFilters({
+            tags: [],
             niche: [],
+            categories: [],
             engagementRate: [],
             postFrequencyPerDay: [],
+            averagePostCostRange: [],
             profileTypeByFollowers: [],
         });
         const url = new URL(window.location.href);
@@ -284,7 +290,6 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             setIsSheetLoading(true);
             initialLoadInstagramCampData(query, platforms);
         }
-        document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
     return (
@@ -307,7 +312,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                             <NewCampaign
                                 buttonText={'Add links'}
                                 title={'Add links for reporting'}
-                                action={() => router.push(`/profile/${params?.campType}/create/${params.campaignId}`)}
+                                action={() => router.push(`/profile/active/create/${params.campaignId}`)}
                                 description={
                                     'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                                 }

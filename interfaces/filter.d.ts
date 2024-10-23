@@ -28,10 +28,13 @@ export interface AvailableFilters {
     lastAppliedFilterField: string;
 }
 export interface AvailableProfilesFilters {
-    profileTypeByFollowers: string[];
-    postFrequencyPerDay: string[];
+    tags: string[];
     niche: string[];
+    categories: string[];
     engagementRate: string[];
+    postFrequencyPerDay: string[];
+    averagePostCostRange: string[];
+    profileTypeByFollowers: string[];
     [key: string]: string[] | SheetFilter[];
     lastAppliedFilterField: string;
 }

@@ -88,7 +88,7 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
     // post
     public deletePost = async (postId: string): Promise<any> => {
         try {
-            const res = await axios.delete<ICampaign>(`${baseAPI}/posts/${postId}`, this.get_auth_header_java());
+            const res = await axios.delete<ICampaign>(`${baseAPI}/post/${postId}`, this.get_auth_header_java());
             return res;
         } catch (err: any) {
             enqueueSnackbar('Failed to delete post', {
