@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import FilterAndSorting from '../../../../../../components/shared-components/profiles/FilterAndSorting';
 import Reporting from '../../../../../../components/shared-components/profiles/Reporting';
 import { ISummary, Params, SearchParams } from '@/interfaces/reporting';
-import { calculateSummary, clearFilters, setProfilesAnalytics, structureProfilesData } from '@/lib/utils';
+import { calculateSummary, clearFilters, structureProfilesData } from '@/lib/utils';
 import AnalyticsSummary from '@/components/shared-components/profiles/AnalyticsSummary';
 import { SUMMARY_ICONS } from '@/constants';
 import ProfileNetworkService from '@/services/profile.service';
@@ -16,11 +16,12 @@ import LoadingReporting from '@/components/global-components/LoadingReporting';
 import FilterUi from '../../../../../../components/shared-components/profiles/FilterUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
+    views: 'bg-reach',
     profiles: 'bg-posts',
-    views: 'bg-views',
     followers: 'bg-likes',
-    engagements: 'bg-reposts',
-    frequency_per_day: 'bg-quotes',
+    engagements: 'bg-quotes',
+    total_budget: 'bg-reposts',
+    frequency_per_day: 'bg-bookmarks',
 };
 
 export default function ProfileReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
@@ -34,9 +35,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const [platforms, setPlatforms] = useState({ isInstagram: false, isTwitter: false });
     const [selectedPlatform, setSelectedPlatform] = useState<string>('');
     const [filters, setFilters] = useState<any>({
+        tags: [],
         niche: [],
+        categories: [],
         engagementRate: [],
         postFrequencyPerDay: [],
+        averagePostCostRange: [],
         profileTypeByFollowers: [],
     });
 
@@ -63,6 +67,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const getBasedOn = (type: string, count: number) => {
         if (type === 'views') {
             return `Avg view of ${count} profiles`;
+        } else if (type === 'total_budget') {
+            return `Total budget across ${count} profiles`;
         } else if (type === 'followers') {
             return `Total follower base across ${count} profiles`;
         } else if (type === 'engagements') {
@@ -76,7 +82,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let keys: string[] = ['views', 'followers', 'engagements', 'frequency_per_day'];
+            let keys: string[] = ['total_budget', 'views', 'followers', 'engagements', 'frequency_per_day'];
             let result: (ISummary | null)[] = [];
             const totalProfiles = {
                 totCount: campData?.meta?.total,
@@ -103,7 +109,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         }
     };
 
-    const selectFilter = (checked: boolean, key: string, value: string) => {
+    const selectFilter = (checked: boolean, key: string, value: any) => {
         let filter = { ...filters };
         if (filter[key] === undefined) {
             filter[key] = [];
@@ -113,6 +119,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 query['lastAppliedFilterField'] = key;
                 if (key === 'platform') {
                     filter[key] = [value];
+                } else if (key === 'username') {
+                    filter[key] = value;
                 } else {
                     if (filter[key].indexOf(value) === -1) {
                         filter[key].push(value);
@@ -120,6 +128,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 }
             } else {
                 if (key === 'platform') {
+                    delete filter[key];
+                } else if (key === 'username') {
                     delete filter[key];
                 } else {
                     filter[key] = filter[key].filter((item: any) => item !== value);
@@ -263,9 +273,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     const changePlatform = (platform: string) => {
         setFilters({
+            tags: [],
             niche: [],
+            categories: [],
             engagementRate: [],
             postFrequencyPerDay: [],
+            averagePostCostRange: [],
             profileTypeByFollowers: [],
         });
         const url = new URL(window.location.href);
@@ -281,7 +294,6 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             setIsSheetLoading(true);
             initialLoadInstagramCampData(query, platforms);
         }
-        document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
     return (
@@ -291,11 +303,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 {campData?.meta.filterValueResp && (
                     <FilterUi
                         filters={filters}
+                        isFilter={isFilter}
                         setFilters={setFilters}
+                        setIsFilter={setIsFilter}
                         selectFilter={selectFilter}
                         filtersOptions={campData?.meta.filterValueResp}
-                        isFilter={isFilter}
-                        setIsFilter={setIsFilter}
+                        isPublic={searchParams.isPublic ? true : false}
                     />
                 )}
                 {!isSheetLoading ? (

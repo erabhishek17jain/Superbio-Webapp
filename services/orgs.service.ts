@@ -83,7 +83,7 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
             const res = await axios.delete<any>(`${baseAPI}/ig/org/${orgId}/profile/${profileId}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete post', {
+            enqueueSnackbar('Failed to delete instagram profile', {
                 variant: 'error',
                 anchorOrigin: {
                     vertical: 'top',
@@ -99,7 +99,7 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
             const res = await axios.delete<any>(`${baseAPI}/tw/org/${orgId}/profile/${profileId}`, this.get_auth_header_java());
             return res.data;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete post', {
+            enqueueSnackbar('Failed to delete twitter profile', {
                 variant: 'error',
                 anchorOrigin: {
                     vertical: 'top',

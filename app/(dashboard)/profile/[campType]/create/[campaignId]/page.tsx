@@ -136,8 +136,9 @@ export default function CreateReporting() {
                     });
                     dispatch(setSheet(res));
                     dispatch(setSheetLoading(false));
-                    await ProfileNetworkService.instance.syncInfluencers(params.campaignId);
-                    router.push(`/profile/${params?.campType}/report/${params.campaignId}`);
+                    ProfileNetworkService.instance.syncInfluencers(params.campaignId).then(() => {
+                        router.push(`/profile/${params?.campType}/report/${params.campaignId}`);
+                    });
                 }
             }
         }

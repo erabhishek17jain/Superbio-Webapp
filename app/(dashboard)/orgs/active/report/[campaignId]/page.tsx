@@ -16,11 +16,12 @@ import Reporting from '../../../../../../components/shared-components/orgs/Repor
 import AnalyticsSummary from '@/components/shared-components/orgs/AnalyticsSummary';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
+    views: 'bg-reach',
     profiles: 'bg-posts',
-    views: 'bg-views',
     followers: 'bg-likes',
-    engagements: 'bg-reposts',
-    frequency_per_day: 'bg-quotes',
+    engagements: 'bg-quotes',
+    total_budget: 'bg-reposts',
+    frequency_per_day: 'bg-bookmarks',
 };
 
 export default function ProfileReporting({ searchParams, params }: { searchParams: SearchParams; params: Params }) {
@@ -69,6 +70,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
     const getBasedOn = (type: string, count: number) => {
         if (type === 'views') {
             return `Avg view of ${count} profiles`;
+        } else if (type === 'total_budget') {
+            return `Total budget across ${count} profiles`;
         } else if (type === 'followers') {
             return `Total follower base across ${count} profiles`;
         } else if (type === 'engagements') {
@@ -82,7 +85,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
 
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let keys: string[] = ['views', 'followers', 'engagements', 'frequency_per_day'];
+            let keys: string[] = ['total_budget', 'views', 'followers', 'engagements', 'frequency_per_day'];
             let result: (ISummary | null)[] = [];
             const totalProfiles = {
                 totCount: campData?.meta?.total,
@@ -109,7 +112,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         }
     };
 
-    const selectFilter = (checked: boolean, key: string, value: string) => {
+    const selectFilter = (checked: boolean, key: string, value: any) => {
         let filter = { ...filters };
         if (filter[key] === undefined) {
             filter[key] = [];
@@ -119,6 +122,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 query['lastAppliedFilterField'] = key;
                 if (key === 'platform') {
                     filter[key] = [value];
+                } else if (key === 'username') {
+                    filter[key] = value;
                 } else {
                     if (filter[key].indexOf(value) === -1) {
                         filter[key].push(value);
@@ -126,6 +131,8 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 }
             } else {
                 if (key === 'platform') {
+                    delete filter[key];
+                } else if (key === 'username') {
                     delete filter[key];
                 } else {
                     filter[key] = filter[key].filter((item: any) => item !== value);
@@ -143,7 +150,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             if (filter[key].length === 0) delete filter[key];
         }
         const filterKeys = Object.keys(filter).join('|');
-        const filterValues = Object.values(filter).join('|');
+        const filterValues = Object.values(filter).join('|').replaceAll(',', '_');
 
         const url = new URL(window.location.href);
         if (filterKeys && filterValues) {
@@ -299,11 +306,12 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                 {campData?.meta.filterValueResp && (
                     <FilterUi
                         filters={filters}
+                        isFilter={isFilter}
                         setFilters={setFilters}
+                        setIsFilter={setIsFilter}
                         selectFilter={selectFilter}
                         filtersOptions={campData?.meta.filterValueResp}
-                        isFilter={isFilter}
-                        setIsFilter={setIsFilter}
+                        isPublic={searchParams.isPublic ? true : false}
                     />
                 )}
                 {!isSheetLoading ? (
@@ -312,7 +320,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                             <NewCampaign
                                 buttonText={'Add links'}
                                 title={'Add links for reporting'}
-                                action={() => router.push(`/profile/active/create/${params.campaignId}`)}
+                                action={() => router.push(`/orgs/active/create/${params.campaignId}`)}
                                 description={
                                     'Add links while adding a google sheet to track and analyze campaign performance. Gain insights to optimize strategies.'
                                 }

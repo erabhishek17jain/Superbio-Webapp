@@ -2,9 +2,10 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { CalendarDays, MapPin, SquareArrowOutUpRightIcon, Trash2Icon } from 'lucide-react';
+import { ArrowRightIcon, CalendarDays, MapPin, SquareArrowOutUpRightIcon, Trash2Icon } from 'lucide-react';
 import { calculateSummary } from '@/lib/utils';
 import DeletePostModal from '../../modals/DeletePostModal';
+import DetailsProfileModal from '@/components/modals/DetailsProfileModal';
 
 export function fileToBase64(file: any) {
     return new Promise((resolve, reject) => {
@@ -99,64 +100,26 @@ export function Tweet({ tweetID }: TweetProps) {
     );
 }
 
-export default function SocialCard({
-    item,
-    platform,
-    index,
-    campaignId,
-    profileIds,
-    setProfileIds,
-    showSelect,
-}: {
-    item: any;
-    index: number;
-    profileIds: any;
-    showSelect: any;
-    platform: string;
-    campaignId: string;
-    setProfileIds: any;
-}) {
+export default function SocialCard({ item, platform, index, campaignId }: { item: any; platform: string; index: number; campaignId: string }) {
     const lastRefreshedAt = item?.lastRefreshedAt;
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     const openCloseDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     };
 
-    const selectProfileIds = (checked: any, id: string) => {
-        if (checked) {
-            profileIds.push(id);
-            setProfileIds([...profileIds]);
-        } else {
-            const tempProfileIds = profileIds.filter((item: string) => item !== id);
-            setProfileIds([...tempProfileIds]);
-        }
+    const openCloseDetailsModal = () => {
+        setShowDetailsModal(!showDetailsModal);
     };
 
     const posted = new Date(lastRefreshedAt);
-
     return (
         <div className='w-full mt-4'>
             <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
-                        <div className='flex gap-2 items-center'>
-                            {showSelect && (
-                                <div className='flex justify-center items-center cursor-pointer w-8 h-8 bg-gray-300 rounded-lg truncate'>
-                                    <input
-                                        id={item.id}
-                                        value={item.id}
-                                        type='checkbox'
-                                        className='h-[18px] w-[18px]'
-                                        checked={profileIds.includes(item.id)}
-                                        onChange={(e: any) => selectProfileIds(e?.currentTarget?.checked, item.id)}
-                                    />
-                                </div>
-                            )}
-                            <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>
-                                {index + 1}
-                            </div>
-                        </div>
+                        <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>
                         {lastRefreshedAt ? (
                             parseInt(lastRefreshedAt) > 0 && <span>Refreshed on {dayjs(posted).format('D MMM, YYYY')}</span>
                         ) : (
@@ -177,8 +140,24 @@ export default function SocialCard({
                         </div>
                     </div>
                 </div>
-                <div className='flex w-full mb-1'>
-                    <div className='grid grid-cols-4 rounded-2xl w-full divide-x'>
+                <div className='flex flex-col w-full mb-1'>
+                    <div className='grid grid-cols-3 w-full divide-x'>
+                        <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
+                            <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.customAveragePostCost)}</span>
+                            <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>Avg post cost</span>
+                        </div>
+                        <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
+                            <span className='text-[#000] text-sm font-semibold'>{item.customCategory ? item.customCategory : item.totalLikes}</span>
+                            <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{item.customCategory ? 'Custom Category' : 'Total Likes'}</span>
+                        </div>
+                        <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
+                            <span className='text-[#000] text-sm font-semibold'>{item.customTags.length > 0 ? item.customTags : item.totalComments}</span>
+                            <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>
+                                {item.customTags.length > 0 ? 'Custom Tags' : 'Total Comments'}
+                            </span>
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-4 w-full divide-x border-t'>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
                             <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.followerCount)}</span>
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>Followers</span>
@@ -218,8 +197,16 @@ export default function SocialCard({
                         </div>
                     )}
                 </div>
+                <div className='flex items-center justify-between mb-1 w-full'>
+                    <button
+                        onClick={openCloseDetailsModal}
+                        className='w-full mt-2 cursor-pointer flex gap-2 capitalize items-center justify-center text-white text-[15px] py-1 px-4 border bg-[#0095f6] rounded-lg disabled:opacity-50'>
+                        View Detailed Analysis <ArrowRightIcon color='#fff' size={20} />
+                    </button>
+                </div>
             </div>
             {showDeleteModal && <DeletePostModal type={platform} campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
+            {showDetailsModal && <DetailsProfileModal type={platform} profile={item} openCloseModal={openCloseDetailsModal} />}
         </div>
     );
 }

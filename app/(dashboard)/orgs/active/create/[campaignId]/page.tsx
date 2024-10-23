@@ -141,8 +141,9 @@ export default function CreateReporting() {
                     const param = {
                         internalSheetId: res.sheetId,
                     };
-                    await OrgsNetworkService.instance.generateReport(param);
-                    router.push(`/orgs/active/report/${params.campaignId}`);
+                    OrgsNetworkService.instance.generateReport(param).then(() => {
+                        router.push(`/orgs/active/report/${params.campaignId}`);
+                    });
                 }
             }
         }

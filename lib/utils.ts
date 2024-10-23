@@ -77,12 +77,14 @@ export const structurePostsData = (data: IPostsReportingResponse) => {
 export const setProfilesAnalytics = (profileAnalytics: any) => {
     const analytics = {
         views: profileAnalytics.avgViews,
+        total_budget: profileAnalytics.totalBudget,
         followers: profileAnalytics.totalFollowers,
         engagements: profileAnalytics.avgEngagementRate,
         frequency_per_day: profileAnalytics.avgPostFrequencyPerDay,
     };
     const basedOnPosts = {
         views: profileAnalytics.basedOnProfileCount?.avgViewsPosts,
+        total_budget: profileAnalytics.basedOnProfileCount?.totalBudgetPosts,
         followers: profileAnalytics.basedOnProfileCount?.totalFollowersPosts,
         engagements: profileAnalytics.basedOnProfileCount?.avgEngagementRatePosts,
         frequency_per_day: profileAnalytics.basedOnProfileCount?.avgPostFrequencyPerDayPosts,
@@ -92,11 +94,14 @@ export const setProfilesAnalytics = (profileAnalytics: any) => {
 
 export const setProfilesFilters = (filters: any) => {
     const filterValueResp = {
+        tags: filters.lastAppliedFilterField === 'tags' ? filters.allTags : filters.tags,
+        niche: filters.lastAppliedFilterField === 'niche' ? filters.allTags : filters.niche,
+        categories: filters.lastAppliedFilterField === 'categories' ? filters.allNiche : filters.categories,
+        engagementRate: filters.lastAppliedFilterField === 'engagementRate' ? filters.allEngagementRate : filters.engagementRate,
+        postFrequencyPerDay: filters.lastAppliedFilterField === 'postFrequencyPerDay' ? filters.allPostFrequencyPerDay : filters.postFrequencyPerDay,
+        averagePostCostRange: filters.lastAppliedFilterField === 'niche' ? filters.allAveragePostCostRange : filters.averagePostCostRange,
         profileTypeByFollowers:
             filters.lastAppliedFilterField === 'profileTypeByFollowers' ? filters.allProfileTypeByFollowers : filters.profileTypeByFollowers,
-        postFrequencyPerDay: filters.lastAppliedFilterField === 'postFrequencyPerDay' ? filters.allPostFrequencyPerDay : filters.postFrequencyPerDay,
-        niche: filters.lastAppliedFilterField === 'niche' ? filters.allNiche : filters.niche,
-        engagementRate: filters.lastAppliedFilterField === 'engagementRate' ? filters.allEngagementRate : filters.engagementRate,
     };
     return { filterValueResp: filterValueResp };
 };

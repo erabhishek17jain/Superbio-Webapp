@@ -18,6 +18,200 @@ interface GenerateReportProps {
     isPublic: boolean | undefined;
 }
 
+export const twitterColumns = [
+    {
+        key: 'id',
+        label: 'Sr.No',
+    },
+    {
+        key: 'username',
+        label: 'Username',
+    },
+    {
+        key: 'fullName',
+        label: 'Full Name',
+    },
+    {
+        key: 'customCategory',
+        label: 'Custom Category',
+    },
+    {
+        key: 'customTags',
+        label: 'Custom Tags',
+    },
+    {
+        key: 'customAveragePostCost',
+        label: 'Average Post Cost',
+    },
+    {
+        key: 'avgViews',
+        label: 'Average Views',
+    },
+    {
+        key: 'followerCount',
+        label: 'Total Followers',
+    },
+    {
+        key: 'engRate',
+        label: 'Engagement Rate',
+    },
+    {
+        key: 'frequencyPerDay',
+        label: 'Frequency Per Day',
+    },
+    {
+        key: 'favouriteCount',
+        label: 'Total Favourites',
+    },
+    {
+        key: 'friendCount',
+        label: 'Total Friends',
+    },
+    {
+        key: 'listedCount',
+        label: 'Total Listed',
+    },
+    {
+        key: 'statusCount',
+        label: 'Total Status',
+    },
+    {
+        key: 'mediaCount',
+        label: 'Total Media',
+    },
+    {
+        key: 'totalViews',
+        label: 'Total Views',
+    },
+    {
+        key: 'totalLikes',
+        label: 'Total Likes',
+    },
+    {
+        key: 'totalComments',
+        label: 'Total Comments',
+    },
+    {
+        key: 'totalBookmarks',
+        label: 'Total Bookmarks',
+    },
+    {
+        key: 'totalQuotes',
+        label: 'Total Quotes',
+    },
+    {
+        key: 'totalReposts',
+        label: 'Total Reposts',
+    },
+    {
+        key: 'verified',
+        label: 'Is Verified',
+    },
+    {
+        key: 'blue',
+        label: 'Is Blue Tick',
+    },
+    {
+        key: 'rawDescription',
+        label: 'Description',
+    },
+    {
+        key: 'profileBannerUrl',
+        label: 'Banner Url',
+    },
+    {
+        key: 'profileImageUrl',
+        label: 'Profile Url',
+    },
+    {
+        key: 'created',
+        label: 'Profile Created Date',
+    },
+];
+
+export const instagramColumns = [
+    {
+        key: 'id',
+        label: 'Sr.No',
+    },
+    {
+        key: 'username',
+        label: 'Username',
+    },
+    {
+        key: 'fullName',
+        label: 'Full Name',
+    },
+    {
+        key: 'publicPhoneNumber',
+        label: 'Phone Number',
+    },
+    {
+        key: 'publicEmail',
+        label: 'Email ID',
+    },
+    {
+        key: 'category',
+        label: 'Profile Category',
+    },
+    {
+        key: 'customCategory',
+        label: 'Custom Category',
+    },
+    {
+        key: 'customTags',
+        label: 'Custom Tags',
+    },
+    {
+        key: 'customAveragePostCost',
+        label: 'Average Post Cost',
+    },
+    {
+        key: 'avgViews',
+        label: 'Average Views',
+    },
+    {
+        key: 'followerCount',
+        label: 'Total Followers',
+    },
+    {
+        key: 'engRate',
+        label: 'Engagement Rate',
+    },
+    {
+        key: 'frequencyPerDay',
+        label: 'Frequency Per Day',
+    },
+    {
+        key: 'mediaCount',
+        label: 'Total Media',
+    },
+    {
+        key: 'videoCount',
+        label: 'Total Vidoes',
+    },
+    {
+        key: 'totalViews',
+        label: 'Total Views',
+    },
+    {
+        key: 'totalLikes',
+        label: 'Total Likes',
+    },
+    {
+        key: 'totalComments',
+        label: 'Total Comments',
+    },
+    {
+        key: 'verified',
+        label: 'Is Verified',
+    },
+    {
+        key: 'biography',
+        label: 'Biography',
+    },
+];
+
 export default function DownloadCSV(props: GenerateReportProps) {
     const { campaignId, isPublic, total, fileName, platform } = props;
     const [isDownloading, setIsDownloading] = useState(false);
@@ -41,82 +235,15 @@ export default function DownloadCSV(props: GenerateReportProps) {
             : PorofileNetworkService.instance.getIgProfilesData(campaignId, params)
         ).then((res: any) => {
             data = [];
-            columns = !isPublic
-                ? [
-                      {
-                          key: 'id',
-                          label: 'Sr.No',
-                      },
-                      {
-                          key: 'username',
-                          label: 'Username',
-                      },
-                      {
-                          key: 'followerCount',
-                          label: 'Followers',
-                      },
-                      {
-                          key: 'avgViews',
-                          label: 'Avg Views',
-                      },
-                      {
-                          key: 'engRate',
-                          label: 'Engagement Rate',
-                      },
-                      {
-                          key: 'Frequency Per Day',
-                          label: 'frequencyPerDay',
-                      },
-                  ]
-                : [
-                      {
-                          key: 'id',
-                          label: 'Sr.No',
-                      },
-                      {
-                          key: 'username',
-                          label: 'Username',
-                      },
-                      {
-                          key: 'followerCount',
-                          label: 'Followers',
-                      },
-                  ];
+            columns = platform === 'twitter' ? twitterColumns : instagramColumns;
             if (res?.items.length > 0) {
-                let colAdded = false;
                 data = res?.items.map((item: any, index: number) => {
-                    const dataObj = !isPublic
-                        ? {
-                              id: index + 1,
-                              username: item.username,
-                              followerCount: item.followerCount,
-                              avgViews: item.avgViews,
-                              frequencyPerDay: item.frequencyPerDay,
-                              engRate: item.engRate,
-                          }
-                        : {
-                              id: index + 1,
-                              username: item.username,
-                              followerCount: item.followerCount,
-                          };
-
-                    const extraCol: any = {};
-                    if (item?.otherData?.length > 0 && !isPublic) {
-                        for (let i = 0; i < item?.otherData?.length; i++) {
-                            const dataProp = 'o' + item?.otherData[i]?.columnName?.toLowerCase().replace(/\s/g, '');
-                            extraCol[dataProp] = item?.otherData[i]?.value;
-                            if (!colAdded) {
-                                columns.push({
-                                    key: dataProp,
-                                    label: item?.otherData[i]?.columnName,
-                                });
-                            }
-                        }
-                        if (!colAdded) {
-                            colAdded = true;
-                        }
-                    }
-                    return { ...dataObj, ...extraCol };
+                    return {
+                        ...item,
+                        id: index + 1,
+                        addressStreet: `${item.addressStreet} ${item.cityName} ${item.zip}`,
+                        publicPhoneNumber: item?.publicPhoneNumber ? item?.publicPhoneNumber : item?.contactPhoneNumber,
+                    };
                 });
             }
             setCsvData({ columns: columns, data: data });
@@ -146,7 +273,7 @@ export default function DownloadCSV(props: GenerateReportProps) {
                 className='hidden'
                 data={csvData.data}
                 headers={csvData.columns}
-                filename={`${fileName?.toString().replaceAll(' ', '_')}.csv`}
+                filename={`${fileName.toString().replaceAll(' ', '_')}_${platform}.csv`}
             />
         </div>
     );

@@ -36,7 +36,7 @@ export default class ProfileNetworkService extends BaseNetworkFramework implemen
             const res = await axios.delete<ICampaign>(`${baseAPI}/ig/campaign/${campaignId}/profile/${profileId}`, this.get_auth_header_java());
             return res;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete post', {
+            enqueueSnackbar('Failed to delete instagram profile', {
                 variant: 'error',
                 anchorOrigin: {
                     vertical: 'top',
@@ -52,7 +52,7 @@ export default class ProfileNetworkService extends BaseNetworkFramework implemen
             const res = await axios.delete<ICampaign>(`${baseAPI}/tw/campaign/${campaignId}/profile/${profileId}`, this.get_auth_header_java());
             return res;
         } catch (err: any) {
-            enqueueSnackbar('Failed to delete post', {
+            enqueueSnackbar('Failed to delete twitter profile', {
                 variant: 'error',
                 anchorOrigin: {
                     vertical: 'top',
