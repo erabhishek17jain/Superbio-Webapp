@@ -65,7 +65,7 @@ export default function Queue() {
                 <span className='text-lg font-semibold ml-16 sm:ml-0 pl-2 sm:pl-0'>Live Reports</span>
             </div>
             <div className='flex w-full items-center px-4 py-4 sm:px-8 sm:py-6'>
-                <div className='relative overflow-x-auto w-full border rounded-xl'>
+                <div className='relative overflow-x-auto w-full border rounded-lg'>
                     <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
                         <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                             <tr>

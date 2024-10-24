@@ -47,7 +47,7 @@ export default function FilterBoxUi(props: FilterBoxUiProps) {
     return (
         <div
             id='filterPanel'
-            className={`${isFilter ? 'flex' : 'hidden'} relative mt-1 mb-3 bg-white sm:h-auto sm:relative flex w-full flex-col border border-gray-300 rounded-xl`}>
+            className={`${isFilter ? 'flex' : 'hidden'} relative mt-1 mb-3 bg-white sm:h-auto sm:relative flex w-full flex-col border border-gray-300 rounded-lg`}>
             {isFilter && (
                 <>
                     <div className='grid grid-cols-5 gap-x-6 gap-y-4 w-full min-w-[210px] flex-col py-4 px-3'>

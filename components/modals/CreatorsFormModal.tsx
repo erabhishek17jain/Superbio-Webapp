@@ -88,7 +88,7 @@ export default function CreatorsFormModal() {
     return (
         <div id='campaign-pop-up' className='fixed hidden w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center m-auto'>
-                <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
+                <div className='flex flex-col bg-white rounded-lg p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <span className='text-xl font-semibold'>Create a Form for Creators</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row lg:flex-row'>
                         <div className={`flex flex-col flex-1 pr-0 sm:pr-5 'overflow-y-scroll max-h-80`}>
@@ -128,7 +128,7 @@ export default function CreatorsFormModal() {
                                         {item.fieldValueError !== '' && <p className='mt-1 text-[12px] text-[#d00a0a]'>{item.fieldValueError}</p>}
                                     </div>
 
-                                    <button onClick={handleAddField} className='flex py-2 rounded-xl text-white ml-2 mt-2 h-10'>
+                                    <button onClick={handleAddField} className='flex py-2 rounded-lg text-white ml-2 mt-2 h-10'>
                                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' id='plus'>
                                             <path d='M12 24c-3.2 0-6.2-1.2-8.5-3.5-4.7-4.7-4.7-12.3 0-17C5.8 1.2 8.8 0 12 0s6.2 1.2 8.5 3.5c4.7 4.7 4.7 12.3 0 17-2.3 2.3-5.3 3.5-8.5 3.5zm0-22C9.3 2 6.8 3 4.9 4.9 1 8.8 1 15.2 4.9 19.1 6.8 21 9.3 22 12 22s5.2-1 7.1-2.9C23 15.2 23 8.9 19.1 5c-1.9-2-4.4-3-7.1-3z'></path>
                                             <path d='M12 18c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1s1 .4 1 1v10c0 .6-.4 1-1 1z'></path>
@@ -136,7 +136,7 @@ export default function CreatorsFormModal() {
                                         </svg>
                                     </button>
                                     {item.id !== 'field1' && (
-                                        <button onClick={() => handleRemoveField(item.id)} className='flex py-2 rounded-xl text-white ml-2 mt-2 h-10'>
+                                        <button onClick={() => handleRemoveField(item.id)} className='flex py-2 rounded-lg text-white ml-2 mt-2 h-10'>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24' id='minus'>
                                                 <path d='M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z'></path>
                                             </svg>
@@ -151,11 +151,11 @@ export default function CreatorsFormModal() {
                             onClick={() => {
                                 document.getElementById('campaign-pop-up')?.classList.toggle('hidden');
                             }}
-                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black gap-1'>
+                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-lg px-6 text-black gap-1'>
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        {/* <button onClick={handleSubmit} className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm'>
+                        {/* <button onClick={handleSubmit} className='bg-black flex items-center py-3 rounded-lg px-6 text-white text-sm'>
                             <svg width='24' height='24' className='mr-2' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                                 <path
                                     d='M19.7158 3.36572L2.24081 8.28759C2.09205 8.32826 1.95945 8.4138 1.86106 8.53256C1.76267 8.65131 1.70329 8.79751 1.69099 8.95123C1.67869 9.10496 1.71408 9.25874 1.79233 9.39162C1.87059 9.52451 1.98791 9.63004 2.12831 9.69384L10.1533 13.4907C10.3105 13.5635 10.4368 13.6898 10.5096 13.847L14.3064 21.872C14.3702 22.0124 14.4758 22.1297 14.6087 22.2079C14.7415 22.2862 14.8953 22.3216 15.049 22.3093C15.2028 22.297 15.349 22.2376 15.4677 22.1392C15.5865 22.0408 15.672 21.9082 15.7127 21.7595L20.6346 4.28447C20.6719 4.15695 20.6742 4.02174 20.6412 3.89302C20.6083 3.7643 20.5414 3.64681 20.4474 3.55286C20.3535 3.45891 20.236 3.39197 20.1073 3.35904C19.9785 3.32611 19.8433 3.32842 19.7158 3.36572V3.36572Z'

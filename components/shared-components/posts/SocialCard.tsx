@@ -173,7 +173,7 @@ export default function SocialCard({
     const posted = new Date(postedAt);
     return (
         <div className='w-full mt-4'>
-            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
+            <div className='flex bg-[#FAFAFA] rounded-lg p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
                         <div className='flex justify-center items-center w-8 h-8 px-3 bg-[#DAE4FF] text-sm text-[#033DD0] py-1 rounded-full'>{index + 1}</div>

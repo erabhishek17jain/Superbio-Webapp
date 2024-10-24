@@ -299,7 +299,7 @@ export default function CreateReporting() {
                         {viewGuidelines && (
                             <button
                                 onClick={addSheet}
-                                className='flex w-[186px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
+                                className='flex w-[186px] h-12 py-3 rounded-lg px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
                                 <PlusCircleIcon color='#000' size={24} />
                                 <span className='flex'>Add New Sheet</span>
                             </button>
@@ -360,7 +360,7 @@ export default function CreateReporting() {
                                 <button
                                     onClick={() => addUpdateSheet()}
                                     disabled={state?.sheetLoading}
-                                    className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-xl px-6 text-white'>
+                                    className='bg-black flex gap-2 justify-center cursor-pointer disabled:opacity-50 items-center py-3 rounded-lg px-6 text-white'>
                                     <AreaChartIcon color='#fff' size={20} />
                                     {mode === 'view' && 'View Report'}
                                     {mode === 'edit' && 'Update Report'}
@@ -370,7 +370,7 @@ export default function CreateReporting() {
                         </div>
                         <button
                             onClick={addSheet}
-                            className='flex w-[186px] sm:w-[222px] h-12 py-3 rounded-xl px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
+                            className='flex w-[186px] sm:w-[222px] h-12 py-3 rounded-lg px-4 text-black font-semibold gap-2 border border-black cursor-pointer disabled:opacity-50'>
                             <PlusCircleIcon color='#000' size={24} />
                             <span className='flex'>Add New Sheet</span>
                         </button>

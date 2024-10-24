@@ -102,7 +102,7 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
     return (
         <div id='create-user' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
             <div className='flex w-full h-screen justify-center items-center'>
-                <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[40%]'>
+                <div className='flex flex-col bg-white rounded-lg p-6 w-[90%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[40%]'>
                     <span className='text-xl font-semibold'>Bring in your teammate</span>
                     <div className='flex mt-6 flex-col sm:flex-col md:flex-row lg:flex-row'>
                         <div className='flex flex-col flex-1 '>
@@ -181,11 +181,11 @@ export default function CreateUserModal({ mode, openCloseModal, userDetails }: C
                             onClick={() => {
                                 openCloseModal();
                             }}
-                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-xl px-6 text-black gap-1'>
+                            className='bg-white border-black border mr-5 flex items-center py-3 rounded-lg px-6 text-black gap-1'>
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
-                        <button onClick={submitUser} className='bg-black flex items-center py-3 rounded-xl px-6 text-white text-sm'>
+                        <button onClick={submitUser} className='bg-black flex items-center py-3 rounded-lg px-6 text-white text-sm'>
                             <ReportIcon color='#fff' size={14} />
                             {mode === 'edit' ? 'Update User' : 'Add User'}
                         </button>

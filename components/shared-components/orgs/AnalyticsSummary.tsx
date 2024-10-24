@@ -33,7 +33,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                         <div className='flex relative' key={item.title}>
                             <div
                                 key={uuidv4()}
-                                className={`flex justify-start flex-col sm:justify-center shadow-inner ${item.color} w-full py-3 px-3 mx-auto sm:mx-0 rounded-xl bg-opacity-20`}>
+                                className={`flex justify-start flex-col sm:justify-center shadow-inner ${item.color} w-full py-3 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
                                 <div className='flex gap-2 justify-between sm:w-auto'>
                                     <div className={`flex items-center justify-center ${item.color} bg-opacity-60 w-7 h-7 mr-3 rounded-full`}>{item.icon}</div>
                                     <div className='flex gap-2'>

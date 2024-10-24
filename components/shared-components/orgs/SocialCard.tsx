@@ -22,7 +22,7 @@ export function fileToBase64(file: any) {
 
 const TwitterProfile = ({ item }: any) => {
     return (
-        <div className='bg-white text-black font-sans rounded-xl w-full'>
+        <div className='bg-white text-black font-sans rounded-lg w-full'>
             <div className='relative'>
                 <div className='h-48'>{item.profileBannerUrl && <img src={item.profileBannerUrl} alt='Banner' className='w-full h-48 object-cover' />}</div>
                 <div className='absolute -bottom-16 left-4 rounded-full overflow-hidden border-4 border-black'>
@@ -142,7 +142,7 @@ export default function SocialCard({
     const posted = new Date(lastRefreshedAt);
     return (
         <div className='w-full mt-4'>
-            <div className='flex bg-[#FAFAFA] rounded-xl p-4 flex-col shadow-inner mx-2 sm:mx-0'>
+            <div className='flex bg-[#FAFAFA] rounded-lg p-4 flex-col shadow-inner mx-2 sm:mx-0'>
                 <div className='flex items-center justify-between mb-1 w-full'>
                     <div className='flex items-center justify-between gap-2 px-1 text-[#8b8b8b] w-full'>
                         <div className='flex gap-2 items-center'>

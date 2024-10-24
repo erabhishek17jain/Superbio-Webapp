@@ -6,7 +6,7 @@ export default function DetailsProfileModal({ type, profile, openCloseModal }: a
     return (
         <div id='delete' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center'>
-                <div className='flex flex-col bg-white rounded-xl p-6 w-[90%] md:w-[70%] sm:w-[80%] lg:w-[70%] xl:w-[60%]'>
+                <div className='flex flex-col bg-white rounded-lg p-6 w-[90%] md:w-[70%] sm:w-[80%] lg:w-[70%] xl:w-[60%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold capitalize'>Profile Details</span>
                         <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>

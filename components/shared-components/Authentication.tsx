@@ -107,7 +107,7 @@ export default function Authentication({ subComponent }: any) {
                     initial={{ opacity: 0, x: '-100%' }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '-100%' }}
                     transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-                    className={`hidden sm:flex flex-col items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
+                    className={`hidden sm:flex flex-col items-center justify-center gap-4 text-left w-full rounded-lg bg-[#F7F7F7] h-full`}>
                     <div className='flex w-full flex-col overflow-y-auto'>
                         <div className='flex flex-col w-full items-center'>
                             <div className='flex w-full justify-center font-bold text-lg mt-4'>LOQO Campaign Tracker</div>

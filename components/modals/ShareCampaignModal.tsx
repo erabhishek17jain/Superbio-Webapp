@@ -82,7 +82,7 @@ export default function ShareCampaignModal({ campaign, openCloseModal, fetchCamp
     return (
         <div id='campaign-share' className='fixed w-full h-screen top-0 right-0 bg-black z-10 bg-opacity-40'>
             <div className='flex h-full justify-center items-center'>
-                <div className='flex flex-col justify-between bg-white rounded-xl p-6 w-[90%] sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[40%]'>
+                <div className='flex flex-col justify-between bg-white rounded-lg p-6 w-[90%] sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[40%]'>
                     <div className='flex justify-between'>
                         <span className='text-2xl font-semibold'>Share Campaign</span>
                         <button onClick={openCloseModal} className='cursor-pointer bg-white flex items-center text-black'>

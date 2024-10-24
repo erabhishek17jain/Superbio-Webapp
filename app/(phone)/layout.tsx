@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     initial={{ opacity: 0, x: '-100%' }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: '-100%' }}
                     transition={{ delay: 0.5, duration: 1, type: 'spring' }}
-                    className={`hidden sm:flex items-center justify-center gap-4 text-left w-full rounded-xl bg-[#F7F7F7] h-full`}>
+                    className={`hidden sm:flex items-center justify-center gap-4 text-left w-full rounded-lg bg-[#F7F7F7] h-full`}>
                     <div className='w-1/2 max-w-[640px] flex flex-col items-center ustify-center pl-5'>
                         <Image src={login7} alt='ct11' className='max-w-[320px] -mb-8 -mt-6' />
                         <Image src={login8} alt='ct9' className='max-w-[30   0px]' />

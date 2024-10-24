@@ -33,7 +33,7 @@ export function SheetDetails({ selSheetData, isError, sheetInfo, mode, setUrl, s
                 {!(sheetInfo?.index <= selSheetData.length) && (
                     <button
                         onClick={() => fetchSheets(sheetInfo)}
-                        className={`w-48 bg-black items-center py-2 rounded-xl px-2 text-white my-2 ${sheetLoading && 'opacity-40'}`}>
+                        className={`w-48 bg-black items-center py-2 rounded-lg px-2 text-white my-2 ${sheetLoading && 'opacity-40'}`}>
                         {mode === 'add' || mode === 'edit' ? (sheetLoading && sheetInfo?.sheets?.length === 0 ? 'Processing...' : 'Get Sheets Info') : ''}
                     </button>
                 )}

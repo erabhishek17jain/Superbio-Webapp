@@ -131,7 +131,7 @@ export default function CampaignCard({
                     <ClipboardPenIcon color={'#000'} size={26} />
                 </div>
             )}
-            <div className={`flex flex-col w-full h-full justify-between bg-[${color}] border-2 border-[#dae4ff] rounded-xl py-4 px-4`}>
+            <div className={`flex flex-col w-full h-full justify-between bg-[${color}] border-2 border-[#dae4ff] rounded-lg py-4 px-4`}>
                 <div className='flex flex-col w-full'>
                     <div onClick={navigateToReporting} className='cursor-pointer flex w-full justify-between items-center text-ellipsis'>
                         <span className='text-base font-bold'>{campaign.title}</span>

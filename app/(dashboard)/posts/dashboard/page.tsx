@@ -155,7 +155,7 @@ export default function PostHomePage() {
                                     setMode('add');
                                     setOpenCampaingModal(true);
                                 }}
-                                className='bg-black text-base flex items-center py-3 rounded-xl px-3 sm:px-6 text-white gap-2'>
+                                className='bg-black text-base flex items-center py-3 rounded-lg px-3 sm:px-6 text-white gap-2'>
                                 <PlusCircleIcon color='#fff' size={22} />
                                 <span className='hidden sm:flex'>Create Campaigns</span>
                             </button>

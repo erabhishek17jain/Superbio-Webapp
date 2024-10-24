@@ -116,9 +116,9 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
     return (
         <div id='create' className='fixed w-full h-screen top-0 left-0 bg-black bg-opacity-40 z-20'>
             <div className='flex w-full h-screen justify-center items-center'>
-                <div className='flex flex-col bg-white rounded-xl p-5 sm:p-6 overflow-y-auto mt-6 mb-20 sm:mb-6 h-[calc(100%_-_100px)] sm:h-auto w-[94%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
+                <div className='flex flex-col bg-white rounded-lg p-5 sm:p-6 overflow-y-auto mt-6 mb-20 sm:mb-6 h-[calc(100%_-_100px)] sm:h-auto w-[94%] md:w-[90%] sm:w-[90%] lg:w-[70%] xl:w-[60%]'>
                     <div className='flex justify-between'>
-                        <span className='text-xl font-semibold'>{mode === 'edit' ? 'Edit' : 'Create'} a Campaign</span>
+                        <span className='text-xl text-black font-semibold'>{mode === 'edit' ? 'Edit' : 'Create'} a Campaign</span>
                         <button onClick={openCloseModal} className='bg-white flex items-center text-black'>
                             <XIcon color='#000' size={24} />
                         </button>
@@ -216,7 +216,7 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                                                 campaignDetail?.priority === index
                                                     ? 'bg-black text-white text-opacity-100'
                                                     : 'bg-[#F7F7F7] text-opacity-30 text-black'
-                                            } px-4 rounded-xl mr-2 p-2 font-semibold`}
+                                            } px-4 rounded-lg mr-2 p-2 font-semibold`}
                                             key={item}
                                             onClick={() => setPriority(index)}>
                                             <span>{item}</span>
@@ -258,14 +258,14 @@ export default function CreateCampaignModal({ mode, openCloseModal, campaignDeta
                             onClick={() => {
                                 openCloseModal();
                             }}
-                            className='bg-white border-black border mr-5 flex items-center rounded-xl py-2 pl-4 pr-3 sm:pr-5 text-black gap-1'>
+                            className='bg-white border-black border mr-5 flex items-center rounded-lg py-2 pl-4 pr-3 sm:pr-5 text-black gap-1'>
                             <XIcon color='#000' size={24} />
                             Cancel
                         </button>
                         <button
                             onClick={submitCampaign}
                             disabled={JSON.stringify(newCampaign) === JSON.stringify(campaignDetail)}
-                            className='bg-black flex items-center rounded-xl py-2 pl-4 pr-5 text-white disabled:text-[#898989]'>
+                            className='bg-black flex items-center rounded-lg py-2 pl-4 pr-5 text-white disabled:text-[#898989]'>
                             <ReportIcon size={20} color={'#fff'} />
                             {mode === 'edit' ? 'Proceed to Sheet' : 'Create Campaign'}
                         </button>

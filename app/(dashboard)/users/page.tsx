@@ -58,7 +58,7 @@ export default function Users() {
                                 setMode('add');
                                 setOpenUserModal(true);
                             }}
-                            className='bg-black flex items-center py-3 rounded-xl px-3 sm:px-6 text-white text-sm gap-2 h-10'>
+                            className='bg-black flex items-center py-3 rounded-lg px-3 sm:px-6 text-white text-sm gap-2 h-10'>
                             <PlusCircleIcon color='#fff' size={22} />
                             <span className='hidden sm:flex'>Add User</span>
                         </button>
@@ -67,7 +67,7 @@ export default function Users() {
             </div>
             <div className='flex w-full items-center sm:p-8 px-8 py-6'>
                 {!loading ? (
-                    <div className='relative overflow-x-auto w-full border rounded-xl'>
+                    <div className='relative overflow-x-auto w-full border rounded-lg'>
                         <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
                             <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                                 <tr>
