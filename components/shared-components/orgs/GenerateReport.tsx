@@ -5,29 +5,40 @@ import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/context';
 import { Params } from '@/interfaces/reporting';
 import ConfirmLastRefreshModal from '../../modals/ConfirmLastRefreshModal';
-import { AreaChartIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
+import { AreaChartIcon, ArrowRightIcon, PlusCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import DownloadCSV from '../profiles/DownloadCSV';
 import OrgsNetworkService from '@/services/orgs.service';
+import MapToCampaignModal from '@/components/modals/MapToCampaignModal';
 
 interface GenerateReportProps {
     params: Params;
     platform: string;
     query: { [key: string]: any };
     isPublic: boolean | undefined;
+    platforms: any;
+    showSelect: any;
+    profileIds: any;
+    setShowSelect: any;
+    setProfileIds: any;
 }
 
 export default function GenerateReport(props: GenerateReportProps) {
     const router = useRouter();
-    const { isPublic, params, platform } = props;
+    const { isPublic, params, platform, platforms, profileIds, setProfileIds, showSelect, setShowSelect } = props;
     const { user } = useAppSelector((state) => state.user);
     const { campData } = useAppSelector((state) => state.reporting);
     const [valuesLoading] = useState(false);
+    const [showMapModal, setShowMapModal] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [gradInx, setGradInx] = useState(0);
     const [isSheetExist] = useState('yes');
 
     const openCloseConfirmModal = () => {
         setShowConfirmModal(!showConfirmModal);
+    };
+
+    const openCloseMapModal = () => {
+        setShowMapModal(!showMapModal);
     };
 
     const refreshStats = () => {
@@ -52,8 +63,24 @@ export default function GenerateReport(props: GenerateReportProps) {
             </div>
             {!valuesLoading && isSheetExist === 'yes' && campData.meta && campData.meta?.total > 0 && (
                 <div className='flex flex-col items-center gap-3 sm:flex-row'>
-                    <div className='flex'>
-                        <div className='flex items-center gap-3 text-[#8b8b8b] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm mr-3'>
+                    <div className='flex gap-2'>
+                        {profileIds.length > 0 ? (
+                            <button
+                                onClick={openCloseMapModal}
+                                disabled={profileIds.length === 0}
+                                title={profileIds.length === 0 ? 'Please select profiles then add to campaign' : ''}
+                                className='flex justify-center gap-1 disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
+                                Select campaign
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setShowSelect(!showSelect)}
+                                title={'Please select profiles and add to campaign'}
+                                className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
+                                {showSelect ? 'Unselect profiles' : 'Select profiles'}
+                            </button>
+                        )}
+                        <div className='flex items-center gap-3 text-[#8b8b8b] font-semibold sm:text-center md:text-left text-[12px] sm:text-sm'>
                             {!isPublic && user.role !== 'brand' && (
                                 <div
                                     onClick={() => refreshStats()}
@@ -87,6 +114,15 @@ export default function GenerateReport(props: GenerateReportProps) {
                 </div>
             )}
             {showConfirmModal && <ConfirmLastRefreshModal openCloseModal={openCloseConfirmModal} />}
+            {showMapModal && (
+                <MapToCampaignModal
+                    profileIds={profileIds}
+                    setProfileIds={setProfileIds}
+                    setShowSelect={setShowSelect}
+                    openCloseModal={openCloseMapModal}
+                    platform={platforms.isInstagram ? 'INSTAGRAM' : 'TWITTER'}
+                />
+            )}
         </div>
     );
 }

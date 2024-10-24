@@ -12,51 +12,25 @@ import {
 } from 'lucide-react';
 import TwitterIcon from '../../../icons/TwitterIcon';
 import InstagramIcon from '../../../icons/InstagramIcon';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
-import { AvailableFilters } from '@/interfaces/filter';
-import MapToCampaignModal from '@/components/modals/MapToCampaignModal';
 
 interface FilterAndSortingProps {
     meta: any;
     query: any;
     filters: any;
+    isFilter: any;
     platforms: any;
-    profileIds: any;
-    showSelect: any;
-    setShowSelect: any;
-    setProfileIds: any;
+    setIsFilter: any;
     changePlatform: any;
     shouldShowSort: boolean;
     selectedPlatform: string;
-    filtersOptions: AvailableFilters;
-    isFilter: any;
-    setIsFilter: any;
 }
 
 export default function FilterAndSorting(props: FilterAndSortingProps) {
-    const {
-        meta,
-        shouldShowSort,
-        query,
-        filters,
-        platforms,
-        selectedPlatform,
-        changePlatform,
-        profileIds,
-        setProfileIds,
-        showSelect,
-        setShowSelect,
-        isFilter,
-        setIsFilter,
-    } = props;
-    const [showMapModal, setShowMapModal] = useState(false);
+    const { meta, query, filters, isFilter, platforms, setIsFilter, changePlatform, shouldShowSort, selectedPlatform } = props;
     const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
     const sortBy = query.sortBy;
-
-    const openCloseMapModal = () => {
-        setShowMapModal(!showMapModal);
-    };
 
     const setOpenFilter = (open: boolean) => {
         setIsFilter(open);
@@ -129,22 +103,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             </div>
             {meta?.total > 0 && (
                 <span className='flex gap-3 justify-center items-center'>
-                    {profileIds.length > 0 ? (
-                        <button
-                            onClick={openCloseMapModal}
-                            disabled={profileIds.length === 0}
-                            title={profileIds.length === 0 ? 'Please select profiles then add to campaign' : ''}
-                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
-                            App to campaign
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => setShowSelect(!showSelect)}
-                            title={'Please select profiles and add to campaign'}
-                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
-                            {showSelect ? 'Unselect profiles' : 'Select profiles'}
-                        </button>
-                    )}
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
                         <span className='flex items-center justify-end text-sm gap-2 h-12'>
                             <span
@@ -201,15 +159,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                         </>
                     )}
                 </span>
-            )}
-            {showMapModal && (
-                <MapToCampaignModal
-                    profileIds={profileIds}
-                    setProfileIds={setProfileIds}
-                    setShowSelect={setShowSelect}
-                    openCloseModal={openCloseMapModal}
-                    platform={platforms.isInstagram ? 'INSTAGRAM' : 'TWITTER'}
-                />
             )}
         </div>
     );

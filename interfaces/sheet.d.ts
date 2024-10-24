@@ -77,6 +77,14 @@ export interface IPostsResponse {
     postDtoPaginatedResponse: any;
 }
 
+export interface IAnalyticsReportingResponse {
+    customReportCards: any;
+    campaignViewsReportCard: any;
+    postCountAnalysisReportCard: any;
+    campaignEngagementReportCard: any;
+    dailyMetricsTimelineReportCard: any;
+}
+
 export interface IPostsReportingResponse {
     queueDto: any;
     campaignDto: any;

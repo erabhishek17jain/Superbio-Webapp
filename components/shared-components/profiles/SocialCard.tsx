@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { ArrowRightIcon, CalendarDays, MapPin, SquareArrowOutUpRightIcon, Trash2Icon } from 'lucide-react';
 import { calculateSummary } from '@/lib/utils';
-import DeletePostModal from '../../modals/DeletePostModal';
 import DetailsProfileModal from '@/components/modals/DetailsProfileModal';
+import DeleteProfileModal from '@/components/modals/DeleteProfileModal';
+import UpdateMappingModal from '@/components/modals/UpdateMappingModal';
 
 export function fileToBase64(file: any) {
     return new Promise((resolve, reject) => {
@@ -100,10 +101,25 @@ export function Tweet({ tweetID }: TweetProps) {
     );
 }
 
-export default function SocialCard({ item, platform, index, campaignId }: { item: any; platform: string; index: number; campaignId: string }) {
+export default function SocialCard({
+    item,
+    platform,
+    index,
+    columns,
+    setColumns,
+    campaignId,
+}: {
+    item: any;
+    platform: string;
+    index: number;
+    columns: any;
+    setColumns: any;
+    campaignId: string;
+}) {
     const lastRefreshedAt = item?.lastRefreshedAt;
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [showAnalyticsModal, setshowAnalyticsModal] = useState(false);
 
     const openCloseDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
@@ -111,6 +127,10 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
 
     const openCloseDetailsModal = () => {
         setShowDetailsModal(!showDetailsModal);
+    };
+
+    const openCloseAnalyticsModal = () => {
+        setshowAnalyticsModal(!showAnalyticsModal);
     };
 
     const posted = new Date(lastRefreshedAt);
@@ -141,11 +161,7 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                     </div>
                 </div>
                 <div className='flex flex-col w-full mb-1'>
-                    {/* <div className='grid grid-cols-3 w-full divide-x'>
-                        <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
-                            <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.customAveragePostCost)}</span>
-                            <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>Avg post cost</span>
-                        </div>
+                    <div className='grid grid-cols-2 w-full divide-x border-b'>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
                             <span className='text-[#000] text-sm font-semibold'>{item.customCategory ? item.customCategory : item.totalLikes}</span>
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{item.customCategory ? 'Custom Category' : 'Total Likes'}</span>
@@ -156,7 +172,7 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                                 {item.customTags.length > 0 ? 'Custom Tags' : 'Total Comments'}
                             </span>
                         </div>
-                    </div> */}
+                    </div>
                     <div className='grid grid-cols-4 w-full divide-x'>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
                             <span className='text-[#000] text-sm font-semibold'>{calculateSummary(item.followerCount)}</span>
@@ -197,16 +213,37 @@ export default function SocialCard({ item, platform, index, campaignId }: { item
                         </div>
                     )}
                 </div>
-                <div className='flex items-center justify-between mb-1 w-full'>
+                <div className='flex gap-3 items-center justify-between mb-1 w-full'>
                     <button
                         onClick={openCloseDetailsModal}
                         className='w-full mt-2 cursor-pointer flex gap-2 capitalize items-center justify-center text-white text-[15px] py-1 px-4 border bg-[#0095f6] rounded-lg disabled:opacity-50'>
-                        View Detailed Analysis <ArrowRightIcon color='#fff' size={20} />
+                        View Analysis <ArrowRightIcon color='#fff' size={20} />
+                    </button>
+                    <button
+                        onClick={openCloseAnalyticsModal}
+                        className='w-full mt-2 cursor-pointer flex gap-2 capitalize items-center justify-center text-[#0095f6] text-[15px] py-1 px-4 border border-[#0095f6] bg-[white rounded-lg disabled:opacity-50'>
+                        Update Mapping <ArrowRightIcon color='#0095f6' size={20} />
                     </button>
                 </div>
             </div>
-            {showDeleteModal && <DeletePostModal type={platform} campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
+            {showDeleteModal && <DeleteProfileModal type={platform} campaignId={campaignId} postId={item.id} openCloseModal={openCloseDeleteModal} />}
             {showDetailsModal && <DetailsProfileModal type={platform} profile={item} openCloseModal={openCloseDetailsModal} />}
+            {showAnalyticsModal && (
+                <UpdateMappingModal
+                    index={index}
+                    columns={columns}
+                    profileId={item.id}
+                    setColumns={setColumns}
+                    openCloseModal={openCloseAnalyticsModal}
+                    currentMapping={{
+                        profileId: item.id,
+                        tags: item.customTags,
+                        category: item.customCategory,
+                        platform: platform.toUpperCase(),
+                        averagePostCost: item.customAveragePostCost,
+                    }}
+                />
+            )}
         </div>
     );
 }

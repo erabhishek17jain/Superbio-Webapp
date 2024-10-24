@@ -44,7 +44,9 @@ export default function DetailsProfileModal({ type, profile, openCloseModal }: a
                                                         ? 'Yes'
                                                         : 'No'
                                                     : profile[item.key]
-                                                      ? profile[item.key]
+                                                      ? Array.isArray(profile[item.key])
+                                                          ? profile[item.key].join(', ')
+                                                          : profile[item.key]
                                                       : 'NA'}
                                             </span>
                                         </div>

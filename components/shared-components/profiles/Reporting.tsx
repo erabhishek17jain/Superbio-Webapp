@@ -52,7 +52,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 1 && (
-                                    <SocialCard key={'social-1280-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        columns={columns}
+                                        setColumns={setColumns}
+                                        campaignId={campaignId}
+                                    />
                                 )
                         )}
                     </div>
@@ -60,7 +68,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 2 && (
-                                    <SocialCard key={'social-1280s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280s-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        columns={columns}
+                                        setColumns={setColumns}
+                                        campaignId={campaignId}
+                                    />
                                 )
                         )}
                     </div>
@@ -68,7 +84,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 0 && (
-                                    <SocialCard key={'social-1280ss-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-1280ss-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        columns={columns}
+                                        setColumns={setColumns}
+                                        campaignId={campaignId}
+                                    />
                                 )
                         )}
                     </div>
@@ -80,7 +104,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 1 && (
-                                    <SocialCard key={'social-640-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-640-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        columns={columns}
+                                        setColumns={setColumns}
+                                        campaignId={campaignId}
+                                    />
                                 )
                         )}
                     </div>
@@ -88,7 +120,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map(
                             (item, index) =>
                                 (index + 1) % 3 === 2 && (
-                                    <SocialCard key={'social-640s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                                    <SocialCard
+                                        key={'social-640s-card-' + index}
+                                        platform={platform}
+                                        item={item}
+                                        index={index}
+                                        columns={columns}
+                                        setColumns={setColumns}
+                                        campaignId={campaignId}
+                                    />
                                 )
                         )}
                     </div>
@@ -98,7 +138,15 @@ export default function Reporting(props: IReportingProps) {
                 <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full flex flex-col'>
                         {columns.map((item, index) => (
-                            <SocialCard key={'social-s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />
+                            <SocialCard
+                                key={'social-s-card-' + index}
+                                platform={platform}
+                                item={item}
+                                index={index}
+                                columns={columns}
+                                setColumns={setColumns}
+                                campaignId={campaignId}
+                            />
                         ))}
                     </div>
                 </div>

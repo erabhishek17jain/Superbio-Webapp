@@ -20,7 +20,7 @@ interface IReportingProps {
 }
 
 export default function Reporting(props: IReportingProps) {
-    const { query, meta, campaignId, initialColumns, platform, profileIds, setProfileIds, showSelect, setShowSelect } = props;
+    const { query, meta, campaignId, initialColumns, platform, profileIds, setProfileIds, showSelect } = props;
     const [screenWidth, setScreenWidth] = useState(0);
     const [columns, setColumns] = useState<IColumn[]>(initialColumns);
     const [loader, setloader] = useState(false);
@@ -58,9 +58,11 @@ export default function Reporting(props: IReportingProps) {
                                 (index + 1) % 3 === 1 && (
                                     <SocialCard
                                         key={'social-1280-card-' + index}
-                                        platform={platform}
                                         item={item}
                                         index={index}
+                                        columns={columns}
+                                        platform={platform}
+                                        setColumns={setColumns}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
                                         showSelect={showSelect}
@@ -75,9 +77,11 @@ export default function Reporting(props: IReportingProps) {
                                 (index + 1) % 3 === 2 && (
                                     <SocialCard
                                         key={'social-1280s-card-' + index}
-                                        platform={platform}
                                         item={item}
                                         index={index}
+                                        columns={columns}
+                                        platform={platform}
+                                        setColumns={setColumns}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
                                         showSelect={showSelect}
@@ -92,9 +96,11 @@ export default function Reporting(props: IReportingProps) {
                                 (index + 1) % 3 === 0 && (
                                     <SocialCard
                                         key={'social-1280ss-card-' + index}
-                                        platform={platform}
                                         item={item}
                                         index={index}
+                                        columns={columns}
+                                        platform={platform}
+                                        setColumns={setColumns}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
                                         showSelect={showSelect}
@@ -113,9 +119,11 @@ export default function Reporting(props: IReportingProps) {
                                 (index + 1) % 3 === 1 && (
                                     <SocialCard
                                         key={'social-640-card-' + index}
-                                        platform={platform}
                                         item={item}
                                         index={index}
+                                        columns={columns}
+                                        platform={platform}
+                                        setColumns={setColumns}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
                                         showSelect={showSelect}
@@ -130,9 +138,11 @@ export default function Reporting(props: IReportingProps) {
                                 (index + 1) % 3 === 2 && (
                                     <SocialCard
                                         key={'social-640s-card-' + index}
-                                        platform={platform}
                                         item={item}
                                         index={index}
+                                        columns={columns}
+                                        platform={platform}
+                                        setColumns={setColumns}
                                         campaignId={campaignId}
                                         profileIds={profileIds}
                                         showSelect={showSelect}
@@ -149,13 +159,15 @@ export default function Reporting(props: IReportingProps) {
                         {columns.map((item, index) => (
                             <SocialCard
                                 key={'social-s-card-' + index}
-                                platform={platform}
                                 item={item}
                                 index={index}
+                                columns={columns}
+                                platform={platform}
+                                setColumns={setColumns}
                                 campaignId={campaignId}
                                 profileIds={profileIds}
                                 showSelect={showSelect}
-                                        setProfileIds={setProfileIds}
+                                setProfileIds={setProfileIds}
                             />
                         ))}
                     </div>

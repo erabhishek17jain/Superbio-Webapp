@@ -63,6 +63,22 @@ export default class ProfileNetworkService extends BaseNetworkFramework implemen
         }
     };
 
+    public updateProfileMapping = async (postId: string, params: { [key: string]: number | string }): Promise<any> => {
+        try {
+            const res = await axios.post<any>(`${baseAPI}/profile/campaign/${postId}/update-profile-mapping`, params, this.get_auth_header_java());
+            return res.data;
+        } catch (err: any) {
+            enqueueSnackbar('Failed to update profile mapping', {
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            throw err;
+        }
+    };
+
     public getIgProfilesData = async (campaignId: string, params: string): Promise<IProfilesResponse> => {
         try {
             const res = await axios.get<IProfilesResponse>(`${baseAPI}/ig/campaign/${campaignId}/profiles${params}`, this.get_auth_header_java());

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import BaseNetworkFramework from './base.service';
-import { IPostsReportingResponse, IPostsResponse, IProfilesReportingResponse, IProfilesResponse } from '@/interfaces/sheet';
+import { IAnalyticsReportingResponse, IPostsReportingResponse, IPostsResponse, IProfilesReportingResponse, IProfilesResponse } from '@/interfaces/sheet';
 import { enqueueSnackbar } from 'notistack';
 import { ICampaign } from '@/interfaces/campaign';
 
@@ -138,9 +138,11 @@ export default class PostNetworkService extends BaseNetworkFramework implements 
     };
 
     // analytics
-    public getAnalyticsData = async (campaignId: string): Promise<IPostsReportingResponse> => {
+    public getAnalyticsData = async (campaignId: string): Promise<IAnalyticsReportingResponse> => {
         try {
-            const res = await axios.get<IPostsReportingResponse>(`${this.javaUrl}/rest/v1/campaign-analytics/${campaignId}/report-data`);
+            const res = await axios.get<IAnalyticsReportingResponse>(
+                `${this.javaUrl}/rest/v1/post/analytics/campaign/${'66da9c39dd5d1ad98e927b31'}/report-data`
+            );
             return res.data;
         } catch (err: any) {
             throw err;

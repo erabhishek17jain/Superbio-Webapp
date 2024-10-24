@@ -56,7 +56,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
-                                campaignId={campaignId}
+                                        campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -72,7 +72,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
-                                campaignId={campaignId}
+                                        campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -88,7 +88,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
-                                campaignId={campaignId}
+                                        campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -108,7 +108,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
-                                campaignId={campaignId}
+                                        campaignId={campaignId}
                                     />
                                 )
                         )}
@@ -124,7 +124,7 @@ export default function Reporting(props: IReportingProps) {
                                         index={index}
                                         columns={columns}
                                         setColumns={setColumns}
-                                campaignId={campaignId}
+                                        campaignId={campaignId}
                                     />
                                 )
                         )}

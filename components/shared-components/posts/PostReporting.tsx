@@ -85,7 +85,7 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
                     statsType: 'Total posts',
                 });
             }
-            const result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
+            const result: (ISummary | null)[] = campData?.meta?.analytics.map((item: any) => {
                 return {
                     ...item,
                     icon: SUMMARY_ICONS[item.statsType],
@@ -195,18 +195,7 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
 
     return (
         <div className='flex flex-col w-full' id='camp-top'>
-            {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
-                {/* {campData?.meta.filterValueResp && (
-                    <FilterUi
-                        filters={filters}
-                        setFilters={setFilters}
-                        selectFilter={selectFilter}
-                        filtersOptions={campData?.meta.filterValueResp}
-                        isFilter={isFilter}
-                        setIsFilter={setIsFilter}
-                    />
-                )} */}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
                         {campData?.data.length === 0 && campData?.meta?.total === 0 && (

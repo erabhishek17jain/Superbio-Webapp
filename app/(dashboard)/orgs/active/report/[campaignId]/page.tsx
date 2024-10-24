@@ -327,7 +327,17 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                             />
                         )}
                         {campData?.data && campData?.data.length > 0 && (
-                            <GenerateReport query={query} params={params} platform={selectedPlatform} isPublic={searchParams.isPublic ? true : false} />
+                            <GenerateReport
+                                query={query}
+                                params={params}
+                                platforms={platforms}
+                                profileIds={profileIds}
+                                showSelect={showSelect}
+                                platform={selectedPlatform}
+                                setShowSelect={setShowSelect}
+                                setProfileIds={setProfileIds}
+                                isPublic={searchParams.isPublic ? true : false}
+                            />
                         )}
                         {campData?.data && campData?.data.length > 0 && (
                             <>
@@ -336,16 +346,11 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     platforms={platforms}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
-                                    profileIds={profileIds}
-                                    showSelect={showSelect}
                                     isFilter={isFilter}
                                     setIsFilter={setIsFilter}
-                                    setShowSelect={setShowSelect}
-                                    setProfileIds={setProfileIds}
                                     changePlatform={changePlatform}
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}
-                                    filtersOptions={campData?.meta.filterValueResp}
                                 />
                                 <FilterBoxUi
                                     filters={filters}

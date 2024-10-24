@@ -331,15 +331,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                             <>
                                 <FilterAndSorting
                                     filters={filters}
-                                    platforms={platforms}
+                                    isFilter={isFilter}
                                     meta={campData?.meta}
                                     shouldShowSort={true}
-                                    isFilter={isFilter}
+                                    platforms={platforms}
                                     setIsFilter={setIsFilter}
                                     changePlatform={changePlatform}
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}
-                                    filtersOptions={campData?.meta.filterValueResp}
                                 />
                                 <FilterBoxUi
                                     filters={filters}
