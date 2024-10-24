@@ -11,9 +11,9 @@ import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
 import FilterAndSorting from './FilterAndSorting';
-import FilterUi from './FilterUi';
 import GenerateReport from './GenerateReport';
 import Reporting from './Reporting';
+import FilterBoxUi from './FiltersBoxUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     posts: 'bg-posts',
@@ -73,16 +73,29 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
 
     const calculateAnalytics = (campData: any) => {
         if (campData?.meta.analytics) {
-            let result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
+            const total: any[] = [];
+            if (searchParams.isPublic) {
+                total.push({
+                    basedOnPostCount: campData?.meta?.total,
+                    calculatedValue: campData?.meta?.total,
+                    color: SUMMARY_COLORS['posts'],
+                    customEstimatedValue: campData?.meta?.total,
+                    hideInPublicView: true,
+                    icon: SUMMARY_ICONS['posts'],
+                    statsType: 'Total posts',
+                });
+            }
+            const result: (ISummary | null)[] = campData?.meta.analytics.map((item: any) => {
                 return {
                     ...item,
                     icon: SUMMARY_ICONS[item.statsType],
                     color: SUMMARY_COLORS[item.statsType],
                     calculatedValue: calculateSummary(item.calculatedValue),
                     customEstimatedValue: calculateSummary(item.customEstimatedValue),
+                    statsType: item.statsType === 'reach' ? 'Estimated Reach' : item.statsType,
                 };
             });
-            return result;
+            return [...total, ...result];
         }
     };
 
@@ -182,8 +195,9 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
 
     return (
         <div className='flex flex-col w-full' id='camp-top'>
+            {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
-                {campData?.meta.filterValueResp && (
+                {/* {campData?.meta.filterValueResp && (
                     <FilterUi
                         filters={filters}
                         setFilters={setFilters}
@@ -192,9 +206,9 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
                         isFilter={isFilter}
                         setIsFilter={setIsFilter}
                     />
-                )}
+                )} */}
                 {!isSheetLoading ? (
-                    <div className='flex flex-col mt-2 w-full'>
+                    <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
                         {campData?.data.length === 0 && campData?.meta?.total === 0 && (
                             <NewCampaign
                                 buttonText={'Add links'}
@@ -221,6 +235,14 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
                                     refreshCampData={() => refreshCampaign(query)}
                                     filtersOptions={campData?.meta.filterValueResp}
                                     isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                />
+                                <FilterBoxUi
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    selectFilter={selectFilter}
+                                    filtersOptions={campData?.meta.filterValueResp}
+                                    isFilter={isFilter}
+                                    isPublic={searchParams.isPublic ? true : false}
                                 />
                                 <AnalyticsSummary
                                     summary={summary}
