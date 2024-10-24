@@ -85,7 +85,7 @@ export default function PostReporting({ searchParams, params }: { searchParams: 
                     statsType: 'Total posts',
                 });
             }
-            const result: (ISummary | null)[] = campData?.meta?.analytics.map((item: any) => {
+            const result: (ISummary | null)[] = campData?.meta?.analytics?.map((item: any) => {
                 return {
                     ...item,
                     icon: SUMMARY_ICONS[item.statsType],

@@ -7,6 +7,7 @@ import {
     HeartIcon,
     MessageCircleIcon,
     QuoteIcon,
+    ReceiptIndianRupeeIcon,
     Repeat2Icon,
     Share2Icon,
     StickyNoteIcon,
@@ -130,4 +131,5 @@ export const SUMMARY_ICONS: { [key: string]: JSX.Element } = {
     engagements: <BookHeartIcon color='#fff' size={20} />,
     posts: <StickyNoteIcon color='#fff' size={20} />,
     profiles: <StickyNoteIcon color='#fff' size={20} />,
+    total_budget: <ReceiptIndianRupeeIcon color='#fff' size={20} />,
 };

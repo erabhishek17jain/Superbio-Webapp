@@ -84,8 +84,8 @@ export default function LoadingReporting({ isPublic, title }: any) {
                                 ?.map(() => (
                                     <div className='flex relative' key={uuidv4()}>
                                         <div
-                                            className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full py-3 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
-                                            <div className='flex gap-2 justify-between sm:w-auto'>
+                                            className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full pt-3 pb-2 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
+                                            <div className='flex gap-2 justify-between sm:w-auto h-10'>
                                                 <div className={`flex items-center justify-center bg-[#898989] bg-opacity-60 w-7 h-7 mr-3 rounded-full`}></div>
                                                 <div className='flex gap-2'>
                                                     <p className='text-2xl text-black-100'></p>
@@ -108,8 +108,8 @@ export default function LoadingReporting({ isPublic, title }: any) {
                                 ?.map(() => (
                                     <div className='flex relative' key={uuidv4()}>
                                         <div
-                                            className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full py-3 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
-                                            <div className='flex gap-2 justify-between sm:w-auto'>
+                                            className={`flex justify-start flex-col sm:justify-center shadow-inner bg-[#898989] w-full pt-3 pb-2 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
+                                            <div className='flex gap-2 justify-between sm:w-auto h-10'>
                                                 <div className={`flex items-center justify-center bg-[#ccc] bg-opacity-60 w-7 h-7 rounded-full`}></div>
                                                 <div className={`flex items-center justify-center bg-[#ccc] bg-opacity-60 w-7 h-7 rounded-md`}></div>
                                             </div>

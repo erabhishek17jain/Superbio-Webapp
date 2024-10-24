@@ -167,9 +167,9 @@ export default function SocialCard({
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>{item.customCategory ? 'Custom Category' : 'Total Likes'}</span>
                         </div>
                         <div className={`cursor-pointer flex flex-col justify-center items-center p-2`}>
-                            <span className='text-[#000] text-sm font-semibold'>{item.customTags.length > 0 ? item.customTags : item.totalComments}</span>
+                            <span className='text-[#000] text-sm font-semibold'>{item.customTags?.length > 0 ? item.customTags : item.totalComments}</span>
                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>
-                                {item.customTags.length > 0 ? 'Custom Tags' : 'Total Comments'}
+                                {item.customTags?.length > 0 ? 'Custom Tags' : 'Total Comments'}
                             </span>
                         </div>
                     </div>

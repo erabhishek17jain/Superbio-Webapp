@@ -69,9 +69,9 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         if (type === 'views') {
             return `Avg view of ${count} profiles`;
         } else if (type === 'total_budget') {
-            return `Total budget across ${count} profiles`;
+            return `Budget across ${count} profiles`;
         } else if (type === 'followers') {
-            return `Total follower base across ${count} profiles`;
+            return `Follower base across ${count} profiles`;
         } else if (type === 'engagements') {
             return `Avg engagements of ${count} profiles`;
         } else if (type === 'frequency_per_day') {

@@ -21,8 +21,8 @@ const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
         <div className='flex relative' key={item.statsType}>
             <div
                 key={uuidv4()}
-                className={`flex justify-start flex-col sm:justify-center shadow-inner ${item.color} w-full py-3 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
-                <div className='flex gap-2 justify-between sm:w-auto'>
+                className={`flex justify-start flex-col sm:justify-center shadow-inner ${item.color} w-full pt-3 pb-2 px-3 mx-auto sm:mx-0 rounded-lg bg-opacity-20`}>
+                <div className='flex gap-2 justify-between sm:w-auto h-10'>
                     <div className={`flex items-center justify-center ${item.color} bg-opacity-60 w-7 h-7 mr-3 rounded-full`}>{item.icon}</div>
                     <div className='flex gap-2'>
                         {isPublic && (
@@ -33,10 +33,10 @@ const AnalyticsBox = ({ item, filters, isInstagram, isPublic }: any) => {
                         {!isPublic && <p className='text-2xl text-black-100'>{item?.calculatedValue}</p>}
                     </div>
                 </div>
-                <div className='flex flex-col h-9 justify-end w-full mt-1'>
-                    <div className='flex capitalize text-sm'>{`${item.statsType}`}</div>
+                <div className='flex flex-col justify-end w-full'>
+                    <div className='flex capitalize text-sm font-medium'>{`${item.statsType}`}</div>
                     {!(item.statsType === 'Estimated Reach' || item.statsType === 'Total posts') && (
-                        <p className='text-[0.7rem] text-black-500'>
+                        <p className='text-[0.75rem] text-black-500 font-normal -mt-1'>
                             {`${item.basedOnPostCount} ${item.statsType === 'views' && filters && filters['platform']?.includes('instagram') ? 'reel' : ''} posts have ${item.statsType === 'reposts' && isInstagram ? 'video shares' : item.statsType}`}
                         </p>
                     )}
