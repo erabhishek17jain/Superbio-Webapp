@@ -130,7 +130,10 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
 
     public getIgProfileReportingData = async (orgId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res: any = await axios.get<IProfilesReportingResponse>(`${baseAPI}/ig/org/${orgId}/reporting${params}`, this.get_auth_header_java());
+            const res: any = await axios.get<IProfilesReportingResponse>(
+                `${baseAPI}/ig/org/${orgId}/reporting${params.replace('&isPublic=true', '')}`,
+                this.get_auth_header_java()
+            );
             return res.data;
         } catch (err: any) {
             throw err;
@@ -139,7 +142,10 @@ export default class OrgsNetworkService extends BaseNetworkFramework implements 
 
     public getTwProfileReportingData = async (orgId: string, params: string): Promise<IProfilesReportingResponse> => {
         try {
-            const res: any = await axios.get<IProfilesReportingResponse>(`${baseAPI}/tw/org/${orgId}/reporting${params}`, this.get_auth_header_java());
+            const res: any = await axios.get<IProfilesReportingResponse>(
+                `${baseAPI}/tw/org/${orgId}/reporting${params.replace('&isPublic=true', '')}`,
+                this.get_auth_header_java()
+            );
             return res.data;
         } catch (err: any) {
             throw err;

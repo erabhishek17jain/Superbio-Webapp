@@ -263,7 +263,7 @@ export default function DownloadCSV(props: GenerateReportProps) {
             <button
                 onClick={downloadCsv}
                 disabled={isDownloading}
-                className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-11 disabled:opacity-50 disabled:cursor-not-allowed'>
+                className='flex items-center bg-black py-2 px-4 rounded-lg space-x-2 cursor-pointer text-sm text-white h-10 disabled:opacity-50 disabled:cursor-not-allowed'>
                 <DownloadIcon color='#fff' size={20} />
                 <span className='text-opacity-80'>{isDownloading ? 'Downloading...' : 'Download CSV'}</span>
             </button>

@@ -13,7 +13,7 @@ import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
-import FilterUi from '../../../../../../components/shared-components/posts/FilterUi';
+import FilterBoxUi from '@/components/shared-components/posts/FiltersBoxUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     posts: 'bg-posts',
@@ -197,7 +197,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
         <div className='flex flex-col w-full' id='camp-top'>
             {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
-                {campData?.meta.filterValueResp && (
+                {/* {campData?.meta.filterValueResp && (
                     <FilterUi
                         filters={filters}
                         setFilters={setFilters}
@@ -206,7 +206,7 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                         isFilter={isFilter}
                         setIsFilter={setIsFilter}
                     />
-                )}
+                )} */}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
                         {campData?.data.length === 0 && campData?.meta?.total === 0 && (
@@ -235,6 +235,14 @@ export default function CampaignReporting({ searchParams, params }: { searchPara
                                     refreshCampData={() => refreshCampaign(query)}
                                     filtersOptions={campData?.meta.filterValueResp}
                                     isPublic={searchParams.isPublic ? searchParams.isPublic : false}
+                                />
+                                <FilterBoxUi
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    selectFilter={selectFilter}
+                                    filtersOptions={campData?.meta.filterValueResp}
+                                    isFilter={isFilter}
+                                    isPublic={searchParams.isPublic ? true : false}
                                 />
                                 <AnalyticsSummary
                                     summary={summary}

@@ -60,7 +60,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
 
     const setOpenFilter = (open: boolean) => {
         setIsFilter(open);
-        document.getElementById('filterPanel')?.classList.toggle('hidden');
     };
 
     const setCampFilters = (filters: { sortBy: string; sortDirection: string }) => {
@@ -75,7 +74,6 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
             const index = Object.keys(filters)?.filter((item: any) => filters[item].length > 0);
             if (index.length > 0 && !isSmallDevice) {
                 setIsFilter(true);
-                document.getElementById('filterPanel')?.classList.toggle('hidden');
             }
         }
     }, []);
@@ -104,7 +102,7 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
     const sorted = sortByOptions.find((item) => item.id === sortBy);
 
     return (
-        <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mt-2'>
+        <div className='flex flex-col sm:flex-row items-center justify-between gap-3 text-[#8b8b8b] sm:text-center md:text-left text-sm sm:text-sm mb-1'>
             <div className='flex gap-3'>
                 <div className='flex gap-3'>
                     {platforms.isInstagram && (
@@ -136,15 +134,15 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                             onClick={openCloseMapModal}
                             disabled={profileIds.length === 0}
                             title={profileIds.length === 0 ? 'Please select profiles then add to campaign' : ''}
-                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
+                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
                             App to campaign
                         </button>
                     ) : (
                         <button
                             onClick={() => setShowSelect(!showSelect)}
                             title={'Please select profiles and add to campaign'}
-                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 py-2 h-8 bg-[#e6e6e6] text-[#8b8b8b] rounded-lg truncate'>
-                            {showSelect ? 'Unselect Profiles' : 'Select Profiles'}
+                            className='flex justify-center disabled:cursor-not-allowed items-center cursor-pointer px-4 h-[38px] border border-gray-300 text-[#8b8b8b] rounded-md truncate'>
+                            {showSelect ? 'Unselect profiles' : 'Select profiles'}
                         </button>
                     )}
                     {meta?.filterValueResp && Object.keys(meta?.filterValueResp).length > 0 && (
@@ -168,14 +166,26 @@ export default function FilterAndSorting(props: FilterAndSortingProps) {
                                         <ArrowUpDownIcon color={'#8b8b8b'} size={20} />
                                         <span className='capitalize text-[#8b8b8b]'>Sort By:</span>
                                         <span
-                                            className='flex items-center gap-2 w-auto min-w-120 bg-[#e6e6e6] text-[#8b8b8b] rounded-md py-1 px-3 h-9'
+                                            className='flex items-center gap-2 w-auto min-w-120 border border-gray-300 text-[#8b8b8b] rounded-md py-1 px-3 h-9'
                                             onClick={() => document.getElementById('date-dropdown')?.classList.toggle('hidden')}>
                                             {sorted?.icon}
                                             <span>{sorted?.title}</span>
+                                            <svg
+                                                className='-mr-1 h-5 w-5'
+                                                xmlns='http://www.w3.org/2000/svg'
+                                                viewBox='0 0 20 20'
+                                                fill='currentColor'
+                                                aria-hidden='true'>
+                                                <path
+                                                    fillRule='evenodd'
+                                                    d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                                                    clipRule='evenodd'
+                                                />
+                                            </svg>
                                         </span>
                                         <span
                                             title={query.sortDirection === 'ASC' ? 'Sort Descending' : 'Sort Ascending'}
-                                            className='flex items-center gap-2 w-auto min-w-120 bg-[#e6e6e6] text-[#000] rounded-md py-1 px-3 h-9'
+                                            className='flex items-center gap-2 w-auto min-w-120 border border-gray-300 text-[#000] rounded-md py-1 px-3 h-9'
                                             onClick={() =>
                                                 setCampFilters({ sortBy: query.sortBy, sortDirection: query.sortDirection === 'ASC' ? 'DESC' : 'ASC' })
                                             }>

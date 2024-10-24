@@ -9,11 +9,11 @@ import NewCampaign from '@/components/shared-components/NewCampaign';
 import { setCampData } from '@/context/reporting';
 import { useAppDispatch, useAppSelector } from '@/context';
 import LoadingReporting from '@/components/global-components/LoadingReporting';
-import FilterUi from '../../../../../../components/shared-components/orgs/FilterUi';
 import GenerateReport from '../../../../../../components/shared-components/orgs/GenerateReport';
 import FilterAndSorting from '../../../../../../components/shared-components/orgs/FilterAndSorting';
 import Reporting from '../../../../../../components/shared-components/orgs/Reporting';
 import AnalyticsSummary from '@/components/shared-components/orgs/AnalyticsSummary';
+import FilterBoxUi from '@/components/shared-components/orgs/FiltersBoxUi';
 
 const SUMMARY_COLORS: { [key: string]: string } = {
     views: 'bg-reach',
@@ -177,7 +177,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
             sortDirection: sortDirection || 'DESC',
         };
         const twitterResp: any =
-            !platforms.isInstagram && (await OrgsNetworkService.instance.getTwProfileReportingData(params.campaignId, clearFilters(queryInitial)));
+            !platforms.isInstagram && (await OrgsNetworkService.instance.getIgProfileReportingData(params.campaignId, clearFilters(queryInitial)));
 
         OrgsNetworkService.instance
             .getIgProfileReportingData(params.campaignId, clearFilters(query))
@@ -303,7 +303,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
         <div className='flex flex-col w-full' id='camp-top'>
             {!searchParams.isPublic && <div className='w-full h-[60px]'></div>}
             <div className='flex'>
-                {campData?.meta.filterValueResp && (
+                {/* {campData?.meta.filterValueResp && (
                     <FilterUi
                         filters={filters}
                         isFilter={isFilter}
@@ -313,7 +313,7 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                         filtersOptions={campData?.meta.filterValueResp}
                         isPublic={searchParams.isPublic ? true : false}
                     />
-                )}
+                )} */}
                 {!isSheetLoading ? (
                     <div className='flex flex-col sm:px-6 md:px-6 mt-2 w-full'>
                         {campData?.data.length === 0 && campData?.meta?.total === 0 && (
@@ -346,6 +346,14 @@ export default function ProfileReporting({ searchParams, params }: { searchParam
                                     query={{ ...query, ...filters }}
                                     selectedPlatform={selectedPlatform}
                                     filtersOptions={campData?.meta.filterValueResp}
+                                />
+                                <FilterBoxUi
+                                    filters={filters}
+                                    isFilter={isFilter}
+                                    setFilters={setFilters}
+                                    selectFilter={selectFilter}
+                                    filtersOptions={campData?.meta.filterValueResp}
+                                    isPublic={searchParams.isPublic ? true : false}
                                 />
                                 <AnalyticsSummary summary={summary} filters={filters} />
                                 <Reporting

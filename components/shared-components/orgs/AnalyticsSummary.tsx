@@ -9,7 +9,7 @@ interface AnalyticsSummaryProps {
 }
 
 export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
-    const { filters, summary} = props;
+    const { filters, summary } = props;
   
     const isInstagram = filters && filters['platform']?.includes('instagram');
 
@@ -21,9 +21,9 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
         }
     });
 
-    let cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 w-full gap-4';
-    if (analytics?.length === 6) cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4';
-    if (analytics?.length === 7) cols = 'mt-3 sm:mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 w-full gap-4';
+    let cols = 'mt-3 sm:mt-1 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 w-full gap-4';
+    if (analytics?.length === 6) cols = 'mt-3 sm:mt-1 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 w-full gap-4';
+    if (analytics?.length === 7) cols = 'mt-3 sm:mt-1 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 w-full gap-4';
 
     return (
         <div className='flex'>
@@ -41,9 +41,7 @@ export default function AnalyticsSummary(props: AnalyticsSummaryProps) {
                                     </div>
                                 </div>
                                 <div className='flex h-9 items-end justify-between w-full'>
-                                    <p className='text-xs text-black-500'>
-                                        {item.basedOn}
-                                    </p>
+                                    <p className='text-xs text-black-500'>{item.basedOn}</p>
                                 </div>
                             </div>
                         </div>

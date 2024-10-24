@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
-import { ANALYTICS_FILTERS_FROM_SHEETS, ANALYTICS_PROFILES_FILTERS, ANALYTICS_PRIVATE_PROFILES_FILTERS } from '@/constants';
+import { ANALYTICS_PROFILES_FILTERS, ANALYTICS_PRIVATE_PROFILES_FILTERS } from '@/constants';
 import { SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { ArrowUpDownIcon } from '@/icons/ArrowUpDownIcon';
 import { AvailableProfilesFilters } from '@/interfaces/filter';

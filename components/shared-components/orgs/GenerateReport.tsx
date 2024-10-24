@@ -42,7 +42,7 @@ export default function GenerateReport(props: GenerateReportProps) {
     });
 
     return (
-        <div className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[108px] sm:h-[60px]`}>
+        <div className={`flex py-2 flex-col md:flex-row justify-between gap-3 items-center h-[138px] h-[108px] sm:h-[60px]`}>
             <div className='flex text-lg font-bold text-center md:text-left'>
                 <span className='flex text-lg font-bold text-center md:text-left sm:flex-none flex-wrap gap-y-3 sm:justify-between justify-center'>
                     <div className='flex flex-col sm:flex-row text-xl sm:text-2xl gap-2'>
@@ -57,7 +57,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                             {!isPublic && user.role !== 'brand' && (
                                 <div
                                     onClick={() => refreshStats()}
-                                    className='flex items-center justify-center p-2 bg-[#e6e6e6] rounded-xl h-11 w-11 cursor-pointer'>
+                                    className='flex items-center justify-center p-2 border border-gray-300 rounded-lg h-10 w-10 cursor-pointer'>
                                     <RefreshCcwIcon color='#8b8b8b' size={24} />
                                 </div>
                             )}
@@ -80,7 +80,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                     </span>
                     <button
                         className='flex items-center gap-1 w-32 h-10 justify-end font-semibold text-sm text-[#ffe3e2] bg-[#df4040] rounded m-[2px]'
-                        onClick={() => router.push(`/profile/active/create/${params.campaignId}`)}>
+                        onClick={() => router.push(`/orgs/active/create/${params.campaignId}`)}>
                         Add Links
                         <PlusCircleIcon color='#ffe3e2' size={24} />
                     </button>

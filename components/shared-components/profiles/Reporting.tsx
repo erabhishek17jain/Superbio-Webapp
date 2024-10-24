@@ -47,7 +47,7 @@ export default function Reporting(props: IReportingProps) {
     return (
         <>
             {screenWidth > 1280 && (
-                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full md:w-[calc(33.3%-15px)] flex flex-col'>
                         {columns.map(
                             (item, index) =>
@@ -75,7 +75,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {screenWidth <= 1280 && screenWidth > 640 && (
-                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full md:w-[calc(50%-8px)] flex flex-col'>
                         {columns.map(
                             (item, index) =>
@@ -95,7 +95,7 @@ export default function Reporting(props: IReportingProps) {
                 </div>
             )}
             {screenWidth <= 640 && (
-                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4 mt-4'>
+                <div className='flex mb-3 flex-col md:flex-row flex-wrap gap-5 md:gap-4'>
                     <div className='w-full flex flex-col'>
                         {columns.map((item, index) => (
                             <SocialCard key={'social-s-card-' + index} platform={platform} item={item} index={index} campaignId={campaignId} />

@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import SheetNetworkService from '@/services/sheet.service';
 import { useParams, useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/context';
 import { setSheet, setSheetLoading } from '@/context/campaign';
@@ -8,7 +7,7 @@ import { enqueueSnackbar } from 'notistack';
 import ConfirmSheetUpdateModal from '@/components/modals/ConfirmSheetUpdateModal';
 import { ISheet } from '@/interfaces/sheet';
 import LoadingBlack from '@/components/global-components/LoadingBlack';
-import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, RefreshCcwIcon, Trash2Icon } from 'lucide-react';
+import { AlertOctagonIcon, AreaChartIcon, LayoutPanelLeftIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react';
 import OrgsNetworkService from '@/services/orgs.service';
 import { SheetDetails } from '@/components/shared-components/orgs/SheetDetails';
 import GuidelinesUi from '@/components/shared-components/GuidelinesUi';
@@ -85,28 +84,6 @@ export default function CreateReporting() {
                 openCloseConfirmModal();
             }
         }
-    };
-
-    const refreshSheet = (item: any) => {
-        SheetNetworkService.instance
-            .addSheetToCampaign({
-                title: item?.title,
-                sheetId: item?.selectedSheet!.sheetId!,
-                name: item?.sheetName!,
-                linkColumn: item?.columnName,
-                campaignId: params?.campaignId,
-                range: 'A1:Z',
-                id: item?.id ? item?.id : null,
-            })
-            .then((res) => {
-                enqueueSnackbar('Sheet refeshed successfully', {
-                    variant: 'success',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-            });
     };
 
     const mapSingleSheet = async (item: any) => {

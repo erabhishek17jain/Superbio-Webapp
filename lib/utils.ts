@@ -145,7 +145,7 @@ export const clearFilters = (params: any) => {
         if (Array.isArray(params[key])) {
             if (params[key].length > 0) {
                 for (let i = 0; i < params[key].length; i++) {
-                    query = query + `&${key}=${params[key][i]}`;
+                    if (key !== 'isPublic') query = query + `&${key}=${params[key][i]}`;
                 }
             }
         } else {

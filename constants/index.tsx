@@ -20,31 +20,36 @@ export const ANALYTICS_FILTERS = [
         name: 'Dates',
         key: 'postedAt',
     },
-    {
-        name: 'Sheets',
-        key: 'internalSheetId',
-    },
-    {
-        name: 'Platform',
-        key: 'platform',
-    },
+    // {
+    //     name: 'Sheets',
+    //     key: 'internalSheetId',
+    // },
+    // {
+    //     name: 'Platform',
+    //     key: 'platform',
+    // },
     {
         name: 'Types',
         key: 'postType',
     },
 ];
 
+export const ANALYTICS_FILTERS_FROM_SHEETS = [
+    {
+        name: 'Phases',
+        key: 'phase',
+    },
+    {
+        name: 'Category',
+        key: 'category',
+    },
+    {
+        name: 'Sub Category',
+        key: 'subCategory',
+    },
+];
+
 export const ANALYTICS_PROFILES_FILTERS = [
-    {
-        name: 'Username',
-        key: 'username',
-        isCustom: false,
-    },
-    {
-        name: 'Niche',
-        key: 'niche',
-        isCustom: false,
-    },
     {
         name: 'Followers',
         key: 'profileTypeByFollowers',
@@ -58,6 +63,16 @@ export const ANALYTICS_PROFILES_FILTERS = [
     {
         name: 'Engagement Rate',
         key: 'engagementRate',
+        isCustom: false,
+    },
+    {
+        name: 'Niche',
+        key: 'niche',
+        isCustom: false,
+    },
+    {
+        name: 'Username',
+        key: 'username',
         isCustom: false,
     },
 ];
@@ -77,21 +92,6 @@ export const ANALYTICS_PRIVATE_PROFILES_FILTERS = [
         name: 'Agency Category',
         key: 'categories',
         isCustom: false,
-    },
-];
-
-export const ANALYTICS_FILTERS_FROM_SHEETS = [
-    {
-        name: 'Phases',
-        key: 'phase',
-    },
-    {
-        name: 'Category',
-        key: 'category',
-    },
-    {
-        name: 'Sub Category',
-        key: 'subCategory',
     },
 ];
 

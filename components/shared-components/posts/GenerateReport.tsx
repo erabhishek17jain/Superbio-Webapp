@@ -179,7 +179,7 @@ export default function GenerateReport(props: GenerateReportProps) {
                                 {!isPublic && user.role !== 'brand' && (
                                     <div
                                         onClick={() => refreshStats()}
-                                        className='flex items-center justify-center p-2 bg-[#e6e6e6] rounded-xl h-11 w-11 cursor-pointer'>
+                                        className='flex items-center justify-center p-2 border border-gray-300 rounded-lg h-10 w-10 cursor-pointer'>
                                         <RefreshCcwIcon color='#8b8b8b' size={24} />
                                     </div>
                                 )}
