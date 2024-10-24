@@ -36,7 +36,7 @@ export default function DetailsProfileModal({ type, profile, openCloseModal }: a
                                             )
                                     )
                                     .map((item) => (
-                                        <div className={`cursor-pointer flex flex-col justify-center items-center p-2 border-t`}>
+                                        <div key={item.key} className={`cursor-pointer flex flex-col justify-center items-center p-2 border-t`}>
                                             <span className='text-[#000] text-sm font-semibold'>{item.label}</span>
                                             <span className='capitalize text-[#8b8b8b] text-sm drop-shadow-lg'>
                                                 {typeof profile[item.key] === 'boolean'

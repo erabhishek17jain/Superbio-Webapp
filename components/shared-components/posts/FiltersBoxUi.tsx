@@ -59,7 +59,15 @@ export default function FilterBoxUi(props: FilterBoxUiProps) {
                                         filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === any_filter.key
                                             ? filtersOptions[lastKey]
                                             : filtersOptions[any_filter.key];
-                                    return <FilterList any_filter={any_filter} selectFilter={selectFilter} filters={filters} filterValue={filterValue} />;
+                                    return (
+                                        <FilterList
+                                            key={any_filter.key}
+                                            any_filter={any_filter}
+                                            selectFilter={selectFilter}
+                                            filters={filters}
+                                            filterValue={filterValue}
+                                        />
+                                    );
                                 })}
                                 {ANALYTICS_FILTERS_FROM_SHEETS.map((any_filter) => {
                                     const lastKey = `all${any_filter.key.charAt(0).toUpperCase()}${any_filter.key.slice(1, any_filter.key.length)}`;
@@ -67,7 +75,15 @@ export default function FilterBoxUi(props: FilterBoxUiProps) {
                                         filtersOptions.lastAppliedFilterField && filtersOptions.lastAppliedFilterField === any_filter.key
                                             ? filtersOptions[lastKey]
                                             : filtersOptions[any_filter.key];
-                                    return <FilterList any_filter={any_filter} selectFilter={selectFilter} filters={filters} filterValue={filterValue} />;
+                                    return (
+                                        <FilterList
+                                            key={any_filter.key}
+                                            any_filter={any_filter}
+                                            selectFilter={selectFilter}
+                                            filters={filters}
+                                            filterValue={filterValue}
+                                        />
+                                    );
                                 })}
                             </>
                         )}
